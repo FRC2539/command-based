@@ -1,20 +1,16 @@
-#ifndef RUN_MOTOR_H
-#define RUN_MOTOR_H
+#ifndef STOP_MOTOR_COMMAND_H
+#define STOP_MOTOR_COMMAND_H
 
 #include "../CommandBase.h"
 
-class RunMotor : public CommandBase {
+class StopMotorCommand : public CommandBase {
 public:
-	RunMotor(float speed, double duration);
+	StopMotorCommand();
 	virtual void Initialize();
 	virtual void Execute();
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
-
-protected:
-	float m_speed;
-	double m_timeout;
 };
 
 #endif

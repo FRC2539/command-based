@@ -1,30 +1,30 @@
-#include "StopMotor.h"
+#include "StopMotorCommand.h"
 
-StopMotor::StopMotor() {
+StopMotorCommand::StopMotorCommand() {
 	Requires(motor);
 }
 
 // Called just before this Command runs the first time
-void StopMotor::Initialize() {
+void StopMotorCommand::Initialize() {
 	motor->stop();
 }
 
 // Called repeatedly when this Command is scheduled to run
-void StopMotor::Execute() {
+void StopMotorCommand::Execute() {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool StopMotor::IsFinished() {
+bool StopMotorCommand::IsFinished() {
 	return true;
 }
 
 // Called once after isFinished returns true
-void StopMotor::End() {
+void StopMotorCommand::End() {
 	
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void StopMotor::Interrupted() {
+void StopMotorCommand::Interrupted() {
 }
