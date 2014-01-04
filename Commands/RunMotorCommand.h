@@ -14,7 +14,6 @@ public:
 
 protected:
 	float m_speed;
-	double m_timeout;
 };
 
 #endif
