@@ -14,3 +14,6 @@ void CommandBase::init() {
 	
 	oi = new OI();
 }
+
+Motor* CommandBase::motor = NULL;
+OI* CommandBase::oi = NULL;
