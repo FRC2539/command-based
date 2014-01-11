@@ -11,4 +11,8 @@
  
 #define MOTOR_PORT 1
 #define TALON_PORT 2
+#define FRONT_RIGHT 3
+#define FRONT_LEFT 4
+#define BACK_RIGHT 5
+#define BACK_LEFT 6
 #endif
