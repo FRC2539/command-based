@@ -9,6 +9,7 @@ protected:
 	
 public:
 	Motor();
+
 	void InitDefaultCommand();
 	
 	void run(float speed);
