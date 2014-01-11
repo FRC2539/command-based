@@ -10,5 +10,5 @@
  */
  
 #define MOTOR_PORT 1
-
+#define TALON_PORT 2
 #endif
