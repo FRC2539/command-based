@@ -1,6 +1,4 @@
 #include "CommandBase.h"
-#include "Subsystems/Motor.h"
-#include "Commands/Scheduler.h"
 
 CommandBase::CommandBase(const char *name) : Command(name) {
 }
