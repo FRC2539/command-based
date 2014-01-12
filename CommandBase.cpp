@@ -8,12 +8,10 @@ CommandBase::CommandBase() : Command() {
 
 
 void CommandBase::init() {
-	motor = new Motor();
-	talon = new TalonSystem();
-	
 	oi = new OI();
 }
 
-Motor* CommandBase::motor = NULL;
-TalonSystem* CommandBase::talon = NULL;
+/* Each subsystem must be initially set to NULL in order for the static symbols
+ * to be available on the cRIO
+ */
 OI* CommandBase::oi = NULL;

@@ -1,7 +1,6 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -9,6 +8,11 @@
  * floating around.
  */
  
-#define MOTOR_PORT 1
-#define TALON_PORT 2
+// Controls Drive Base Configuration
+#define DRIVE_MOTOR_CONTROLLER Talon
+#define FRONT_RIGHT_DRIVE_MOTOR_PORT 1
+#define FRONT_LEFT_DRIVE_MOTOR_PORT 2
+#define BACK_RIGHT_DRIVE_MOTOR_PORT 3
+#define BACK_LEFT_DRIVE_MOTOR_PORT 4
+
 #endif

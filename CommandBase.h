@@ -2,8 +2,6 @@
 #define COMMAND_BASE_H
 
 #include "Commands/Command.h"
-#include "Subsystems/Motor.h"
-#include "Subsystems/Talon.h"
 #include "OI.h"
 
 
@@ -17,9 +15,8 @@ public:
 	CommandBase(const char *name);
 	CommandBase();
 	static void init();
+
 	// Create a single static instance of all of your subsystems
-	static Motor *motor;
-	static TalonSystem *talon;
 	static OI *oi;
 };
 
