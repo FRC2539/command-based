@@ -1,13 +1,17 @@
 #ifndef OI_H
 #define OI_H
 
-#include "WPILib.h"
+#include "Joystick.h"
+#include "Robotmap.h"
 
 class OI {
-private:
-
 public:
 	OI();
+	~OI();
+	Joystick* getController();
+
+protected:
+	Joystick* controller;
 };
 
 #endif

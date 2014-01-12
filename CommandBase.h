@@ -2,6 +2,7 @@
 #define COMMAND_BASE_H
 
 #include "Commands/Command.h"
+#include "Subsystems/DriveTrain.h"
 #include "OI.h"
 
 
@@ -14,9 +15,11 @@ class CommandBase: public Command {
 public:
 	CommandBase(const char *name);
 	CommandBase();
+    virtual ~CommandBase();
 	static void init();
 
 	// Create a single static instance of all of your subsystems
+	static DriveTrain *drivetrain;
 	static OI *oi;
 };
 
