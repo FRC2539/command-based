@@ -7,13 +7,13 @@ DriveBase::DriveBase() : Subsystem("DriveBase"), frontRight(FRONT_RIGHT), frontL
 
 void DriveBase::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new MySpecialCommand());
+	//SetDefaultCommand(new ArcadeDrive());
 }
 
-void DriveBase::ArcadeDrive(int forward, int rotation){
+void DriveBase::ArcadeDrive(float forward, float rotation){
 
-	int r = 0;
-	int l =0;
+	float r = 0;
+	float l =0;
 
 	r += forward;
 	l -= forward;

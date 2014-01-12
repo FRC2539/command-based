@@ -10,6 +10,7 @@ CommandBase::CommandBase() : Command() {
 void CommandBase::init() {
 	motor = new Motor();
 	talon = new TalonSystem();
+	drivebase = new DriveBase();
 	
 	oi = new OI();
 }

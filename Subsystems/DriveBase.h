@@ -16,7 +16,7 @@ public:
 
 	void InitDefaultCommand();
 
-	void ArcadeDrive(int r, int l);
+	void ArcadeDrive(float forward, float rotation);
 	
 	void stop();
 };

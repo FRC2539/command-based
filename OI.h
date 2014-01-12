@@ -6,8 +6,13 @@
 class OI {
 private:
 
+protected:
+	Joystick controller;
+
 public:
 	OI();
+
+	float GetControllerAxis(int);
 };
 
 #endif
