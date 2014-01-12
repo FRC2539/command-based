@@ -8,6 +8,7 @@ CommandBase::CommandBase() : Command() {
 
 
 void CommandBase::init() {
+	drivebase = new DriveBase();
 	oi = new OI();
 }
 
