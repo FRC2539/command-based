@@ -8,10 +8,7 @@
  * floating around.
  */
  
-#define TALON_PORT 2
-#define FRONT_RIGHT 3
-#define FRONT_LEFT 4
-#define BACK_RIGHT 5
-#define BACK_LEFT 6
+#define RIGHT 1
+#define LEFT 2
 
 #endif

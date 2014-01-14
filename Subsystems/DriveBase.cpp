@@ -1,7 +1,7 @@
 #include "DriveBase.h"
 #include "../Robotmap.h"
 
-DriveBase::DriveBase() : Subsystem("DriveBase"), frontRight(FRONT_RIGHT), frontLeft(FRONT_LEFT), backRight(BACK_RIGHT), backLeft(BACK_LEFT) {
+DriveBase::DriveBase() : Subsystem("DriveBase"), right(RIGHT), left(LEFT) {
 }
 
 
@@ -21,17 +21,14 @@ void DriveBase::ArcadeDrive(float forward, float rotation){
 	r -= rotation;
 	l += rotation;
 
-	frontRight.Set(r);
-	frontLeft.Set(l);
-	backRight.Set(r);
-	backLeft.Set(l);
+	right.Set(r);
+	left.Set(l);
+
 
 }
 
 
 void DriveBase::stop() {
-	frontRight.Set(0);
-	frontLeft.Set(0);
-	backRight.Set(0);
-	backLeft.Set(0);
+	right.Set(0);
+	left.Set(0);
 }

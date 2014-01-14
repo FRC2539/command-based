@@ -6,10 +6,8 @@
 
 class DriveBase: public Subsystem {
 protected:
-	Talon frontRight;
-	Talon frontLeft;
-	Talon backRight;
-	Talon backLeft;
+	Talon right;
+	Talon left;
 	
 public:
 	DriveBase();
