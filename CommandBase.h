@@ -5,7 +5,6 @@
 #include "Subsystems/DriveTrain.h"
 #include "OI.h"
 
-
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a

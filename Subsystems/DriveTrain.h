@@ -2,8 +2,9 @@
 #define DRIVE_TRAIN_H
 
 #include "Commands/Subsystem.h"
-#include "WPILib.h"
-#include"../Robotmap.h"
+
+class SelfCleaningDrive;
+class GenericHID;
 
 class DriveTrain: public Subsystem {
 public:
@@ -11,14 +12,10 @@ public:
 	virtual ~DriveTrain();
 	void InitDefaultCommand();
 
-	void driveWithController(Joystick* controller);
+	void driveWithController(GenericHID *controller);
 
 private:
-	RobotDrive* drive;
-
-	DRIVE_MOTOR_CONTROLLER* frontRight;
-	DRIVE_MOTOR_CONTROLLER* frontLeft;
-	DRIVE_MOTOR_CONTROLLER* backRight;
-	DRIVE_MOTOR_CONTROLLER* backLeft;
+	SelfCleaningDrive* drive;
 };
+
 #endif

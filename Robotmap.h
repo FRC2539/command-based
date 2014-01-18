@@ -9,15 +9,18 @@
  */
  
 // Controls Drive Base Configuration
-#define DRIVE_MOTOR_CONTROLLER Talon
 #define FRONT_RIGHT_DRIVE_MOTOR_PORT 1
 #define FRONT_LEFT_DRIVE_MOTOR_PORT 2
 #define BACK_RIGHT_DRIVE_MOTOR_PORT 3
 #define BACK_LEFT_DRIVE_MOTOR_PORT 4
+//#define RIGHT_DRIVE_MOTOR_PORT 1
+//#define LEFT_DRIVE_MOTOR_PORT 2
 
-#define CONTROLLER_PORT 1
-#define MOVE_AXIS 1 // front and back
-#define TURN_AXIS 2 // left and right
+// Controller Configuration
+#define DRIVE_CONTROLLER_PORT 1
+#define DRIVE_Y_AXIS 2 // front and back
+#define DRIVE_X_AXIS 0 // strafing left and right
+#define DRIVE_ROTATE_AXIS 1 // turning left and right
 
 
 #endif
