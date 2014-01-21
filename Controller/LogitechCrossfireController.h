@@ -44,6 +44,9 @@ public:
 
 	explicit LogitechCrossfireController(UINT32 port);
 	LogitechCrossfireController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+
+protected:
+	virtual void init();
 };
 
 #endif

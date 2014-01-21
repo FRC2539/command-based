@@ -36,6 +36,9 @@ public:
 
 	explicit LogitechAttack3Joystick(UINT32 port);
 	LogitechAttack3Joystick(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+
+protected:
+	virtual void init();
 };
 
 #endif

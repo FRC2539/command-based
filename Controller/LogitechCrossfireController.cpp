@@ -2,7 +2,7 @@
 
 LogitechCrossfireController::LogitechCrossfireController(UINT32 port)
 	: GenericController(port) {
-		m_inverted_y = true;
+		init();
 	}
 
 LogitechCrossfireController::LogitechCrossfireController(
@@ -14,7 +14,12 @@ LogitechCrossfireController::LogitechCrossfireController(
 		numAxisTypes,
 		numButtonTypes
 	) {
-		m_inverted_y = true;
+		init();
 	}
+
+void LogitechCrossfireController::init()
+{
+	invertedAxes = {kLeftYAxis, kRightYAxis};
+}
 
 

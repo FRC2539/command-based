@@ -2,7 +2,7 @@
 
 LogitechDualShockController::LogitechDualShockController(UINT32 port)
 	: GenericController(port) {
-		m_inverted_y = true;
+		init();
 	}
 
 LogitechDualShockController::LogitechDualShockController(
@@ -14,7 +14,10 @@ LogitechDualShockController::LogitechDualShockController(
 		numAxisTypes,
 		numButtonTypes
 	) {
-		m_inverted_y = true;
+		init();
 	}
 
-
+void LogitechDualShockController::init()
+{
+	invertedAxes = {kLeftYAxis, kRightYAxis, kDPadYAxis};
+}

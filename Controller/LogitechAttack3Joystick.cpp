@@ -2,7 +2,7 @@
 
 LogitechAttack3Joystick::LogitechAttack3Joystick(UINT32 port)
 	: GenericController(port) {
-		m_inverted_y = true;
+		init();
 	}
 
 LogitechAttack3Joystick::LogitechAttack3Joystick(
@@ -13,7 +13,12 @@ LogitechAttack3Joystick::LogitechAttack3Joystick(
 		port,
 		numAxisTypes,
 		numButtonTypes
-	) {
-		m_inverted_y = true;
+	){
+		init();
 	}
+
+void LogitechAttack3Joystick::init()
+{
+	invertedAxes = {kYAxis, kThrottleAxis};
+}
 

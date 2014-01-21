@@ -5,6 +5,8 @@ project(CommandBasedRobot)
 find_package(WPILib)
 include_directories(${WPILib_INCLUDE_DIRS})
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 file(GLOB_RECURSE SOURCE_CODE *.cpp)
 
 add_executable(cmd-based ${SOURCE_CODE})

@@ -2,6 +2,7 @@
 #define GENERIC_CONTROLLER_H
 
 #include "Joystick.h"
+#include <unordered_set>
 
 class GenericController : public Joystick {
 
@@ -9,11 +10,17 @@ public:
     explicit GenericController(UINT32 port);
     GenericController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
 
-    virtual void setInverted(bool invert);
+	virtual float GetX();
     virtual float GetY();
+	virtual float GetZ();
+	virtual float GetTwist();
+	virtual float GetThrottle();
+	float GetAxis(UINT32 axis);
+	virtual float GetAxis(AxisType axis);
 
 protected:
-    bool m_inverted_y;
+    virtual bool isInverted(UINT32 axis);
+	std::unordered_set<int> invertedAxes;
 };
 
 #endif

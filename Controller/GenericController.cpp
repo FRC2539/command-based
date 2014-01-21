@@ -1,8 +1,6 @@
 #include "GenericController.h"
 
-GenericController::GenericController(UINT32 port):
-    Joystick(port),
-    m_inverted_y(false) {}
+GenericController::GenericController(UINT32 port) : Joystick(port){}
 
 GenericController::GenericController(
         UINT32 port,
@@ -12,22 +10,52 @@ GenericController::GenericController(
         port,
         numAxisTypes,
         numButtonTypes
-    ),
-    m_inverted_y(false) {}
+    ){}
 
-void GenericController::setInverted(bool invert)
+float GenericController::GetAxis(UINT32 axis)
 {
-    m_inverted_y = invert;
+	if (isInverted(axis))
+	{
+		return -1 * Joystick::GetRawAxis(axis);
+	}
+	else
+	{
+		return Joystick::GetRawAxis(axis);
+	}
+	return GetRawAxis(axis);
+}
+
+float GenericController::GetX()
+{
+	return GetAxis(kDefaultXAxis);
 }
 
 float GenericController::GetY()
 {
-    if (m_inverted_y)
-    {
-        return -1 * Joystick::GetY();
-    }
-    else
-    {
-        return Joystick::GetY();
-    }
+	return GetAxis(kDefaultYAxis);
+}
+
+float GenericController::GetZ()
+{
+	return GetAxis(kDefaultZAxis);
+}
+
+float GenericController::GetTwist()
+{
+	return GetAxis(kDefaultTwistAxis);
+}
+
+float GenericController::GetThrottle()
+{
+	return GetAxis(kDefaultThrottleAxis);
+}
+
+float GenericController::GetAxis(AxisType axis)
+{
+	return GetAxis((UINT32) axis);
+}
+
+bool GenericController::isInverted(UINT32 axis)
+{
+	return (invertedAxes.count(axis) == 1);
 }

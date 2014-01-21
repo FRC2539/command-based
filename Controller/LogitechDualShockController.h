@@ -45,6 +45,9 @@ public:
 
 	explicit LogitechDualShockController(UINT32 port);
 	LogitechDualShockController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+
+protected:
+	virtual void init();
 };
 
 #endif
