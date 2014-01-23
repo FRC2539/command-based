@@ -32,6 +32,6 @@ void DriveTrain::InitDefaultCommand() {
 	SetDefaultCommand(new ArcadeDriveCommand());
 }
 
-void DriveTrain::driveWithController(GenericHID* controller) {
-	drive->ArcadeDrive(controller, DRIVE_Y_AXIS, controller, DRIVE_ROTATE_AXIS);
+void DriveTrain::move(float yValue, float rotateValue) {
+	drive->ArcadeDrive(yValue, rotateValue);
 }

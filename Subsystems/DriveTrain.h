@@ -12,7 +12,7 @@ public:
 	virtual ~DriveTrain();
 	void InitDefaultCommand();
 
-	void driveWithController(GenericHID *controller);
+	void move(float yValue, float rotateValue);
 
 private:
 	SelfCleaningDrive* drive;

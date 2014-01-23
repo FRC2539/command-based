@@ -1,17 +1,17 @@
 #ifndef OI_H
 #define OI_H
 
-#include "Joystick.h"
+#include "Controller/GenericController.h"
 #include "Robotmap.h"
 
 class OI {
 public:
 	OI();
 	~OI();
-	Joystick* getController();
+	GenericController* getController();
 
 protected:
-	Joystick* controller;
+	GenericController* controller;
 };
 
 #endif
