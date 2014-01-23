@@ -5,10 +5,14 @@ ArcadeDriveCommand::ArcadeDriveCommand() {
 }
 
 void ArcadeDriveCommand::Initialize() {
+	controller = oi->getController();
 }
 
 void ArcadeDriveCommand::Execute() {
-	drivetrain->driveWithController(oi->getController());
+	drivetrain->move(
+		controller->GetAxis(controller->DRIVE_Y_AXIS),
+		controller->GetAxis(controller->DRIVE_ROTATE_AXIS)
+	);
 }
 
 bool ArcadeDriveCommand::IsFinished() {

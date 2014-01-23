@@ -18,9 +18,9 @@
 
 // Controller Configuration
 #define DRIVE_CONTROLLER_PORT 1
-#define DRIVE_Y_AXIS 2 // front and back
-#define DRIVE_X_AXIS 0 // strafing left and right
-#define DRIVE_ROTATE_AXIS 1 // turning left and right
+#define DRIVE_Y_AXIS kYAxis // front and back
+#define DRIVE_X_AXIS null // strafing left and right
+#define DRIVE_ROTATE_AXIS kXAxis // turning left and right
 
 
 #endif

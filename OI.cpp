@@ -11,7 +11,7 @@ OI::~OI() {
 }
 
 
-Joystick* OI::getController() {
+GenericController* OI::getController() {
 	return controller;
 }
 
