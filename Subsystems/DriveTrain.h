@@ -4,7 +4,6 @@
 #include "Commands/Subsystem.h"
 
 class SelfCleaningDrive;
-class GenericHID;
 
 class DriveTrain: public Subsystem {
 public:
