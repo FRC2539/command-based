@@ -28,4 +28,6 @@
 #define DRIVE_X_AXIS null // strafing left and right
 #define DRIVE_ROTATE_AXIS "RightX" // turning left and right
 
+#define ACCELERATION_FACTOR 0.05
+
 #endif

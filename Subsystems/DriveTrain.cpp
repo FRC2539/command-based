@@ -6,7 +6,11 @@
 #include <iostream>
 #include <cmath>
 
-DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
+DriveTrain::DriveTrain() :
+	Subsystem("DriveTrain"),
+	currentY(0),
+	currentRotate(0)
+	{
 
     #ifdef FRONT_RIGHT_DRIVE_MOTOR_PORT
 	drive = new SelfCleaningDrive(
@@ -35,7 +39,25 @@ void DriveTrain::InitDefaultCommand() {
 }
 
 void DriveTrain::move(float yValue, float rotateValue) {
+	if (yValue > currentY + ACCELERATION_FACTOR)
+	{
+		currentY += ACCELERATION_FACTOR;
+	}
+	else if (yValue < currentY - ACCELERATION_FACTOR)
+	{
+		currentY -= ACCELERATION_FACTOR;
+	}
+
+	if (rotateValue > currentRotate + ACCELERATION_FACTOR)
+	{
+		currentRotate += ACCELERATION_FACTOR;
+	}
+	else if (rotateValue < currentRotate - ACCELERATION_FACTOR)
+	{
+		currentRotate -= ACCELERATION_FACTOR;
+	}
+
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...
-	drive->ArcadeDrive(yValue, -rotateValue, true);
+	drive->ArcadeDrive(currentY, -currentRotate, true);
 }

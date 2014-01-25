@@ -15,6 +15,9 @@ public:
 
 private:
 	SelfCleaningDrive* drive;
+
+	float currentY;
+	float currentRotate;
 };
 
 #endif
