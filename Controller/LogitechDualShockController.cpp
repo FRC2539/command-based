@@ -19,5 +19,13 @@ LogitechDualShockController::LogitechDualShockController(
 
 void LogitechDualShockController::init()
 {
+	axes = {
+		{LeftX, 1},
+		{LeftY, 2},
+		{RightX, 3},
+		{RightY, 4},
+		{DPadX, 5},
+		{DPadY, 6}
+	};
 	invertedAxes = {kLeftYAxis, kRightYAxis, kDPadYAxis};
 }

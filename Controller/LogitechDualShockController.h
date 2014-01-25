@@ -48,6 +48,7 @@ public:
 
 protected:
 	virtual void init();
+	
 };
 
 #endif
