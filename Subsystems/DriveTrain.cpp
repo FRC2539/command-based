@@ -3,6 +3,8 @@
 #include "../Custom/SelfCleaningDrive.h"
 #include "Talon.h"
 #include "../Robotmap.h"
+#include <iostream>
+#include <cmath>
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 
@@ -33,5 +35,7 @@ void DriveTrain::InitDefaultCommand() {
 }
 
 void DriveTrain::move(float yValue, float rotateValue) {
-	drive->ArcadeDrive(yValue, rotateValue);
+	// For some reason, we need to invert rotateValue
+	// We really ought to investigate why that is...
+	drive->ArcadeDrive(yValue, -rotateValue, true);
 }

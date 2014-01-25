@@ -1,4 +1,5 @@
 #include "GenericController.h"
+#include <iostream>
 
 GenericController::GenericController(UINT32 port) : Joystick(port){}
 

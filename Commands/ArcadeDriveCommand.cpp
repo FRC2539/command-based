@@ -1,4 +1,5 @@
 #include "ArcadeDriveCommand.h"
+#include "../Robotmap.h"
 
 ArcadeDriveCommand::ArcadeDriveCommand() {
 	Requires(drivetrain);
@@ -10,8 +11,8 @@ void ArcadeDriveCommand::Initialize() {
 
 void ArcadeDriveCommand::Execute() {
 	drivetrain->move(
-		controller->GetAxis("DRIVE_Y_AXIS"),
-		controller->GetAxis("DRIVE_ROTATE_AXIS")
+		controller->GetAxis(DRIVE_Y_AXIS),
+		controller->GetAxis(DRIVE_ROTATE_AXIS)
 	);
 }
 

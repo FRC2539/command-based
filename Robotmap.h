@@ -24,8 +24,8 @@
 // * LogitechDualShock
 #define DRIVER_CONTROLLER_TYPE "LogitechDualShock"
 #define DRIVE_CONTROLLER_PORT 1
-#define DRIVE_Y_AXIS LeftY // front and back
+#define DRIVE_Y_AXIS "LeftY" // front and back
 #define DRIVE_X_AXIS null // strafing left and right
-#define DRIVE_ROTATE_AXIS RightX // turning left and right
+#define DRIVE_ROTATE_AXIS "RightX" // turning left and right
 
 #endif
