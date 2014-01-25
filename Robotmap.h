@@ -1,3 +1,4 @@
+
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
@@ -16,11 +17,16 @@
 #define RIGHT_DRIVE_MOTOR_PORT 1
 #define LEFT_DRIVE_MOTOR_PORT 2
 
+
 // Controller Configuration
+// The currently available controller types are:
+// * LogitechAttack3
+// * LogitechCrossfire
+// * LogitechDualShock
+#define DRIVER_CONTROLLER_TYPE "LogitechAttack3"
 #define DRIVE_CONTROLLER_PORT 1
 #define DRIVE_Y_AXIS kYAxis // front and back
 #define DRIVE_X_AXIS null // strafing left and right
 #define DRIVE_ROTATE_AXIS kXAxis // turning left and right
 
 
-#endif
