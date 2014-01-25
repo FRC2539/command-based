@@ -10,8 +10,8 @@ void ArcadeDriveCommand::Initialize() {
 
 void ArcadeDriveCommand::Execute() {
 	drivetrain->move(
-		controller->GetAxis(controller->DRIVE_Y_AXIS),
-		controller->GetAxis(controller->DRIVE_ROTATE_AXIS)
+		controller->GetAxis("DRIVE_Y_AXIS"),
+		controller->GetAxis("DRIVE_ROTATE_AXIS")
 	);
 }
 

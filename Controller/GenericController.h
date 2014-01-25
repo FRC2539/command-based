@@ -3,10 +3,12 @@
 
 #include "Joystick.h"
 #include <unordered_set>
+#include <unordered_map>
 
 class GenericController : public Joystick {
 
 public:
+	
     explicit GenericController(UINT32 port);
     GenericController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
 
@@ -16,11 +18,12 @@ public:
 	virtual float GetTwist();
 	virtual float GetThrottle();
 	float GetAxis(UINT32 axis);
-	virtual float GetAxis(AxisType axis);
+	virtual float GetAxis(std::string axis);
 
 protected:
     virtual bool isInverted(UINT32 axis);
 	std::unordered_set<int> invertedAxes;
+	std::unordered_map<std::string, int> axes;
 };
 
 #endif

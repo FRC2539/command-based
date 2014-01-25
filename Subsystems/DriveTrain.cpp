@@ -2,7 +2,7 @@
 #include "../Commands/ArcadeDriveCommand.h"
 #include "../Custom/SelfCleaningDrive.h"
 #include "Talon.h"
-#include"../Robotmap.h"
+#include "../Robotmap.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 
@@ -14,7 +14,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
         new Talon(BACK_RIGHT_DRIVE_MOTOR_PORT)
     );
     #endif
-    #ifndef RIGHT_DRIVE_MOTOR_PORT
+    #ifdef RIGHT_DRIVE_MOTOR_PORT
     drive = new SelfCleaningDrive(
         new Talon(LEFT_DRIVE_MOTOR_PORT),
         new Talon(RIGHT_DRIVE_MOTOR_PORT)

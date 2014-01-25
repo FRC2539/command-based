@@ -3,6 +3,7 @@
 
 #include "../CommandBase.h"
 #include "../Controller/GenericController.h"
+#include <iostream>
 
 class ArcadeDriveCommand : public CommandBase {
 

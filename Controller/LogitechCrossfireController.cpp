@@ -19,17 +19,17 @@ LogitechCrossfireController::LogitechCrossfireController(
 
 void LogitechCrossfireController::init()
 {
-	axes{
-		{LeftX, 1},
-		{LeftY, 2},
-		{RightX, 4},
-		{RightY, 5},
-		{LeftTrigger, 3},
-		{RightTrigger, 3},
-		{DPadX, 6},
-		{DPadY, 2}
+	axes = {
+		{"LeftX", 1},
+		{"LeftY", 2},
+		{"RightX", 4},
+		{"RightY", 5},
+		{"LeftTrigger", 3},
+		{"RightTrigger", 3},
+		{"DPadX", 6},
+		{"DPadY", 2}
 	};
-	invertedAxes = {kLeftYAxis, kRightYAxis};
+	invertedAxes = {axes["LeftY"], axes["RightY"]};
 }
 
 

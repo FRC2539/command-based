@@ -50,12 +50,12 @@ float GenericController::GetThrottle()
 	return GetAxis(kDefaultThrottleAxis);
 }
 
-float GenericController::GetAxis(AxisType axis)
-{
-	return GetAxis((UINT32) axis);
-}
-
 bool GenericController::isInverted(UINT32 axis)
 {
 	return (invertedAxes.count(axis) == 1);
+}
+
+float GenericController::GetAxis(std::string axis)
+{
+	return GetAxis(axes[axis]); 
 }

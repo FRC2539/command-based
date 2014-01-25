@@ -10,12 +10,6 @@ public:
 	static const UINT32 kDefaultZAxis = 0;
 	static const UINT32 kDefaultTwistAxis = 0;
 	static const UINT32 kDefaultThrottleAxis = 3;
-	typedef enum
-	{
-		kXAxis = 1,
-		kYAxis = 2,
-		kThrottleAxis = 3
-	} AxisType;
 	static const UINT32 kDefaultTriggerButton = 1;
 	static const UINT32 kDefaultTopButton = 2;
 	typedef enum
@@ -36,7 +30,7 @@ public:
 
 	explicit LogitechAttack3Joystick(UINT32 port);
 	LogitechAttack3Joystick(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
-
+	virtual float GetAxis(std::string axis);
 protected:
 	virtual void init();
 };

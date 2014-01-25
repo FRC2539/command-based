@@ -19,6 +19,12 @@ LogitechAttack3Joystick::LogitechAttack3Joystick(
 
 void LogitechAttack3Joystick::init()
 {
-	invertedAxes = {kYAxis, kThrottleAxis};
-}
+	axes = {
+		{"X", 1},
+		{"Y", 2},
+		{"Throttle", 3}
+	};
 
+	invertedAxes = {axes["Y"], axes["Throttle"]};
+}
+	

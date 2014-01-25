@@ -16,15 +16,6 @@ public:
 	static const UINT32 kDefaultZAxis = 4;
 	static const UINT32 kDefaultTwistAxis = 3;
 	static const UINT32 kDefaultThrottleAxis = 5;
-	typedef enum
-	{
-		kLeftXAxis = 1,
-		kLeftYAxis = 2,
-		kRightXAxis = 3,
-		kRightYAxis = 4,
-		kDPadXAxis = 5,
-		kDPadYAxis = 6
-	} AxisType;
 	static const UINT32 kDefaultTriggerButton = 1;
 	static const UINT32 kDefaultTopButton = 4;
 	typedef enum
