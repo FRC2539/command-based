@@ -3,7 +3,7 @@
 
 #include "../CommandBase.h"
 
-class DriveWithJoysticks : public CommandBase {
+class DriveWithJoysticks: public CommandBase {
 public:
 	DriveWithJoysticks();
 	virtual void Initialize();

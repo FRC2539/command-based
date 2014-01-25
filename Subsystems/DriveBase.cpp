@@ -1,5 +1,6 @@
 #include "DriveBase.h"
 #include "../Robotmap.h"
+#include "../Commands/DriveWithJoysticks.h"
 
 DriveBase::DriveBase() : Subsystem("DriveBase"), right(RIGHT), left(LEFT) {
 }
@@ -7,7 +8,7 @@ DriveBase::DriveBase() : Subsystem("DriveBase"), right(RIGHT), left(LEFT) {
 
 void DriveBase::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
-	//SetDefaultCommand(new ArcadeDrive());
+	SetDefaultCommand(new DriveWithJoysticks());
 }
 
 void DriveBase::ArcadeDrive(float forward, float rotation){
