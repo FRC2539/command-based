@@ -17,7 +17,7 @@ CommandBase::~CommandBase() {
 
 	if (drivetrain != NULL)
 	{
-		delete oi;
+		delete drivetrain;
 	}
 }
 

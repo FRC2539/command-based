@@ -17,7 +17,6 @@ public:
 	virtual float GetThrottle();
 	float GetAxis(UINT32 axis);
 	virtual float GetAxis(AxisType axis);
-	virtual bool GetButton(int button);
 
 protected:
     virtual bool isInverted(UINT32 axis);

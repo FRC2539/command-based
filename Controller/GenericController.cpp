@@ -25,11 +25,6 @@ float GenericController::GetAxis(UINT32 axis)
 	return GetRawAxis(axis);
 }
 
-bool GenericController::GetButton(int button)
-{
-	return Joystick::GetRawButton(button);
-}
-
 float GenericController::GetX()
 {
 	return GetAxis(kDefaultXAxis);

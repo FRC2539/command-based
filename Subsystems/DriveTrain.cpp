@@ -14,7 +14,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
         new Talon(BACK_RIGHT_DRIVE_MOTOR_PORT)
     );
     #endif
-    #ifndef FRONT_RIGHT_DRIVE_MOTOR_PORT
+    #ifndef RIGHT_DRIVE_MOTOR_PORT
     drive = new SelfCleaningDrive(
         new Talon(LEFT_DRIVE_MOTOR_PORT),
         new Talon(RIGHT_DRIVE_MOTOR_PORT)
