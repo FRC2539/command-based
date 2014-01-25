@@ -38,24 +38,26 @@ void DriveTrain::InitDefaultCommand() {
 	SetDefaultCommand(new ArcadeDriveCommand());
 }
 
-void DriveTrain::move(float yValue, float rotateValue) {
-	if (yValue > currentY + ACCELERATION_FACTOR)
+float DriveTrain::limitAcceleration(float current, float next)
+{
+	if (next > current + ACCELERATION_FACTOR)
 	{
-		currentY += ACCELERATION_FACTOR;
+		return (current + ACCELERATION_FACTOR);
 	}
-	else if (yValue < currentY - ACCELERATION_FACTOR)
+	else if (next < current - ACCELERATION_FACTOR)
 	{
-		currentY -= ACCELERATION_FACTOR;
+		return (current - ACCELERATION_FACTOR);
 	}
+	else
+	{
+		return next;
+	}
+}
 
-	if (rotateValue > currentRotate + ACCELERATION_FACTOR)
-	{
-		currentRotate += ACCELERATION_FACTOR;
-	}
-	else if (rotateValue < currentRotate - ACCELERATION_FACTOR)
-	{
-		currentRotate -= ACCELERATION_FACTOR;
-	}
+
+void DriveTrain::move(float yValue, float rotateValue) {
+	currentY = limitAcceleration(currentY, yValue);
+	currentRotate = limitAcceleration(currentRotate, rotateValue);
 
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...

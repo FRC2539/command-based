@@ -13,11 +13,13 @@ public:
 
 	void move(float yValue, float rotateValue);
 
-private:
+protected:
 	SelfCleaningDrive* drive;
 
 	float currentY;
 	float currentRotate;
+
+	float limitAcceleration(float current, float next);
 };
 
 #endif
