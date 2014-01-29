@@ -16,6 +16,10 @@
 #define RIGHT_DRIVE_MOTOR_PORT 1
 #define LEFT_DRIVE_MOTOR_PORT 2
 
+#define GYRO_MODULE 1
+#define GYRO_PORT 1
+
+#define ACCELERATION_FACTOR 0.0485
 
 // Controller Configuration
 // The currently available controller types are:
@@ -27,7 +31,10 @@
 #define DRIVE_Y_AXIS "LeftY" // front and back
 #define DRIVE_X_AXIS null // strafing left and right
 #define DRIVE_ROTATE_AXIS "RightX" // turning left and right
+#define PICK_UP_AXIS "DPadY"
 
-#define ACCELERATION_FACTOR 0.05
+// Pickup
+#define PICK_UP_MOTOR_PORT 3
+
 
 #endif

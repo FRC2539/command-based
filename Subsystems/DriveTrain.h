@@ -2,6 +2,7 @@
 #define DRIVE_TRAIN_H
 
 #include "Commands/Subsystem.h"
+#include <Gyro.h>
 
 class SelfCleaningDrive;
 
@@ -15,6 +16,7 @@ public:
 
 protected:
 	SelfCleaningDrive* drive;
+	Gyro* gyro;
 
 	float currentY;
 	float currentRotate;

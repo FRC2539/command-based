@@ -28,10 +28,13 @@ DriveTrain::DriveTrain() :
     #endif
 
     drive->SetSafetyEnabled(false);
+
+	gyro = new Gyro(GYRO_MODULE, GYRO_PORT);
 }
 
 DriveTrain::~DriveTrain() {
 	delete drive;
+	delete gyro;
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -62,4 +65,6 @@ void DriveTrain::move(float yValue, float rotateValue) {
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...
 	drive->ArcadeDrive(currentY, -currentRotate, true);
+	std::cout << "Gyro: " << gyro->GetAngle() << "\n";
+
 }
