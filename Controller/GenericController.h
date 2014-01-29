@@ -23,6 +23,7 @@ public:
 protected:
     virtual bool isInverted(UINT32 axis);
 	std::unordered_map<std::string, int> axes;
+	std::unordered_map<std::string, int> buttons;
 	std::unordered_set<int> invertedAxes;
 };
 
