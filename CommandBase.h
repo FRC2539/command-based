@@ -4,7 +4,7 @@
 #include "Commands/Command.h"
 #include "Subsystems/DriveTrain.h"
 #include "OI.h"
-
+#include "Subsystems/PickUp.h"
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
  * CommandBase stores creates and stores each control system. To access a
@@ -20,6 +20,7 @@ public:
 	// Create a single static instance of all of your subsystems
 	static DriveTrain *drivetrain;
 	static OI *oi;
+	static PickUp *pickup;
 };
 
 #endif
