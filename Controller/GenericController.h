@@ -19,6 +19,7 @@ public:
 	virtual float GetThrottle();
 	float GetAxis(UINT32 axis);
 	virtual float GetAxis(std::string axis);
+	virtual float GetButton(std::string button);
 
 protected:
     virtual bool isInverted(UINT32 axis);

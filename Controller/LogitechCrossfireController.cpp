@@ -27,7 +27,20 @@ void LogitechCrossfireController::init()
 		{"LeftTrigger", 3},
 		{"RightTrigger", 3},
 		{"DPadX", 6},
-		{"DPadY", 2}
+		{"DPadY", 2},
+	};
+
+	buttons = {
+		{"A", 1},
+		{"B", 2},
+		{"X", 3},
+		{"Y", 4},
+		{"LeftBumper", 5},
+		{"RightBumper", 6},
+		{"Back", 7},
+		{"Start", 8},
+		{"LeftJoystick", 9},
+		{"RightJoystick", 10}
 	};
 	invertedAxes = {axes["LeftY"], axes["RightY"]};
 }

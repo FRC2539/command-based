@@ -18,5 +18,17 @@ void PickUp::InitDefaultCommand() {
 
 void PickUp::pickup(float direction)
 {
-	motor->Set(.2 * direction);
+	if(direction == 1)
+	{
+		motor->Set(1);
+	}
+	else if(direction == -1)
+	{
+		motor->Set(-.4);
+	}
+	else
+	{
+		motor->Set(0);
+	}
+
 }
