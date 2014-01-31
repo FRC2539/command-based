@@ -21,12 +21,18 @@ CommandBase::~CommandBase() {
 	{
 		delete pickup;
 	}
+
+	if (aircompressor != NULL)
+	{
+		delete aircompressor;
+	}
 }
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
 	oi = new OI();
 	pickup = new PickUp();
+	aircompressor = new AirCompressor();
 }
 
 /* Each subsystem must be initially set to NULL in order for the static symbols
@@ -35,3 +41,4 @@ void CommandBase::init() {
 DriveTrain* CommandBase::drivetrain = NULL;
 OI* CommandBase::oi = NULL;
 PickUp* CommandBase::pickup = NULL;
+AirCompressor* CommandBase::aircompressor = NULL;

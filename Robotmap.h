@@ -19,6 +19,7 @@
 #define GYRO_MODULE 1
 #define GYRO_PORT 1
 
+
 #define ACCELERATION_FACTOR 0.0485
 
 // Controller Configuration
@@ -36,7 +37,8 @@
 // Pickup
 #define PICK_UP_MOTOR_PORT 3
 
-//P
-
+//Compressor
+#define COMPRESSOR_PORT 7
+#define COMPRESSOR_MODULE 1
 
 #endif
