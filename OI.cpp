@@ -7,7 +7,7 @@ OI::OI() {
 	// Process operator interface input here.
 	controller = ControllerFactory::makeController(DRIVER_CONTROLLER_TYPE,DRIVE_CONTROLLER_PORT);
 	preciseMovementButton = new ControllerButton(controller, PRECISE_MOVEMENT_BUTTON);
-	preciseMovementButton->WhileHeld(new PreciseArcadeDriveCommand());
+	preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
 
 }
 

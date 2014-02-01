@@ -4,6 +4,7 @@
 #include "Talon.h"
 #include "../Robotmap.h"
 #include <cmath>
+#include <iostream>
 
 DriveTrain::DriveTrain() :
 	Subsystem("DriveTrain"),
@@ -29,11 +30,26 @@ DriveTrain::DriveTrain() :
     drive->SetSafetyEnabled(false);
 
 	gyro = new Gyro(GYRO_MODULE, GYRO_PORT);
+
+	leftEncoder = new Encoder(
+		ENCODER_MODULE,
+		LEFT_ENCODER_A,
+		ENCODER_MODULE,
+		LEFT_ENCODER_B
+	);
+	rightEncoder = new Encoder(
+		ENCODER_MODULE,
+		RIGHT_ENCODER_A,
+		ENCODER_MODULE,
+		RIGHT_ENCODER_B
+	);
 }
 
 DriveTrain::~DriveTrain() {
 	delete drive;
 	delete gyro;
+	delete leftEncoder;
+	delete rightEncoder;
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -64,6 +80,10 @@ void DriveTrain::move(float yValue, float rotateValue) {
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...
 	drive->ArcadeDrive(currentY, -currentRotate, true);
+
+
+	//std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
+
 
 }
 

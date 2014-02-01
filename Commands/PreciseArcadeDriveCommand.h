@@ -17,6 +17,8 @@ public:
 
 protected:
 	GenericController* controller;
+	bool wasReleased;
+	static bool justEnded;
 };
 
 #endif

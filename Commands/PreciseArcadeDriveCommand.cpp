@@ -1,11 +1,13 @@
 #include "PreciseArcadeDriveCommand.h"
 #include "../Robotmap.h"
+#include <iostream>
 
 PreciseArcadeDriveCommand::PreciseArcadeDriveCommand() {
 	Requires(drivetrain);
 }
 
 void PreciseArcadeDriveCommand::Initialize() {
+	wasReleased = false;
 	controller = oi->getController();
 }
 
@@ -17,8 +19,26 @@ void PreciseArcadeDriveCommand::Execute() {
 }
 
 bool PreciseArcadeDriveCommand::IsFinished() {
+	if (justEnded)
+	{
+		justEnded = false;
+		return true;
+	}
+
+	if (wasReleased && controller->GetButton(PRECISE_MOVEMENT_BUTTON))
+	{
+		justEnded = true;
+		return true;
+	}
+	if ( ! controller->GetButton(PRECISE_MOVEMENT_BUTTON))
+	{
+		wasReleased = true;
+	}
+
 	return false;
 }
+
+bool PreciseArcadeDriveCommand::justEnded = false;
 
 void PreciseArcadeDriveCommand::End() {
 }

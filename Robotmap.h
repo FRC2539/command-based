@@ -19,10 +19,15 @@
 #define GYRO_MODULE 1
 #define GYRO_PORT 1
 
+#define ENCODER_MODULE 2
+#define LEFT_ENCODER_A 1
+#define LEFT_ENCODER_B 2
+#define RIGHT_ENCODER_A 3
+#define RIGHT_ENCODER_B 4
 
 #define ACCELERATION_FACTOR 0.0485
-#define MAX_Y_PRECISE_SPEED 0.45
-#define MAX_ROTATE_PRECISE_SPEED 0.4
+#define MAX_Y_PRECISE_SPEED 0.35
+#define MAX_ROTATE_PRECISE_SPEED 0.45
 
 
 // Controller Configuration
