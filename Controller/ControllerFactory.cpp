@@ -1,6 +1,3 @@
-#ifndef CONTROLLER_FACTORY_H
-#define CONTROLLER_FACTORY_H
-
 #include "ControllerFactory.h"
 
 GenericController* ControllerFactory::makeController(std::string type, int port)
@@ -21,5 +18,3 @@ GenericController* ControllerFactory::makeController(std::string type, int port)
 
 	return NULL;
 }
-
-#endif

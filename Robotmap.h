@@ -21,6 +21,9 @@
 
 
 #define ACCELERATION_FACTOR 0.0485
+#define MAX_Y_PRECISE_SPEED 0.45
+#define MAX_ROTATE_PRECISE_SPEED 0.4
+
 
 // Controller Configuration
 // The currently available controller types are:
@@ -33,6 +36,7 @@
 #define DRIVE_X_AXIS null // strafing left and right
 #define DRIVE_ROTATE_AXIS "RightX" // turning left and right
 #define PICK_UP_AXIS "DPadY"
+#define PRECISE_MOVEMENT_BUTTON "LeftJoystick"
 
 // Pickup
 #define PICK_UP_MOTOR_PORT 3

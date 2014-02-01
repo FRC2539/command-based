@@ -3,7 +3,6 @@
 #include "../Custom/SelfCleaningDrive.h"
 #include "Talon.h"
 #include "../Robotmap.h"
-#include <iostream>
 #include <cmath>
 
 DriveTrain::DriveTrain() :
@@ -65,6 +64,22 @@ void DriveTrain::move(float yValue, float rotateValue) {
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...
 	drive->ArcadeDrive(currentY, -currentRotate, true);
-	std::cout << "Gyro: " << gyro->GetAngle() << "\n";
 
+}
+
+void DriveTrain::preciseMove(float yValue, float rotateValue) {
+	currentY = (yValue * yValue) * MAX_Y_PRECISE_SPEED;
+	currentRotate = (rotateValue * rotateValue) * MAX_ROTATE_PRECISE_SPEED;
+
+	if (yValue < 0)
+	{
+		currentY *= -1;
+	}
+	if (rotateValue < 0)
+	{
+		currentRotate *= -1;
+	}
+	// For some reason, we need to invert rotateValue
+	// We really ought to investigate why that is...
+	drive->ArcadeDrive(currentY, -currentRotate);
 }

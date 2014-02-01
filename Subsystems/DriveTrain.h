@@ -13,6 +13,7 @@ public:
 	void InitDefaultCommand();
 
 	void move(float yValue, float rotateValue);
+	void preciseMove(float yValue, float rotateValue);
 
 protected:
 	SelfCleaningDrive* drive;

@@ -7,6 +7,8 @@
 
 class GenericController : public Joystick {
 
+	friend class ControllerButton;
+
 public:
 	
     explicit GenericController(UINT32 port);

@@ -4,6 +4,8 @@
 #include "Controller/GenericController.h"
 #include "Robotmap.h"
 
+class JoystickButton;
+
 class OI {
 public:
 	OI();
@@ -12,6 +14,7 @@ public:
 
 protected:
 	GenericController* controller;
+	JoystickButton* preciseMovementButton;
 };
 
 #endif
