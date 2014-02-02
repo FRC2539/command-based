@@ -60,3 +60,10 @@ float GenericController::GetAxis(std::string axis)
 {
 	return GetAxis(axes[axis]); 
 }
+
+float GenericController::GetButton(std::string button)
+{
+	return GetRawButton(buttons[button]);
+}
+
+

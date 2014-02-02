@@ -18,22 +18,7 @@ public:
 	static const UINT32 kDefaultThrottleAxis = 5;
 	static const UINT32 kDefaultTriggerButton = 1;
 	static const UINT32 kDefaultTopButton = 4;
-	typedef enum
-	{
-		kAButton = 2,
-		kBButton = 3,
-		kXButton = 1,
-		kYButton = 4,
-		kLeftBumperButton = 5,
-		kRightBumperButton = 6,
-		kLeftTriggerButton = 7,
-		kRightTriggerButton = 8,
-		kBackButton = 9,
-		kStartButton = 10,
-		kLeftJoystickButton = 11,
-		kRightJoystickButton = 12
-	} ButtonType;
-
+	
 	explicit LogitechDualShockController(UINT32 port);
 	LogitechDualShockController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
 

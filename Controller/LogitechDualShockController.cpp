@@ -39,7 +39,9 @@ void LogitechDualShockController::init()
 		{"Back", 9},
 		{"Start", 10},
 		{"LeftJoystick", 11},
-		{"RightJoystick", 12},
+		{"RightJoystick", 12}
+	};
+
 
 	invertedAxes = {axes["LeftY"], axes["RightY"], axes["DPadY"]};
 }

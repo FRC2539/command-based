@@ -17,20 +17,7 @@ public:
 	static const UINT32 kDefaultThrottleAxis = 3;
 	static const UINT32 kDefaultTriggerButton = 3;
 	static const UINT32 kDefaultTopButton = 4;
-	typedef enum
-	{
-		kAButton = 1,
-		kBButton = 2,
-		kXButton = 3,
-		kYButton = 4,
-		kLeftBumperButton = 5,
-		kRightBumperButton = 6,
-		kBackButton = 7,
-		kStartButton = 8,
-		kLeftJoystickButton = 9,
-		kRightJoystickButton = 10
-	} ButtonType;
-
+	
 	explicit LogitechCrossfireController(UINT32 port);
 	LogitechCrossfireController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
 

@@ -12,21 +12,6 @@ public:
 	static const UINT32 kDefaultThrottleAxis = 3;
 	static const UINT32 kDefaultTriggerButton = 1;
 	static const UINT32 kDefaultTopButton = 2;
-	typedef enum
-	{
-		kTriggerButton = 1,
-		kTopButton = 2,
-		k2Button = 2,
-		k3Button = 3,
-		k4Button = 4,
-		k5Button = 5,
-		k6Button = 6,
-		k7Button = 7,
-		k8Button = 8,
-		k9Button = 9,
-		k10Button = 10,
-		k11Button = 11
-	} ButtonType;
 
 	explicit LogitechAttack3Joystick(UINT32 port);
 	LogitechAttack3Joystick(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);

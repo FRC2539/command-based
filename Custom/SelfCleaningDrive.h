@@ -11,15 +11,28 @@ class SpeedController;
  */
 class SelfCleaningDrive: public RobotDrive {
 public:
-    SelfCleaningDrive(UINT32 leftMotorChannel, UINT32 rightMotorChannel);
-    SelfCleaningDrive(UINT32 frontLeftMotorChannel, UINT32 rearLeftMotorChannel,
-                UINT32 frontRightMotorChannel, UINT32 rearRightMotorChannel);
-    SelfCleaningDrive(SpeedController *leftMotor, SpeedController *rightMotor);
-    SelfCleaningDrive(SpeedController &leftMotor, SpeedController &rightMotor);
-    SelfCleaningDrive(SpeedController *frontLeftMotor, SpeedController *rearLeftMotor,
-                SpeedController *frontRightMotor, SpeedController *rearRightMotor);
-    SelfCleaningDrive(SpeedController &frontLeftMotor, SpeedController &rearLeftMotor,
-                SpeedController &frontRightMotor, SpeedController &rearRightMotor);
+	SelfCleaningDrive(UINT32 leftMotorChannel, UINT32 rightMotorChannel);
+	SelfCleaningDrive(
+		UINT32 frontLeftMotorChannel,
+		UINT32 rearLeftMotorChannel,
+		UINT32 frontRightMotorChannel,
+		UINT32 rearRightMotorChannel
+	);
+	SelfCleaningDrive(SpeedController *leftMotor, SpeedController *rightMotor);
+	SelfCleaningDrive(SpeedController &leftMotor, SpeedController &rightMotor);
+	SelfCleaningDrive(
+		SpeedController *frontLeftMotor,
+		SpeedController *rearLeftMotor,
+		SpeedController *frontRightMotor,
+		SpeedController *rearRightMotor
+	);
+	SelfCleaningDrive(
+		SpeedController &frontLeftMotor,
+		SpeedController &rearLeftMotor,
+		SpeedController &frontRightMotor,
+		SpeedController &rearRightMotor
+	);
+
 };
 
 #endif
