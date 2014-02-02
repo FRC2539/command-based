@@ -11,11 +11,11 @@ class GenericController : public Joystick {
 
 public:
 	
-    explicit GenericController(UINT32 port);
-    GenericController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+	explicit GenericController(UINT32 port);
+	GenericController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
 
 	virtual float GetX();
-    virtual float GetY();
+	virtual float GetY();
 	virtual float GetZ();
 	virtual float GetTwist();
 	virtual float GetThrottle();
@@ -24,7 +24,7 @@ public:
 	virtual float GetButton(std::string button);
 
 protected:
-    virtual bool isInverted(UINT32 axis);
+	virtual bool isInverted(UINT32 axis);
 	std::unordered_map<std::string, int> axes;
 	std::unordered_map<std::string, int> buttons;
 	std::unordered_set<int> invertedAxes;

@@ -12,37 +12,40 @@ DriveTrain::DriveTrain() :
 	currentRotate(0)
 	{
 
-    #ifdef FRONT_RIGHT_DRIVE_MOTOR_PORT
+	#ifdef FRONT_RIGHT_DRIVE_MOTOR_PORT
 	drive = new SelfCleaningDrive(
-        new Talon(FRONT_LEFT_DRIVE_MOTOR_PORT),
-        new Talon(BACK_LEFT_DRIVE_MOTOR_PORT),
-        new Talon(FRONT_RIGHT_DRIVE_MOTOR_PORT),
-        new Talon(BACK_RIGHT_DRIVE_MOTOR_PORT)
-    );
-    #endif
-    #ifdef RIGHT_DRIVE_MOTOR_PORT
-    drive = new SelfCleaningDrive(
-        new Talon(LEFT_DRIVE_MOTOR_PORT),
-        new Talon(RIGHT_DRIVE_MOTOR_PORT)
-    );
-    #endif
+		new Talon(FRONT_LEFT_DRIVE_MOTOR_PORT),
+		new Talon(BACK_LEFT_DRIVE_MOTOR_PORT),
+		new Talon(FRONT_RIGHT_DRIVE_MOTOR_PORT),
+		new Talon(BACK_RIGHT_DRIVE_MOTOR_PORT)
+	);
+	#endif
+	#ifdef RIGHT_DRIVE_MOTOR_PORT
+	drive = new SelfCleaningDrive(
+		new Talon(LEFT_DRIVE_MOTOR_PORT),
+		new Talon(RIGHT_DRIVE_MOTOR_PORT)
+	);
+	#endif
 
-    drive->SetSafetyEnabled(false);
+	drive->SetSafetyEnabled(false);
 
 	gyro = new Gyro(GYRO_MODULE, GYRO_PORT);
 
 	leftEncoder = new Encoder(
 		ENCODER_MODULE,
-		LEFT_ENCODER_A,
+		LEFT_ENCODER_A_PORT,
 		ENCODER_MODULE,
-		LEFT_ENCODER_B
+		LEFT_ENCODER_B_PORT
 	);
 	rightEncoder = new Encoder(
 		ENCODER_MODULE,
-		RIGHT_ENCODER_A,
+		RIGHT_ENCODER_A_PORT,
 		ENCODER_MODULE,
-		RIGHT_ENCODER_B
+		RIGHT_ENCODER_B_PORT
 	);
+
+	leftEncoder->Start();
+	rightEncoder->Start();
 }
 
 DriveTrain::~DriveTrain() {

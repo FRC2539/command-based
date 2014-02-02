@@ -4,7 +4,7 @@
 AirCompressor::AirCompressor() :
 	Subsystem("AirCompressor")
 	{
-	compressor = new Compressor(COMPRESSOR_MODULE, COMPRESSOR_PORT);
+	compressor = new Compressor(PRESSURE_SWITCH_PORT, COMPRESSOR_PORT);
 	compressor->Start();
 }
 

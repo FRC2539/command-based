@@ -42,6 +42,7 @@ void LogitechCrossfireController::init()
 		{"LeftJoystick", 9},
 		{"RightJoystick", 10}
 	};
+
 	invertedAxes = {axes["LeftY"], axes["RightY"]};
 }
 

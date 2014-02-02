@@ -38,10 +38,10 @@ bool PreciseArcadeDriveCommand::IsFinished() {
 	return false;
 }
 
-bool PreciseArcadeDriveCommand::justEnded = false;
-
 void PreciseArcadeDriveCommand::End() {
 }
 
 void PreciseArcadeDriveCommand::Interrupted() {
 }
+
+bool PreciseArcadeDriveCommand::justEnded = false;
