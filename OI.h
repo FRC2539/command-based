@@ -15,6 +15,7 @@ public:
 protected:
 	GenericController* controller;
 	JoystickButton* preciseMovementButton;
+	JoystickButton* fireButton;
 };
 
 #endif

@@ -1,47 +1,25 @@
-#include "PreciseArcadeDriveCommand.h"
+#include "FireCommand.h"
 #include "../Robotmap.h"
-#include <iostream>
 
-PreciseArcadeDriveCommand::PreciseArcadeDriveCommand() {
-	Requires(drivetrain);
+FireCommand::FireCommand() {
+	Requires(shooter);
 }
 
-void PreciseArcadeDriveCommand::Initialize() {
-	wasReleased = false;
-	controller = oi->getController();
+void FireCommand::Initialize() {
+	shooter->releaseLauncher();
 }
 
-void PreciseArcadeDriveCommand::Execute() {
-	drivetrain->preciseMove(
-		controller->GetAxis(DRIVE_Y_AXIS),
-		controller->GetAxis(DRIVE_ROTATE_AXIS)
-	);
+void FireCommand::Execute() {
 }
 
-bool PreciseArcadeDriveCommand::IsFinished() {
-	if (justEnded)
-	{
-		justEnded = false;
-		return true;
-	}
-
-	if (wasReleased && controller->GetButton(PRECISE_MOVEMENT_BUTTON))
-	{
-		justEnded = true;
-		return true;
-	}
-	if ( ! controller->GetButton(PRECISE_MOVEMENT_BUTTON))
-	{
-		wasReleased = true;
-	}
-
-	return false;
+bool FireCommand::IsFinished() {
+	return true;
 }
 
-void PreciseArcadeDriveCommand::End() {
+void FireCommand::End() {
 }
 
-void PreciseArcadeDriveCommand::Interrupted() {
+void FireCommand::Interrupted() {
 }
 
-bool PreciseArcadeDriveCommand::justEnded = false;
+

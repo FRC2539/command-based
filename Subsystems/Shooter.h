@@ -4,13 +4,12 @@
 #include <Victor.h>
 #include <DoubleSolenoid.h>
 
-
 class Shooter: public Subsystem {
 public:
 	Shooter();
 	virtual ~Shooter();
 	void InitDefaultCommand();
-
+	void off();
 	void releaseLauncher();
 	void retractLauncher();
 

@@ -1,14 +1,12 @@
-#ifndef PRECISE_ARCADE_DRIVE_COMMAND_H
-#define PRECISE_ARCADE_DRIVE_COMMAND_H
+#ifndef FIRE_COMMAND_H
+#define FIRE_UP_COMMAND_H
 
 #include "../CommandBase.h"
-#include "../Controller/GenericController.h"
-#include <iostream>
 
-class PreciseArcadeDriveCommand : public CommandBase {
+class FireCommand : public CommandBase {
 
 public:
-	PreciseArcadeDriveCommand();
+	FireCommand();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,9 +14,7 @@ public:
 	void Interrupted();
 
 protected:
-	GenericController* controller;
-	bool wasReleased;
-	static bool justEnded;
+
 };
 
 #endif

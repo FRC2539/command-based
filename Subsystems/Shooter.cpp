@@ -1,14 +1,14 @@
 #include "Shooter.h"
 #include "../Commands/FireCommand.h"
 #include "../Robotmap.h"
-#include SHIFTING_GEAR_PISTON_MODULE
 
 Shooter::Shooter() :
 	Subsystem("Shooter")
 	{
 	piston = new DoubleSolenoid(
-		SHIFTING_GEAR_PISTON_MODULE,
-		SHIFTING_GEAR_PISTON_PORT
+		SHIFTING_GEAR_FORWARD_PISTON_MODULE,
+		SHIFTING_GEAR_FORWARD_PISTON_MODULE,
+		SHIFTING_GEAR_REVERSE_PISTON_PORT
 	);
 	motor = new Victor(SHIFTING_GEAR_MOTOR_MODULE, SHIFTING_GEAR_MOTOR_PORT);
 }
@@ -19,7 +19,7 @@ Shooter::~Shooter() {
 }
 
 void Shooter::InitDefaultCommand() {
-	SetDefaultCommand(new ShooterCommand());
+	//SetDefaultCommand(new FireCommand());
 }
 
 void Shooter::releaseLauncher()
@@ -29,5 +29,10 @@ void Shooter::releaseLauncher()
 
 void Shooter::retractLauncher()
 {
+	motor->Set(-1);
 
+}
+void Shooter::off()
+{
+	motor->Set(0);
 }
