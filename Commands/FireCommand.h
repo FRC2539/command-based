@@ -1,5 +1,5 @@
 #ifndef FIRE_COMMAND_H
-#define FIRE_UP_COMMAND_H
+#define FIRE_COMMAND_H
 
 #include "../CommandBase.h"
 

@@ -29,7 +29,7 @@ void Shooter::releaseLauncher()
 
 void Shooter::retractLauncher()
 {
-	motor->Set(-1);
+	motor->Set(-.20);
 
 }
 void Shooter::off()

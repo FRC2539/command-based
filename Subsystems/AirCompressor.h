@@ -9,6 +9,7 @@ class AirCompressor: public Subsystem {
 public:
 	AirCompressor();
 	virtual ~AirCompressor();
+	void start();
 
 protected:
 	Compressor* compressor;
