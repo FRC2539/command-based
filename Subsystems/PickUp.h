@@ -3,6 +3,8 @@
 
 #include "Commands/Subsystem.h"
 #include <Victor.h>
+#include <DoubleSolenoid.h>
+#include "../Controller/GenericController.h"
 
 
 class PickUp: public Subsystem {
@@ -13,8 +15,12 @@ public:
 
 	void pickup(float direction);
 
+	void open();
+	void close();
+
 protected:
 	Victor* motor;
+	DoubleSolenoid* solenoid;
 };
 
 #endif

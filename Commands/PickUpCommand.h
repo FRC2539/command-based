@@ -16,6 +16,7 @@ public:
 
 protected:
 	GenericController* controller;
+	bool opened;
 };
 
 #endif

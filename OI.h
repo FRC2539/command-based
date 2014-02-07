@@ -16,6 +16,9 @@ protected:
 	GenericController* controller;
 	JoystickButton* preciseMovementButton;
 	JoystickButton* fireButton;
+	JoystickButton* openButton;
+	JoystickButton* closeButton;
+	
 };
 
 #endif

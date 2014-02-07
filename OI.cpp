@@ -3,6 +3,9 @@
 #include "Controller/ControllerButton.h"
 #include "Commands/PreciseArcadeDriveCommand.h"
 #include "Commands/FireCommand.h"
+#include "Commands/OpenCommand.h"
+#include "Commands/CloseCommand.h"
+
 
 OI::OI() {
 	// Process operator interface input here.
@@ -11,6 +14,10 @@ OI::OI() {
 	preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
 	fireButton = new ControllerButton(controller, FIRE_BUTTON);
 	fireButton->WhenPressed(new FireCommand());
+	openButton = new ControllerButton(controller, OPEN_BUTTON);
+	openButton->WhenPressed(new OpenCommand());
+	closeButton = new ControllerButton(controller, CLOSE_BUTTON);
+	closeButton->WhenPressed(new CloseCommand());
 
 }
 

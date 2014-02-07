@@ -44,9 +44,14 @@
 #define PRECISE_MOVEMENT_BUTTON "LeftJoystick"
 #define FIRE_BUTTON "A"
 #define DRAWBACK_BUTTON "B"
+#define OPEN_BUTTON "RightBumper"
+#define CLOSE_BUTTON "LeftBumper"
+
 
 // Pickup
 #define PICK_UP_MOTOR_PORT 3
+#define PICK_UP_PISTON_OPEN_PORT 3
+#define PICK_UP_PISTON_CLOSED_PORT 4
 
 //Compressor
 #define PRESSURE_SWITCH_PORT 5
