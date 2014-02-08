@@ -10,6 +10,7 @@ public:
 	AirCompressor();
 	virtual ~AirCompressor();
 	void start();
+	void InitDefaultCommand();
 
 protected:
 	Compressor* compressor;

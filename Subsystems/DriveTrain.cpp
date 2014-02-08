@@ -82,7 +82,7 @@ void DriveTrain::move(float yValue, float rotateValue) {
 
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...
-	drive->ArcadeDrive(currentY, -currentRotate, true);
+	drive->ArcadeDrive(-currentY, -currentRotate, true);
 
 
 	//std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
@@ -104,5 +104,5 @@ void DriveTrain::preciseMove(float yValue, float rotateValue) {
 	}
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...
-	drive->ArcadeDrive(currentY, -currentRotate);
+	drive->ArcadeDrive(-currentY, -currentRotate);
 }

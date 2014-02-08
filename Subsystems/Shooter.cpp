@@ -6,11 +6,10 @@ Shooter::Shooter() :
 	Subsystem("Shooter")
 	{
 	piston = new DoubleSolenoid(
-		SHIFTING_GEAR_FORWARD_PISTON_MODULE,
-		SHIFTING_GEAR_FORWARD_PISTON_MODULE,
-		SHIFTING_GEAR_REVERSE_PISTON_PORT
+		SHIFTING_GEAR_REVERSE_PISTON_PORT,
+		SHIFTING_GEAR_FORWARD_PISTON_PORT
 	);
-	motor = new Victor(SHIFTING_GEAR_MOTOR_MODULE, SHIFTING_GEAR_MOTOR_PORT);
+	motor = new Victor(SHIFTING_GEAR_MOTOR_PORT);
 }
 
 Shooter::~Shooter() {
@@ -29,8 +28,7 @@ void Shooter::releaseLauncher()
 
 void Shooter::retractLauncher()
 {
-	motor->Set(-.20);
-
+	motor->Set(.20);
 }
 void Shooter::off()
 {

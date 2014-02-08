@@ -2,30 +2,25 @@
 #include "../Robotmap.h"
 
 DrawBackCommand::DrawBackCommand() {
+
 	Requires(shooter);
 }
 
 void DrawBackCommand::Initialize() {
-	controller = oi->getController();
+
 }
 
 void DrawBackCommand::Execute()
 {
-	if (controller->GetButton(DRAWBACK_BUTTON))
-	{
-		shooter->retractLauncher();
-	}
-	else
-	{
-		shooter->off();
-	}
+	shooter->retractLauncher();
 }
 
 bool DrawBackCommand::IsFinished() {
-	return false;
+	return true;
 }
 
 void DrawBackCommand::End() {
+	shooter->off();
 }
 
 void DrawBackCommand::Interrupted() {

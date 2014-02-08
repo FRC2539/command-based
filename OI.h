@@ -18,6 +18,7 @@ protected:
 	JoystickButton* fireButton;
 	JoystickButton* openButton;
 	JoystickButton* closeButton;
+	JoystickButton* drawBackButton;
 	
 };
 

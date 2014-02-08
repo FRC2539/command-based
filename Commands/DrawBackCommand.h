@@ -2,7 +2,6 @@
 #define DRAWBACK_COMMAND_H
 
 #include "../CommandBase.h"
-#include "../Controller/GenericController.h"
 
 class DrawBackCommand : public CommandBase {
 
@@ -15,7 +14,7 @@ public:
 	void Interrupted();
 
 protected:
-	GenericController* controller;
+	
 };
 
 #endif

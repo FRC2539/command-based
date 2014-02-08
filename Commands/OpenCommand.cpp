@@ -13,7 +13,7 @@ void OpenCommand::Execute() {
 }
 
 bool OpenCommand::IsFinished() {
-	return false;
+	return true;
 }
 
 void OpenCommand::End() {
