@@ -44,6 +44,7 @@
 #define PRECISE_MOVEMENT_BUTTON "LeftJoystick"
 #define FIRE_BUTTON "A"
 #define DRAW_BACK_BUTTON "B"
+#define DRAW_BACK_PISTON_BUTTON "X"
 #define OPEN_BUTTON "RightBumper"
 #define CLOSE_BUTTON "LeftBumper"
 

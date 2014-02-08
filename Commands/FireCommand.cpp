@@ -6,10 +6,10 @@ FireCommand::FireCommand() {
 }
 
 void FireCommand::Initialize() {
-	shooter->releaseLauncher();
 }
 
 void FireCommand::Execute() {
+	shooter->releaseLauncher();
 }
 
 bool FireCommand::IsFinished() {

@@ -29,8 +29,11 @@ void Shooter::releaseLauncher()
 void Shooter::retractLauncher()
 {
 	motor->Set(.20);
+
+	piston->Set(DoubleSolenoid::kForward);	
 }
 void Shooter::off()
 {
 	motor->Set(0);
 }
+

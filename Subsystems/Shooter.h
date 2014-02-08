@@ -12,7 +12,6 @@ public:
 	void off();
 	void releaseLauncher();
 	void retractLauncher();
-
 protected:
 	Victor* motor;
 	DoubleSolenoid* piston;
