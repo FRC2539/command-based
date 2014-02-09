@@ -8,7 +8,6 @@ DrawBackCommand::DrawBackCommand() {
 }
 
 void DrawBackCommand::Initialize() {
-	
 	shooter->retractLauncher();
 }
 

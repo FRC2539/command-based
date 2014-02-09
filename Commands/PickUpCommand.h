@@ -13,10 +13,6 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
-
-protected:
-	GenericController* controller;
-	bool opened;
 };
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef ROBOTMAP_H
 #define ROBOTMAP_H
 
+#include "ControllerMap.h"
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -28,27 +30,6 @@
 #define ACCELERATION_FACTOR 0.0485
 #define MAX_Y_PRECISE_SPEED 0.45
 #define MAX_ROTATE_PRECISE_SPEED 0.45
-
-
-// Controller Configuration
-// The currently available controller types are:
-// * LogitechAttack3
-// * LogitechCrossfire
-// * LogitechDualShock
-#define CONTROLLERS {{1, "LogitechDualShock"}, {2, "LogitechAttack3"}}
-#define DRIVE_CONTROLLER_PORT 1
-#define DRIVE_Y_AXIS "LeftY" // front and back
-#define DRIVE_X_AXIS null // strafing left and right
-#define DRIVE_ROTATE_AXIS "RightX" // turning left and right
-#define PRECISE_MOVEMENT_BUTTON "LeftJoystick"
-#define FIRE_BUTTON "A"
-#define DRAW_BACK_BUTTON "B"
-#define DRAW_BACK_PISTON_BUTTON "X"
-#define OPEN_BUTTON "RightBumper"
-#define CLOSE_BUTTON "LeftBumper"
-#define SHOOTER_CONTROLLER_TYPE "LogitechAttack3"
-#define PICK_UP_RAISE_BUTTON "4"
-#define PICK_UP_LOWER_BUTTON "5"
 
 
 // Pickup

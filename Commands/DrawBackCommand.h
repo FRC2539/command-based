@@ -13,8 +13,4 @@ public:
 	void End();
 	void Interrupted();
 
-protected:
-	
-};
-
 #endif
