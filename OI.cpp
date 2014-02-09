@@ -31,6 +31,7 @@ OI::~OI() {
 	delete controller;
 	delete preciseMovementButton;
 	delete fireButton;
+	delete drawBackButton;
 }
 
 GenericController* OI::getController() {

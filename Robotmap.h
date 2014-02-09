@@ -35,18 +35,20 @@
 // * LogitechAttack3
 // * LogitechCrossfire
 // * LogitechDualShock
-#define DRIVER_CONTROLLER_TYPE "LogitechDualShock"
+#define CONTROLLERS {{1, "LogitechDualShock"}, {2, "LogitechAttack3"}}
 #define DRIVE_CONTROLLER_PORT 1
 #define DRIVE_Y_AXIS "LeftY" // front and back
 #define DRIVE_X_AXIS null // strafing left and right
 #define DRIVE_ROTATE_AXIS "RightX" // turning left and right
-#define PICK_UP_AXIS "DPadY"
 #define PRECISE_MOVEMENT_BUTTON "LeftJoystick"
 #define FIRE_BUTTON "A"
 #define DRAW_BACK_BUTTON "B"
 #define DRAW_BACK_PISTON_BUTTON "X"
 #define OPEN_BUTTON "RightBumper"
 #define CLOSE_BUTTON "LeftBumper"
+#define SHOOTER_CONTROLLER_TYPE "LogitechAttack3"
+#define PICK_UP_RAISE_BUTTON "4"
+#define PICK_UP_LOWER_BUTTON "5"
 
 
 // Pickup

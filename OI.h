@@ -11,6 +11,7 @@ public:
 	OI();
 	~OI();
 	GenericController* getController();
+	
 
 protected:
 	GenericController* controller;

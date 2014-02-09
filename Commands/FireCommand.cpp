@@ -21,5 +21,3 @@ void FireCommand::End() {
 
 void FireCommand::Interrupted() {
 }
-
-
