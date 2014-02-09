@@ -8,13 +8,12 @@ PreciseArcadeDriveCommand::PreciseArcadeDriveCommand() {
 
 void PreciseArcadeDriveCommand::Initialize() {
 	wasReleased = false;
-	controller = oi->getController();
 }
 
 void PreciseArcadeDriveCommand::Execute() {
 	drivetrain->preciseMove(
-		controller->GetAxis(DRIVE_Y_AXIS),
-		controller->GetAxis(DRIVE_ROTATE_AXIS)
+		oi->getAxis(DRIVE_Y_AXIS),
+		oi->getAxis(DRIVE_ROTATE_AXIS)
 	);
 }
 
@@ -25,12 +24,12 @@ bool PreciseArcadeDriveCommand::IsFinished() {
 		return true;
 	}
 
-	if (wasReleased && controller->GetButton(PRECISE_MOVEMENT_BUTTON))
+	if (wasReleased && oi->getButton(PRECISE_MOVEMENT_BUTTON))
 	{
 		justEnded = true;
 		return true;
 	}
-	if ( ! controller->GetButton(PRECISE_MOVEMENT_BUTTON))
+	if ( ! oi->getButton(PRECISE_MOVEMENT_BUTTON))
 	{
 		wasReleased = true;
 	}

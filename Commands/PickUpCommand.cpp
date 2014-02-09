@@ -6,11 +6,10 @@ PickUpCommand::PickUpCommand() {
 }
 
 void PickUpCommand::Initialize() {
-	controller = oi->getController();
 }
 
 void PickUpCommand::Execute() {
-	pickup->pickup(controller->GetAxis(PICK_UP_AXIS));
+	pickup->pickup(oi->getAxis(PICK_UP_AXIS));
 }
 
 bool PickUpCommand::IsFinished() {

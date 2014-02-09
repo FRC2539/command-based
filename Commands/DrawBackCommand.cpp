@@ -6,19 +6,11 @@ DrawBackCommand::DrawBackCommand() {
 }
 
 void DrawBackCommand::Initialize() {
-	controller = oi->getController();
+	shooter->retractLauncher();
 }
 
 void DrawBackCommand::Execute()
 {
-	if (controller->GetButton(DRAWBACK_BUTTON))
-	{
-		shooter->retractLauncher();
-	}
-	else
-	{
-		shooter->off();
-	}
 }
 
 bool DrawBackCommand::IsFinished() {
@@ -26,6 +18,7 @@ bool DrawBackCommand::IsFinished() {
 }
 
 void DrawBackCommand::End() {
+	shooter->off();
 }
 
 void DrawBackCommand::Interrupted() {
