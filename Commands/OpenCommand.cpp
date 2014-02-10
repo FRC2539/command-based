@@ -6,14 +6,14 @@ OpenCommand::OpenCommand() {
 }
 
 void OpenCommand::Initialize() {
-}
-
-void OpenCommand::Execute() {
 	pickup->open();
 }
 
+void OpenCommand::Execute() {
+}
+
 bool OpenCommand::IsFinished() {
-	return false;
+	return true;
 }
 
 void OpenCommand::End() {

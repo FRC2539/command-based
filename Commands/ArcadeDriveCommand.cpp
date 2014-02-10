@@ -1,5 +1,5 @@
 #include "ArcadeDriveCommand.h"
-#include "../Robotmap.h"
+#include "../ControllerMap.h"
 
 ArcadeDriveCommand::ArcadeDriveCommand() {
 	Requires(drivetrain);

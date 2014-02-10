@@ -6,14 +6,14 @@ CloseCommand::CloseCommand() {
 }
 
 void CloseCommand::Initialize() {
-}
-
-void CloseCommand::Execute() {
 	pickup->close();
 }
 
+void CloseCommand::Execute() {
+}
+
 bool CloseCommand::IsFinished() {
-	return false;
+	return true;
 }
 
 void CloseCommand::End() {
