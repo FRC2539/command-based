@@ -11,7 +11,6 @@
 #include "Commands/CloseCommand.h"
 #include "Commands/DrawBackCommand.h"
 
-
 OI::OI() {
 	std::unordered_map<int, std::string> controller_map = CONTROLLERS;
 	for (auto controller : controller_map)

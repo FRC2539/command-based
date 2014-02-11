@@ -4,7 +4,7 @@
 #include "Commands/Subsystem.h"
 #include <Victor.h>
 #include <DoubleSolenoid.h>
-#include "../Controller/GenericController.h"
+#include <AnalogChannel.h>
 
 
 class PickUp: public Subsystem {
@@ -18,9 +18,13 @@ public:
 	void open();
 	void close();
 
+	float getDistance();
+	void distancePickup(float direction);
+
 protected:
 	Victor* motor;
 	DoubleSolenoid* solenoid;
+	AnalogChannel* ultrasonic;
 };
 
 #endif
