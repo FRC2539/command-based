@@ -35,7 +35,7 @@ OI::OI() {
 	closeButton->WhenPressed(new CloseCommand());
 	
 	drawBackButton = getControllerButton(DRAWBACK_BUTTON);
-	drawBackButton->WhileHeld(new DrawBackCommand());
+	drawBackButton->WhenPressed(new DrawBackCommand());
 }
 
 OI::~OI() {

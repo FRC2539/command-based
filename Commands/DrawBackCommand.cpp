@@ -1,6 +1,4 @@
 #include "DrawBackCommand.h"
-#include "../Robotmap.h"
-#include <iostream>
 
 DrawBackCommand::DrawBackCommand() {
 
@@ -16,17 +14,13 @@ void DrawBackCommand::Execute()
 }
 
 bool DrawBackCommand::IsFinished() {
-	printf("DrawBackCommand is over \n");
-	return false;
+	return shooter->down();
 }
 
 void DrawBackCommand::End() {
-	shooter->off();
-	printf("end\n");
+	shooter->holdLauncher();
 }
 
 void DrawBackCommand::Interrupted() {
-	shooter->off();
-	printf("off\n");
 }
 

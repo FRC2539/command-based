@@ -3,6 +3,8 @@
 #include "Commands/Subsystem.h"
 #include <Victor.h>
 #include <DoubleSolenoid.h>
+#include <Relay.h>
+#include <DigitalInput.h>
 
 class Shooter: public Subsystem {
 public:
@@ -11,10 +13,14 @@ public:
 	void InitDefaultCommand();
 	void off();
 	void releaseLauncher();
+	void holdLauncher();
 	void retractLauncher();
+	bool down();
 protected:
 	Victor* motor;
 	DoubleSolenoid* piston;
+	Relay* electromagnet;
+	DigitalInput* downSwitch;
 };
 
 #endif
