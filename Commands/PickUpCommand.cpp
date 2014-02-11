@@ -1,5 +1,5 @@
 #include "PickUpCommand.h"
-#include "../Robotmap.h"
+#include "../ControllerMap.h"
 
 PickUpCommand::PickUpCommand() {
 	Requires(pickup);

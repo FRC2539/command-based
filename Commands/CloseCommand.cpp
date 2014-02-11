@@ -6,10 +6,10 @@ CloseCommand::CloseCommand() {
 }
 
 void CloseCommand::Initialize() {
+	pickup->close();
 }
 
 void CloseCommand::Execute() {
-	pickup->close();
 }
 
 bool CloseCommand::IsFinished() {
