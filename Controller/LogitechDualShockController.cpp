@@ -27,6 +27,7 @@ void LogitechDualShockController::init()
 		{"DPadX", 5},
 		{"DPadY", 6}
 	};
+
 	buttons = {
 		{"A", 2},
 		{"B", 3},
@@ -41,7 +42,6 @@ void LogitechDualShockController::init()
 		{"LeftJoystick", 11},
 		{"RightJoystick", 12}
 	};
-
 
 	invertedAxes = {axes["LeftY"], axes["RightY"], axes["DPadY"]};
 }

@@ -33,11 +33,11 @@ void Shooter::retractLauncher()
 {
 	motor->Set(-.45);
 	piston->Set(DoubleSolenoid::kForward);
+	electromagnet->Set(Relay::kOn);
 }
 
 void Shooter::holdLauncher()
 {
-	electromagnet->Set(Relay::kOn);
 	off();
 	piston->Set(DoubleSolenoid::kReverse);
 }
