@@ -85,7 +85,7 @@ void DriveTrain::move(float yValue, float rotateValue) {
 	drive->ArcadeDrive(-currentY, -currentRotate, true);
 
 
-	//std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
+	std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
 
 
 }

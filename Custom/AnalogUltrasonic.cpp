@@ -1,7 +1,5 @@
 #include "AnalogUltrasonic.h"
 
-#include "../Robotmap.h"
-
 AnalogUltrasonic::AnalogUltrasonic(UINT8 moduleNumber, UINT32 channel) :
 	AnalogChannel(moduleNumber, channel)
 {
@@ -10,6 +8,11 @@ AnalogUltrasonic::AnalogUltrasonic(UINT8 moduleNumber, UINT32 channel) :
 	
 AnalogUltrasonic::AnalogUltrasonic(UINT32 channel) :
 	AnalogChannel(channel)
+{
+
+}
+
+AnalogUltrasonic::~AnalogUltrasonic()
 {
 
 }

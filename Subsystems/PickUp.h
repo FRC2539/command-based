@@ -24,6 +24,7 @@ protected:
 	Victor* motor;
 	DoubleSolenoid* solenoid;
 	AnalogUltrasonic* ultrasonic;
+	bool canGoUp;
 };
 
 #endif
