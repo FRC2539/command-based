@@ -1,5 +1,5 @@
 #include "PickUp.h"
-
+#include <iostream>
 #include "../Commands/PickUpCommand.h"
 #include "../Robotmap.h"
 
@@ -48,17 +48,24 @@ void PickUp::close()
 
 void PickUp::distancePickup(float direction)
 {
-	if(direction == 1 && ultrasonic->getDistance() < 7)
+	if((direction == 1 && ultrasonic->getDistance() < 8) || (direction == 1 && canPickUp))
 	{
 		motor->Set(1);
+		canPickUp = true;
 	}
 	else if(direction == -1)
 	{
 		motor->Set(-.4);
+		canPickUp = false;
 	}
 	else
 	{
 		motor->Set(0);
 	}
-	
+	if (ticks % 50 == 0)
+	{
+	std::cout << "ultrasonic: " << ultrasonic->getDistance()<< "\n";
+	}
+	ticks++;
+
 }

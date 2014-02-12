@@ -27,6 +27,8 @@ protected:
 
 	float limitAcceleration(float current, float next);
 
+	private:
+	int ticks;
 };
 
 #endif
