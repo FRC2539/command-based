@@ -1,9 +1,14 @@
 #include "DriveTrain.h"
-#include "../Commands/ArcadeDriveCommand.h"
+
+#include "../RobotMap.h"
+
 #include "../Custom/SelfCleaningDrive.h"
 #include "Talon.h"
-#include "../Robotmap.h"
-#include <cmath>
+#include <Gyro.h>
+#include "Encoder.h"
+
+#include "../Commands/ArcadeDriveCommand.h"
+
 #include <iostream>
 
 DriveTrain::DriveTrain() :

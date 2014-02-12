@@ -9,7 +9,7 @@ void PickUpCommand::Initialize() {
 }
 
 void PickUpCommand::Execute() {
-	pickup->distancePickup(oi->getAxis(PICK_UP_AXIS));
+	pickup->pickup(oi->getAxis(PICK_UP_AXIS));
 }
 
 bool PickUpCommand::IsFinished() {

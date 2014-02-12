@@ -1,10 +1,14 @@
 #include "AirCompressor.h"
-#include "../Robotmap.h"
+
+#include "Compressor.h"
+
 #include "../Commands/StartCompressorCommand.h"
+
+#include "../RobotMap.h"
 
 AirCompressor::AirCompressor() :
 	Subsystem("AirCompressor")
-	{
+{
 	compressor = new Compressor(PRESSURE_SWITCH_PORT, COMPRESSOR_PORT);
 }
 

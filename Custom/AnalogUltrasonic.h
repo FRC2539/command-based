@@ -3,7 +3,6 @@
 
 #include <AnalogChannel.h>
 
-
 class AnalogUltrasonic: public AnalogChannel {
 
 public:

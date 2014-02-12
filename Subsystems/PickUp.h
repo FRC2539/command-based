@@ -2,10 +2,11 @@
 #define PICK_UP_H
 
 #include "Commands/Subsystem.h"
-#include <Victor.h>
-#include <DoubleSolenoid.h>
-#include "../Custom/AnalogUltrasonic.h"
 
+class Victor;
+class DoubleSolenoid;
+class DigitalInput;
+class AnalogUltrasonic;
 
 class PickUp: public Subsystem {
 public:
@@ -15,19 +16,18 @@ public:
 
 	void pickup(float direction);
 
+	bool seesBall();
+	bool isDown();
+
 	void open();
 	void close();
-
-	void distancePickup(float direction);
 
 protected:
 	Victor* motor;
 	DoubleSolenoid* solenoid;
 	AnalogUltrasonic* ultrasonic;
+	DigitalInput* downLimitSwitch;
 
-	private:
-	int ticks;
-	bool canPickUp;
 };
 
 #endif

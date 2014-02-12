@@ -1,10 +1,12 @@
 #ifndef SHOOTER_H
 #define SHOOTER_H
+
 #include "Commands/Subsystem.h"
-#include <Victor.h>
-#include <DoubleSolenoid.h>
-#include <Relay.h>
-#include <DigitalInput.h>
+
+class Victor;
+class DoubleSolenoid;
+class Relay;
+class DigitalInput;
 
 class Shooter: public Subsystem {
 public:

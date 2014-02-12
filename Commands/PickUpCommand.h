@@ -2,7 +2,6 @@
 #define PICK_UP_COMMAND_H
 
 #include "../CommandBase.h"
-#include "../Controller/GenericController.h"
 
 class PickUpCommand : public CommandBase {
 

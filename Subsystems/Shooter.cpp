@@ -1,6 +1,13 @@
 #include "Shooter.h"
+
+#include "Victor.h"
+#include "DoubleSolenoid.h"
+#include "Relay.h"
+#include "DigitalInput.h"
+
 #include "../Commands/FireCommand.h"
-#include "../Robotmap.h"
+
+#include "../RobotMap.h"
 
 Shooter::Shooter() :
 	Subsystem("Shooter")

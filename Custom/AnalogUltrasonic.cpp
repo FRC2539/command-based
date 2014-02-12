@@ -1,21 +1,12 @@
 #include "AnalogUltrasonic.h"
 
 AnalogUltrasonic::AnalogUltrasonic(UINT8 moduleNumber, UINT32 channel) :
-	AnalogChannel(moduleNumber, channel)
-{
-
-}
+	AnalogChannel(moduleNumber, channel) {}
 	
 AnalogUltrasonic::AnalogUltrasonic(UINT32 channel) :
-	AnalogChannel(channel)
-{
+	AnalogChannel(channel) {}
 
-}
-
-AnalogUltrasonic::~AnalogUltrasonic()
-{
-
-}
+AnalogUltrasonic::~AnalogUltrasonic() {}
 
 float AnalogUltrasonic::getDistance()
 {

@@ -1,5 +1,4 @@
 #include "StartCompressorCommand.h"
-#include "../Robotmap.h"
 
 StartCompressorCommand::StartCompressorCommand() {
 	Requires(aircompressor);

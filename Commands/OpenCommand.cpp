@@ -1,5 +1,4 @@
 #include "OpenCommand.h"
-#include "../Robotmap.h"
 
 OpenCommand::OpenCommand() {
 	Requires(pickup);

@@ -1,5 +1,4 @@
 #include "CloseCommand.h"
-#include "../Robotmap.h"
 
 CloseCommand::CloseCommand() {
 	Requires(pickup);

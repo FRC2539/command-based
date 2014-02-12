@@ -2,7 +2,8 @@
 #define AIR_COMPRESSOR_H
 
 #include "Commands/Subsystem.h"
-#include <Compressor.h>
+
+class Compressor;
 
 
 class AirCompressor: public Subsystem {

@@ -1,19 +1,29 @@
 #include "PickUp.h"
-#include <iostream>
+
+#include "Victor.h"
+#include "DoubleSolenoid.h"
+#include "DigitalInput.h"
+#include "../Custom/AnalogUltrasonic.h"
+
 #include "../Commands/PickUpCommand.h"
-#include "../Robotmap.h"
+
+#include "../RobotMap.h"
 
 PickUp::PickUp() :
 	Subsystem("PickUp")
-	{
+{
 	motor = new Victor(PICK_UP_MOTOR_PORT);
+	//switch the closed port and open port if they need switched, might have gotten the channels wrong
 	solenoid = new DoubleSolenoid(PICK_UP_PISTON_CLOSED_PORT, PICK_UP_PISTON_OPEN_PORT);
 	ultrasonic = new AnalogUltrasonic(PICK_UP_ULTRASONIC_PORT);
-	//switch the closed port and open port if they need switched, might have gotten the channels wrong
+	downLimitSwitch = new DigitalInput(PICK_UP_DOWN_PORT);
 }
 
 PickUp::~PickUp() {
 	delete motor;
+	delete solenoid;
+	delete ultrasonic;
+	delete downLimitSwitch;
 }
 
 void PickUp::InitDefaultCommand() {
@@ -22,18 +32,11 @@ void PickUp::InitDefaultCommand() {
 
 void PickUp::pickup(float direction)
 {
-	if(direction == 1)
+	if (direction < -0.1)
 	{
-		motor->Set(1);
+		direction *= .4;
 	}
-	else if(direction == -1)
-	{
-		motor->Set(-.4);
-	}
-	else
-	{
-		motor->Set(0);
-	}
+	motor->Set(direction);
 }
 
 void PickUp::open()
@@ -46,26 +49,12 @@ void PickUp::close()
 	solenoid->Set(DoubleSolenoid::kReverse);
 }
 
-void PickUp::distancePickup(float direction)
+bool PickUp::isDown()
 {
-	if((direction == 1 && ultrasonic->getDistance() < 8) || (direction == 1 && canPickUp))
-	{
-		motor->Set(1);
-		canPickUp = true;
-	}
-	else if(direction == -1)
-	{
-		motor->Set(-.4);
-		canPickUp = false;
-	}
-	else
-	{
-		motor->Set(0);
-	}
-	if (ticks % 50 == 0)
-	{
-	std::cout << "ultrasonic: " << ultrasonic->getDistance()<< "\n";
-	}
-	ticks++;
+	return downLimitSwitch->Get();
+}
 
+bool PickUp::seesBall()
+{
+	return (ultrasonic->getDistance() < 8);
 }

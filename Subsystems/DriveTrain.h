@@ -2,10 +2,10 @@
 #define DRIVE_TRAIN_H
 
 #include "Commands/Subsystem.h"
-#include <Gyro.h>
-#include "Encoder.h"
 
 class SelfCleaningDrive;
+class Gyro;
+class Encoder;
 
 class DriveTrain: public Subsystem {
 public:
@@ -27,7 +27,7 @@ protected:
 
 	float limitAcceleration(float current, float next);
 
-	private:
+private:
 	int ticks;
 };
 
