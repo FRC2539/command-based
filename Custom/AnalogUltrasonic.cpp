@@ -14,6 +14,11 @@ AnalogUltrasonic::AnalogUltrasonic(UINT32 channel) :
 
 }
 
+AnalogUltrasonic::~AnalogUltrasonic()
+{
+
+}
+
 float AnalogUltrasonic::getDistance()
 {
 	return GetVoltage()/.009765;

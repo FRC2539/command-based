@@ -42,6 +42,7 @@ DriveTrain::DriveTrain() :
 		RIGHT_ENCODER_A_PORT,
 		ENCODER_MODULE,
 		RIGHT_ENCODER_B_PORT
+
 	);
 
 	leftEncoder->Start();
@@ -84,9 +85,12 @@ void DriveTrain::move(float yValue, float rotateValue) {
 	// We really ought to investigate why that is...
 	drive->ArcadeDrive(-currentY, -currentRotate, true);
 
-
-	//std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
-
+	if (ticks % 50 == 0)
+	{
+		std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
+		std::cout << "gyro: " << gyro->GetAngle() << "\n";
+	}
+	ticks++;
 
 }
 

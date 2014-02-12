@@ -24,6 +24,9 @@ protected:
 	Victor* motor;
 	DoubleSolenoid* solenoid;
 	AnalogUltrasonic* ultrasonic;
+	private:
+	int ticks;
+	bool canPickUp;
 };
 
 #endif
