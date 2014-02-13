@@ -1,7 +1,7 @@
 #ifndef DRIVE_TRAIN_H
 #define DRIVE_TRAIN_H
 
-#include "Commands/Subsystem.h"
+#include "Commands/PIDSubsystem.h"
 
 class SelfCleaningDrive;
 class Gyro;
@@ -16,6 +16,12 @@ public:
 	void move(float yValue, float rotateValue);
 	void preciseMove(float yValue, float rotateValue);
 
+	float limitAcceleration(float current, float next);
+
+	float PID(float current, float target, float p, float i, float d);
+	void resetPID();
+
+
 protected:
 	SelfCleaningDrive* drive;
 	Gyro* gyro;
@@ -25,7 +31,13 @@ protected:
 	float currentY;
 	float currentRotate;
 
-	float limitAcceleration(float current, float next);
+	//PID Variables
+	float error;
+	float totalError;
+	float previousError;
+	float deltaError;
+	float p_out, i_out, d_out;
+	float output;
 
 private:
 	int ticks;

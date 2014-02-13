@@ -116,3 +116,35 @@ void DriveTrain::preciseMove(float yValue, float rotateValue) {
 	// We really ought to investigate why that is...
 	drive->ArcadeDrive(-currentY, -currentRotate);
 }
+
+float DriveTrain::PID(float current, float target, float p, float i, float d){
+	//this code needs to run in a loop
+	//p, i, and d are our constants to be defined in robot map
+
+	//Proportional
+	error = current-target;
+	p_out = p * error;
+
+	//Integral
+	totalError += error;
+	i_out = i * error;
+
+	//Derivative
+	deltaError = error - previousError;
+	d_out = d * deltaError;
+
+	output = p_out + i_out + d_out;
+
+	if (output > 1){
+		return 1;
+	}else if(output < -1){
+		return -1;
+	}else{
+		return output;
+	}
+}
+
+void DriveTrain::resetPID(){
+	totalError = 0;
+	previousError = 0;
+}
