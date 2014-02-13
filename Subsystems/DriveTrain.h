@@ -18,8 +18,11 @@ public:
 
 	float limitAcceleration(float current, float next);
 
+
 	float PID(float current, float target, float p, float i, float d);
 	void resetPID();
+	void driveWithPID(float distance);
+	void turnWithPID(float angle);
 
 
 protected:

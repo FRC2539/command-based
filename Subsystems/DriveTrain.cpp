@@ -1,6 +1,7 @@
 #include "DriveTrain.h"
 
 #include "../RobotMap.h"
+#include "../PIDMap.h"
 
 #include "../Custom/SelfCleaningDrive.h"
 #include "Talon.h"
@@ -119,7 +120,8 @@ void DriveTrain::preciseMove(float yValue, float rotateValue) {
 
 float DriveTrain::PID(float current, float target, float p, float i, float d){
 	//this code needs to run in a loop
-	//p, i, and d are our constants to be defined in robot map
+	//p, i, and d are our constants to be defined in PIDMap
+	//if you don't want to use p, i, or d,  set their value to 0 in PIDMap
 
 	//Proportional
 	error = current-target;
@@ -147,4 +149,24 @@ float DriveTrain::PID(float current, float target, float p, float i, float d){
 void DriveTrain::resetPID(){
 	totalError = 0;
 	previousError = 0;
+	leftEncoder->Reset();
+	rightEncoder->Reset();
+}
+
+void DriveTrain::driveWithPID(float target){
+	move(PID(leftEncoder->GetDistance(),
+			target,
+			DRIVE_P,
+			DRIVE_I,
+			DRIVE_D),
+		 0);
+}
+
+void DriveTrain::turnWithPID(float angle){
+	move(0,
+		PID(gyro->GetAngle(),
+			angle,
+			TURN_P,
+			TURN_I,
+			TURN_D));
 }
