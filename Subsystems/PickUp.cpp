@@ -8,6 +8,7 @@
 #include "../Commands/PickUpCommand.h"
 
 #include "../RobotMap.h"
+#include <iostream>
 
 PickUp::PickUp() :
 	Subsystem("PickUp")
@@ -52,6 +53,7 @@ void PickUp::close()
 bool PickUp::isDown()
 {
 	return downLimitSwitch->Get();
+	
 }
 
 bool PickUp::seesBall()

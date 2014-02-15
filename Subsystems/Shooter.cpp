@@ -8,6 +8,7 @@
 #include "../Commands/FireCommand.h"
 
 #include "../RobotMap.h"
+#include <iostream>
 
 Shooter::Shooter() :
 	Subsystem("Shooter")
@@ -56,6 +57,6 @@ void Shooter::off()
 
 bool Shooter::down()
 {
-	return downSwitch->Get();
+	return false; //downSwitch->Get();
 }
 

@@ -34,7 +34,7 @@ private:
 		// this line or comment it out.
 		autonomousCommand->Cancel();
 
-		pickupWatcherCommand->Start();
+		//pickupWatcherCommand->Start();
 	}
 	
 	virtual void TeleopPeriodic() {

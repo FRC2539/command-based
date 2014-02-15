@@ -1,4 +1,5 @@
 #include "DrawBackCommand.h"
+#include <iostream>
 
 DrawBackCommand::DrawBackCommand() {
 
@@ -9,8 +10,7 @@ void DrawBackCommand::Initialize() {
 	shooter->retractLauncher();
 }
 
-void DrawBackCommand::Execute()
-{
+void DrawBackCommand::Execute() {
 }
 
 bool DrawBackCommand::IsFinished() {
