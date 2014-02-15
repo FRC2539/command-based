@@ -26,6 +26,7 @@ Shooter::~Shooter() {
 	delete piston;
 	delete motor;
 	delete electromagnet;
+	delete downSwitch;
 }
 
 void Shooter::InitDefaultCommand() {
@@ -35,15 +36,15 @@ void Shooter::InitDefaultCommand() {
 void Shooter::releaseLauncher()
 {
 	electromagnet->Set(Relay::kOff);
+	off();
 }
 
 void Shooter::retractLauncher()
 {
-	motor->Set(-.45);
+	motor->Set(-0.60);
 	piston->Set(DoubleSolenoid::kForward);
 	electromagnet->Set(Relay::kOn);
 }
-
 void Shooter::holdLauncher()
 {
 	off();
@@ -53,10 +54,14 @@ void Shooter::holdLauncher()
 void Shooter::off()
 {
 	motor->Set(0);
+	piston->Set(DoubleSolenoid::kOff);
 }
 
 bool Shooter::down()
 {
-	return false; //downSwitch->Get();
+	return !downSwitch->Get();
 }
 
+void Shooter::runBack(){
+	motor->Set(.5);
+}

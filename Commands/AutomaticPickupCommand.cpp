@@ -9,7 +9,7 @@ void AutomaticPickupCommand::Initialize() {
 	drivetrain->move(.7, 0);
 	pickup->pickup(1);
 
-	SetTimeout(1);
+	SetTimeout(0.5);
 }
 
 void AutomaticPickupCommand::Execute() {

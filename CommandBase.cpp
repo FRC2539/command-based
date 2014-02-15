@@ -25,8 +25,8 @@ CommandBase::~CommandBase() {
 	if (aircompressor != NULL)
 	{
 		delete aircompressor;
-		
 	}
+	
 	if (shooter != NULL)
 	{
 		delete shooter;

@@ -8,16 +8,15 @@
 #include "../Commands/PickUpCommand.h"
 
 #include "../RobotMap.h"
-#include <iostream>
 
 PickUp::PickUp() :
 	Subsystem("PickUp")
 {
 	motor = new Victor(PICK_UP_MOTOR_PORT);
-	//switch the closed port and open port if they need switched, might have gotten the channels wrong
 	solenoid = new DoubleSolenoid(PICK_UP_PISTON_CLOSED_PORT, PICK_UP_PISTON_OPEN_PORT);
 	ultrasonic = new AnalogUltrasonic(PICK_UP_ULTRASONIC_PORT);
 	downLimitSwitch = new DigitalInput(PICK_UP_DOWN_PORT);
+	upLimitSwitch = new DigitalInput(PICK_UP_UP_PORT);
 }
 
 PickUp::~PickUp() {
@@ -25,6 +24,7 @@ PickUp::~PickUp() {
 	delete solenoid;
 	delete ultrasonic;
 	delete downLimitSwitch;
+	delete upLimitSwitch;
 }
 
 void PickUp::InitDefaultCommand() {
@@ -36,6 +36,14 @@ void PickUp::pickup(float direction)
 	if (direction < -0.1)
 	{
 		direction *= .4;
+		if (isDown())
+		{
+			direction = 0;
+		}
+	}
+	else if (direction > 0.1 && isUp())
+	{
+		direction = 0;
 	}
 	motor->Set(direction);
 }
@@ -50,9 +58,15 @@ void PickUp::close()
 	solenoid->Set(DoubleSolenoid::kReverse);
 }
 
+bool PickUp::isUp()
+{
+	return !upLimitSwitch->Get();
+
+}
+
 bool PickUp::isDown()
 {
-	return downLimitSwitch->Get();
+	return !downLimitSwitch->Get();
 	
 }
 

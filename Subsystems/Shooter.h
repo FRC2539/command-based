@@ -18,6 +18,7 @@ public:
 	void holdLauncher();
 	void retractLauncher();
 	bool down();
+	void runBack();
 protected:
 	Victor* motor;
 	DoubleSolenoid* piston;

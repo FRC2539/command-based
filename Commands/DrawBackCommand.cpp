@@ -1,8 +1,7 @@
 #include "DrawBackCommand.h"
-#include <iostream>
+#include "RunBackCommand.h"
 
 DrawBackCommand::DrawBackCommand() {
-
 	Requires(shooter);
 }
 
@@ -18,7 +17,9 @@ bool DrawBackCommand::IsFinished() {
 }
 
 void DrawBackCommand::End() {
-	shooter->holdLauncher();
+	//shooter->holdLauncher();
+	Command* command = new RunBackCommand();
+	command->Start();
 }
 
 void DrawBackCommand::Interrupted() {

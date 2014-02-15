@@ -17,6 +17,7 @@ public:
 	void pickup(float direction);
 
 	bool seesBall();
+	bool isUp();
 	bool isDown();
 
 	void open();
@@ -27,6 +28,7 @@ protected:
 	DoubleSolenoid* solenoid;
 	AnalogUltrasonic* ultrasonic;
 	DigitalInput* downLimitSwitch;
+    DigitalInput *upLimitSwitch;
 
 };
 

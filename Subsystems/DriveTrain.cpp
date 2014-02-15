@@ -94,8 +94,8 @@ void DriveTrain::move(float yValue, float rotateValue) {
 
 	if (ticks % 50 == 0)
 	{
-		std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
-		std::cout << "gyro: " << gyro->GetAngle() << "\n";
+		//std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
+		//std::cout << "gyro: " << gyro->GetAngle() << "\n";
 	}
 	ticks++;
 
