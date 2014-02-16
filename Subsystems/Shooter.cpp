@@ -36,7 +36,6 @@ void Shooter::InitDefaultCommand() {
 void Shooter::releaseLauncher()
 {
 	electromagnet->Set(Relay::kOff);
-	off();
 }
 
 void Shooter::retractLauncher()
@@ -45,23 +44,23 @@ void Shooter::retractLauncher()
 	piston->Set(DoubleSolenoid::kForward);
 	electromagnet->Set(Relay::kOn);
 }
+
+void Shooter::runBack(){
+	motor->Set(.5);
+}
+
 void Shooter::holdLauncher()
 {
-	off();
+	motor->Set(0);
 	piston->Set(DoubleSolenoid::kReverse);
 }
 
 void Shooter::off()
 {
-	motor->Set(0);
 	piston->Set(DoubleSolenoid::kOff);
 }
 
 bool Shooter::down()
 {
 	return !downSwitch->Get();
-}
-
-void Shooter::runBack(){
-	motor->Set(.5);
 }

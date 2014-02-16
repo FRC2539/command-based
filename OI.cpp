@@ -6,7 +6,7 @@
 #include "ControllerMap.h"
 
 #include "Commands/PreciseArcadeDriveCommand.h"
-#include "Commands/FireCommand.h"
+#include "Commands/SafeFireCommand.h"
 #include "Commands/OpenCommand.h"
 #include "Commands/CloseCommand.h"
 #include "Commands/DrawBackCommand.h"
@@ -26,16 +26,13 @@ OI::OI() {
 
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
-	fireButton->WhenPressed(new FireCommand());
+	fireButton->WhenPressed(new SafeFireCommand());
 	
 	openButton = getControllerButton(OPEN_BUTTON);
 	openButton->WhenPressed(new OpenCommand());
 	
 	closeButton = getControllerButton(CLOSE_BUTTON);
 	closeButton->WhenPressed(new CloseCommand());
-	
-	drawBackButton = getControllerButton(DRAWBACK_BUTTON);
-	drawBackButton->WhenPressed(new DrawBackCommand());
 }
 
 OI::~OI() {
@@ -43,7 +40,6 @@ OI::~OI() {
 	delete fireButton;
 	delete openButton;
 	delete closeButton;
-	delete drawBackButton;
 }
 
 GenericController* OI::getController(int port)
