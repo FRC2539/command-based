@@ -6,6 +6,7 @@ AutomaticPickupCommand::AutomaticPickupCommand() {
 }
 
 void AutomaticPickupCommand::Initialize() {
+	pickup->close();
 	drivetrain->move(.7, 0);
 	pickup->pickup(1);
 

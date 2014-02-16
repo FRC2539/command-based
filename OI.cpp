@@ -41,6 +41,7 @@ OI::OI() {
 OI::~OI() {
 	delete preciseMovementButton;
 	delete fireButton;
+	delete resetButton;
 	delete openButton;
 	delete closeButton;
 }
