@@ -8,6 +8,7 @@
 #include "../Commands/PickUpCommand.h"
 
 #include "../RobotMap.h"
+#include <iostream>
 
 PickUp::PickUp() :
 	Subsystem("PickUp")
@@ -46,8 +47,13 @@ void PickUp::pickup(float direction)
 		direction = 0;
 	}
 	motor->Set(direction);
-}
 
+	if (ticks % 50 == 0)
+	{
+	std::cout << "ultrasonic: " << ultrasonic->getDistance() <<"\n";
+	}
+	ticks++;
+}
 void PickUp::open()
 {
 	solenoid->Set(DoubleSolenoid::kForward);

@@ -30,6 +30,8 @@ protected:
 	DigitalInput* downLimitSwitch;
     DigitalInput *upLimitSwitch;
 
+private:
+    int ticks;
 };
 
 #endif

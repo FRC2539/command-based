@@ -40,13 +40,13 @@ void Shooter::releaseLauncher()
 
 void Shooter::retractLauncher()
 {
-	motor->Set(-0.60);
+	motor->Set(0.60);
 	piston->Set(DoubleSolenoid::kForward);
 	electromagnet->Set(Relay::kOn);
 }
 
 void Shooter::runBack(){
-	motor->Set(.5);
+	motor->Set(-.5);
 }
 
 void Shooter::holdLauncher()
@@ -64,7 +64,6 @@ void Shooter::reset()
 {
 	piston->Set(DoubleSolenoid::kReverse);
 	motor->Set(0);
-	electromagnet->Set(Relay::kOff);
 }
 
 bool Shooter::down()

@@ -50,7 +50,8 @@ DriveTrain::DriveTrain() :
 		RIGHT_ENCODER_B_PORT
 
 	);
-
+	leftEncoder->SetDistancePerPulse(.053333333);
+	rightEncoder->SetDistancePerPulse(.053333333);
 	leftEncoder->Start();
 	rightEncoder->Start();
 }
