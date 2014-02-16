@@ -6,7 +6,7 @@
 #include "ControllerMap.h"
 
 #include "Commands/PreciseArcadeDriveCommand.h"
-#include "Commands/SafeFireCommand.h"
+#include "Commands/FireCommandGroup.h"
 #include "Commands/OpenCommand.h"
 #include "Commands/CloseCommand.h"
 #include "Commands/ResetCommand.h"
@@ -26,7 +26,7 @@ OI::OI() {
 
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
-	fireButton->WhenPressed(new SafeFireCommand());
+	fireButton->WhenPressed(new FireCommandGroup());
 
 	resetButton = getControllerButton(RESET_BUTTON);
 	resetButton->WhenPressed(new ResetCommand());
