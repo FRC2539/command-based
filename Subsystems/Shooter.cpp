@@ -60,6 +60,13 @@ void Shooter::off()
 	piston->Set(DoubleSolenoid::kOff);
 }
 
+void Shooter::reset()
+{
+	piston->Set(DoubleSolenoid::kReverse);
+	motor->Set(0);
+	electromagnet->Set(Relay::kOff);
+}
+
 bool Shooter::down()
 {
 	return !downSwitch->Get();

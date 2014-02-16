@@ -27,6 +27,7 @@ protected:
 	JoystickButton* openButton;
 	JoystickButton* closeButton;
 	JoystickButton* drawBackButton;
+    JoystickButton* resetButton;
 };
 
 #endif

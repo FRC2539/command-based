@@ -9,7 +9,7 @@
 #include "Commands/SafeFireCommand.h"
 #include "Commands/OpenCommand.h"
 #include "Commands/CloseCommand.h"
-#include "Commands/DrawBackCommand.h"
+#include "Commands/ResetCommand.h"
 
 OI::OI() {
 	std::unordered_map<int, std::string> controller_map = CONTROLLERS;
@@ -27,6 +27,9 @@ OI::OI() {
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
 	fireButton->WhenPressed(new SafeFireCommand());
+
+	resetButton = getControllerButton(RESET_BUTTON);
+	resetButton->WhenPressed(new ResetCommand());
 	
 	openButton = getControllerButton(OPEN_BUTTON);
 	openButton->WhenPressed(new OpenCommand());

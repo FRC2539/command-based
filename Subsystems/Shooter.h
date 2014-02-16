@@ -12,13 +12,17 @@ class Shooter: public Subsystem {
 public:
 	Shooter();
 	virtual ~Shooter();
+
 	void InitDefaultCommand();
-	void off();
+
 	void releaseLauncher();
 	void holdLauncher();
 	void retractLauncher();
-	bool down();
 	void runBack();
+	void off();
+	void reset();
+
+	bool down();
 protected:
 	Victor* motor;
 	DoubleSolenoid* piston;

@@ -22,4 +22,6 @@
 
 #define FIRE_BUTTON 1, "A"
 
+#define RESET_BUTTON 1, "Back"
+
 #endif
