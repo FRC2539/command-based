@@ -16,13 +16,12 @@
 
 #define PRECISE_MOVEMENT_BUTTON 1, "LeftJoystick"
 
-#define PICK_UP_AXIS 2, "Y"
-#define OPEN_BUTTON 2, "8"
-#define CLOSE_BUTTON 2, "9"
+#define PICK_UP_AXIS 1, "DPadY"
+#define OPEN_BUTTON 1, "RightBumper"
+#define CLOSE_BUTTON 1, "LeftBumper"
 
-#define FIRE_BUTTON 2, "Trigger"
-#define DRAWBACK_BUTTON 2, "2"
-
+#define FIRE_BUTTON 1, "A"
+#define DRAWBACK_BUTTON 1, "B"
 
 #define RESET_BUTTON 1, "Back"
 

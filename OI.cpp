@@ -9,7 +9,9 @@
 #include "Commands/FireCommand.h"
 #include "Commands/OpenCommand.h"
 #include "Commands/CloseCommand.h"
+#include "Commands/ResetCommand.h"
 #include "Commands/DrawBackCommand.h"
+#include "Commands/ResetCommand.h"
 
 OI::OI() {
 	std::unordered_map<int, std::string> controller_map = CONTROLLERS;
@@ -27,23 +29,26 @@ OI::OI() {
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
 	fireButton->WhenPressed(new FireCommand());
+
+	drawBackButton = getControllerButton(DRAWBACK_BUTTON);
+	drawBackButton->WhenPressed(new DrawBackCommand());
+
+	resetButton = getControllerButton(RESET_BUTTON);
+	resetButton->WhenPressed(new ResetCommand());
 	
 	openButton = getControllerButton(OPEN_BUTTON);
 	openButton->WhenPressed(new OpenCommand());
 	
 	closeButton = getControllerButton(CLOSE_BUTTON);
 	closeButton->WhenPressed(new CloseCommand());
-	
-	drawBackButton = getControllerButton(DRAWBACK_BUTTON);
-	drawBackButton->WhenPressed(new DrawBackCommand());
 }
 
 OI::~OI() {
 	delete preciseMovementButton;
 	delete fireButton;
+	delete resetButton;
 	delete openButton;
 	delete closeButton;
-	delete drawBackButton;
 }
 
 GenericController* OI::getController(int port)

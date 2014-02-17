@@ -1,12 +1,14 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "Commands/AutonomousCommandGroup.h"
+#include "Commands/ResetCommand.h"
 #include "Commands/PickupWatcherCommand.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
 	Command* autonomousCommand;
+	Command* resetCommand;
 	Command* pickupWatcherCommand;
 	LiveWindow* lw;
 	
@@ -14,6 +16,7 @@ private:
 		CommandBase::init();
 
 		autonomousCommand = new AutonomousCommandGroup();
+		resetCommand = new ResetCommand();
 		pickupWatcherCommand = new PickupWatcherCommand();
 
 		lw = LiveWindow::GetInstance();
@@ -34,7 +37,8 @@ private:
 		// this line or comment it out.
 		autonomousCommand->Cancel();
 
-		//pickupWatcherCommand->Start();
+		resetCommand->Start();
+		pickupWatcherCommand->Start();
 	}
 	
 	virtual void TeleopPeriodic() {

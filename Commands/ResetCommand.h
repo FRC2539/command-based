@@ -1,12 +1,12 @@
-#ifndef RUNBACK_COMMAND_H
-#define RUNBACK_COMMAND_H
+#ifndef RESET_COMMAND_H
+#define RESET_COMMAND_H
 
 #include "../CommandBase.h"
 
-class RunBackCommand : public CommandBase {
+class ResetCommand : public CommandBase {
 
 public:
-	RunBackCommand();
+	ResetCommand();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
