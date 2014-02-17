@@ -17,6 +17,8 @@ public:
 
 protected:
 	Command* automaticPickupCommand;
+	bool shouldPickup;
+	bool wasUp;
 };
 
 #endif

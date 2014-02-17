@@ -6,7 +6,7 @@ InitializeShooterCommand::InitializeShooterCommand() {
 
 void InitializeShooterCommand::Initialize() {
 	shooter->holdLauncher();
-	SetTimeout(0.1);
+	SetTimeout(0.2);
 }
 
 void InitializeShooterCommand::Execute() {

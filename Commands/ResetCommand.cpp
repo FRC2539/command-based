@@ -10,16 +10,19 @@ void ResetCommand::Initialize() {
 	drivetrain->move(0, 0);
 	pickup->pickup(0);
 	shooter->reset();
+
+	SetTimeout(0.2);
 }
 
 void ResetCommand::Execute() {
 }
 
 bool ResetCommand::IsFinished() {
-	return true;
+	return IsTimedOut();
 }
 
 void ResetCommand::End() {
+	shooter->off();
 }
 
 void ResetCommand::Interrupted() {

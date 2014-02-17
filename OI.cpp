@@ -6,12 +6,11 @@
 #include "ControllerMap.h"
 
 #include "Commands/PreciseArcadeDriveCommand.h"
-#include "Commands/FireCommand.h"
+#include "Commands/FireCommandGroup.h"
 #include "Commands/OpenCommand.h"
 #include "Commands/CloseCommand.h"
 #include "Commands/ResetCommand.h"
-#include "Commands/DrawBackCommand.h"
-#include "Commands/ResetCommand.h"
+#include "Commands/DrawBackCommandGroup.h"
 
 OI::OI() {
 	std::unordered_map<int, std::string> controller_map = CONTROLLERS;
@@ -25,13 +24,12 @@ OI::OI() {
 	
 	preciseMovementButton = getControllerButton(PRECISE_MOVEMENT_BUTTON);
 	preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
-
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
-	fireButton->WhenPressed(new FireCommand());
+	fireButton->WhenPressed(new FireCommandGroup());
 
 	drawBackButton = getControllerButton(DRAWBACK_BUTTON);
-	drawBackButton->WhenPressed(new DrawBackCommand());
+	drawBackButton->WhenPressed(new DrawBackCommandGroup());
 
 	resetButton = getControllerButton(RESET_BUTTON);
 	resetButton->WhenPressed(new ResetCommand());
@@ -46,6 +44,7 @@ OI::OI() {
 OI::~OI() {
 	delete preciseMovementButton;
 	delete fireButton;
+	delete drawBackButton;
 	delete resetButton;
 	delete openButton;
 	delete closeButton;
