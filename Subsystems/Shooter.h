@@ -16,9 +16,9 @@ public:
 	void InitDefaultCommand();
 
 	void releaseLauncher();
-	void holdLauncher();
 	void retractLauncher();
 	void runBack();
+	void stopMotor();
 	void off();
 	void reset();
 

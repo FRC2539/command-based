@@ -49,12 +49,6 @@ void Shooter::runBack(){
 	motor->Set(-.5);
 }
 
-void Shooter::holdLauncher()
-{
-	motor->Set(0);
-	piston->Set(DoubleSolenoid::kReverse);
-}
-
 void Shooter::off()
 {
 	piston->Set(DoubleSolenoid::kOff);
@@ -63,6 +57,11 @@ void Shooter::off()
 void Shooter::reset()
 {
 	piston->Set(DoubleSolenoid::kReverse);
+	motor->Set(0);
+}
+
+void Shooter::stopMotor()
+{
 	motor->Set(0);
 }
 

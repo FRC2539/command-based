@@ -7,12 +7,14 @@ PickupWatcherCommand::PickupWatcherCommand() {
 }
 
 void PickupWatcherCommand::Initialize() {
+	shouldPickup = true;
+	wasNotDown = ! pickup->isDown();
 }
 
 void PickupWatcherCommand::Execute() {
 
 	// Don't respond if the ball was in front of the sensor from the start
-	if (wasUp && pickup->isDown())
+	if (wasNotDown && pickup->isDown())
 	{
 		shouldPickup = ! pickup->seesBall();
 	}
@@ -29,7 +31,7 @@ void PickupWatcherCommand::Execute() {
 		automaticPickupCommand->Start();
 	}
 
-	wasUp = ! pickup->isDown();
+	wasNotDown = ! pickup->isDown();
 }
 
 bool PickupWatcherCommand::IsFinished() {

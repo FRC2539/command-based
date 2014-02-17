@@ -16,7 +16,7 @@ bool DrawBackCommand::IsFinished() {
 }
 
 void DrawBackCommand::End() {
-	shooter->runBack();
+	shooter->stopMotor();
 }
 
 void DrawBackCommand::Interrupted() {
