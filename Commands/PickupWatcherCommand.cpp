@@ -13,25 +13,32 @@ void PickupWatcherCommand::Initialize() {
 
 void PickupWatcherCommand::Execute() {
 
-	// Don't respond if the ball was in front of the sensor from the start
-	if (wasNotDown && pickup->isDown())
+	if (pickup->isDown())
 	{
-		shouldPickup = ! pickup->seesBall();
-	}
+		// Don't respond if the ball was in front of the sensor from the start
+		if (wasNotDown)
+		{
+			shouldPickup = ! pickup->seesBall();
+			wasNotDown = false;
+		}
 
-	// If we lose sight of the ball, then it can be picked up if seen again
-	if ( ! shouldPickup && pickup->isDown() && ! pickup->seesBall())
+		// Grab the ball if it is in range and was not already held
+		else if (shouldPickup && pickup->seesBall())
+		{
+			automaticPickupCommand->Start();
+			shouldPickup = false;
+		}
+
+		// If we lose sight of the ball, then it can be picked up if seen again
+		else if ( ! shouldPickup && ! pickup->seesBall())
+		{
+			shouldPickup = true;
+		}
+	}
+	else
 	{
-		shouldPickup = true;
+		wasNotDown = true;
 	}
-
-	// Grab the ball if possible and allowed
-	if (shouldPickup && pickup->isDown() && pickup->seesBall())
-	{
-		automaticPickupCommand->Start();
-	}
-
-	wasNotDown = ! pickup->isDown();
 }
 
 bool PickupWatcherCommand::IsFinished() {
