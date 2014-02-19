@@ -25,7 +25,7 @@ public:
 	bool down();
 protected:
 	Victor* motor;
-	DoubleSolenoid* piston;
+	//DoubleSolenoid* piston;
 	Relay* electromagnet;
 	DigitalInput* downSwitch;
 };
