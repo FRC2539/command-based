@@ -1,7 +1,6 @@
 #include "Shooter.h"
 
 #include "Victor.h"
-#include "DoubleSolenoid.h"
 #include "Relay.h"
 #include "DigitalInput.h"
 
@@ -13,18 +12,12 @@
 Shooter::Shooter() :
 	Subsystem("Shooter")
 	{
-	//piston = new DoubleSolenoid(
-	//	SHIFTING_GEAR_REVERSE_PISTON_PORT,
-	//	SHIFTING_GEAR_FORWARD_PISTON_PORT
-	//);
-
 	motor = new Victor(SHIFTING_GEAR_MOTOR_PORT);
 	electromagnet = new Relay(SHOOTER_ELECTROMAGNET_PORT, Relay::kForwardOnly);
 	downSwitch = new DigitalInput(SHOOTER_DOWNSWITCH_PORT);
 }
 
 Shooter::~Shooter() {
-	//delete piston;
 	delete motor;
 	delete electromagnet;
 	delete downSwitch;
@@ -42,7 +35,6 @@ void Shooter::releaseLauncher()
 void Shooter::retractLauncher()
 {
 	motor->Set(0.8);
-	//piston->Set(DoubleSolenoid::kForward);
 	electromagnet->Set(Relay::kOn);
 }
 
@@ -52,12 +44,11 @@ void Shooter::runBack(){
 
 void Shooter::off()
 {
-	//piston->Set(DoubleSolenoid::kOff);
+	
 }
 
 void Shooter::reset()
 {
-	//piston->Set(DoubleSolenoid::kReverse);
 	motor->Set(0);
 }
 

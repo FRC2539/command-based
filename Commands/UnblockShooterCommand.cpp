@@ -29,7 +29,6 @@ void UnblockShooterCommand::End() {
 	{
 		pickup->pickup(0);
 	}
-	pickup->open();
 }
 
 void UnblockShooterCommand::Interrupted() {

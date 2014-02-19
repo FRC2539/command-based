@@ -4,7 +4,6 @@
 #include "Commands/Subsystem.h"
 
 class Victor;
-class DoubleSolenoid;
 class Relay;
 class DigitalInput;
 
@@ -25,7 +24,6 @@ public:
 	bool down();
 protected:
 	Victor* motor;
-	//DoubleSolenoid* piston;
 	Relay* electromagnet;
 	DigitalInput* downSwitch;
 };

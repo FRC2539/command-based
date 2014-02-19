@@ -4,7 +4,6 @@
 #include "Commands/Subsystem.h"
 
 class Victor;
-class DoubleSolenoid;
 class DigitalInput;
 class AnalogUltrasonic;
 
@@ -20,12 +19,9 @@ public:
 	bool isUp();
 	bool isDown();
 
-	void open();
-	void close();
 
 protected:
 	Victor* motor;
-	DoubleSolenoid* solenoid;
 	AnalogUltrasonic* ultrasonic;
 	DigitalInput* downLimitSwitch;
     DigitalInput *upLimitSwitch;
