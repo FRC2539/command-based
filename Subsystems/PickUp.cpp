@@ -32,9 +32,8 @@ void PickUp::InitDefaultCommand() {
 void PickUp::pickup(float direction)
 {
 
-	direction *= -1;
 
-	if (direction < -0.05)
+	if (direction < 0.1)
 	{
 		direction *= .4;
 		if (isDown())
@@ -42,7 +41,7 @@ void PickUp::pickup(float direction)
 			direction = 0;
 		}
 	}
-	else if (direction > 0.05)
+	else if (direction > -0.1)
 	{
 		direction = 0;
 	}
