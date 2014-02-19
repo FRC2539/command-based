@@ -38,7 +38,8 @@ private:
 		autonomousCommand->Cancel();
 
 		resetCommand->Start();
-		pickupWatcherCommand->Start();
+		//pickupWatcherCommand->Start();
+		//ultrasonic sensor is broken
 	}
 	
 	virtual void TeleopPeriodic() {

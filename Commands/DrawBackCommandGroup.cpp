@@ -8,6 +8,6 @@
 DrawBackCommandGroup::DrawBackCommandGroup() {
 	AddSequential(new DrawBackCommand());
 	AddSequential(new RunBackCommand());
-	AddSequential(new WaitCommand(1.3));
+	AddSequential(new WaitCommand(1.1));
 	AddSequential(new InitializeShooterCommand());
 }

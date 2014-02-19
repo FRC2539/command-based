@@ -40,7 +40,7 @@ void Shooter::releaseLauncher()
 
 void Shooter::retractLauncher()
 {
-	motor->Set(0.7);
+	motor->Set(0.8);
 	piston->Set(DoubleSolenoid::kForward);
 	electromagnet->Set(Relay::kOn);
 }
