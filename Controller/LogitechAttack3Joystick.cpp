@@ -40,6 +40,6 @@ void LogitechAttack3Joystick::init()
 		{"11",  11},
 	};
 
-	invertedAxes = {axes["Throttle"]};
+	invertedAxes = {axes["Y"], axes["Throttle"]};
 }
 	

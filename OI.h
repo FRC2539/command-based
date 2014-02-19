@@ -14,7 +14,7 @@ public:
 
 	GenericController* getController(int port=1);
 	
-	float getAxis(int port, std::string axis);
+	float getAxis(int port, std::string axis, float modifier=1);
 	bool getButton(int port, std::string button);
 	
 	ControllerButton* getControllerButton(std::string button);

@@ -46,9 +46,9 @@ GenericController* OI::getController(int port)
 	return controllers[port];
 }
 
-float OI::getAxis(int port, std::string axis)
+float OI::getAxis(int port, std::string axis, float modifier)
 {
-	return getController(port)->GetAxis(axis);
+	return modifier * getController(port)->GetAxis(axis);
 }
 
 bool OI::getButton(int port, std::string button)
