@@ -6,13 +6,15 @@ DrawBackCommand::DrawBackCommand() {
 
 void DrawBackCommand::Initialize() {
 	shooter->retractLauncher();
+	SetTimeout(1.5);
 }
 
 void DrawBackCommand::Execute() {
 }
 
 bool DrawBackCommand::IsFinished() {
-	return shooter->down();
+
+	return IsTimedOut() || shooter->down();
 }
 
 void DrawBackCommand::End() {
