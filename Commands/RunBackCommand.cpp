@@ -6,19 +6,22 @@ RunBackCommand::RunBackCommand() {
 
 void RunBackCommand::Initialize() {
 	shooter->runBack();
+	SetTimeout(1.1);
 }
 
 void RunBackCommand::Execute() {
 }
 
 bool RunBackCommand::IsFinished() {
-	return true;
+	return IsTimedOut();
 }
 
 void RunBackCommand::End() {
+	shooter->reset();
 }
 
 void RunBackCommand::Interrupted() {
+	End();
 }
 
 
