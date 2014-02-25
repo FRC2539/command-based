@@ -42,17 +42,7 @@ void Shooter::runBack(){
 	motor->Set(-.5);
 }
 
-void Shooter::off()
-{
-	
-}
-
 void Shooter::reset()
-{
-	motor->Set(0);
-}
-
-void Shooter::stopMotor()
 {
 	motor->Set(0);
 }

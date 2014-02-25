@@ -17,8 +17,6 @@ public:
 	void releaseLauncher();
 	void retractLauncher();
 	void runBack();
-	void stopMotor();
-	void off();
 	void reset();
 
 	bool down();

@@ -22,7 +22,6 @@ bool ResetCommand::IsFinished() {
 }
 
 void ResetCommand::End() {
-	shooter->off();
 }
 
 void ResetCommand::Interrupted() {

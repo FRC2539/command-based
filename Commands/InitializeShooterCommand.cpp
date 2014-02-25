@@ -17,7 +17,7 @@ bool InitializeShooterCommand::IsFinished() {
 }
 
 void InitializeShooterCommand::End() {
-	shooter->off();
+	shooter->reset();
 }
 
 void InitializeShooterCommand::Interrupted() {

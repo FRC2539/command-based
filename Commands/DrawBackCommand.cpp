@@ -16,9 +16,10 @@ bool DrawBackCommand::IsFinished() {
 }
 
 void DrawBackCommand::End() {
-	shooter->stopMotor();
+	shooter->reset();
 }
 
 void DrawBackCommand::Interrupted() {
+	End();
 }
 
