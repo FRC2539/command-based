@@ -33,17 +33,13 @@ void PickUp::pickup(float direction)
 {
 
 
-	if (direction < 0.1)
+	if (direction < -0.1)
 	{
 		direction *= .4;
 		if (isDown())
 		{
 			direction = 0;
 		}
-	}
-	else if (direction > -0.1)
-	{
-		direction = 0;
 	}
 	motor->Set(direction);
 
