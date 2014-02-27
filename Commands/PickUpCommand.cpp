@@ -2,6 +2,7 @@
 #include "../ControllerMap.h"
 
 PickUpCommand::PickUpCommand() {
+	std::cout << "PickUpCommand Requires(pickup)\n";
 	Requires(pickup);
 }
 

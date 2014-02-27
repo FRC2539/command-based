@@ -21,7 +21,6 @@ CommandBase::~CommandBase() {
 	{
 		delete pickup;
 	}
-
 	
 	if (shooter != NULL)
 	{
@@ -34,7 +33,16 @@ void CommandBase::init() {
 	oi = new OI();
 	pickup = new PickUp();
 	shooter = new Shooter();
+	
+	std::cout << "Subsystems Initialized\n";
 }
+
+void CommandBase::Requires(Subsystem* s)
+{
+	std::cout << "Calling Requires()\n";
+	Command::Requires(s);
+}
+
 
 /* Each subsystem must be initially set to NULL in order for the static symbols
  * to be available on the cRIO

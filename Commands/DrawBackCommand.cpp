@@ -1,6 +1,7 @@
 #include "DrawBackCommand.h"
 
 DrawBackCommand::DrawBackCommand() {
+	std::cout << "DrawBackCommand Requires(shooter)\n";
 	Requires(shooter);
 }
 
