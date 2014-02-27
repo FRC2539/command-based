@@ -5,8 +5,9 @@
 #include "Commands/WaitCommand.h"
 
 AutoShootingPositionCommandGroup::AutoShootingPositionCommandGroup() {
-	AddParallel(new AutoPickUpCommand(-.4, 1));
-	AddParallel(new AutoDriveCommand(-.5678, 2));
+	AddParallel(new AutoPickUpCommand(-1, 1));
 	AddSequential(new WaitCommand(0.5));
 	AddSequential(new DrawBackCommandGroup());
+
+	AddSequential(new AutoDriveCommand(-.5678, 2));
 }

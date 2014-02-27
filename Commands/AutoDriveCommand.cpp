@@ -1,4 +1,5 @@
 #include "AutoDriveCommand.h"
+#include <iostream>
 
 AutoDriveCommand::AutoDriveCommand(float speed, float seconds) {
 	Requires(drivetrain);
@@ -9,6 +10,12 @@ AutoDriveCommand::AutoDriveCommand(float speed, float seconds) {
 void AutoDriveCommand::Initialize() {
 	drivetrain->move(m_speed, 0);
 	SetTimeout(m_seconds);
+
+
+	
+	std::cout << "Being called";
+	
+
 }
 
 void AutoDriveCommand::Execute() {

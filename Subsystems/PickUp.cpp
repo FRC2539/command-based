@@ -43,12 +43,12 @@ void PickUp::pickup(float direction)
 	}
 	motor->Set(direction);
 
-/*	if (ticks % 50 == 0)
+	if (ticks % 50 == 0)
 	{
 	std::cout << "ultrasonic: " << ultrasonic->getDistance() <<"\n";
 	std::cout << "ultrasonic voltage: " << ultrasonic->GetVoltage() <<"\n";
 	}
-	ticks++;*/
+	ticks++;
 }
 
 bool PickUp::isUp()
