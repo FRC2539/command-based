@@ -30,10 +30,12 @@ CommandBase::~CommandBase() {
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
-	oi = new OI();
 	pickup = new PickUp();
 	shooter = new Shooter();
-	
+
+	// Instantiate OI last because its constructor uses the other subsystems
+	oi = new OI();
+
 	std::cout << "Subsystems Initialized\n";
 }
 

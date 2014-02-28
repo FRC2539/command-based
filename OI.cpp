@@ -15,7 +15,7 @@ OI::OI() {
 	for (auto controller : controller_map)
 	{
 		controllers[controller.first] = ControllerFactory::makeController(
-			controller.second, 
+			controller.second,
 			controller.first
 		);
 	}
@@ -31,7 +31,6 @@ OI::OI() {
 
 	resetButton = getControllerButton(RESET_BUTTON);
 	resetButton->WhenPressed(new ResetCommand());
-	
 }
 
 OI::~OI() {
@@ -39,6 +38,11 @@ OI::~OI() {
 	delete fireButton;
 	delete drawBackButton;
 	delete resetButton;
+
+	for (auto controller : controllers)
+	{
+		delete controller.second;
+	}
 }
 
 GenericController* OI::getController(int port)
