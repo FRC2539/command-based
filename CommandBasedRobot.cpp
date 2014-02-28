@@ -11,7 +11,6 @@ private:
 	Command* resetCommand;
 	Command* pickupWatcherCommand;
 	LiveWindow* lw;
-
 	
 	virtual void RobotInit() {
 		CommandBase::init();
@@ -39,7 +38,7 @@ private:
 		autonomousCommand->Cancel();
 
 		resetCommand->Start();
-		//pickupWatcherCommand->Start();
+		pickupWatcherCommand->Start();
 	}
 	
 	virtual void TeleopPeriodic() {

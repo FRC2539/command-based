@@ -31,8 +31,13 @@ void PickUp::InitDefaultCommand() {
 
 void PickUp::pickup(float direction)
 {
-
-
+	/*if (ticks % 50 == 0)
+	{
+	std::cout << "ultrasonic: " << ultrasonic->getDistance() <<"\n";
+	std::cout << "ultrasonic voltage: " << ultrasonic->GetVoltage() <<"\n";
+	std::cout << "direction: " << direction << "\n";
+	}
+	ticks++;*/
 	if (direction < -0.1)
 	{
 		direction *= .4;
@@ -42,25 +47,16 @@ void PickUp::pickup(float direction)
 		}
 	}
 	motor->Set(direction);
-
-	if (ticks % 50 == 0)
-	{
-	std::cout << "ultrasonic: " << ultrasonic->getDistance() <<"\n";
-	std::cout << "ultrasonic voltage: " << ultrasonic->GetVoltage() <<"\n";
-	}
-	ticks++;
 }
 
 bool PickUp::isUp()
 {
 	return !upLimitSwitch->Get();
-
 }
 
 bool PickUp::isDown()
 {
 	return !downLimitSwitch->Get();
-	
 }
 
 bool PickUp::seesBall()

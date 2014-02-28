@@ -15,6 +15,7 @@ void AutoDriveCommand::Initialize() {
 }
 
 void AutoDriveCommand::Execute() {
+	drivetrain->move(m_speed, 0);
 }
 
 bool AutoDriveCommand::IsFinished() {
