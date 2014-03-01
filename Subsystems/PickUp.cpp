@@ -46,6 +46,9 @@ void PickUp::pickup(float direction)
 			direction = 0;
 		}
 	}
+
+	direction *= -1;
+	
 	motor->Set(direction);
 }
 
