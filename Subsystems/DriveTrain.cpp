@@ -88,18 +88,14 @@ void DriveTrain::move(float yValue, float rotateValue) {
 	currentY = limitAcceleration(currentY, yValue);
 	currentRotate = limitAcceleration(currentRotate, rotateValue);
 
-	// For some reason, we need to invert rotateValue
-	// We really ought to investigate why that is...
-	drive->ArcadeDrive(-currentY, -currentRotate, true);
+	directDrive(currentY, currentRotate, true);
 
-
-	if (ticks % 50 == 0)
+	/*if (ticks % 50 == 0)
 	{
 		//std::cout << "right: " << rightEncoder->GetDistance() << ", left: " << leftEncoder->GetDistance() << "\n";
 		//std::cout << "gyro: " << gyro->GetAngle() << "\n";
 	}
-	ticks++;
-
+	ticks++;*/
 }
 
 void DriveTrain::preciseMove(float yValue, float rotateValue) {
@@ -114,9 +110,15 @@ void DriveTrain::preciseMove(float yValue, float rotateValue) {
 	{
 		currentRotate *= -1;
 	}
+
+	directDrive(currentY, currentRotate);
+}
+
+void DriveTrain::directDrive(float yValue, float rotateValue, bool squareInputs)
+{
 	// For some reason, we need to invert rotateValue
 	// We really ought to investigate why that is...
-	drive->ArcadeDrive(-currentY, -currentRotate);
+	drive->ArcadeDrive(-yValue, -rotateValue, squareInputs);
 }
 
 float DriveTrain::PID(float current, float target, float p, float i, float d){

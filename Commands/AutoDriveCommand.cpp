@@ -8,14 +8,13 @@ AutoDriveCommand::AutoDriveCommand(float speed, float seconds) {
 }
 
 void AutoDriveCommand::Initialize() {
-	drivetrain->move(m_speed, 0);
+	drivetrain->directDrive(m_speed, 0);
 	SetTimeout(m_seconds);
 
 	std::cout << "Initialized AutoDriveCommand\n";
 }
 
 void AutoDriveCommand::Execute() {
-	drivetrain->move(m_speed, 0);
 }
 
 bool AutoDriveCommand::IsFinished() {
@@ -23,7 +22,7 @@ bool AutoDriveCommand::IsFinished() {
 }
 
 void AutoDriveCommand::End() {
-	drivetrain->move(0, 0);
+	drivetrain->directDrive(0, 0);
 	std::cout << "AutoDriveCommand Ended Normally\n";
 }
 

@@ -34,7 +34,7 @@ void Shooter::releaseLauncher()
 
 void Shooter::retractLauncher()
 {
-	motor->Set(0.8);
+	motor->Set(1);
 	electromagnet->Set(Relay::kOn);
 }
 

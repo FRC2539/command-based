@@ -10,7 +10,7 @@ ResetCommand::ResetCommand() {
 }
 
 void ResetCommand::Initialize() {
-	drivetrain->move(0, 0);
+	drivetrain->directDrive(0, 0);
 	pickup->pickup(0);
 	shooter->reset();
 }

@@ -22,7 +22,7 @@ public:
 
 protected:
 	std::unordered_map<int, GenericController*> controllers;
-	JoystickButton* preciseMovementButton;
+	//JoystickButton* preciseMovementButton;
 	JoystickButton* fireButton;
 	JoystickButton* drawBackButton;
     JoystickButton* resetButton;

@@ -7,7 +7,7 @@ RunBackCommand::RunBackCommand() {
 
 void RunBackCommand::Initialize() {
 	shooter->runBack();
-	SetTimeout(1.5);
+	SetTimeout(.55);
 }
 
 void RunBackCommand::Execute() {

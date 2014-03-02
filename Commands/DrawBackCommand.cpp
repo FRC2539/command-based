@@ -7,7 +7,7 @@ DrawBackCommand::DrawBackCommand() {
 
 void DrawBackCommand::Initialize() {
 	shooter->retractLauncher();
-	SetTimeout(5);
+	SetTimeout(2.5);
 }
 
 void DrawBackCommand::Execute() {

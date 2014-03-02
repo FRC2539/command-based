@@ -15,6 +15,7 @@ public:
 
 	void move(float yValue, float rotateValue);
 	void preciseMove(float yValue, float rotateValue);
+	void directDrive(float yValue, float rotateValue, bool squareInputs=false);
 
 	float limitAcceleration(float current, float next);
 

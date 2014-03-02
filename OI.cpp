@@ -20,8 +20,8 @@ OI::OI() {
 		);
 	}
 	
-	preciseMovementButton = getControllerButton(PRECISE_MOVEMENT_BUTTON);
-	preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
+	//preciseMovementButton = getControllerButton(PRECISE_MOVEMENT_BUTTON);
+	//preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
 	fireButton->WhenPressed(new FireCommandGroup());
@@ -35,7 +35,7 @@ OI::OI() {
 }
 
 OI::~OI() {
-	delete preciseMovementButton;
+	//delete preciseMovementButton;
 	delete fireButton;
 	delete drawBackButton;
 	delete resetButton;
