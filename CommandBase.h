@@ -8,6 +8,7 @@
 #include "OI.h"
 #include "Subsystems/PickUp.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/AirCompressor.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -28,6 +29,7 @@ public:
 	static OI *oi;
 	static PickUp *pickup;
 	static Shooter *shooter;
+	static AirCompressor* aircompressor;
 };
 
 #endif

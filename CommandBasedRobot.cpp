@@ -2,12 +2,14 @@
 #include "Commands/Command.h"
 #include "Commands/AutonomousCommandGroup.h"
 #include "Commands/ResetCommand.h"
+#include "Commands/StartCompressorCommand.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
 	Command* autonomousCommand;
 	Command* resetCommand;
+	Command* startCompressorCommand;
 	LiveWindow* lw;
 	
 	virtual void RobotInit() {
@@ -15,12 +17,14 @@ private:
 
 		autonomousCommand = new AutonomousCommandGroup();
 		resetCommand = new ResetCommand();
+		startCompressorCommand = new StartCompressorCommand();
 
 		lw = LiveWindow::GetInstance();
 	}
 	
 	virtual void AutonomousInit() {
 		autonomousCommand->Start();
+		startCompressorCommand->Start();
 	}
 	
 	virtual void AutonomousPeriodic() {
@@ -33,6 +37,7 @@ private:
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		autonomousCommand->Cancel();
+		startCompressorCommand->Start();
 
 		resetCommand->Start();
 	}

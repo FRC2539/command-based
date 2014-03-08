@@ -26,12 +26,18 @@ CommandBase::~CommandBase() {
 	{
 		delete shooter;
 	}
+
+	if (aircompressor != NULL)
+	{
+		delete aircompressor;
+	}
 }
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
 	pickup = new PickUp();
 	shooter = new Shooter();
+	aircompressor = new AirCompressor();
 
 	// Instantiate OI last because its constructor uses the other subsystems
 	oi = new OI();
@@ -53,3 +59,4 @@ DriveTrain* CommandBase::drivetrain = NULL;
 OI* CommandBase::oi = NULL;
 PickUp* CommandBase::pickup = NULL;
 Shooter* CommandBase::shooter = NULL;
+AirCompressor* CommandBase::aircompressor = NULL;

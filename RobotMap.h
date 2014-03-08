@@ -35,6 +35,9 @@
 #define FORWARD_DOUBLE_SOLINOID_PORT 90
 #define BACKWARD_DOUBLE_SOLINOID_PORT 10
 
+//Compressor
+#define PRESSURE_SWITCH_PORT 5
+#define COMPRESSOR_PORT 1
 
 
 //Shooter
@@ -42,6 +45,7 @@
 //Firing Mechanism
 #define SHOOTER_ELECTROMAGNET_PORT 2
 #define SHOOTER_DOWNSWITCH_PORT 7
+
 
 
 #endif
