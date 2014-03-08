@@ -1,7 +1,6 @@
 #include "UnblockShooterCommand.h"
 
 UnblockShooterCommand::UnblockShooterCommand() {
-	std::cout << "UnblockShooterCommand Requires(pickup)\n";
 	Requires(pickup);
 }
 

@@ -1,7 +1,6 @@
 #include "RunBackCommand.h"
 
 RunBackCommand::RunBackCommand() {
-	std::cout << "RunBackCommand Requires(shooter)\n";
 	Requires(shooter);
 }
 

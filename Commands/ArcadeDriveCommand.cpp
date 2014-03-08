@@ -2,12 +2,10 @@
 #include "../ControllerMap.h"
 
 ArcadeDriveCommand::ArcadeDriveCommand() {
-	std::cout << "ArcadeDriveCommand Requires(drivetrain)\n";
 	Requires(drivetrain);
 }
 
 void ArcadeDriveCommand::Initialize() {
-	std::cout << "ArcadeDriveCommand Initialized\n";
 }
 
 void ArcadeDriveCommand::Execute() {
@@ -22,10 +20,8 @@ bool ArcadeDriveCommand::IsFinished() {
 }
 
 void ArcadeDriveCommand::End() {
-	std::cout << "ArcadeDriveCommand Ended Normally (Is that even possible?)\n";
 }
 
 void ArcadeDriveCommand::Interrupted() {
-	std::cout << "ArcadeDriveCommand Interrupted\n";
 }
 

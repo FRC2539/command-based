@@ -41,14 +41,6 @@ void CommandBase::init() {
 
 	// Instantiate OI last because its constructor uses the other subsystems
 	oi = new OI();
-
-	std::cout << "Subsystems Initialized\n";
-}
-
-void CommandBase::Requires(Subsystem* s)
-{
-	std::cout << "Calling Requires()\n";
-	Command::Requires(s);
 }
 
 

@@ -2,7 +2,6 @@
 #include "../ControllerMap.h"
 
 PickUpCommand::PickUpCommand(float d) {
-	std::cout << "PickUpCommand Requires(pickup)\n";
 	Requires(pickup);
 
 	direction = d;
