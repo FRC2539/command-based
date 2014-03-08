@@ -1,16 +1,18 @@
 #include "PickUpCommand.h"
 #include "../ControllerMap.h"
 
-PickUpCommand::PickUpCommand() {
+PickUpCommand::PickUpCommand(float d) {
 	std::cout << "PickUpCommand Requires(pickup)\n";
 	Requires(pickup);
+
+	direction = d;
 }
 
 void PickUpCommand::Initialize() {
 }
 
 void PickUpCommand::Execute() {
-	pickup->pickup(oi->getAxis(PICK_UP_AXIS));
+	pickup->pickup(direction);
 }
 
 bool PickUpCommand::IsFinished() {
@@ -18,6 +20,7 @@ bool PickUpCommand::IsFinished() {
 }
 
 void PickUpCommand::End() {
+	pickup->pickup(0);
 }
 
 void PickUpCommand::Interrupted() {

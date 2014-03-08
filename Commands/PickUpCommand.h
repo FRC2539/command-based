@@ -6,12 +6,15 @@
 class PickUpCommand : public CommandBase {
 
 public:
-	PickUpCommand();
+	PickUpCommand(float d);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
 	void End();
 	void Interrupted();
+
+protected:
+	float direction;
 };
 
 #endif

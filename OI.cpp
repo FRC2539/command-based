@@ -9,6 +9,9 @@
 #include "Commands/FireCommandGroup.h"
 #include "Commands/ResetCommand.h"
 #include "Commands/DrawBackCommandGroup.h"
+#include "Commands/RaiseArmCommand.h"
+#include "Commands/LowerArmCommand.h"
+#include "Commands/PickUpCommand.h"
 
 OI::OI() {
 	std::unordered_map<int, std::string> controller_map = CONTROLLERS;
@@ -20,8 +23,8 @@ OI::OI() {
 		);
 	}
 	
-	//preciseMovementButton = getControllerButton(PRECISE_MOVEMENT_BUTTON);
-	//preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
+	preciseMovementButton = getControllerButton(PRECISE_MOVEMENT_BUTTON);
+	preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
 	fireButton->WhenPressed(new FireCommandGroup());
@@ -31,13 +34,25 @@ OI::OI() {
 
 	resetButton = getControllerButton(RESET_BUTTON);
 	resetButton->WhenPressed(new ResetCommand());
+
+	pickUpButton = getControllerButton(PICK_UP_BUTTON);
+	pickUpButton->WhenPressed(new LowerArmCommand());
+	pickUpButton->WhenReleased(new RaiseArmCommand());
+
+	wheelInButton = getControllerButton(WHEEL_IN_BUTTON);
+	wheelInButton->WhenPressed(new PickUpCommand(1));
+
+	wheelOutButton = getControllerButton(WHEEL_OUT_BUTTON);
+	wheelOutButton->WhenPressed(new PickUpCommand(-1));
+
 }
 
 OI::~OI() {
-	//delete preciseMovementButton;
+	delete preciseMovementButton;
 	delete fireButton;
 	delete drawBackButton;
 	delete resetButton;
+	delete pickUpButton;
 
 	for (auto controller : controllers)
 	{

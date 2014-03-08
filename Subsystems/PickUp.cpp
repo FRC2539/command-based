@@ -1,8 +1,8 @@
 #include "PickUp.h"
 
+#include "DoubleSolenoid.h"
+
 #include "Victor.h"
-#include "DigitalInput.h"
-#include "../Custom/AnalogUltrasonic.h"
 
 #include "../Commands/PickUpCommand.h"
 
@@ -13,56 +13,35 @@ PickUp::PickUp() :
 	Subsystem("PickUp")
 {
 	motor = new Victor(PICK_UP_MOTOR_PORT);
-	ultrasonic = new AnalogUltrasonic(PICK_UP_ULTRASONIC_PORT);
-	downLimitSwitch = new DigitalInput(PICK_UP_DOWN_PORT);
-	upLimitSwitch = new DigitalInput(PICK_UP_UP_PORT);
+
+	piston = new DoubleSolenoid(
+	 FORWARD_DOUBLE_SOLINOID_PORT,
+	 BACKWARD_DOUBLE_SOLINOID_PORT
+	 );
+
 }
 
 PickUp::~PickUp() {
 	delete motor;
-	delete ultrasonic;
-	delete downLimitSwitch;
-	delete upLimitSwitch;
+	delete piston;
 }
 
 void PickUp::InitDefaultCommand() {
-	SetDefaultCommand(new PickUpCommand());
+
 }
 
 void PickUp::pickup(float direction)
 {
-	/*if (ticks % 50 == 0)
-	{
-	std::cout << "ultrasonic: " << ultrasonic->getDistance() <<"\n";
-	std::cout << "ultrasonic voltage: " << ultrasonic->GetVoltage() <<"\n";
-	std::cout << "direction: " << direction << "\n";
-	}
-	ticks++;*/
-	if (direction < -0.1)
-	{
-		direction *= .4;
-		if (isDown())
-		{
-			direction = 0;
-		}
-	}
-
-	direction *= -1;
-	
 	motor->Set(direction);
 }
 
-bool PickUp::isUp()
+void PickUp::raiseArm()
 {
-	return !upLimitSwitch->Get();
+	piston->Set(DoubleSolenoid::kForward);
 }
 
-bool PickUp::isDown()
+void PickUp::lowerArm()
 {
-	return !downLimitSwitch->Get();
+	piston->Set(DoubleSolenoid::kReverse);
 }
 
-bool PickUp::seesBall()
-{
-	return (ultrasonic->getDistance() < 8);
-}

@@ -1,11 +1,12 @@
 #ifndef PICK_UP_H
 #define PICK_UP_H
 
+
 #include "Commands/Subsystem.h"
 
 class Victor;
-class DigitalInput;
-class AnalogUltrasonic;
+class DoubleSolenoid;
+
 
 class PickUp: public Subsystem {
 public:
@@ -14,17 +15,13 @@ public:
 	void InitDefaultCommand();
 
 	void pickup(float direction);
-
-	bool seesBall();
-	bool isUp();
-	bool isDown();
+	void raiseArm();
+	void lowerArm();
 
 
 protected:
 	Victor* motor;
-	AnalogUltrasonic* ultrasonic;
-	DigitalInput* downLimitSwitch;
-    DigitalInput *upLimitSwitch;
+	DoubleSolenoid* piston;
 
 private:
     int ticks;
