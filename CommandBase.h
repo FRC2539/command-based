@@ -16,7 +16,9 @@
  */
 class CommandBase: public Command {
 public:
+	CommandBase(const char *name, double timeout);
 	CommandBase(const char *name);
+	CommandBase(double timeout);
 	CommandBase();
 	virtual ~CommandBase();
 	static void init();

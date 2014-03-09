@@ -5,6 +5,7 @@
 #include "Controller/ControllerButton.h"
 #include "ControllerMap.h"
 
+#include "Commands/Types/ToggleCommand.h"
 #include "Commands/PreciseArcadeDriveCommand.h"
 #include "Commands/FireCommandGroup.h"
 #include "Commands/ResetCommand.h"
@@ -24,7 +25,9 @@ OI::OI() {
 	}
 	
 	preciseMovementButton = getControllerButton(PRECISE_MOVEMENT_BUTTON);
-	preciseMovementButton->WhenPressed(new PreciseArcadeDriveCommand());
+	preciseMovementButton->WhenPressed(
+		new ToggleCommand(new PreciseArcadeDriveCommand())
+	);
 	
 	fireButton = getControllerButton(FIRE_BUTTON);
 	fireButton->WhenPressed(new FireCommandGroup());
@@ -40,10 +43,14 @@ OI::OI() {
 	pickUpButton->WhenReleased(new RaiseArmCommand());
 
 	wheelInButton = getControllerButton(WHEEL_IN_BUTTON);
-	wheelInButton->WhenPressed(new PickUpCommand(1));
+	wheelInButton->WhenPressed(
+		new ToggleCommand(new PickUpCommand(1))
+	);
 
 	wheelOutButton = getControllerButton(WHEEL_OUT_BUTTON);
-	wheelOutButton->WhenPressed(new PickUpCommand(-1));
+	wheelOutButton->WhenPressed(
+		new ToggleCommand(new PickUpCommand(-1))
+	);
 
 }
 
@@ -53,6 +60,8 @@ OI::~OI() {
 	delete drawBackButton;
 	delete resetButton;
 	delete pickUpButton;
+	delete wheelInButton;
+	delete wheelOutButton;
 
 	for (auto controller : controllers)
 	{

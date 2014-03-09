@@ -1,10 +1,13 @@
 #include "CommandBase.h"
 
-CommandBase::CommandBase(const char *name) : Command(name) {
-}
+CommandBase::CommandBase(const char *name, double timeout)
+	: Command(name, timeout) {}
 
-CommandBase::CommandBase() : Command() {
-}
+CommandBase::CommandBase(const char *name) : Command(name) {}
+
+CommandBase::CommandBase(double timeout) : Command(timeout) {}
+
+CommandBase::CommandBase() : Command() {}
 
 CommandBase::~CommandBase() {
 	if (oi != NULL)
