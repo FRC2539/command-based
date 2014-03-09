@@ -1,8 +1,7 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
-#include "Commands/AutonomousCommandGroup.h"
+#include "Commands/Autonomous/AutonomousCommandGroup.h"
 #include "Commands/ResetCommand.h"
-#include "Commands/StartCompressorCommand.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {

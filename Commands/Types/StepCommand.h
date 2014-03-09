@@ -31,7 +31,7 @@ protected:
 	void stopCurrentCommand();
 
 	std::vector<Command*> m_commands;
-	int m_index;
+	unsigned int m_index;
 };
 
 #endif

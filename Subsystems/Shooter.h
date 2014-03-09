@@ -12,14 +12,13 @@ public:
 	Shooter();
 	virtual ~Shooter();
 
-	void InitDefaultCommand();
-
 	void releaseLauncher();
 	void retractLauncher();
 	void runBack();
 	void reset();
 
 	bool down();
+
 protected:
 	Victor* motor;
 	Relay* electromagnet;

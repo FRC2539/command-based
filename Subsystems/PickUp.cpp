@@ -1,33 +1,20 @@
 #include "PickUp.h"
 
+#include "Victor.h"
 #include "DoubleSolenoid.h"
 
-#include "Victor.h"
-
-#include "../Commands/PickUpCommand.h"
-
 #include "../RobotMap.h"
-#include <iostream>
 
-PickUp::PickUp() :
-	Subsystem("PickUp")
+PickUp::PickUp() : Subsystem("PickUp")
 {
 	motor = new Victor(PICK_UP_MOTOR_PORT);
-
-	piston = new DoubleSolenoid(
-	 FORWARD_DOUBLE_SOLINOID_PORT,
-	 BACKWARD_DOUBLE_SOLINOID_PORT
-	 );
-
+	piston = new DoubleSolenoid(PICK_UP_RAISE_PORT, PICK_UP_LOWER_PORT);
 }
 
-PickUp::~PickUp() {
+PickUp::~PickUp()
+{
 	delete motor;
 	delete piston;
-}
-
-void PickUp::InitDefaultCommand() {
-
 }
 
 void PickUp::pickup(float direction)

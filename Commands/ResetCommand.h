@@ -1,17 +1,13 @@
 #ifndef RESET_COMMAND_H
 #define RESET_COMMAND_H
 
-#include "../CommandBase.h"
+#include "Types/InstantCommand.h"
 
-class ResetCommand : public CommandBase {
+class ResetCommand : public InstantCommand {
 
 public:
 	ResetCommand();
 	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
 };
 
 #endif

@@ -4,27 +4,20 @@
 #include "Relay.h"
 #include "DigitalInput.h"
 
-#include "../Commands/FireCommand.h"
-
 #include "../RobotMap.h"
-#include <iostream>
 
-Shooter::Shooter() :
-	Subsystem("Shooter")
-	{
+Shooter::Shooter() : Subsystem("Shooter")
+{
 	motor = new Victor(SHIFTING_GEAR_MOTOR_PORT);
 	electromagnet = new Relay(SHOOTER_ELECTROMAGNET_PORT, Relay::kForwardOnly);
 	downSwitch = new DigitalInput(SHOOTER_DOWNSWITCH_PORT);
 }
 
-Shooter::~Shooter() {
+Shooter::~Shooter()
+{
 	delete motor;
 	delete electromagnet;
 	delete downSwitch;
-}
-
-void Shooter::InitDefaultCommand() {
-	//SetDefaultCommand(new FireCommand());
 }
 
 void Shooter::releaseLauncher()
