@@ -1,26 +1,18 @@
 #include "PickUpCommand.h"
-#include "../ControllerMap.h"
 
-PickUpCommand::PickUpCommand(float d) {
+PickUpCommand::PickUpCommand(float direction) : DefaultCommand("PickUp")
+{
 	Requires(pickup);
 
-	direction = d;
+	m_direction = direction;
 }
 
-void PickUpCommand::Initialize() {
+void PickUpCommand::Initialize()
+{
+	pickup->pickup(m_direction);
 }
 
-void PickUpCommand::Execute() {
-	pickup->pickup(direction);
-}
-
-bool PickUpCommand::IsFinished() {
-	return false;
-}
-
-void PickUpCommand::End() {
+void PickUpCommand::End()
+{
 	pickup->pickup(0);
-}
-
-void PickUpCommand::Interrupted() {
 }

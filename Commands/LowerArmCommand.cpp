@@ -1,24 +1,13 @@
 #include "LowerArmCommand.h"
 
-LowerArmCommand::LowerArmCommand() {
+LowerArmCommand::LowerArmCommand() : InstantCommand("LowerArm")
+{
 	Requires(pickup);
 }
 
-void LowerArmCommand::Initialize() {
+void LowerArmCommand::Initialize()
+{
 	pickup->lowerArm();
-}
-
-void LowerArmCommand::Execute() {
-
-}
-
-bool LowerArmCommand::IsFinished() {
-	return true;
-}
-
-void LowerArmCommand::End() {
-}
-
-void LowerArmCommand::Interrupted() {
+	pickup->pickup(1);
 }
 

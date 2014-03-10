@@ -20,7 +20,7 @@ class ToggleCommand : public InstantCommand {
 public:
 	ToggleCommand(const char* name, Command* command);
 	ToggleCommand(Command* command);\
-    virtual ~ToggleCommand();
+	virtual ~ToggleCommand();
 	void Initialize();
 
 protected:

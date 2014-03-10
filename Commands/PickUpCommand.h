@@ -1,20 +1,17 @@
 #ifndef PICK_UP_COMMAND_H
 #define PICK_UP_COMMAND_H
 
-#include "../CommandBase.h"
+#include "Types/DefaultCommand.h"
 
-class PickUpCommand : public CommandBase {
+class PickUpCommand : public DefaultCommand {
 
 public:
-	PickUpCommand(float d);
+	PickUpCommand(float direction);
 	void Initialize();
-	void Execute();
-	bool IsFinished();
 	void End();
-	void Interrupted();
 
 protected:
-	float direction;
+	float m_direction;
 };
 
 #endif
