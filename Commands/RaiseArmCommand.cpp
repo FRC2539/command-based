@@ -1,24 +1,12 @@
 #include "RaiseArmCommand.h"
 
-RaiseArmCommand::RaiseArmCommand() {
+RaiseArmCommand::RaiseArmCommand() : InstantCommand("RaiseArm")
+{
 	Requires(pickup);
 }
 
-void RaiseArmCommand::Initialize() {
+void RaiseArmCommand::Initialize()
+{
 	pickup->raiseArm();
-}
-
-void RaiseArmCommand::Execute() {
-
-}
-
-bool RaiseArmCommand::IsFinished() {
-	return true;
-}
-
-void RaiseArmCommand::End() {
-}
-
-void RaiseArmCommand::Interrupted() {
 }
 

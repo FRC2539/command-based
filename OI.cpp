@@ -14,7 +14,8 @@
 #include "Commands/LowerArmCommand.h"
 #include "Commands/PickUpCommand.h"
 
-OI::OI() {
+OI::OI()
+{
 	std::unordered_map<int, std::string> controller_map = CONTROLLERS;
 	for (auto controller : controller_map)
 	{
@@ -51,10 +52,10 @@ OI::OI() {
 	wheelOutButton->WhenPressed(
 		new ToggleCommand(new PickUpCommand(-1))
 	);
-
 }
 
-OI::~OI() {
+OI::~OI()
+{
 	delete preciseMovementButton;
 	delete fireButton;
 	delete drawBackButton;

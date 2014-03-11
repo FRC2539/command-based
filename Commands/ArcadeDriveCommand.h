@@ -1,17 +1,13 @@
 #ifndef ARCADE_DRIVE_COMMAND_H
 #define ARCADE_DRIVE_COMMAND_H
 
-#include "../CommandBase.h"
+#include "Types/DefaultCommand.h"
 
-class ArcadeDriveCommand : public CommandBase {
+class ArcadeDriveCommand : public DefaultCommand {
 
 public:
 	ArcadeDriveCommand();
-	void Initialize();
 	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
 };
 
 #endif

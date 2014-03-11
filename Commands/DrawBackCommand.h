@@ -1,17 +1,15 @@
 #ifndef DRAWBACK_COMMAND_H
 #define DRAWBACK_COMMAND_H
 
-#include "../CommandBase.h"
+#include "Types/TimedCommand.h"
 
-class DrawBackCommand : public CommandBase {
+class DrawBackCommand : public TimedCommand {
 
 public:
 	DrawBackCommand();
 	void Initialize();
-	void Execute();
 	bool IsFinished();
 	void End();
-	void Interrupted();
 
 
 };

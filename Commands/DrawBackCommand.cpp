@@ -1,26 +1,22 @@
 #include "DrawBackCommand.h"
 
-DrawBackCommand::DrawBackCommand() {
+DrawBackCommand::DrawBackCommand() : TimedCommand("DrawBack", 2.5)
+{
 	Requires(shooter);
 }
 
-void DrawBackCommand::Initialize() {
+void DrawBackCommand::Initialize()
+{
 	shooter->retractLauncher();
-	SetTimeout(2.5);
 }
 
-void DrawBackCommand::Execute() {
+bool DrawBackCommand::IsFinished()
+{
+	return TimedCommand::IsFinished() || shooter->isDown();
 }
 
-bool DrawBackCommand::IsFinished() {
-	return IsTimedOut() || shooter->down();
-}
-
-void DrawBackCommand::End() {
+void DrawBackCommand::End()
+{
 	shooter->reset();
-}
-
-void DrawBackCommand::Interrupted() {
-	End();
 }
 

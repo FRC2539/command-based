@@ -6,20 +6,22 @@
 
 #include "../RobotMap.h"
 
-AirCompressor::AirCompressor() :
-	Subsystem("AirCompressor")
+AirCompressor::AirCompressor() : Subsystem("AirCompressor")
 {
 	compressor = new Compressor(PRESSURE_SWITCH_PORT, COMPRESSOR_PORT);
 }
 
-AirCompressor::~AirCompressor() {
+AirCompressor::~AirCompressor()
+{
 	delete compressor;
 }
 
-void AirCompressor::InitDefaultCommand() {
+void AirCompressor::InitDefaultCommand()
+{
 	SetDefaultCommand(new StartCompressorCommand());
 }
 
-void AirCompressor::start(){
+void AirCompressor::start()
+{
 	compressor->Start();
 }

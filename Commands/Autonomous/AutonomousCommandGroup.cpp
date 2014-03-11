@@ -3,8 +3,7 @@
 #include "../FireCommandGroup.h"
 
 
-AutonomousCommandGroup::AutonomousCommandGroup()
-	: CommandGroup("Autonomous")
+AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
 	AddSequential(new PrepareToShootCommandGroup());
 	AddSequential(new FireCommandGroup());

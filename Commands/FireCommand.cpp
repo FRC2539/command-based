@@ -1,22 +1,11 @@
 #include "FireCommand.h"
 
-FireCommand::FireCommand() {
+FireCommand::FireCommand() : InstantCommand("Fire")
+{
 	Requires(shooter);
 }
 
-void FireCommand::Initialize() {
+void FireCommand::Initialize()
+{
 	shooter->releaseLauncher();
-}
-
-void FireCommand::Execute() {
-}
-
-bool FireCommand::IsFinished() {
-	return true;
-}
-
-void FireCommand::End() {
-}
-
-void FireCommand::Interrupted() {
 }

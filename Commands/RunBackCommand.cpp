@@ -1,27 +1,17 @@
 #include "RunBackCommand.h"
 
-RunBackCommand::RunBackCommand() {
+RunBackCommand::RunBackCommand() : TimedCommand("RunBack", .55)
+{
 	Requires(shooter);
 }
 
-void RunBackCommand::Initialize() {
+void RunBackCommand::Initialize()
+{
 	shooter->runBack();
-	SetTimeout(.55);
-}
-
-void RunBackCommand::Execute() {
-}
-
-bool RunBackCommand::IsFinished() {
-	return IsTimedOut();
 }
 
 void RunBackCommand::End() {
 	shooter->reset();
-}
-
-void RunBackCommand::Interrupted() {
-	End();
 }
 
 

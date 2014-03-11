@@ -17,7 +17,7 @@ public:
 	void runBack();
 	void reset();
 
-	bool down();
+	bool isDown();
 
 protected:
 	Victor* motor;

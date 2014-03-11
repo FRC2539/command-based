@@ -3,6 +3,7 @@
 InstantCommand::InstantCommand(const char* name) : DefaultCommand(name) {}
 InstantCommand::InstantCommand() : DefaultCommand() {}
 
-bool InstantCommand::IsFinished() {
+bool InstantCommand::IsFinished()
+{
 	return true;
 }

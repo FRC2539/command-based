@@ -12,11 +12,10 @@
 
 #include <iostream>
 
-DriveTrain::DriveTrain() :
-	Subsystem("DriveTrain"),
+DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	currentY(0),
 	currentRotate(0)
-	{
+{
 
 	#ifdef FRONT_RIGHT_DRIVE_MOTOR_PORT
 	drive = new SelfCleaningDrive(

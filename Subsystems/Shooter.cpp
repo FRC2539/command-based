@@ -31,7 +31,8 @@ void Shooter::retractLauncher()
 	electromagnet->Set(Relay::kOn);
 }
 
-void Shooter::runBack(){
+void Shooter::runBack()
+{
 	motor->Set(-.5);
 }
 
@@ -40,7 +41,7 @@ void Shooter::reset()
 	motor->Set(0);
 }
 
-bool Shooter::down()
+bool Shooter::isDown()
 {
 	return !downSwitch->Get();
 }

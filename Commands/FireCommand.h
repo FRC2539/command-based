@@ -1,17 +1,13 @@
 #ifndef FIRE_COMMAND_H
 #define FIRE_COMMAND_H
 
-#include "../CommandBase.h"
+#include "Types/InstantCommand.h"
 
-class FireCommand : public CommandBase {
+class FireCommand : public InstantCommand {
 
 public:
 	FireCommand();
 	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
 };
 
 #endif

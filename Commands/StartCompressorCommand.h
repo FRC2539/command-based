@@ -1,17 +1,13 @@
 #ifndef START_COMPRESSOR_COMMAND_H
 #define START_COMPRESSOR_COMMAND_H
 
-#include "../CommandBase.h"
+#include "Types/InstantCommand.h"
 
-class StartCompressorCommand : public CommandBase {
+class StartCompressorCommand : public InstantCommand {
 
 public:
 	StartCompressorCommand();
 	void Initialize();
-	void Execute();
-	bool IsFinished();
-	void End();
-	void Interrupted();
 };
 
 #endif
