@@ -6,6 +6,6 @@
 AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
 	AddSequential(new PrepareToShootCommandGroup());
-	//AddSequential(new FireCommandGroup());
+	AddSequential(new FireCommandGroup());
 }
 
