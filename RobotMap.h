@@ -30,10 +30,6 @@
 #define MAX_ROTATE_PRECISE_SPEED 0.45
 
 
-// Pickup
-#define PICK_UP_MOTOR_PORT 3
-#define PICK_UP_LOWER_PORT 1
-#define PICK_UP_RAISE_PORT 2
 
 //Compressor
 #define PRESSURE_SWITCH_PORT 5
@@ -41,7 +37,7 @@
 
 
 //Shooter
-#define SHIFTING_GEAR_MOTOR_PORT 4
+#define SHIFTING_GEAR_MOTOR_PORT 3
 //Firing Mechanism
 #define SHOOTER_ELECTROMAGNET_PORT 2
 #define SHOOTER_DOWNSWITCH_PORT 7

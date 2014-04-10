@@ -10,9 +10,6 @@
 #include "Commands/FireCommandGroup.h"
 #include "Commands/ResetCommand.h"
 #include "Commands/DrawBackCommandGroup.h"
-#include "Commands/RaiseArmCommand.h"
-#include "Commands/LowerArmCommand.h"
-#include "Commands/PickUpCommand.h"
 
 OI::OI()
 {
@@ -39,19 +36,7 @@ OI::OI()
 	resetButton = getControllerButton(RESET_BUTTON);
 	resetButton->WhenPressed(new ResetCommand());
 
-	pickUpButton = getControllerButton(PICK_UP_BUTTON);
-	pickUpButton->WhenPressed(new LowerArmCommand());
-	pickUpButton->WhenReleased(new RaiseArmCommand());
-
-	wheelInButton = getControllerButton(WHEEL_IN_BUTTON);
-	wheelInButton->WhenPressed(
-		new ToggleCommand(new PickUpCommand(1))
-	);
-
-	wheelOutButton = getControllerButton(WHEEL_OUT_BUTTON);
-	wheelOutButton->WhenPressed(
-		new ToggleCommand(new PickUpCommand(-1))
-	);
+	
 }
 
 OI::~OI()
@@ -60,9 +45,6 @@ OI::~OI()
 	delete fireButton;
 	delete drawBackButton;
 	delete resetButton;
-	delete pickUpButton;
-	delete wheelInButton;
-	delete wheelOutButton;
 
 	for (auto controller : controllers)
 	{

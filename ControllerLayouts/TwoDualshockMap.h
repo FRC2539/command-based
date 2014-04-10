@@ -16,13 +16,8 @@
 
 #define PRECISE_MOVEMENT_BUTTON 1, "Start"
 
-#define PICK_UP_BUTTON 2, "RightBumper"
-
 #define FIRE_BUTTON 2, "A"
 #define DRAWBACK_BUTTON 2, "B"
-
-#define WHEEL_IN_BUTTON 2, "Y"
-#define WHEEL_OUT_BUTTON 2, "X"
 
 #define RESET_BUTTON 1, "Back"
 

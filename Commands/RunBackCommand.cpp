@@ -1,6 +1,6 @@
 #include "RunBackCommand.h"
 
-RunBackCommand::RunBackCommand() : TimedCommand("RunBack", .55)
+RunBackCommand::RunBackCommand() : TimedCommand("RunBack", 1.75)
 {
 	Requires(shooter);
 }

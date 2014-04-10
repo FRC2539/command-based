@@ -19,11 +19,6 @@ CommandBase::~CommandBase() {
 	{
 		delete drivetrain;
 	}
-
-	if (pickup != NULL)
-	{
-		delete pickup;
-	}
 	
 	if (shooter != NULL)
 	{
@@ -38,7 +33,6 @@ CommandBase::~CommandBase() {
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
-	pickup = new PickUp();
 	shooter = new Shooter();
 	aircompressor = new AirCompressor();
 
@@ -52,6 +46,5 @@ void CommandBase::init() {
  */
 DriveTrain* CommandBase::drivetrain = NULL;
 OI* CommandBase::oi = NULL;
-PickUp* CommandBase::pickup = NULL;
 Shooter* CommandBase::shooter = NULL;
 AirCompressor* CommandBase::aircompressor = NULL;

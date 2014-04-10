@@ -33,7 +33,7 @@ void Shooter::retractLauncher()
 
 void Shooter::runBack()
 {
-	motor->Set(-.5);
+	motor->Set(-.75);
 }
 
 void Shooter::reset()

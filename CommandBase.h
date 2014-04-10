@@ -5,7 +5,6 @@
 
 #include "Subsystems/DriveTrain.h"
 #include "OI.h"
-#include "Subsystems/PickUp.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/AirCompressor.h"
 
@@ -26,7 +25,6 @@ public:
 	// Create a single static instance of all of your subsystems
 	static DriveTrain *drivetrain;
 	static OI *oi;
-	static PickUp *pickup;
 	static Shooter *shooter;
 	static AirCompressor* aircompressor;
 };
