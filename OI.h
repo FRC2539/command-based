@@ -1,18 +1,29 @@
 #ifndef OI_H
 #define OI_H
 
-#include "WPILib.h"
+#include <unordered_map>
+
+class ControllerButton;
+class JoystickButton;
+class GenericController;
 
 class OI {
-private:
-
-protected:
-	Joystick controller;
-
 public:
 	OI();
+	~OI();
 
-	float GetControllerAxis(int);
+	GenericController* getController(int port=1);
+	
+	float getAxis(int port, std::string axis, float modifier=1);
+	bool getButton(int port, std::string button);
+	
+	ControllerButton* getControllerButton(std::string button);
+	ControllerButton* getControllerButton(int port, std::string button);
+
+protected:
+	std::unordered_map<int, GenericController*> controllers;
+	JoystickButton* preciseMovementButton;
+	JoystickButton* resetButton;
 };
 
 #endif

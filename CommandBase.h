@@ -2,9 +2,10 @@
 #define COMMAND_BASE_H
 
 #include "Commands/Command.h"
-#include "Subsystems/DriveBase.h"
-#include "OI.h"
 
+#include "Subsystems/DriveTrain.h"
+#include "OI.h"
+#include "Subsystems/AirCompressor.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -13,13 +14,17 @@
  */
 class CommandBase: public Command {
 public:
+	CommandBase(const char *name, double timeout);
 	CommandBase(const char *name);
+	CommandBase(double timeout);
 	CommandBase();
+	virtual ~CommandBase();
 	static void init();
 
 	// Create a single static instance of all of your subsystems
-	static DriveBase *drivebase;
+	static DriveTrain *drivetrain;
 	static OI *oi;
+	static AirCompressor* aircompressor;
 };
 
 #endif
