@@ -1,16 +1,21 @@
 #include "WPILib.h"
 #include "Commands/Command.h"
-#include "Commands/AutonomousCommandGroup.h"
+#include "Commands/Autonomous/AutonomousCommandGroup.h"
+#include "Commands/ResetCommand.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
-	Command *autonomousCommand;
-	LiveWindow *lw;
+	Command* autonomousCommand;
+	Command* resetCommand;
+	LiveWindow* lw;
 	
 	virtual void RobotInit() {
 		CommandBase::init();
+
 		autonomousCommand = new AutonomousCommandGroup();
+		resetCommand = new ResetCommand();
+
 		lw = LiveWindow::GetInstance();
 	}
 	
@@ -28,6 +33,8 @@ private:
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		autonomousCommand->Cancel();
+
+		resetCommand->Start();
 	}
 	
 	virtual void TeleopPeriodic() {
