@@ -16,5 +16,6 @@
 
 #define PRECISE_MOVEMENT_BUTTON 1, "LeftJoystick"
 
+#define RESET_BUTTON 1, "Back"
 
 #endif
