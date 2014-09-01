@@ -7,7 +7,7 @@ PrintCommand::PrintCommand(std::string msg) :
 
 void PrintCommand::Initialize()
 {
-	std::cout << message;
+	std::cout << message << "\n";
 }
 
 
