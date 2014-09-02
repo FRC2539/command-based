@@ -30,9 +30,7 @@
 #define MAX_ROTATE_PRECISE_SPEED 0.45
 
 //Compressor
-#define PRESSURE_SWITCH_PORT 5
 #define COMPRESSOR_PORT 1
-
-
+#define PRESSURE_SWITCH_PORT 5
 
 #endif

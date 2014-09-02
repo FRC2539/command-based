@@ -36,8 +36,8 @@ void LogitechAttack3Joystick::init()
 		{"7",  7},
 		{"8",  8},
 		{"9",  9},
-		{"10",  10},
-		{"11",  11},
+		{"10",	10},
+		{"11",	11},
 	};
 
 	invertedAxes = {axes["Y"], axes["Throttle"]};

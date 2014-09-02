@@ -4,14 +4,14 @@
 GenericController::GenericController(UINT32 port) : Joystick(port){}
 
 GenericController::GenericController(
-        UINT32 port,
-        UINT32 numAxisTypes,
-        UINT32 numButtonTypes
-    ): Joystick(
-        port,
-        numAxisTypes,
-        numButtonTypes
-    ){}
+		UINT32 port,
+		UINT32 numAxisTypes,
+		UINT32 numButtonTypes
+	): Joystick(
+		port,
+		numAxisTypes,
+		numButtonTypes
+	){}
 
 float GenericController::GetAxis(UINT32 axis)
 {

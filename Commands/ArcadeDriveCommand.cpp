@@ -1,5 +1,4 @@
 #include "ArcadeDriveCommand.h"
-#include "../ControllerMap.h"
 
 ArcadeDriveCommand::ArcadeDriveCommand() : DefaultCommand("ArcadeDrive")
 {
@@ -8,9 +7,6 @@ ArcadeDriveCommand::ArcadeDriveCommand() : DefaultCommand("ArcadeDrive")
 
 void ArcadeDriveCommand::Execute()
 {
-	drivetrain->move(
-		oi->getAxis(DRIVE_Y_AXIS),
-		oi->getAxis(DRIVE_ROTATE_AXIS)
-	);
+	drivetrain->move(oi->getAxes("TwoAxisDrive"));
 }
 

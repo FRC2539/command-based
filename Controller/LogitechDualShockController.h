@@ -7,7 +7,7 @@
 /*
  * This is the Logitech Gamepad with underside switch set to "D"
  * This class assumes mode is off. If mode is on, the D-Pad and right joystick
- *   are swapped.
+ * are swapped.
  */
 class LogitechDualShockController : public GenericController {
 public:

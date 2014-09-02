@@ -1,21 +1,15 @@
-#ifndef CONTROLLER_MAP_H
-#define CONTROLLER_MAP_H
+// Define Controllers as map with the form: Port #, Class
+// The currently available controller classes are:
+// * LogitechAttack3Joystick
+// * LogitechCrossfireController
+// * LogitechDualShockController
+ADD_CONTROLLER(LogitechDualShockController, 1)
 
-// Define Controllers as map with the form: Port #, Type
-// The currently available controller types are:
-// * LogitechAttack3
-// * LogitechCrossfire
-// * LogitechDualShock
-#define CONTROLLERS {{1, "LogitechDualShock"}, {2, "LogitechAttack3"}}
+// Define Axes in the form: System Name, Controller Port #, Axis Name
+ADD_AXIS(TwoAxisDrive, 1, LeftY)
+ADD_AXIS(TwoAxisDrive, 1, RightX)
 
-// Define Axes and Buttons in the form: Port #, Name
-
-#define DRIVE_Y_AXIS 1, "LeftY" // front and back
-#define DRIVE_X_AXIS null // strafing left and right
-#define DRIVE_ROTATE_AXIS 1, "RightX" // turning left and right
-
-#define PRECISE_MOVEMENT_BUTTON 1, "LeftJoystick"
-
-#define RESET_BUTTON 1, "Back"
-
-#endif
+// Assign commands to buttons with the form:
+//	   Controller Port #, Button Name, Event, Command
+ADD_BUTTON(1, LeftJoystick, WhenPressed, new ToggleCommand(new PreciseArcadeDriveCommand()))
+ADD_SIMPLE_BUTTON(1, Back, Reset)

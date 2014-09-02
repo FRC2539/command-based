@@ -1,39 +1,40 @@
 #include "OI.h"
 
-#include "Controller/ControllerFactory.h"
-#include "Controller/GenericController.h"
+#include "Controller/ControllerAxis.h"
 #include "Controller/ControllerButton.h"
-#include "ControllerMap.h"
+
+#include "Controller/LogitechAttack3Joystick.h"
+#include "Controller/LogitechCrossfireController.h"
+#include "Controller/LogitechDualShockController.h"
+#include "Controller/AndroidDriverStation.h"
 
 #include "Commands/Types/ToggleCommand.h"
+
+// Available Commands for ControllerMap
 #include "Commands/PreciseArcadeDriveCommand.h"
 #include "Commands/ResetCommand.h"
 
 OI::OI()
 {
-	std::unordered_map<int, std::string> controller_map = CONTROLLERS;
-	for (auto controller : controller_map)
-	{
-		controllers[controller.first] = ControllerFactory::makeController(
-			controller.second,
-			controller.first
-		);
-	}
-	
-	preciseMovementButton = getControllerButton(PRECISE_MOVEMENT_BUTTON);
-	preciseMovementButton->WhenPressed(
-		new ToggleCommand(new PreciseArcadeDriveCommand())
-	);
-	
-	resetButton = getControllerButton(RESET_BUTTON);
-	resetButton->WhenPressed(new ResetCommand());
+	ControllerAxis* lastAxis;
 
+	#include "ControllerMap.h"
 }
 
 OI::~OI()
 {
-	delete preciseMovementButton;
-	delete resetButton;
+	for (auto button : buttons)
+	{
+		delete button;
+	}
+
+	for (auto values : axes)
+	{
+		for (auto axis : values.second)
+		{
+			delete axis;
+		}
+	}
 
 	for (auto controller : controllers)
 	{
@@ -41,28 +42,15 @@ OI::~OI()
 	}
 }
 
-GenericController* OI::getController(int port)
+std::vector<float> OI::getAxes(std::string system)
 {
-	return controllers[port];
+	std::vector<float> values;
+
+	for (auto axis : axes[system])
+	{
+		values.push_back(axis->getValue());
+	}
+
+	return values;
 }
 
-float OI::getAxis(int port, std::string axis, float modifier)
-{
-	return modifier * getController(port)->GetAxis(axis);
-}
-
-bool OI::getButton(int port, std::string button)
-{
-	return getController(port)->GetButton(button);
-}
-
-ControllerButton* OI::getControllerButton(std::string button)
-{
-	return getControllerButton(1, button);
-}
-
-
-ControllerButton* OI::getControllerButton(int port, std::string button)
-{
-	return new ControllerButton(getController(port), button);
-}

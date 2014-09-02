@@ -19,7 +19,7 @@ CommandBase::~CommandBase() {
 	{
 		delete drivetrain;
 	}
-	
+
 	if (aircompressor != NULL)
 	{
 		delete aircompressor;
@@ -28,9 +28,9 @@ CommandBase::~CommandBase() {
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
+#ifdef COMPRESSOR_PORT
 	aircompressor = new AirCompressor();
-
-	// Instantiate OI last because its constructor uses the other subsystems
+#endif
 	oi = new OI();
 }
 

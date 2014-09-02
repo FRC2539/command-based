@@ -1,8 +1,11 @@
 #ifndef OI_H
 #define OI_H
 
+#include <string>
 #include <unordered_map>
+#include <vector>
 
+class ControllerAxis;
 class ControllerButton;
 class JoystickButton;
 class GenericController;
@@ -12,18 +15,12 @@ public:
 	OI();
 	~OI();
 
-	GenericController* getController(int port=1);
-	
-	float getAxis(int port, std::string axis, float modifier=1);
-	bool getButton(int port, std::string button);
-	
-	ControllerButton* getControllerButton(std::string button);
-	ControllerButton* getControllerButton(int port, std::string button);
+	std::vector<float> getAxes(std::string system);
 
 protected:
 	std::unordered_map<int, GenericController*> controllers;
-	JoystickButton* preciseMovementButton;
-	JoystickButton* resetButton;
+	std::vector<ControllerButton*> buttons;
+	std::unordered_map<std::string, std::vector<ControllerAxis*>> axes;
 };
 
 #endif

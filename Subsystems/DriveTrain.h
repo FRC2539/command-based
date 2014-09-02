@@ -1,7 +1,8 @@
 #ifndef DRIVE_TRAIN_H
 #define DRIVE_TRAIN_H
 
-#include "Commands/Subsystem.h"
+#include <Commands/Subsystem.h>
+#include <vector>
 
 class SelfCleaningDrive;
 class Gyro;
@@ -13,8 +14,8 @@ public:
 	virtual ~DriveTrain();
 	void InitDefaultCommand();
 
-	void move(float yValue, float rotateValue);
-	void preciseMove(float yValue, float rotateValue);
+	void move(std::vector<float> inputs);
+	void preciseMove(std::vector<float> inputs);
 	void directDrive(float yValue, float rotateValue, bool squareInputs=false);
 
 	float limitAcceleration(float current, float next);

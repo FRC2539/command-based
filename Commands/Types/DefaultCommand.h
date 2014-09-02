@@ -7,11 +7,11 @@
  * A basic type that should be used as the base class for all other Commands
  *
  * It provides default versions of all of the pure virtual Command methods
- *  - Initialize: does nothing
- *  - Execute: does nothing
- *  - IsFinished: returns false (never finishes naturally)
- *  - End: does nothing
- *  - Interrupted: calls End()
+ *	- Initialize: does nothing
+ *	- Execute: does nothing
+ *	- IsFinished: returns false (never finishes naturally)
+ *	- End: does nothing
+ *	- Interrupted: calls End()
  *
  * Override these to suit your needs.
  */
