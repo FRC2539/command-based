@@ -17,6 +17,7 @@
 OI::OI()
 {
 	ControllerAxis* lastAxis;
+	Command* lastCommand;
 
 	#include "ControllerMap.h"
 }

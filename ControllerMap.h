@@ -16,15 +16,18 @@
 	lastAxis->setModifier(modifier);
 
 #define ADD_BUTTON(port, button, event, command)\
+	lastCommand = command;\
 	buttons.push_back(new ControllerButton(controllers[port], #button));\
-	buttons.back()->event(command);
+	buttons.back()->event(lastCommand);
 
 #define ADD_SIMPLE_BUTTON(port, button, command_stem)\
+	lastCommand = new command_stem##Command();\
 	buttons.push_back(new ControllerButton(controllers[port], #button));\
-	buttons.back()->WhenPressed(new command_stem##Command());
+	buttons.back()->WhenPressed(lastCommand);
 
 
 #include "ControllerLayouts/ProgrammersMap.h"
+//#include "ControllerLayouts/AndroidDriverStation.h"
 
 
 #endif

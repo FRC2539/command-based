@@ -1,7 +1,7 @@
 #include "AndroidDriverStation.h"
 
 AndroidDriverStation::AndroidDriverStation(UINT32 port)
-	: GenericController(port) {
+	: GenericController(1) {
 		init();
 	}
 
@@ -10,21 +10,28 @@ AndroidDriverStation::AndroidDriverStation(
 		UINT32 numAxisTypes,
 		UINT32 numButtonTypes
 	): GenericController(
-		port,
+		1,
 		numAxisTypes,
 		numButtonTypes
 	) {
 		init();
 	}
 
+AndroidDriverStation::~AndroidDriverStation()
+{
+	delete secondJoystick;
+}
+
 void AndroidDriverStation::init()
 {
 	axes = {
 		{"LeftX", 1},
 		{"LeftY", 2},
-		{"RightX", 3},
-		{"RightY", 4}
+		{"RightX", 1},
+		{"RightY", 2}
 	};
+
+	secondJoystickAxes = {"RightX", "RightY"};
 
 	buttons = {
 		{"RightNE", 1},
@@ -38,4 +45,21 @@ void AndroidDriverStation::init()
 	};
 
 	invertedAxes = {axes["LeftY"], axes["RightY"]};
+
+	secondJoystick = new Joystick(2);
+}
+
+float AndroidDriverStation::GetAxis(std::string axis)
+{
+	if (secondJoystickAxes.count(axis) == 0)
+	{
+		return GenericController::GetAxis(axes[axis]);
+	}
+
+	if (isInverted(axes[axis]))
+	{
+		return -1 * secondJoystick->GetRawAxis(axes[axis]);
+	}
+
+	return secondJoystick->GetRawAxis(axes[axis]);
 }

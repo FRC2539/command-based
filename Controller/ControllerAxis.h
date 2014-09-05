@@ -7,17 +7,19 @@ class GenericController;
 class ControllerAxis
 {
 public:
-	ControllerAxis(GenericController* control, std::string axis);
+	ControllerAxis(GenericController* control, std::string axisName);
 	virtual ~ControllerAxis();
 	
 	virtual void setModifier(float mod);
+	virtual void makeThrottle();
 
 	virtual float getValue();
 
 protected:
 	GenericController* controller;
-	UINT32 axisNumber;
+	std::string axis;
 	float modifier;
+	bool throttle;
 };
 
 #endif

@@ -1,5 +1,4 @@
 #include "GenericController.h"
-#include <iostream>
 
 GenericController::GenericController(UINT32 port) : Joystick(port){}
 
@@ -19,11 +18,8 @@ float GenericController::GetAxis(UINT32 axis)
 	{
 		return -1 * Joystick::GetRawAxis(axis);
 	}
-	else
-	{
-		return Joystick::GetRawAxis(axis);
-	}
-	return GetRawAxis(axis);
+
+	return Joystick::GetRawAxis(axis);
 }
 
 float GenericController::GetX()

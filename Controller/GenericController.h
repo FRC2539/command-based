@@ -7,7 +7,6 @@
 
 class GenericController : public Joystick {
 
-	friend class ControllerAxis;
 	friend class ControllerButton;
 
 public:
