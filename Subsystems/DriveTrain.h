@@ -14,8 +14,7 @@ public:
 	virtual ~DriveTrain();
 	void InitDefaultCommand();
 
-	void move(std::vector<float> inputs);
-	void preciseMove(std::vector<float> inputs);
+	void move(float yValue, float rotateValue);
 	void directDrive(float yValue, float rotateValue, bool squareInputs=false);
 
 	float limitAcceleration(float current, float next);

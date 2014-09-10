@@ -7,6 +7,9 @@ ArcadeDriveCommand::ArcadeDriveCommand() : DefaultCommand("ArcadeDrive")
 
 void ArcadeDriveCommand::Execute()
 {
-	drivetrain->move(oi->getAxes("TwoAxisDrive"));
+	drivetrain->move(
+		oi->getAxisValue("DriveAxisY"),
+		oi->getAxisValue("DriveAxisRotate")
+	);
 }
 

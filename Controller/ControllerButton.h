@@ -7,12 +7,12 @@
 class ControllerButton : public JoystickButton
 {
 public:
-	ControllerButton(GenericController* controller, std::string button);
+	ControllerButton(GenericController* controller, const char* button);
 
 private:
 	static int getButtonNumber(
 		GenericController* controller,
-		std::string button
+		const char* button
 	);
 };
 #endif

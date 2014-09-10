@@ -1,7 +1,6 @@
 #ifndef OI_H
 #define OI_H
 
-#include <string>
 #include <unordered_map>
 #include <vector>
 
@@ -15,12 +14,12 @@ public:
 	OI();
 	~OI();
 
-	std::vector<float> getAxes(std::string system);
+	float getAxisValue(const char* axisName);
 
 protected:
 	std::unordered_map<int, GenericController*> controllers;
 	std::vector<ControllerButton*> buttons;
-	std::unordered_map<std::string, std::vector<ControllerAxis*>> axes;
+	std::unordered_map<const char*, ControllerAxis*> axes;
 };
 
 #endif

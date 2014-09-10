@@ -21,12 +21,11 @@ public:
 	AndroidDriverStation(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
     virtual ~AndroidDriverStation();
 
-	virtual float GetAxis(std::string axis);
+	virtual float GetAxis(const char* axis);
 
 protected:
 	virtual void init();
 	Joystick* secondJoystick;
-	std::unordered_set<std::string> secondJoystickAxes;
 };
 
 #endif

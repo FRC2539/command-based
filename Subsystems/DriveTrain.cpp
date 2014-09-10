@@ -9,8 +9,6 @@
 
 #include "../Commands/ArcadeDriveCommand.h"
 
-#include <iostream>
-
 DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	currentY(0),
 	currentRotate(0)
@@ -81,28 +79,12 @@ float DriveTrain::limitAcceleration(float current, float next)
 	}
 }
 
-void DriveTrain::move(std::vector<float> values) {
-	currentY = limitAcceleration(currentY, values[0]);
-	currentRotate = limitAcceleration(currentRotate, values[1]);
+void DriveTrain::move(float yValue, float rotate) {
+	currentY = limitAcceleration(currentY, yValue);
+	currentRotate = limitAcceleration(currentRotate, rotate);
 
 	directDrive(currentY, currentRotate, true);
 
-}
-
-void DriveTrain::preciseMove(std::vector<float> values) {
-	currentY = (values[0] * values[0]) * MAX_Y_PRECISE_SPEED;
-	currentRotate = (values[1] * values[1]) * MAX_ROTATE_PRECISE_SPEED;
-
-	if (values[0] < 0)
-	{
-		currentY *= -1;
-	}
-	if (values[1] < 0)
-	{
-		currentRotate *= -1;
-	}
-
-	directDrive(currentY, currentRotate);
 }
 
 void DriveTrain::directDrive(float yValue, float rotateValue, bool squareInputs)

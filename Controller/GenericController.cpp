@@ -52,14 +52,12 @@ bool GenericController::isInverted(UINT32 axis)
 	return (invertedAxes.count(axis) == 1);
 }
 
-float GenericController::GetAxis(std::string axis)
+float GenericController::GetAxis(const char* axis)
 {
 	return GetAxis(axes[axis]); 
 }
 
-float GenericController::GetButton(std::string button)
+float GenericController::GetButton(const char* button)
 {
 	return GetRawButton(buttons[button]);
 }
-
-

@@ -2,7 +2,7 @@
 
 ControllerButton::ControllerButton(
 		GenericController* controller,
-		std::string button
+		const char* button
 	)
 	: JoystickButton(
 		controller,
@@ -11,7 +11,7 @@ ControllerButton::ControllerButton(
 
 int ControllerButton::getButtonNumber(
 		GenericController* controller,
-		std::string button
+		const char* button
 	)
 {
 	return controller->buttons[button];

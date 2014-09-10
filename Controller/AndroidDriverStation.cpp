@@ -27,11 +27,9 @@ void AndroidDriverStation::init()
 	axes = {
 		{"LeftX", 1},
 		{"LeftY", 2},
-		{"RightX", 1},
-		{"RightY", 2}
+		{"RightX", 3},
+		{"RightY", 4}
 	};
-
-	secondJoystickAxes = {"RightX", "RightY"};
 
 	buttons = {
 		{"RightNE", 1},
@@ -49,17 +47,19 @@ void AndroidDriverStation::init()
 	secondJoystick = new Joystick(2);
 }
 
-float AndroidDriverStation::GetAxis(std::string axis)
+float AndroidDriverStation::GetAxis(const char* axis)
 {
-	if (secondJoystickAxes.count(axis) == 0)
+	if (axes[axis] <= 2)
 	{
 		return GenericController::GetAxis(axes[axis]);
 	}
 
+	UINT32 axisNumber = axes[axis] - 2;
+
 	if (isInverted(axes[axis]))
 	{
-		return -1 * secondJoystick->GetRawAxis(axes[axis]);
+		return -1 * secondJoystick->GetRawAxis(axisNumber);
 	}
 
-	return secondJoystick->GetRawAxis(axes[axis]);
+	return secondJoystick->GetRawAxis(axisNumber);
 }

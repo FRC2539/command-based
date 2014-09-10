@@ -7,6 +7,7 @@
 
 class GenericController : public Joystick {
 
+	friend class ControllerAxis;
 	friend class ControllerButton;
 
 public:
@@ -20,13 +21,13 @@ public:
 	virtual float GetTwist();
 	virtual float GetThrottle();
 	float GetAxis(UINT32 axis);
-	virtual float GetAxis(std::string axis);
-	virtual float GetButton(std::string button);
+	virtual float GetAxis(const char* axis);
+	virtual float GetButton(const char* button);
 
 protected:
 	virtual bool isInverted(UINT32 axis);
-	std::unordered_map<std::string, int> axes;
-	std::unordered_map<std::string, int> buttons;
+	std::unordered_map<const char*, int> axes;
+	std::unordered_map<const char*, int> buttons;
 	std::unordered_set<int> invertedAxes;
 };
 

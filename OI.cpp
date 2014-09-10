@@ -8,6 +8,8 @@
 #include "Controller/LogitechDualShockController.h"
 #include "Controller/AndroidDriverStation.h"
 
+#include "ControllerLayouts/ControllerLayoutMacros.h"
+
 #include "Commands/Types/ToggleCommand.h"
 
 // Available Commands for ControllerMap
@@ -16,7 +18,6 @@
 
 OI::OI()
 {
-	ControllerAxis* lastAxis;
 	Command* lastCommand;
 
 	#include "ControllerMap.h"
@@ -29,12 +30,9 @@ OI::~OI()
 		delete button;
 	}
 
-	for (auto values : axes)
+	for (auto axis : axes)
 	{
-		for (auto axis : values.second)
-		{
-			delete axis;
-		}
+		delete axis.second;
 	}
 
 	for (auto controller : controllers)
@@ -43,15 +41,12 @@ OI::~OI()
 	}
 }
 
-std::vector<float> OI::getAxes(std::string system)
+float OI::getAxisValue(const char* axisName)
 {
-	std::vector<float> values;
-
-	for (auto axis : axes[system])
+	if (axes.count(axisName) == 0)
 	{
-		values.push_back(axis->getValue());
+		return 0;
 	}
-
-	return values;
+	return axes[axisName]->getValue();
 }
 

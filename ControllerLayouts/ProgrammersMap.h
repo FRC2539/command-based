@@ -6,8 +6,8 @@
 ADD_CONTROLLER(LogitechDualShockController, 1)
 
 // Define Axes in the form: System Name, Controller Port #, Axis Name
-ADD_AXIS(TwoAxisDrive, 1, LeftY)
-ADD_AXIS(TwoAxisDrive, 1, RightX)
+ADD_AXIS(1, LeftY, DriveAxisY)
+ADD_AXIS(1, RightX, DriveAxisRotate)
 
 // Assign commands to buttons with the form:
 //	   Controller Port #, Button Name, Event, Command

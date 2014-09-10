@@ -2,22 +2,22 @@
 #define CONTROLLER_AXIS_H
 
 class GenericController;
-#include <string>
 
 class ControllerAxis
 {
 public:
-	ControllerAxis(GenericController* control, std::string axisName);
+	ControllerAxis(GenericController* control, const char* axisName);
 	virtual ~ControllerAxis();
 	
 	virtual void setModifier(float mod);
+	virtual void invertAxis();
 	virtual void makeThrottle();
 
 	virtual float getValue();
 
 protected:
 	GenericController* controller;
-	std::string axis;
+	const char* axis;
 	float modifier;
 	bool throttle;
 };
