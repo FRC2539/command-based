@@ -24,8 +24,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	#endif
 	#ifdef RIGHT_DRIVE_MOTOR_PORT
 	drive = new SelfCleaningDrive(
-		new Talon(LEFT_DRIVE_MOTOR_PORT),
-		new Talon(RIGHT_DRIVE_MOTOR_PORT)
+		new Talon(RIGHT_DRIVE_MOTOR_PORT),
+		new Talon(LEFT_DRIVE_MOTOR_PORT)
 	);
 	#endif
 
@@ -89,8 +89,6 @@ void DriveTrain::move(float yValue, float rotate) {
 
 void DriveTrain::directDrive(float yValue, float rotateValue, bool squareInputs)
 {
-	// For some reason, we need to invert rotateValue
-	// We really ought to investigate why that is...
-	drive->ArcadeDrive(-yValue, -rotateValue, squareInputs);
+	drive->ArcadeDrive(-yValue, rotateValue, squareInputs);
 }
 
