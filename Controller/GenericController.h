@@ -12,23 +12,35 @@ class GenericController : public Joystick {
 
 public:
 	
-	explicit GenericController(UINT32 port);
-	GenericController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+	explicit GenericController(uint32_t port);
+	GenericController(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
 
 	virtual float GetX();
 	virtual float GetY();
 	virtual float GetZ();
 	virtual float GetTwist();
 	virtual float GetThrottle();
-	float GetAxis(UINT32 axis);
-	virtual float GetAxis(const char* axis);
-	virtual float GetButton(const char* button);
+	virtual float GetAxisValue(uint32_t axis);
+	virtual bool IsButtonPressed(unsigned int button);
 
 protected:
-	virtual bool isInverted(UINT32 axis);
-	std::unordered_map<const char*, int> axes;
-	std::unordered_map<const char*, int> buttons;
+	virtual bool isInverted(uint32_t axis);
 	std::unordered_set<int> invertedAxes;
+	virtual void init() = 0;
 };
+
+#define CONTROLLER_SETUP(name)\
+	name::name(uint32_t port)\
+		: GenericController(port) { init(); }\
+	\
+	name::name(\
+		uint32_t port,\
+		uint32_t numAxisTypes,\
+		uint32_t numButtonTypes\
+	): GenericController(\
+		port,\
+		numAxisTypes,\
+		numButtonTypes\
+	){ init(); }
 
 #endif

@@ -11,16 +11,40 @@
  */
 class LogitechDualShockController : public GenericController {
 public:
-	static const UINT32 kDefaultXAxis = 1;
-	static const UINT32 kDefaultYAxis = 2;
-	static const UINT32 kDefaultZAxis = 4;
-	static const UINT32 kDefaultTwistAxis = 3;
-	static const UINT32 kDefaultThrottleAxis = 5;
-	static const UINT32 kDefaultTriggerButton = 1;
-	static const UINT32 kDefaultTopButton = 4;
+	static const uint32_t kDefaultXAxis = 1;
+	static const uint32_t kDefaultYAxis = 2;
+	static const uint32_t kDefaultZAxis = 4;
+	static const uint32_t kDefaultTwistAxis = 3;
+	static const uint32_t kDefaultThrottleAxis = 5;
+	static const uint32_t kDefaultTriggerButton = 1;
+	static const uint32_t kDefaultTopButton = 4;
 	
-	explicit LogitechDualShockController(UINT32 port);
-	LogitechDualShockController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+	explicit LogitechDualShockController(uint32_t port);
+	LogitechDualShockController(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
+
+	enum Axis{
+		LeftX = 1,
+		LeftY = 2,
+		RightX = 3,
+		RightY = 4,
+		DPadX = 5,
+		DPadY = 6
+	};
+
+	enum Buttons{
+		A = 2,
+		B = 3,
+		X = 1,
+		Y = 4,
+		LeftBumper = 5,
+		RightBumper = 6,
+		LeftTrigger = 7,
+		RightTrigger = 8,
+		Back = 9,
+		Start = 10,
+		LeftJoystick = 11,
+		RightJoystick = 12
+	};
 
 protected:
 	virtual void init();

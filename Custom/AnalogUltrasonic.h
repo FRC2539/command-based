@@ -7,8 +7,8 @@ class AnalogUltrasonic: public AnalogChannel {
 
 public:
 
-	AnalogUltrasonic(UINT8 moduleNumber, UINT32 channel);
-	AnalogUltrasonic(UINT32 channel);
+	AnalogUltrasonic(uint8_t moduleNumber, uint32_t channel);
+	AnalogUltrasonic(uint32_t channel);
 
 	virtual ~AnalogUltrasonic();
 

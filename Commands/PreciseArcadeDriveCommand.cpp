@@ -10,8 +10,8 @@ PreciseArcadeDriveCommand::PreciseArcadeDriveCommand()
 
 void PreciseArcadeDriveCommand::Execute()
 {
-	float originalY = oi->getAxisValue("DriveAxisY");
-	float originalRotate = oi->getAxisValue("DriveAxisRotate");
+	float originalY = oi->getAxisValue(DRIVE_AXIS_Y);
+	float originalRotate = oi->getAxisValue(DRIVE_AXIS_ROTATE);
 
 	float newY = originalY * originalY * PRECISE_MODE_MAX_Y;
 	float newRotate = originalRotate * originalRotate * PRECISE_MODE_MAX_ROTATE;

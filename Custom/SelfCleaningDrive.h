@@ -11,12 +11,12 @@ class SpeedController;
  */
 class SelfCleaningDrive: public RobotDrive {
 public:
-	SelfCleaningDrive(UINT32 leftMotorChannel, UINT32 rightMotorChannel);
+	SelfCleaningDrive(uint32_t leftMotorChannel, uint32_t rightMotorChannel);
 	SelfCleaningDrive(
-		UINT32 frontLeftMotorChannel,
-		UINT32 rearLeftMotorChannel,
-		UINT32 frontRightMotorChannel,
-		UINT32 rearRightMotorChannel
+		uint32_t frontLeftMotorChannel,
+		uint32_t rearLeftMotorChannel,
+		uint32_t frontRightMotorChannel,
+		uint32_t rearRightMotorChannel
 	);
 	SelfCleaningDrive(SpeedController *leftMotor, SpeedController *rightMotor);
 	SelfCleaningDrive(SpeedController &leftMotor, SpeedController &rightMotor);

@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "Controller/LogicalAxes.h"
+
 class ControllerAxis;
 class ControllerButton;
 class JoystickButton;
@@ -14,12 +16,12 @@ public:
 	OI();
 	~OI();
 
-	float getAxisValue(const char* axisName);
+	float getAxisValue(const int axis);
 
 protected:
-	std::unordered_map<int, GenericController*> controllers;
+	GenericController* controllers[5]; // arbitrary choice of 4 controllers max
 	std::vector<ControllerButton*> buttons;
-	std::unordered_map<const char*, ControllerAxis*> axes;
+	ControllerAxis* axes[TOTAL_LOGICAL_AXES];
 };
 
 #endif

@@ -5,16 +5,36 @@
 
 class LogitechAttack3Joystick : public GenericController {
 public:
-	static const UINT32 kDefaultXAxis = 1;
-	static const UINT32 kDefaultYAxis = 2;
-	static const UINT32 kDefaultZAxis = 0;
-	static const UINT32 kDefaultTwistAxis = 0;
-	static const UINT32 kDefaultThrottleAxis = 3;
-	static const UINT32 kDefaultTriggerButton = 1;
-	static const UINT32 kDefaultTopButton = 2;
+	static const uint32_t kDefaultXAxis = 1;
+	static const uint32_t kDefaultYAxis = 2;
+	static const uint32_t kDefaultZAxis = 0;
+	static const uint32_t kDefaultTwistAxis = 0;
+	static const uint32_t kDefaultThrottleAxis = 3;
+	static const uint32_t kDefaultTriggerButton = 1;
+	static const uint32_t kDefaultTopButton = 3;
 
-	explicit LogitechAttack3Joystick(UINT32 port);
-	LogitechAttack3Joystick(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+	explicit LogitechAttack3Joystick(uint32_t port);
+	LogitechAttack3Joystick(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
+
+	enum Axes{
+		X = 1,
+		Y = 2,
+		Throttle = 3
+	};
+
+	enum Buttons{
+		Trigger = 1,
+		TopFront = 3,
+		TopLeft = 4,
+		TopRight = 5,
+		TopBack = 2,
+		LeftFront = 6,
+		LeftBack = 7,
+		BackLeft = 8,
+		BackRight = 9,
+		RightFront = 11,
+		RightBack = 10
+	};
 	
 protected:
 	virtual void init();

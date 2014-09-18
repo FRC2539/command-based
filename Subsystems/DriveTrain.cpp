@@ -84,7 +84,6 @@ void DriveTrain::move(float yValue, float rotate) {
 	currentRotate = limitAcceleration(currentRotate, rotate);
 
 	directDrive(currentY, currentRotate, true);
-
 }
 
 void DriveTrain::directDrive(float yValue, float rotateValue, bool squareInputs)

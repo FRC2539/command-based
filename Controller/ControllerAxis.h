@@ -2,11 +2,12 @@
 #define CONTROLLER_AXIS_H
 
 class GenericController;
+#include <cstdint>
 
 class ControllerAxis
 {
 public:
-	ControllerAxis(GenericController* control, const char* axisName);
+	ControllerAxis(GenericController* control, uint32_t axisEnum);
 	virtual ~ControllerAxis();
 	
 	virtual void setModifier(float mod);
@@ -17,7 +18,7 @@ public:
 
 protected:
 	GenericController* controller;
-	const char* axis;
+	uint32_t axis;
 	float modifier;
 	bool throttle;
 };

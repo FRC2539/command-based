@@ -7,12 +7,6 @@
 class ControllerButton : public JoystickButton
 {
 public:
-	ControllerButton(GenericController* controller, const char* button);
-
-private:
-	static int getButtonNumber(
-		GenericController* controller,
-		const char* button
-	);
+	ControllerButton(GenericController* controller, int button);
 };
 #endif

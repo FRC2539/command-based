@@ -28,18 +28,18 @@ SelfCleaningDrive::SelfCleaningDrive(
 
 // The rest of these don't do anything.
 SelfCleaningDrive::SelfCleaningDrive(
-		UINT32 leftMotorChannel,
-		UINT32 rightMotorChannel
+		uint32_t leftMotorChannel,
+		uint32_t rightMotorChannel
 	) : RobotDrive(
 		leftMotorChannel,
 		rightMotorChannel
 	) {}
 
 SelfCleaningDrive::SelfCleaningDrive(
-		UINT32 frontLeftMotorChannel,
-		UINT32 rearLeftMotorChannel,
-		UINT32 frontRightMotorChannel,
-		UINT32 rearRightMotorChannel
+		uint32_t frontLeftMotorChannel,
+		uint32_t rearLeftMotorChannel,
+		uint32_t frontRightMotorChannel,
+		uint32_t rearRightMotorChannel
 	) : RobotDrive(
 		frontLeftMotorChannel,
 		rearLeftMotorChannel,

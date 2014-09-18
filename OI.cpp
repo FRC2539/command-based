@@ -1,6 +1,7 @@
 #include "OI.h"
 
 #include "Controller/ControllerAxis.h"
+#include "Controller/DummyControllerAxis.h"
 #include "Controller/ControllerButton.h"
 
 #include "Controller/LogitechAttack3Joystick.h"
@@ -18,6 +19,11 @@
 
 OI::OI()
 {
+	for (int i = 0; i < TOTAL_LOGICAL_AXES; i++)
+	{
+		axes[i] = new DummyControllerAxis();
+	}
+
 	Command* lastCommand;
 
 	#include "ControllerMap.h"
@@ -32,21 +38,17 @@ OI::~OI()
 
 	for (auto axis : axes)
 	{
-		delete axis.second;
+		delete axis;
 	}
 
 	for (auto controller : controllers)
 	{
-		delete controller.second;
+		delete controller;
 	}
 }
 
-float OI::getAxisValue(const char* axisName)
+float OI::getAxisValue(const int axis)
 {
-	if (axes.count(axisName) == 0)
-	{
-		return 0;
-	}
-	return axes[axisName]->getValue();
+	return axes[axis]->getValue();
 }
 

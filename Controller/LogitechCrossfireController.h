@@ -5,21 +5,45 @@
 
 /*
  * This is the Logitech Gamepad with underside switch set to "X"
- * When Mode is off: the left joytick Y axis is axis 2
+ * When Mode is off: the left joystick Y axis is axis 2
  * When Mode is on: the D-Pad Y axis is axis 2
  */
 class LogitechCrossfireController : public GenericController {
 public:
-	static const UINT32 kDefaultXAxis = 1;
-	static const UINT32 kDefaultYAxis = 2;
-	static const UINT32 kDefaultZAxis = 5;
-	static const UINT32 kDefaultTwistAxis = 4;
-	static const UINT32 kDefaultThrottleAxis = 3;
-	static const UINT32 kDefaultTriggerButton = 3;
-	static const UINT32 kDefaultTopButton = 4;
+	static const uint32_t kDefaultXAxis = 1;
+	static const uint32_t kDefaultYAxis = 2;
+	static const uint32_t kDefaultZAxis = 5;
+	static const uint32_t kDefaultTwistAxis = 4;
+	static const uint32_t kDefaultThrottleAxis = 3;
+	static const uint32_t kDefaultTriggerButton = 3;
+	static const uint32_t kDefaultTopButton = 4;
 	
-	explicit LogitechCrossfireController(UINT32 port);
-	LogitechCrossfireController(UINT32 port, UINT32 numAxisTypes, UINT32 numButtonTypes);
+	explicit LogitechCrossfireController(uint32_t port);
+	LogitechCrossfireController(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
+
+	enum Axes{
+		LeftX = 1,
+		LeftY = 2,
+		RightX = 4,
+		RightY = 5,
+		LeftTrigger = 3,
+		RightTrigger = 3,
+		DPadX = 6,
+		DPadY = 2
+	};
+
+	enum Buttons{
+		A = 1,
+		B = 2,
+		X = 3,
+		Y = 4,
+		LeftBumper = 5,
+		RightBumper = 6,
+		Back = 7,
+		Start = 8,
+		LeftJoystick = 9,
+		RightJoystick = 10
+	};
 
 protected:
 	virtual void init();
