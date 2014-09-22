@@ -8,6 +8,9 @@ class PreciseArcadeDriveCommand : public DefaultCommand {
 public:
 	PreciseArcadeDriveCommand();
 	void Execute();
+
+protected:
+	float scaleAxis(const unsigned int axis, float max);
 };
 
 #endif

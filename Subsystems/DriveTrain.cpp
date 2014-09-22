@@ -13,38 +13,22 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	currentY(0),
 	currentRotate(0)
 {
-
-	#ifdef FRONT_RIGHT_DRIVE_MOTOR_PORT
 	drive = new SelfCleaningDrive(
-		new Talon(FRONT_LEFT_DRIVE_MOTOR_PORT),
-		new Talon(BACK_LEFT_DRIVE_MOTOR_PORT),
-		new Talon(FRONT_RIGHT_DRIVE_MOTOR_PORT),
-		new Talon(BACK_RIGHT_DRIVE_MOTOR_PORT)
+		new Talon(RobotMap::DriveBase::rightMotorsPort),
+		new Talon(RobotMap::DriveBase::leftMotorsPort)
 	);
-	#endif
-	#ifdef RIGHT_DRIVE_MOTOR_PORT
-	drive = new SelfCleaningDrive(
-		new Talon(RIGHT_DRIVE_MOTOR_PORT),
-		new Talon(LEFT_DRIVE_MOTOR_PORT)
-	);
-	#endif
 
 	drive->SetSafetyEnabled(false);
 
-	gyro = new Gyro(GYRO_MODULE, GYRO_PORT);
+	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 
 	leftEncoder = new Encoder(
-		ENCODER_MODULE,
-		LEFT_ENCODER_A_PORT,
-		ENCODER_MODULE,
-		LEFT_ENCODER_B_PORT
+		RobotMap::DriveBase::leftEncoderPortA,
+		RobotMap::DriveBase::leftEncoderPortB
 	);
 	rightEncoder = new Encoder(
-		ENCODER_MODULE,
-		RIGHT_ENCODER_A_PORT,
-		ENCODER_MODULE,
-		RIGHT_ENCODER_B_PORT
-
+		RobotMap::DriveBase::rightEncoderPortA,
+		RobotMap::DriveBase::rightEncoderPortB
 	);
 	leftEncoder->SetDistancePerPulse(.053333333);
 	rightEncoder->SetDistancePerPulse(.053333333);
@@ -65,13 +49,13 @@ void DriveTrain::InitDefaultCommand() {
 
 float DriveTrain::limitAcceleration(float current, float next)
 {
-	if (next > current + ACCELERATION_FACTOR)
+	if (next > current + RobotMap::DriveBase::accelerationFactor)
 	{
-		return (current + ACCELERATION_FACTOR);
+		return (current + RobotMap::DriveBase::accelerationFactor);
 	}
-	else if (next < current - ACCELERATION_FACTOR)
+	else if (next < current - RobotMap::DriveBase::accelerationFactor)
 	{
-		return (current - ACCELERATION_FACTOR);
+		return (current - RobotMap::DriveBase::accelerationFactor);
 	}
 	else
 	{

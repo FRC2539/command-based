@@ -21,7 +21,7 @@ public:
 protected:
 	GenericController* controllers[5]; // arbitrary choice of 4 controllers max
 	std::vector<ControllerButton*> buttons;
-	ControllerAxis* axes[TOTAL_LOGICAL_AXES];
+	ControllerAxis* axes[logicalAxes::NumOfAxes];
 };
 
 #endif

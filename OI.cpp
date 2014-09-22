@@ -19,7 +19,7 @@
 
 OI::OI()
 {
-	for (int i = 0; i < TOTAL_LOGICAL_AXES; i++)
+	for (int i = 0; i < logicalAxes::NumOfAxes; i++)
 	{
 		axes[i] = new DummyControllerAxis();
 	}

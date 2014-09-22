@@ -28,7 +28,7 @@ CommandBase::~CommandBase() {
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
-#ifdef COMPRESSOR_PORT
+#ifdef ENABLE_AIR_COMPRESSOR
 	aircompressor = new AirCompressor();
 #endif
 	oi = new OI();

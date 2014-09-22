@@ -7,30 +7,30 @@
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
- 
-// Controls Drive Base Configuration
-//#define FRONT_LEFT_DRIVE_MOTOR_PORT 2
-//#define FRONT_RIGHT_DRIVE_MOTOR_PORT 1
-//#define BACK_LEFT_DRIVE_MOTOR_PORT 4
-//#define BACK_RIGHT_DRIVE_MOTOR_PORT 3
-#define LEFT_DRIVE_MOTOR_PORT 2
-#define RIGHT_DRIVE_MOTOR_PORT 1
 
-#define GYRO_MODULE 1
-#define GYRO_PORT 1
+//#define ENABLE_AIR_COMPRESSOR
 
-#define ENCODER_MODULE 1
-#define LEFT_ENCODER_A_PORT 1
-#define LEFT_ENCODER_B_PORT 2
-#define RIGHT_ENCODER_A_PORT 3
-#define RIGHT_ENCODER_B_PORT 4
+namespace RobotMap {
+	namespace DriveBase {
+		const unsigned int leftMotorsPort = 2;
+		const unsigned int rightMotorsPort = 1;
 
-#define ACCELERATION_FACTOR 0.0485
-#define PRECISE_MODE_MAX_Y 0.45
-#define PRECISE_MODE_MAX_ROTATE 0.45
+		const unsigned int gyroPort = 1;
 
-//Compressor
-#define COMPRESSOR_PORT 1
-#define PRESSURE_SWITCH_PORT 5
+		const unsigned int leftEncoderPortA = 1;
+		const unsigned int leftEncoderPortB = 2;
+		const unsigned int rightEncoderPortA = 3;
+		const unsigned int rightEncoderPortB = 4;
+
+		const double accelerationFactor = 0.0085;
+		const double preciseModeMaxY = 0.45;
+		const double preciseModeMaxRotate = 0.45;
+	}
+
+	namespace Pneumatics {
+		const unsigned int airCompressorPort = 1;
+		const unsigned int pressureSwitchPort = 5;
+	}
+}
 
 #endif

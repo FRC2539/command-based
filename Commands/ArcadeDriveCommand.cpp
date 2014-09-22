@@ -8,8 +8,8 @@ ArcadeDriveCommand::ArcadeDriveCommand() : DefaultCommand("ArcadeDrive")
 void ArcadeDriveCommand::Execute()
 {
 	drivetrain->move(
-		oi->getAxisValue(DRIVE_AXIS_Y),
-		oi->getAxisValue(DRIVE_AXIS_ROTATE)
+		oi->getAxisValue(logicalAxes::DriveY),
+		oi->getAxisValue(logicalAxes::DriveRotate)
 	);
 }
 

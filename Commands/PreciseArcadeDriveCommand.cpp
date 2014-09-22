@@ -10,20 +10,26 @@ PreciseArcadeDriveCommand::PreciseArcadeDriveCommand()
 
 void PreciseArcadeDriveCommand::Execute()
 {
-	float originalY = oi->getAxisValue(DRIVE_AXIS_Y);
-	float originalRotate = oi->getAxisValue(DRIVE_AXIS_ROTATE);
+	drivetrain->directDrive(
+		scaleAxis(
+			logicalAxes::DriveY,
+			RobotMap::DriveBase::preciseModeMaxY
+		),
+		scaleAxis(
+			logicalAxes::DriveRotate,
+			RobotMap::DriveBase::preciseModeMaxRotate
+		)
+	);
+}
 
-	float newY = originalY * originalY * PRECISE_MODE_MAX_Y;
-	float newRotate = originalRotate * originalRotate * PRECISE_MODE_MAX_ROTATE;
-
-	if (originalY < 0)
+float PreciseArcadeDriveCommand::scaleAxis(const unsigned int axis, float max)
+{
+	float val = oi->getAxisValue(axis);
+	float newVal = val * val * max;
+	if (val < 0)
 	{
-		newY *= -1;
-	}
-	if (originalRotate < 0)
-	{
-		newRotate *= -1;
+		newVal *= -1;
 	}
 
-	drivetrain->directDrive(newY, newRotate);
+	return newVal;
 }
