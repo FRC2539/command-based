@@ -31,6 +31,10 @@ namespace RobotMap {
 		const unsigned int airCompressorPort = 1;
 		const unsigned int pressureSwitchPort = 5;
 	}
+
+	namespace PickUpArm {
+		const unsigned int wheelMotorPort = 3;
+	}
 }
 
 #endif

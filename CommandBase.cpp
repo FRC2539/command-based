@@ -24,10 +24,16 @@ CommandBase::~CommandBase() {
 	{
 		delete aircompressor;
 	}
+
+	if (pickuparm != NULL)
+	{
+		delete  pickuparm;
+	}
 }
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
+	pickuparm = new PickUpArm();
 #ifdef ENABLE_AIR_COMPRESSOR
 	aircompressor = new AirCompressor();
 #endif
@@ -41,3 +47,4 @@ void CommandBase::init() {
 DriveTrain* CommandBase::drivetrain = NULL;
 OI* CommandBase::oi = NULL;
 AirCompressor* CommandBase::aircompressor = NULL;
+PickUpArm* CommandBase::pickuparm = NULL;

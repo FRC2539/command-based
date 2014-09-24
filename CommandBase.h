@@ -6,6 +6,7 @@
 #include "Subsystems/DriveTrain.h"
 #include "OI.h"
 #include "Subsystems/AirCompressor.h"
+#include "Subsystems/PickUpArm.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -25,6 +26,7 @@ public:
 	static DriveTrain *drivetrain;
 	static OI *oi;
 	static AirCompressor* aircompressor;
+	static PickUpArm* pickuparm;
 };
 
 #endif
