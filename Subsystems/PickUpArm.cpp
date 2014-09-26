@@ -6,8 +6,8 @@
 
 PickUpArm::PickUpArm() : Subsystem("PickUpArm")
 {
-	pickupWheelsMotor = new Victor(RobotMap::PickUpArm::wheelMotorPort);
-	ballSensor = new DigitalInput(RobotMap::PickUpArm::hasBallSensorPort);
+	pickupWheelsMotor = new Victor(RobotMap::PickUpArm::wheelsMotorPort);
+	ballSensor = new DigitalInput(RobotMap::PickUpArm::ballSensorPort);
 }
 
 

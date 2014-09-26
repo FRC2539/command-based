@@ -18,6 +18,8 @@ class ConditionalCommand : public DefaultCommand {
 public:
 	ConditionalCommand(const char* name);
 	ConditionalCommand();
+	virtual ~ConditionalCommand();
+
 	void Initialize();
 	bool IsFinished();
 	void Interrupted();

@@ -2,10 +2,9 @@
 #define ROBOTMAP_H
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * The RobotMap is where we store constants, the most common of which are port
+ * numbers. This provides flexibility, makes checking the wiring easier, and
+ * significantly reduces the number of magic numbers floating around.
  */
 
 //#define ENABLE_AIR_COMPRESSOR
@@ -33,8 +32,9 @@ namespace RobotMap {
 	}
 
 	namespace PickUpArm {
-		const unsigned int wheelMotorPort = 3;
-		const unsigned int hasBallSensorPort = 1; 
+		const unsigned int wheelsMotorPort = 3;
+		const unsigned int ballSensorPort = 1;
+
 		const double pickUpSpeed = 0.5; 
 	}
 }
