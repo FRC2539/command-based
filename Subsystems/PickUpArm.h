@@ -4,6 +4,7 @@
 #include "Commands/Subsystem.h"
 
 class Victor;
+class DigitalInput; 
 
 class PickUpArm: public Subsystem {
 public:
@@ -11,9 +12,11 @@ public:
 	virtual ~PickUpArm();
 
 	void setWheelSpeed(const float speed);
+	bool hasBall(); 
 
 protected:
 	Victor* pickupWheelsMotor;
+	DigitalInput* ballSensor; 
 };
 
 #endif

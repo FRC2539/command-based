@@ -16,6 +16,7 @@
 // Available Commands for ControllerMap
 #include "Commands/PreciseArcadeDriveCommand.h"
 #include "Commands/ResetCommand.h"
+#include "Commands/SafeBallPickUpCommand.h"
 
 OI::OI()
 {

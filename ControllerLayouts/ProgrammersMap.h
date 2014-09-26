@@ -13,3 +13,4 @@ ADD_AXIS(1, RightX, logicalAxes::DriveRotate)
 //	   Controller Port #, Button Name, Event, Command
 ADD_BUTTON(1, LeftJoystick, WhenPressed, new ToggleCommand(new PreciseArcadeDriveCommand()))
 ADD_SIMPLE_BUTTON(1, Back, Reset)
+ADD_SIMPLE_BUTTON(1, A, SafeBallPickUp)
