@@ -17,10 +17,11 @@
 #include "Commands/PreciseArcadeDriveCommand.h"
 #include "Commands/ResetCommand.h"
 #include "Commands/SafePickUpBallCommand.h"
+#include "Commands/SafePassBallCommand.h" 
 
 OI::OI()
 {
-	for (int i = 0; i < logicalAxes::NumOfAxes; i++)
+	for (int i = 0; i < logicalAxes::NumOfAxes; i++) 
 	{
 		axes[i] = new DummyControllerAxis();
 	}
