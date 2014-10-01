@@ -1,9 +1,7 @@
 #include "AirCompressor.h"
 
-#include "Compressor.h"
-
+#include <Compressor.h>
 #include "../Commands/StartCompressorCommand.h"
-
 #include "../RobotMap.h"
 
 AirCompressor::AirCompressor() : Subsystem("AirCompressor")
@@ -12,6 +10,8 @@ AirCompressor::AirCompressor() : Subsystem("AirCompressor")
 		RobotMap::Pneumatics::pressureSwitchPort,
 		RobotMap::Pneumatics::airCompressorPort
 	);
+
+	DEBUG_SENSOR(compressor)
 }
 
 AirCompressor::~AirCompressor()

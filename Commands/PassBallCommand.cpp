@@ -9,15 +9,29 @@ PassBallCommand::PassBallCommand() : DefaultCommand("PassBall")
 
 void PassBallCommand::Initialize()
 {
+	ballReleased = false;
 	pickuparm->setWheelSpeed(-RobotMap::PickUpArm::pickUpSpeed);
 }
 
 bool PassBallCommand::IsFinished()
 {
-    return !pickuparm->hasBall();
+	if (ballReleased == false)
+	{
+		if (!pickuparm->hasBall())
+		{
+			SetTimeout(
+				TimeSinceInitialized() + RobotMap::PickUpArm::passTimeout
+			);
+			ballReleased = true;
+		}
+
+		return false;
+	}
+
+	return IsTimedOut();
 }
 
 void PassBallCommand::End()
 {
-    pickuparm->setWheelSpeed(0);
+	pickuparm->setWheelSpeed(0);
 }

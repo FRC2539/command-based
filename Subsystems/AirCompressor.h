@@ -1,10 +1,9 @@
 #ifndef AIR_COMPRESSOR_H
 #define AIR_COMPRESSOR_H
 
-#include "Commands/Subsystem.h"
+#include "../Custom/DebuggingSubsystem.h"
 
 class Compressor;
-
 
 class AirCompressor: public Subsystem {
 public:

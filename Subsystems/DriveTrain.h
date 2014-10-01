@@ -1,7 +1,7 @@
 #ifndef DRIVE_TRAIN_H
 #define DRIVE_TRAIN_H
 
-#include <Commands/Subsystem.h>
+#include "../Custom/DebuggingSubsystem.h"
 #include <vector>
 
 class SelfCleaningDrive;

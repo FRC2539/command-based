@@ -11,6 +11,8 @@ public:
 	bool IsFinished();
 	void End();
 
+protected:
+    bool ballReleased;
 };
 
 #endif

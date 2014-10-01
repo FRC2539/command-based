@@ -14,10 +14,10 @@ void PickUpBallCommand::Initialize()
 
 bool PickUpBallCommand::IsFinished()
 {
-    return pickuparm->hasBall();
+	return pickuparm->hasBall();
 }
 
 void PickUpBallCommand::End()
 {
-    pickuparm->setWheelSpeed(0);
+	pickuparm->setWheelSpeed(0);
 }

@@ -1,5 +1,6 @@
-#include "WPILib.h"
-#include "Commands/Command.h"
+#include <IterativeRobot.h>
+#include <LiveWindow/LiveWindow.h>
+#include <Commands/Command.h>
 #include "Commands/Autonomous/AutonomousCommandGroup.h"
 #include "Commands/ResetCommand.h"
 #include "CommandBase.h"
@@ -8,7 +9,9 @@ class CommandBasedRobot : public IterativeRobot {
 private:
 	Command* autonomousCommand;
 	Command* resetCommand;
+#ifdef DEBUG
 	LiveWindow* lw;
+#endif
 	
 	virtual void RobotInit() {
 		CommandBase::init();
@@ -16,7 +19,9 @@ private:
 		autonomousCommand = new AutonomousCommandGroup();
 		resetCommand = new ResetCommand();
 
+#ifdef DEBUG
 		lw = LiveWindow::GetInstance();
+#endif
 	}
 	
 	virtual void AutonomousInit() {
@@ -40,10 +45,15 @@ private:
 	virtual void TeleopPeriodic() {
 		Scheduler::GetInstance()->Run();
 
+#ifdef DEBUG
+		lw->Run();
+#endif
 	}
 	
 	virtual void TestPeriodic() {
+#ifdef DEBUG
 		lw->Run();
+#endif
 	}
 };
 

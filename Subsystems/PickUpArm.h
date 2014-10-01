@@ -1,7 +1,7 @@
 #ifndef PICK_UP_ARM_H
 #define PICK_UP_ARM_H
 
-#include "Commands/Subsystem.h"
+#include "../Custom/DebuggingSubsystem.h"
 
 class Victor;
 class DigitalInput; 

@@ -34,6 +34,10 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	rightEncoder->SetDistancePerPulse(.053333333);
 	leftEncoder->Start();
 	rightEncoder->Start();
+
+	DEBUG_SENSOR(gyro)
+	DEBUG_SENSOR(leftEncoder)
+	DEBUG_SENSOR(rightEncoder)
 }
 
 DriveTrain::~DriveTrain() {

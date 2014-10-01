@@ -8,6 +8,7 @@
  */
 
 //#define ENABLE_AIR_COMPRESSOR
+//#define DEBUG
 
 namespace RobotMap {
 	namespace DriveBase {
@@ -35,7 +36,8 @@ namespace RobotMap {
 		const unsigned int wheelsMotorPort = 3;
 		const unsigned int ballSensorPort = 2;
 
-		const double pickUpSpeed = 0.5; 
+		const double pickUpSpeed = 0.8;
+		const double passTimeout = 1;
 	}
 }
 

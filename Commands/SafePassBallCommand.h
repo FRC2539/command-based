@@ -7,7 +7,7 @@ class SafePassBallCommand : public ConditionalCommand {
 
 public:
 	SafePassBallCommand();
-	
+
 protected:
 	bool shouldRun();
 };
