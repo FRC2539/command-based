@@ -14,6 +14,7 @@ PickUpArm::PickUpArm() : Subsystem("PickUpArm")
 PickUpArm::~PickUpArm()
 {
 	delete pickupWheelsMotor;
+	delete ballSensor;
 }
 
 
@@ -24,5 +25,5 @@ void PickUpArm::setWheelSpeed(const float speed)
 
 bool PickUpArm::hasBall()
 {
-	return ballSensor->Get(); 
+	return !ballSensor->Get();
 }

@@ -33,7 +33,7 @@ namespace RobotMap {
 
 	namespace PickUpArm {
 		const unsigned int wheelsMotorPort = 3;
-		const unsigned int ballSensorPort = 1;
+		const unsigned int ballSensorPort = 2;
 
 		const double pickUpSpeed = 0.5; 
 	}
