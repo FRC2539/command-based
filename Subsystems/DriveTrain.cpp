@@ -13,10 +13,10 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	currentY(0),
 	currentRotate(0)
 {
-	drive = new SelfCleaningDrive(
-		new Talon(RobotMap::DriveBase::rightMotorsPort),
-		new Talon(RobotMap::DriveBase::leftMotorsPort)
-	);
+	Talon* rightMotor = new Talon(RobotMap::DriveBase::leftMotorsPort);
+	Talon* leftMotor = new Talon(RobotMap::DriveBase::rightMotorsPort);
+
+	drive = new SelfCleaningDrive(leftMotor, rightMotor);
 
 	drive->SetSafetyEnabled(false);
 
@@ -35,9 +35,12 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	leftEncoder->Start();
 	rightEncoder->Start();
 
-	DEBUG_SENSOR(gyro)
-	DEBUG_SENSOR(leftEncoder)
-	DEBUG_SENSOR(rightEncoder)
+	DEBUG_SENSOR(gyro);
+	DEBUG_SENSOR(leftEncoder);
+	DEBUG_SENSOR(rightEncoder);
+
+	DEBUG_MOTOR(leftMotor);
+	DEBUG_MOTOR(rightMotor);
 }
 
 DriveTrain::~DriveTrain() {

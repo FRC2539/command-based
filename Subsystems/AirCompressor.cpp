@@ -11,7 +11,7 @@ AirCompressor::AirCompressor() : Subsystem("AirCompressor")
 		RobotMap::Pneumatics::airCompressorPort
 	);
 
-	DEBUG_SENSOR(compressor)
+	DEBUG_SENSOR(compressor);
 }
 
 AirCompressor::~AirCompressor()
