@@ -40,6 +40,10 @@ private:
 		autonomousCommand->Cancel();
 
 		resetCommand->Start();
+
+#ifdef DEBUG
+		lw->SetEnabled(true);
+#endif
 	}
 	
 	virtual void TeleopPeriodic() {
@@ -49,6 +53,12 @@ private:
 		lw->Run();
 #endif
 	}
+
+#ifdef DEBUG
+	virtual void TestInit() {
+		lw->SetEnabled(true);
+	}
+#endif
 	
 	virtual void TestPeriodic() {
 #ifdef DEBUG

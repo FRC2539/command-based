@@ -8,7 +8,7 @@
  */
 
 //#define ENABLE_AIR_COMPRESSOR
-//#define DEBUG
+#define DEBUG
 
 namespace RobotMap {
 	namespace DriveBase {
@@ -17,12 +17,12 @@ namespace RobotMap {
 
 		const unsigned int gyroPort = 1;
 
-		const unsigned int leftEncoderPortA = 1;
-		const unsigned int leftEncoderPortB = 2;
-		const unsigned int rightEncoderPortA = 3;
-		const unsigned int rightEncoderPortB = 4;
+		const unsigned int leftEncoderPortA = 4;
+		const unsigned int leftEncoderPortB = 5;
+		const unsigned int rightEncoderPortA = 6;
+		const unsigned int rightEncoderPortB = 7;
 
-		const double accelerationFactor = 0.0085;
+		const double accelerationFactor = 0.8;
 		const double preciseModeMaxY = 0.45;
 		const double preciseModeMaxRotate = 0.45;
 	}
@@ -36,7 +36,7 @@ namespace RobotMap {
 		const unsigned int wheelsMotorPort = 3;
 		const unsigned int ballSensorPort = 2;
 
-		const double pickUpSpeed = 0.8;
+		const double pickUpSpeed = 1;
 		const double passTimeout = 1;
 	}
 }
