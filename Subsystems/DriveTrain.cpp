@@ -30,10 +30,13 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 		RobotMap::DriveBase::rightEncoderPortA,
 		RobotMap::DriveBase::rightEncoderPortB
 	);
-	leftEncoder->SetDistancePerPulse(.053333333);
-	rightEncoder->SetDistancePerPulse(.053333333);
+	leftEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
+	rightEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
 	leftEncoder->Start();
 	rightEncoder->Start();
+
+	gyro->Reset();
+	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
 
 	DEBUG_SENSOR(gyro);
 	DEBUG_SENSOR(leftEncoder);

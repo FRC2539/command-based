@@ -22,6 +22,9 @@ namespace RobotMap {
 		const unsigned int rightEncoderPortA = 6;
 		const unsigned int rightEncoderPortB = 7;
 
+		const unsigned int gyroSensitivity = 0.007;
+		const unsigned int encoderSensitivity = 0.053333333;
+
 		const double accelerationFactor = 0.8;
 		const double preciseModeMaxY = 0.45;
 		const double preciseModeMaxRotate = 0.45;
