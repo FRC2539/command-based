@@ -11,33 +11,39 @@
 #define DEBUG
 
 namespace RobotMap {
+
+	typedef const unsigned int PWMPort;
+	typedef const unsigned int DIOPort;
+	typedef const unsigned int AnalogPort;
+	typedef const unsigned int RelayPort;
+
 	namespace DriveBase {
-		const unsigned int leftMotorsPort = 2;
-		const unsigned int rightMotorsPort = 1;
+		PWMPort leftMotorsPort = 2;
+		PWMPort rightMotorsPort = 1;
 
-		const unsigned int gyroPort = 1;
+		AnalogPort gyroPort = 1;
 
-		const unsigned int leftEncoderPortA = 4;
-		const unsigned int leftEncoderPortB = 5;
-		const unsigned int rightEncoderPortA = 6;
-		const unsigned int rightEncoderPortB = 7;
+		DIOPort leftEncoderPortA = 4;
+		DIOPort leftEncoderPortB = 5;
+		DIOPort rightEncoderPortA = 6;
+		DIOPort rightEncoderPortB = 7;
 
-		const unsigned int gyroSensitivity = 0.007;
-		const unsigned int encoderSensitivity = 0.053333333;
+		const double gyroSensitivity = 0.007;
+		const double encoderSensitivity = 0.053333333;
 
-		const double accelerationFactor = 0.8;
+		const double accelerationFactor = 0.08;
 		const double preciseModeMaxY = 0.45;
 		const double preciseModeMaxRotate = 0.45;
 	}
 
 	namespace Pneumatics {
-		const unsigned int airCompressorPort = 1;
-		const unsigned int pressureSwitchPort = 5;
+		RelayPort airCompressorPort = 1;
+		DIOPort pressureSwitchPort = 1;
 	}
 
 	namespace PickUpArm {
-		const unsigned int wheelsMotorPort = 3;
-		const unsigned int ballSensorPort = 2;
+		PWMPort wheelsMotorPort = 3;
+		DIOPort ballSensorPort = 2;
 
 		const double pickUpSpeed = 1;
 		const double passTimeout = 1;
