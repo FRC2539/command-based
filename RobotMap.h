@@ -15,7 +15,8 @@ namespace RobotMap {
 	typedef const unsigned int PWMPort;
 	typedef const unsigned int DIOPort;
 	typedef const unsigned int AnalogPort;
-	typedef const unsigned int RelayPort;
+	typedef const unsigned int RelayPort; 
+	typedef const unsigned int PneumaticPort;
 
 	namespace DriveBase {
 		PWMPort leftMotorsPort = 2;
@@ -44,6 +45,9 @@ namespace RobotMap {
 	namespace PickUpArm {
 		PWMPort wheelsMotorPort = 3;
 		DIOPort ballSensorPort = 2;
+		PneumaticPort lowerArmPort = 1;
+		PneumaticPort RaiseArmPort = 2;
+
 
 		const double pickUpSpeed = 1;
 		const double passTimeout = 1;
