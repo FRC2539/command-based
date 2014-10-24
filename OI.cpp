@@ -18,6 +18,7 @@
 #include "Commands/ResetCommand.h"
 #include "Commands/SafePickUpBallCommand.h"
 #include "Commands/SafePassBallCommand.h" 
+#include "Commands/ToggleArmPositionCommand.h"
 
 OI::OI()
 {
