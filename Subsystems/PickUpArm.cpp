@@ -37,7 +37,11 @@ void PickUpArm::setWheelSpeed(const float speed)
 void PickUpArm::setArmPosition(DoubleSolenoid::Value position)
 {
 	armPiston->Set(position);
-	armPosition = position; 
+	
+	if (position != DoubleSolenoid::kOff)
+	{
+		armPosition = position;
+	}
 }
 
 bool PickUpArm::hasBall()

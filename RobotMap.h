@@ -7,7 +7,7 @@
  * significantly reduces the number of magic numbers floating around.
  */
 
-//#define ENABLE_AIR_COMPRESSOR
+#define ENABLE_AIR_COMPRESSOR
 #define DEBUG
 
 namespace RobotMap {
@@ -45,9 +45,9 @@ namespace RobotMap {
 	namespace PickUpArm {
 		PWMPort wheelsMotorPort = 3;
 		DIOPort ballSensorPort = 2;
+
 		PneumaticPort lowerArmPort = 1;
 		PneumaticPort RaiseArmPort = 2;
-
 
 		const double pickUpSpeed = 1;
 		const double passTimeout = 1;

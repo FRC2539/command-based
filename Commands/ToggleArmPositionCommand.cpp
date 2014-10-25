@@ -2,10 +2,8 @@
 
 #include "../RobotMap.h" 
 
-ToggleArmPositionCommand::ToggleArmPositionCommand() : TimedCommand("ToggleArmPosition", 500)
-{
-
-}
+ToggleArmPositionCommand::ToggleArmPositionCommand() : 
+	TimedCommand("ToggleArmPosition", 0.5) {}
 
 void ToggleArmPositionCommand::Initialize()
 {
