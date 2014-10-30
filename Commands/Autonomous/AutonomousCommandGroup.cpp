@@ -4,10 +4,6 @@
 #include "../ToggleArmPositionCommand.h"
 #include "DriveTimedCommand.h"
 
-
-
-
-
 AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
 	AddSequential(new SafePickUpBallCommand()); //on motor

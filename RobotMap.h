@@ -43,14 +43,15 @@ namespace RobotMap {
 	}
 
 	namespace PickUpArm {
-		PWMPort wheelsMotorPort = 3;
+		PWMPort wheelsMotorPort = 4;
 		DIOPort ballSensorPort = 2;
 
 		PneumaticPort lowerArmPort = 1;
 		PneumaticPort RaiseArmPort = 2;
 
 		const double pickUpSpeed = 1;
-		const double passTimeout = 1;
+		const double passTimeout = 5;
+		const double pickUpTimeout = 2;
 	}
 }
 

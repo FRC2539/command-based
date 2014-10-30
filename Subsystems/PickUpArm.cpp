@@ -46,7 +46,7 @@ void PickUpArm::setArmPosition(DoubleSolenoid::Value position)
 
 bool PickUpArm::hasBall()
 {
-	return !ballSensor->Get();
+	return ballSensor->Get();
 }
 
 DoubleSolenoid::Value PickUpArm::getArmPosition()

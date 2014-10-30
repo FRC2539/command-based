@@ -9,12 +9,26 @@ PickUpBallCommand::PickUpBallCommand() : DefaultCommand("PickUpBall")
 
 void PickUpBallCommand::Initialize()
 {
+	ballLoaded = false;
 	pickuparm->setWheelSpeed(RobotMap::PickUpArm::pickUpSpeed);
 }
 
 bool PickUpBallCommand::IsFinished()
 {
-	return pickuparm->hasBall();
+	if (ballLoaded == false)
+	{
+		if (!pickuparm->hasBall())
+		{
+			SetTimeout(
+				TimeSinceInitialized() + RobotMap::PickUpArm::pickUpTimeout
+			);
+			ballLoaded = true;
+		}
+
+		return false;
+	}
+
+	return IsTimedOut();
 }
 
 void PickUpBallCommand::End()
