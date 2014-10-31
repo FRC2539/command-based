@@ -17,7 +17,7 @@ bool PickUpBallCommand::IsFinished()
 {
 	if (ballLoaded == false)
 	{
-		if (!pickuparm->hasBall())
+		if (pickuparm->hasBall())
 		{
 			SetTimeout(
 				TimeSinceInitialized() + RobotMap::PickUpArm::pickUpTimeout
