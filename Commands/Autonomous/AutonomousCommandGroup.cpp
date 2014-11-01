@@ -8,7 +8,7 @@ AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
 	AddSequential(new SafePickUpBallCommand()); //on motor
 	AddParallel(new ToggleArmPositionCommand());//move arms out
-	AddSequential(new DriveTimedCommand(.5,5));//drive forward
+	AddSequential(new DriveTimedCommand(.4,5));//drive forward
 	AddSequential(new SafePassBallCommand());//spit out ball
 	//CELEBRATE!
 }
