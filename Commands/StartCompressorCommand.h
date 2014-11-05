@@ -3,11 +3,10 @@
 
 #include "Types/DefaultCommand.h"
 
-/* Even though this command could be an InstantCommand, because it is used as
- * the default command for the AirCompressor subsystem, it is made a
- * DefaultCommand. An InstantCommand would be restarted constantly.
+/* Since this command is the default command of the AirCompressor subsystem,
+ * it subclasses DefaultCommand. An InstantCommand would end and restart
+ * on every tick, wasting processor time.
  */
-
 class StartCompressorCommand : public DefaultCommand {
 
 public:
