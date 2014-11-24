@@ -4,9 +4,10 @@
 #include "../Custom/DebuggingSubsystem.h"
 #include <vector>
 
-class SelfCleaningDrive;
+class EncoderDrive;
 class Gyro;
 class Encoder;
+class Talon;
 
 class DriveTrain: public Subsystem {
 public:
@@ -20,10 +21,12 @@ public:
 	float limitAcceleration(float current, float next);
 
 protected:
-	SelfCleaningDrive* drive;
+	EncoderDrive* drive;
+	Talon* leftMotor;
+	Talon* rightMotor;
 	Gyro* gyro;
-	Encoder* rightEncoder;
 	Encoder* leftEncoder;
+	Encoder* rightEncoder;
 
 	float currentY;
 	float currentRotate;

@@ -32,9 +32,14 @@ namespace RobotMap {
 		const double gyroSensitivity = 0.007;
 		const double encoderSensitivity = 0.053333333;
 
+		const double maxSpeed = 10;
 		const double accelerationFactor = 0.08;
 		const double preciseModeMaxY = 0.45;
 		const double preciseModeMaxRotate = 0.45;
+
+		const double P = 0.1;
+		const double I = 0;
+		const double D = 0;
 	}
 
 	namespace Pneumatics {

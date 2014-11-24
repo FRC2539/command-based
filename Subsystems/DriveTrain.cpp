@@ -2,7 +2,7 @@
 
 #include "../RobotMap.h"
 
-#include "../Custom/SelfCleaningDrive.h"
+#include "../Custom/DriveTrain/EncoderDrive.h"
 #include <Talon.h>
 #include <Gyro.h>
 #include <Encoder.h>
@@ -13,14 +13,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	currentY(0),
 	currentRotate(0)
 {
-	Talon* rightMotor = new Talon(RobotMap::DriveBase::leftMotorsPort);
-	Talon* leftMotor = new Talon(RobotMap::DriveBase::rightMotorsPort);
-
-	drive = new SelfCleaningDrive(leftMotor, rightMotor);
-
-	drive->SetSafetyEnabled(false);
-
-	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
+	rightMotor = new Talon(RobotMap::DriveBase::leftMotorsPort);
+	leftMotor = new Talon(RobotMap::DriveBase::rightMotorsPort);
 
 	leftEncoder = new Encoder(
 		RobotMap::DriveBase::leftEncoderPortA,
@@ -35,6 +29,10 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	leftEncoder->Start();
 	rightEncoder->Start();
 
+	drive = new EncoderDrive(leftMotor, rightMotor, leftEncoder, rightEncoder);
+	drive->SetSafetyEnabled(false);
+
+	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->Reset();
 	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
 
@@ -48,6 +46,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 
 DriveTrain::~DriveTrain() {
 	delete drive;
+	delete leftMotor;
+	delete rightMotor;
 	delete gyro;
 	delete leftEncoder;
 	delete rightEncoder;
