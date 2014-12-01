@@ -51,18 +51,38 @@ void EncoderDrive::SetMaxSpeed(float speed)
 
 void EncoderDrive::SetLeftRightMotorOutputs(float leftOutput, float rightOutput)
 {
-	// If one motor is pegged, scale the other down to match
-	// NOTE: Are there cases where both conditions could be true?
-	if (m_rearLeftMotor->Get() > .99 || m_rearLeftMotor->Get() < -.99)
+	if (m_brokenEncoder)
 	{
-		rightOutput *= std::abs(leftOutput);
+		RobotDrive::SetLeftRightMotorOutputs(leftOutput, rightOutput);
+		return;
 	}
-	if (m_rearRightMotor->Get() > .99 || m_rearRightMotor->Get() < -.99)
-	{
-		leftOutput *= std::abs(rightOutput);
-	}
+	
+	scaleMotor(m_rearLeftMotor, m_leftEncoder, rightOutput);
+	scaleMotor(m_rearRightMotor, m_rightEncoder, leftOutput);
 
 	leftMotorSpeed->SetSetpoint(leftOutput * m_maxSpeed);
 	rightMotorSpeed->SetSetpoint(rightOutput * m_maxSpeed);
 }
 
+void EncoderDrive::scaleMotor(
+	SpeedController* motor, 
+	Encoder* encoder, 
+	float& oppositeInput
+)
+{
+	// If one motor is pegged, don't let the other pass it
+	// NOTE: Are there cases where both motors could be pegged at different values?
+	float currentInput = std::abs(motor->Get());
+	if (currentInput > .99)
+	{
+		float maxInput = std::abs(encoder->GetRate()) / m_maxSpeed;
+		if (oppositeInput >= 0)
+		{
+			oppositeInput = std::min(oppositeInput, maxInput);
+		}
+		else
+		{
+			oppositeInput = std::max(oppositeInput, -maxInput);
+		}
+	}
+}

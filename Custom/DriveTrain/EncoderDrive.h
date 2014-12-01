@@ -30,6 +30,8 @@ protected:
 
 	PIDController* leftMotorSpeed;
 	PIDController* rightMotorSpeed;
+	
+	void scaleMotor(SpeedController* motor, Encoder* encoder, float& oppositeInput);
 };
 
 #endif
