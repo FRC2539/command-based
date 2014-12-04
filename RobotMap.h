@@ -8,7 +8,7 @@
  */
 
 #define ENABLE_AIR_COMPRESSOR
-#define DEBUG
+// #define DEBUG
 
 namespace RobotMap {
 
