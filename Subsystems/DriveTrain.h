@@ -4,7 +4,7 @@
 #include "../Custom/DebuggingSubsystem.h"
 #include <vector>
 
-class EncoderDrive;
+class RobotDrive;
 class Gyro;
 class Encoder;
 class Talon;
@@ -21,7 +21,7 @@ public:
 	float limitAcceleration(float current, float next);
 
 protected:
-	EncoderDrive* drive;
+	RobotDrive* drive;
 	Talon* leftMotor;
 	Talon* rightMotor;
 	Gyro* gyro;

@@ -26,11 +26,16 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	);
 	leftEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
 	rightEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
+	leftEncoder->Reset();
 	leftEncoder->Start();
+	rightEncoder->Reset();
 	rightEncoder->Start();
+	
+	drive = new RobotDrive(leftMotor, rightMotor);
 
-	drive = new EncoderDrive(leftMotor, rightMotor, leftEncoder, rightEncoder);
+	//drive = new EncoderDrive(leftMotor, rightMotor, leftEncoder, rightEncoder);
 	drive->SetSafetyEnabled(false);
+	//drive->ignoreEncoders();
 
 	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->Reset();

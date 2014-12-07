@@ -8,7 +8,7 @@
  */
 
 #define ENABLE_AIR_COMPRESSOR
-// #define DEBUG
+#define DEBUG
 
 namespace RobotMap {
 
@@ -32,7 +32,7 @@ namespace RobotMap {
 		const double gyroSensitivity = 0.007;
 		const double encoderSensitivity = 0.053333333;
 
-		const double maxSpeed = 10;
+		const double maxSpeed = 1;
 		const double accelerationFactor = 0.08;
 		const double preciseModeMaxY = 0.45;
 		const double preciseModeMaxRotate = 0.45;

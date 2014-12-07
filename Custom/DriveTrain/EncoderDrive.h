@@ -18,7 +18,9 @@ public:
 	);
 
 	virtual void SetLeftRightMotorOutputs(float leftOutput, float rightOutput);
-	void SetMaxSpeed(float speed);
+	void setMaxSpeed(float speed);
+	
+	void ignoreEncoders();
 
 protected:
 	Encoder* m_leftEncoder;

@@ -1,10 +1,11 @@
 #include "EncoderDrive.h"
+#include <iostream>
 
 #include <cmath>
 
 #include <SpeedController.h>
 #include <Encoder.h>
-#include <PIDController.h>
+#include "EncoderRatePIDController.h"
 
 #include "EncoderRatePIDSource.h"
 
@@ -23,7 +24,7 @@ EncoderDrive::EncoderDrive(
 	m_maxSpeed = RobotMap::DriveBase::maxSpeed;
 	m_brokenEncoder = false;
 
-	leftMotorSpeed = new PIDController(
+	leftMotorSpeed = new EncoderRatePIDController(
 		RobotMap::DriveBase::P,
 		RobotMap::DriveBase::I,
 		RobotMap::DriveBase::D,
@@ -31,11 +32,13 @@ EncoderDrive::EncoderDrive(
 		new EncoderRatePIDSource(m_leftEncoder),
 		leftMotor
 	);
+	leftMotorSpeed->Reset();
 	leftMotorSpeed->SetInputRange(-m_maxSpeed, m_maxSpeed);
 	leftMotorSpeed->SetPercentTolerance('1');
 	leftMotorSpeed->Enable();
+	leftMotorSpeed->SetSetpoint(0);
 
-	rightMotorSpeed = new PIDController(
+	rightMotorSpeed = new EncoderRatePIDController(
 		RobotMap::DriveBase::P,
 		RobotMap::DriveBase::I,
 		RobotMap::DriveBase::D,
@@ -43,12 +46,14 @@ EncoderDrive::EncoderDrive(
 		new EncoderRatePIDSource(m_rightEncoder),
 		rightMotor
 	);
+	rightMotorSpeed->Reset();
 	rightMotorSpeed->SetInputRange(-m_maxSpeed, m_maxSpeed);
 	rightMotorSpeed->SetPercentTolerance('1');
 	rightMotorSpeed->Enable();
+	rightMotorSpeed->SetSetpoint(0);
 }
 
-void EncoderDrive::SetMaxSpeed(float speed)
+void EncoderDrive::setMaxSpeed(float speed)
 {
 	m_maxSpeed = speed;
 }
@@ -90,3 +95,9 @@ void EncoderDrive::scaleMotor(
 		}
 	}
 }
+
+void EncoderDrive::ignoreEncoders()
+{
+	m_brokenEncoder = true;
+}
+
