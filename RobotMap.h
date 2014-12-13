@@ -48,7 +48,7 @@ namespace RobotMap {
 	}
 
 	namespace PickUpArm {
-		PWMPort wheelsMotorPort = 4;
+		PWMPort wheelsMotorPort = 5;
 		DIOPort ballSensorPort = 2;
 
 		PneumaticPort lowerArmPort = 1;

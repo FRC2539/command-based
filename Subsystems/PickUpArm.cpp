@@ -26,6 +26,7 @@ PickUpArm::~PickUpArm()
 {
 	delete pickupWheelsMotor;
 	delete ballSensor;
+	delete armPiston;
 }
 
 
