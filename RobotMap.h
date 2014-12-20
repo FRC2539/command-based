@@ -7,7 +7,7 @@
  * significantly reduces the number of magic numbers floating around.
  */
 
-#define ENABLE_AIR_COMPRESSOR
+//#define ENABLE_AIR_COMPRESSOR
 #define DEBUG
 
 namespace RobotMap {
@@ -32,12 +32,12 @@ namespace RobotMap {
 		const double gyroSensitivity = 0.007;
 		const double encoderSensitivity = 0.053333333;
 
-		const double maxSpeed = 1;
-		const double accelerationFactor = 0.08;
+		const double maxSpeed = 100;
+		const double accelerationFactor = 0.03;
 		const double preciseModeMaxY = 0.45;
 		const double preciseModeMaxRotate = 0.45;
 
-		const double P = 0.1;
+		const double P = 0.01;
 		const double I = 0;
 		const double D = 0;
 	}

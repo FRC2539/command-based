@@ -5,7 +5,7 @@
 
 class SpeedController;
 class Encoder;
-class PIDController;
+class EncoderRatePIDController;
 
 class EncoderDrive : public RobotDrive {
 
@@ -30,10 +30,11 @@ protected:
 
 	bool m_brokenEncoder;
 
-	PIDController* leftMotorSpeed;
-	PIDController* rightMotorSpeed;
+	EncoderRatePIDController* leftMotorSpeed;
+	EncoderRatePIDController* rightMotorSpeed;
 	
 	void scaleMotor(SpeedController* motor, Encoder* encoder, float& oppositeInput);
+	void setFeedForward(EncoderRatePIDController *encoder, float f);
 };
 
 #endif
