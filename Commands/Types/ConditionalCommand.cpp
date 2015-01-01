@@ -4,6 +4,11 @@ ConditionalCommand::ConditionalCommand(const char* name) : DefaultCommand(name) 
 
 ConditionalCommand::ConditionalCommand() : DefaultCommand() {}
 
+ConditionalCommand::~ConditionalCommand()
+{
+	delete m_command;
+}
+
 void ConditionalCommand::Initialize()
 {
 	if (shouldRun())

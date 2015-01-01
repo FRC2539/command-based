@@ -2,34 +2,45 @@
 #define ROBOTMAP_H
 
 /**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
+ * The RobotMap is where we store constants, the most common of which are port
+ * numbers. This provides flexibility, makes checking the wiring easier, and
+ * significantly reduces the number of magic numbers floating around.
  */
 
 //#define ENABLE_AIR_COMPRESSOR
+//#define DEBUG
 
 namespace RobotMap {
+
+	typedef const unsigned int PWMPort;
+	typedef const unsigned int DIOPort;
+	typedef const unsigned int AnalogPort;
+	typedef const unsigned int RelayPort;
+	typedef const unsigned int PneumaticPort;
+
 	namespace DriveBase {
-		const unsigned int leftMotorsPort = 2;
-		const unsigned int rightMotorsPort = 1;
+		PWMPort leftMotorsPort = 2;
+		PWMPort rightMotorsPort = 1;
 
-		const unsigned int gyroPort = 1;
+		DIOPort leftEncoderPortA = 4;
+		DIOPort leftEncoderPortB = 5;
+		DIOPort rightEncoderPortA = 6;
+		DIOPort rightEncoderPortB = 7;
 
-		const unsigned int leftEncoderPortA = 1;
-		const unsigned int leftEncoderPortB = 2;
-		const unsigned int rightEncoderPortA = 3;
-		const unsigned int rightEncoderPortB = 4;
+		const double encoderSensitivity = 0.053333333;
 
-		const double accelerationFactor = 0.0085;
-		const double preciseModeMaxY = 0.45;
-		const double preciseModeMaxRotate = 0.45;
+		const double maxSpeed = 100;
+		const double accelerationFactor = 0.03;
+		const double preciseModeMaxSpeed = 45;
+
+		const double P = 0.01;
+		const double I = 0;
+		const double D = 0;
 	}
 
 	namespace Pneumatics {
-		const unsigned int airCompressorPort = 1;
-		const unsigned int pressureSwitchPort = 5;
+		RelayPort airCompressorPort = 1;
+		DIOPort pressureSwitchPort = 1;
 	}
 }
 

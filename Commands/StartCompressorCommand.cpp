@@ -1,7 +1,7 @@
 #include "StartCompressorCommand.h"
 
 StartCompressorCommand::StartCompressorCommand()
-	: InstantCommand("StartCompressor")
+	: DefaultCommand("StartCompressor")
 {
 	Requires(aircompressor);
 }

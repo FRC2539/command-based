@@ -22,8 +22,12 @@
 	buttons.push_back(new ControllerButton(controllers[port], ControllerHack##port->button));\
 	buttons.back()->event(lastCommand);
 
-#define ADD_SIMPLE_BUTTON(port, button, command_stem)\
-	lastCommand = new command_stem##Command();\
+#define ADD_SIMPLE_BUTTON(port, button, command_class)\
+	lastCommand = new command_class();\
 	buttons.push_back(new ControllerButton(controllers[port], ControllerHack##port->button));\
 	buttons.back()->WhenPressed(lastCommand);
 
+#define ADD_TOGGLE_BUTTON(port, button, command_class)\
+	lastCommand = new ToggleCommand(new command_class());\
+	buttons.push_back(new ControllerButton(controllers[port], ControllerHack##port->button));\
+	buttons.back()->WhenPressed(lastCommand);

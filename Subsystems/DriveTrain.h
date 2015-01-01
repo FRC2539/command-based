@@ -1,12 +1,12 @@
 #ifndef DRIVE_TRAIN_H
 #define DRIVE_TRAIN_H
 
-#include <Commands/Subsystem.h>
+#include "../Custom/DebuggingSubsystem.h"
 #include <vector>
 
-class SelfCleaningDrive;
-class Gyro;
+class EncoderDrive;
 class Encoder;
+class Talon;
 
 class DriveTrain: public Subsystem {
 public:
@@ -17,17 +17,19 @@ public:
 	void move(float yValue, float rotateValue);
 	void directDrive(float yValue, float rotateValue, bool squareInputs=false);
 
-	float limitAcceleration(float current, float next);
+	void setMaxSpeed(float speed);
 
 protected:
-	SelfCleaningDrive* drive;
-	Gyro* gyro;
-	Encoder* rightEncoder;
+	EncoderDrive* drive;
+	Talon* leftMotor;
+	Talon* rightMotor;
 	Encoder* leftEncoder;
+	Encoder* rightEncoder;
 
 	float currentY;
 	float currentRotate;
 
+	float limitAcceleration(float current, float next);
 };
 
 #endif

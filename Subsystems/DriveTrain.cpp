@@ -2,7 +2,7 @@
 
 #include "../RobotMap.h"
 
-#include "../Custom/SelfCleaningDrive.h"
+#include "../Custom/DriveTrain/EncoderDrive.h"
 #include <Talon.h>
 #include <Gyro.h>
 #include <Encoder.h>
@@ -13,14 +13,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	currentY(0),
 	currentRotate(0)
 {
-	drive = new SelfCleaningDrive(
-		new Talon(RobotMap::DriveBase::rightMotorsPort),
-		new Talon(RobotMap::DriveBase::leftMotorsPort)
-	);
-
-	drive->SetSafetyEnabled(false);
-
-	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
+	rightMotor = new Talon(RobotMap::DriveBase::leftMotorsPort);
+	leftMotor = new Talon(RobotMap::DriveBase::rightMotorsPort);
 
 	leftEncoder = new Encoder(
 		RobotMap::DriveBase::leftEncoderPortA,
@@ -30,15 +24,27 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 		RobotMap::DriveBase::rightEncoderPortA,
 		RobotMap::DriveBase::rightEncoderPortB
 	);
-	leftEncoder->SetDistancePerPulse(.053333333);
-	rightEncoder->SetDistancePerPulse(.053333333);
+	leftEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
+	rightEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
+	leftEncoder->Reset();
 	leftEncoder->Start();
+	rightEncoder->Reset();
 	rightEncoder->Start();
+
+	drive = new EncoderDrive(leftMotor, rightMotor, leftEncoder, rightEncoder);
+	drive->SetSafetyEnabled(false);
+
+	DEBUG_SENSOR(leftEncoder);
+	DEBUG_SENSOR(rightEncoder);
+
+	DEBUG_MOTOR(leftMotor);
+	DEBUG_MOTOR(rightMotor);
 }
 
 DriveTrain::~DriveTrain() {
 	delete drive;
-	delete gyro;
+	delete leftMotor;
+	delete rightMotor;
 	delete leftEncoder;
 	delete rightEncoder;
 }
@@ -72,6 +78,12 @@ void DriveTrain::move(float yValue, float rotate) {
 
 void DriveTrain::directDrive(float yValue, float rotateValue, bool squareInputs)
 {
-	drive->ArcadeDrive(-yValue, rotateValue, squareInputs);
+	drive->ArcadeDrive(-yValue, -rotateValue, squareInputs);
 }
+
+void DriveTrain::setMaxSpeed(float speed)
+{
+	drive->setMaxSpeed(speed);
+}
+
 
