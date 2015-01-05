@@ -37,11 +37,6 @@ namespace RobotMap {
 		const double I = 0;
 		const double D = 0;
 	}
-
-	namespace Pneumatics {
-		RelayPort airCompressorPort = 1;
-		DIOPort pressureSwitchPort = 1;
-	}
 }
 
 #endif
