@@ -4,7 +4,7 @@
 #include "../Custom/DebuggingSubsystem.h"
 #include <vector>
 
-class RobotDrive;
+class EncoderDrive;
 class Gyro;
 class Encoder;
 class Talon;
@@ -16,12 +16,11 @@ public:
 	void InitDefaultCommand();
 
 	void move(float yValue, float rotateValue);
-	void directDrive(float yValue, float rotateValue, bool squareInputs=false);
-
-	float limitAcceleration(float current, float next);
+	
+	void setMaxSpeed(float speed);
 
 protected:
-	RobotDrive* drive;
+	EncoderDrive* drive;
 	Talon* leftMotor;
 	Talon* rightMotor;
 	Gyro* gyro;

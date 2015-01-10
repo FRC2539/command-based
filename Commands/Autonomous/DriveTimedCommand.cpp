@@ -8,10 +8,10 @@ DriveTimedCommand::DriveTimedCommand(float speed, double seconds)
 }
 
 void DriveTimedCommand::Initialize() {
-	drivetrain->directDrive(m_speed, 0);
+	drivetrain->move(m_speed, 0);
 }
 
 void DriveTimedCommand::End() {
-	drivetrain->directDrive(0, 0);
+	drivetrain->move(0, 0);
 }
 

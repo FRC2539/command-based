@@ -32,11 +32,9 @@ EncoderDrive::EncoderDrive(
 		new EncoderRatePIDSource(m_leftEncoder),
 		leftMotor
 	);
-	leftMotorSpeed->Reset();
 	leftMotorSpeed->SetInputRange(-m_maxSpeed, m_maxSpeed);
 	leftMotorSpeed->SetPercentTolerance('1');
 	leftMotorSpeed->Enable();
-	leftMotorSpeed->SetSetpoint(0);
 
 	rightMotorSpeed = new EncoderRatePIDController(
 		RobotMap::DriveBase::P,
@@ -46,11 +44,9 @@ EncoderDrive::EncoderDrive(
 		new EncoderRatePIDSource(m_rightEncoder),
 		rightMotor
 	);
-	rightMotorSpeed->Reset();
 	rightMotorSpeed->SetInputRange(-m_maxSpeed, m_maxSpeed);
 	rightMotorSpeed->SetPercentTolerance('1');
 	rightMotorSpeed->Enable();
-	rightMotorSpeed->SetSetpoint(0);
 }
 
 void EncoderDrive::setMaxSpeed(float speed)

@@ -8,28 +8,21 @@ PreciseArcadeDriveCommand::PreciseArcadeDriveCommand()
 	Requires(drivetrain);
 }
 
+void PreciseArcadeDriveCommand::Initialize()
+{
+    drivetrain->setMaxSpeed(RobotMap::DriveBase::preciseModeMaxSpeed);
+}
+
+
 void PreciseArcadeDriveCommand::Execute()
 {
-	drivetrain->directDrive(
-		scaleAxis(
-			logicalAxes::DriveY,
-			RobotMap::DriveBase::preciseModeMaxY
-		),
-		scaleAxis(
-			logicalAxes::DriveRotate,
-			RobotMap::DriveBase::preciseModeMaxRotate
-		)
+	drivetrain->move(
+		oi->getAxisValue(logicalAxes::DriveY),
+		oi->getAxisValue(logicalAxes::DriveRotate)
 	);
 }
 
-float PreciseArcadeDriveCommand::scaleAxis(const unsigned int axis, float max)
+void PreciseArcadeDriveCommand::End()
 {
-	float val = oi->getAxisValue(axis);
-	float newVal = val * val * max;
-	if (val < 0)
-	{
-		newVal *= -1;
-	}
-
-	return newVal;
+    drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
 }

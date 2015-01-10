@@ -32,12 +32,11 @@ namespace RobotMap {
 		const double gyroSensitivity = 0.007;
 		const double encoderSensitivity = 0.053333333;
 
-		const double maxSpeed = 100;
+		const double maxSpeed = 90;
 		const double accelerationFactor = 0.03;
-		const double preciseModeMaxY = 0.45;
-		const double preciseModeMaxRotate = 0.45;
+		const double preciseModeMaxSpeed = 21;
 
-		const double P = 0.01;
+		const double P = 0.011;
 		const double I = 0;
 		const double D = 0;
 	}
@@ -46,6 +45,7 @@ namespace RobotMap {
 		RelayPort airCompressorPort = 1;
 		DIOPort pressureSwitchPort = 1;
 	}
+
 
 	namespace PickUpArm {
 		PWMPort wheelsMotorPort = 5;
