@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 2.8)
-#include(FRCDeploy)
 
 project(CommandBasedRobot)
 
@@ -15,4 +14,12 @@ file(GLOB_RECURSE SOURCE_CODE *.cpp)
 add_executable(cmd-based ${SOURCE_CODE})
 target_link_libraries(cmd-based ${WPILib_LIBRARY})
 
-#add_make_deploy(cmd-based 10.25.39.2)
+set(TEAM 2539)
+add_custom_command(OUTPUT deploy_stamp
+	COMMAND ssh -q lvuser@roborio-${TEAM}.local "rm /home/lvuser/FRCUserProgram || true"
+	COMMAND scp cmd-based lvuser@roborio-${TEAM}.local:FRCUserProgram
+	COMMAND ssh -q lvuser@roborio-${TEAM}.local ". /etc/profile.d/natinst-path.sh; chmod a+x /home/lvuser/FRCUserProgram; /usr/local/frc/bin/frcKillRobot.sh -t -r"
+	DEPENDS cmd-based
+VERBATIM)
+set_source_files_properties(deploy_stamp PROPERTIES SYMBOLIC true)
+add_custom_target(deploy DEPENDS deploy_stamp)
