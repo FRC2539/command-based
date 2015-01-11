@@ -31,11 +31,11 @@ namespace RobotMap {
 
 		const double maxSpeed = 100;
 		const double accelerationFactor = 0.03;
-		const double preciseModeMaxSpeed = 45;
+		const double preciseModeMaxSpeed = 20;
 
-		const double P = 0.01;
+		const double P = 0.0075;
 		const double I = 0;
-		const double D = 0;
+		const double D = 0.001;
 	}
 }
 

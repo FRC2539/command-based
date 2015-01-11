@@ -15,7 +15,6 @@ public:
 	void InitDefaultCommand();
 
 	void move(float yValue, float rotateValue);
-	void directDrive(float yValue, float rotateValue, bool squareInputs=false);
 
 	void setMaxSpeed(float speed);
 
@@ -28,8 +27,6 @@ protected:
 
 	float currentY;
 	float currentRotate;
-
-	float limitAcceleration(float current, float next);
 };
 
 #endif

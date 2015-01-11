@@ -26,8 +26,6 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	);
 	leftEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
 	rightEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
-	leftEncoder->Reset();
-	rightEncoder->Reset();
 
 	drive = new EncoderDrive(leftMotor, rightMotor, leftEncoder, rightEncoder);
 	drive->SetSafetyEnabled(false);
@@ -51,32 +49,8 @@ void DriveTrain::InitDefaultCommand() {
 	SetDefaultCommand(new ArcadeDriveCommand());
 }
 
-float DriveTrain::limitAcceleration(float current, float next)
-{
-	if (next > current + RobotMap::DriveBase::accelerationFactor)
-	{
-		return (current + RobotMap::DriveBase::accelerationFactor);
-	}
-	else if (next < current - RobotMap::DriveBase::accelerationFactor)
-	{
-		return (current - RobotMap::DriveBase::accelerationFactor);
-	}
-	else
-	{
-		return next;
-	}
-}
-
 void DriveTrain::move(float yValue, float rotate) {
-	currentY = limitAcceleration(currentY, yValue);
-	currentRotate = limitAcceleration(currentRotate, rotate);
-
-	directDrive(currentY, currentRotate, true);
-}
-
-void DriveTrain::directDrive(float yValue, float rotateValue, bool squareInputs)
-{
-	drive->ArcadeDrive(-yValue, -rotateValue, squareInputs);
+	drive->ArcadeDrive(-yValue, -rotate, true);
 }
 
 void DriveTrain::setMaxSpeed(float speed)
