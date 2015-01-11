@@ -34,7 +34,6 @@ protected:
 	EncoderRatePIDController* rightMotorSpeed;
 
 	void scaleMotor(SpeedController* motor, Encoder* encoder, float& oppositeInput);
-	void setFeedForward(EncoderRatePIDController *encoder, float f);
 };
 
 #endif

@@ -65,16 +65,7 @@ void EncoderDrive::SetLeftRightMotorOutputs(float leftOutput, float rightOutput)
 	scaleMotor(m_rearRightMotor, m_rightEncoder, leftOutput);
 
 	leftOutput *= m_maxSpeed;
-	if (leftOutput != 0)
-	{
-		setFeedForward(leftMotorSpeed, m_rearLeftMotor->Get()/leftOutput);
-	}
-
 	rightOutput *= -m_maxSpeed;
-	if (rightOutput != 0)
-	{
-		setFeedForward(rightMotorSpeed, m_rearRightMotor->Get()/rightOutput);
-	}
 
 	leftMotorSpeed->SetSetpoint(leftOutput);
 	rightMotorSpeed->SetSetpoint(rightOutput);
@@ -101,16 +92,6 @@ void EncoderDrive::scaleMotor(
 			oppositeInput = std::max(oppositeInput, -maxInput);
 		}
 	}
-}
-
-void EncoderDrive::setFeedForward(EncoderRatePIDController *encoder, float f)
-{
-	encoder->SetPID(
-		RobotMap::DriveBase::P,
-		RobotMap::DriveBase::I,
-		RobotMap::DriveBase::D,
-		f
-	);
 }
 
 void EncoderDrive::ignoreEncoders()

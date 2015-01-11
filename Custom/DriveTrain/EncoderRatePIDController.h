@@ -1,11 +1,11 @@
 #ifndef ENCODER_RATE_PID_CONTROLLER
 #define ENCODER_RATE_PID_CONTROLLER
 
-#include <PIDController.h>
+#include "../SanePIDController.h"
 class PIDSource;
 class PIDOutput;
 
-class EncoderRatePIDController : public PIDController {
+class EncoderRatePIDController : public SanePIDController {
 public:
     EncoderRatePIDController(
 		float p,
@@ -17,6 +17,9 @@ public:
 	);
 
 	virtual void StartLiveWindowMode();
+
+protected:
+	virtual void Calculate();
 };
 
 #endif
