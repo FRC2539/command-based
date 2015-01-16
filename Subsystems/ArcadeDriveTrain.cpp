@@ -1,4 +1,4 @@
-#include "DriveTrain.h"
+#include "ArcadeDriveTrain.h"
 
 #include "../RobotMap.h"
 
@@ -9,12 +9,12 @@
 
 #include "../Commands/ArcadeDriveCommand.h"
 
-DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
+ArcadeDriveTrain::ArcadeDriveTrain() : Subsystem("ArcadeDriveTrain"),
 	currentY(0),
 	currentRotate(0)
 {
-	rightMotor = new Talon(RobotMap::DriveBase::leftMotorsPort);
-	leftMotor = new Talon(RobotMap::DriveBase::rightMotorsPort);
+	rightMotor = new Talon(RobotMap::DriveBase::frontLeftMotorsPort);
+	leftMotor = new Talon(RobotMap::DriveBase::frontRightMotorsPort);
 
 	leftEncoder = new Encoder(
 		RobotMap::DriveBase::leftEncoderPortA,
@@ -37,7 +37,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"),
 	DEBUG_MOTOR(rightMotor);
 }
 
-DriveTrain::~DriveTrain() {
+ArcadeDriveTrain::~ArcadeDriveTrain() {
 	delete drive;
 	delete leftMotor;
 	delete rightMotor;
@@ -45,15 +45,15 @@ DriveTrain::~DriveTrain() {
 	delete rightEncoder;
 }
 
-void DriveTrain::InitDefaultCommand() {
+void ArcadeDriveTrain::InitDefaultCommand() {
 	SetDefaultCommand(new ArcadeDriveCommand());
 }
 
-void DriveTrain::move(float yValue, float rotate) {
+void ArcadeDriveTrain::move(float yValue, float rotate) {
 	drive->ArcadeDrive(-yValue, -rotate, true);
 }
 
-void DriveTrain::setMaxSpeed(float speed)
+void ArcadeDriveTrain::setMaxSpeed(float speed)
 {
 	drive->setMaxSpeed(speed);
 }

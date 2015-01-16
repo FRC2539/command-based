@@ -19,8 +19,11 @@ namespace RobotMap {
 	typedef const unsigned int PneumaticPort;
 
 	namespace DriveBase {
-		PWMPort leftMotorsPort = 2;
-		PWMPort rightMotorsPort = 1;
+		PWMPort frontLeftMotorsPort = 0;
+		PWMPort frontRightMotorsPort = 1;
+		PWMPort backLeftMotorsPort = 2;
+		PWMPort backRightMotorsPort = 3;
+
 
 		DIOPort leftEncoderPortA = 4;
 		DIOPort leftEncoderPortB = 5;

@@ -3,7 +3,7 @@
 
 #include <Commands/Command.h>
 
-#include "Subsystems/DriveTrain.h"
+#include "Subsystems/MecanumDriveTrain.h"
 #include "OI.h"
 #include "Subsystems/AirCompressor.h"
 
@@ -22,7 +22,7 @@ public:
 	static void init();
 
 	// Create a single static instance of each of your subsystems
-	static DriveTrain *drivetrain;
+	static MecanumDriveTrain *drivetrain;
 	static OI *oi;
 	static AirCompressor* aircompressor;
 };

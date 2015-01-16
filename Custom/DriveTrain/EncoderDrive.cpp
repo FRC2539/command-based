@@ -48,6 +48,15 @@ EncoderDrive::EncoderDrive(
 	rightMotorSpeed->Enable();
 }
 
+EncoderDrive::EncoderDrive(SpeedController* frontLeftMotor, SpeedController* frontRightMotor, SpeedController* backLeftMotor, SpeedController* backRightMotor): RobotDrive(backRightMotor, backRightMotor)
+{
+
+}
+
+
+
+
+
 void EncoderDrive::setMaxSpeed(float speed)
 {
 	m_maxSpeed = speed;

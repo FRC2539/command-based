@@ -27,7 +27,7 @@ CommandBase::~CommandBase() {
 }
 
 void CommandBase::init() {
-	drivetrain = new DriveTrain();
+	drivetrain = new MecanumDriveTrain();
 #ifdef ENABLE_AIR_COMPRESSOR
 	aircompressor = new AirCompressor();
 #endif
@@ -38,6 +38,6 @@ void CommandBase::init() {
 /* Each subsystem must be initially set to NULL in order for the static symbols
  * to be available on the cRIO
  */
-DriveTrain* CommandBase::drivetrain = NULL;
+MecanumDriveTrain* CommandBase::drivetrain = NULL;
 OI* CommandBase::oi = NULL;
 AirCompressor* CommandBase::aircompressor = NULL;

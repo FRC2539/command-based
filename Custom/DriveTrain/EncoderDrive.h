@@ -17,6 +17,13 @@ public:
 		Encoder* rightEncoder
 	);
 
+	EncoderDrive(
+		SpeedController* frontLeftMotor,
+		SpeedController* frontRightMotor,
+		SpeedController* backLeftMotor,
+		SpeedController* backRightMotor	
+	);
+
 	virtual void SetLeftRightMotorOutputs(float leftOutput, float rightOutput);
 	void setMaxSpeed(float speed);
 

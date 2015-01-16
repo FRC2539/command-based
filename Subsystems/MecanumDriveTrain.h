@@ -1,5 +1,5 @@
-#ifndef DRIVE_TRAIN_H
-#define DRIVE_TRAIN_H
+#ifndef MECANUM_DRIVE_TRAIN_H
+#define MECANUM_DRIVE_TRAIN_H
 
 #include "../Custom/DebuggingSubsystem.h"
 #include <vector>
@@ -8,20 +8,22 @@ class EncoderDrive;
 class Encoder;
 class Talon;
 
-class DriveTrain: public Subsystem {
+class MecanumDriveTrain: public Subsystem {
 public:
-	DriveTrain();
-	virtual ~DriveTrain();
+	MecanumDriveTrain();
+	virtual ~MecanumDriveTrain();
 	void InitDefaultCommand();
 
-	void move(float yValue, float rotateValue);
+	void move(float yValue, float xValue, float rotateValue);
 
 	void setMaxSpeed(float speed);
 
 protected:
 	EncoderDrive* drive;
-	Talon* leftMotor;
-	Talon* rightMotor;
+	Talon* frontLeftMotor;
+	Talon* frontRightMotor;
+	Talon* backLeftMotor;
+	Talon* backRightMotor;
 	Encoder* leftEncoder;
 	Encoder* rightEncoder;
 
