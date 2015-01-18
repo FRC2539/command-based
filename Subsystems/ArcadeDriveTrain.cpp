@@ -1,20 +1,16 @@
 #include "ArcadeDriveTrain.h"
 
 #include "../RobotMap.h"
+#if defined(ARCADE_DRIVE)
 
 #include "../Custom/DriveTrain/EncoderDrive.h"
 #include <Talon.h>
-#include <Gyro.h>
 #include <Encoder.h>
 
-#include "../Commands/ArcadeDriveCommand.h"
-
-ArcadeDriveTrain::ArcadeDriveTrain() : Subsystem("ArcadeDriveTrain"),
-	currentY(0),
-	currentRotate(0)
+ArcadeDriveTrain::ArcadeDriveTrain() : DriveTrain("ArcadeDriveTrain")
 {
-	rightMotor = new Talon(RobotMap::DriveBase::frontLeftMotorsPort);
-	leftMotor = new Talon(RobotMap::DriveBase::frontRightMotorsPort);
+	rightMotor = new Talon(RobotMap::DriveBase::leftMotorsPort);
+	leftMotor = new Talon(RobotMap::DriveBase::rightMotorsPort);
 
 	leftEncoder = new Encoder(
 		RobotMap::DriveBase::leftEncoderPortA,
@@ -45,17 +41,13 @@ ArcadeDriveTrain::~ArcadeDriveTrain() {
 	delete rightEncoder;
 }
 
-void ArcadeDriveTrain::InitDefaultCommand() {
-	SetDefaultCommand(new ArcadeDriveCommand());
-}
-
 void ArcadeDriveTrain::move(float yValue, float rotate) {
 	drive->ArcadeDrive(-yValue, -rotate, true);
 }
 
-void ArcadeDriveTrain::setMaxSpeed(float speed)
+void ArcadeDriveTrain::stop()
 {
-	drive->setMaxSpeed(speed);
+	drive->ArcadeDrive(0.0, 0.0);
 }
 
-
+#endif

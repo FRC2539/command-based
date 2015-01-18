@@ -7,7 +7,7 @@ ResetCommand::ResetCommand() : InstantCommand("Reset")
 
 void ResetCommand::Initialize()
 {
-	drivetrain->move(0,0, 0);
+	drivetrain->stop();
 }
 
 

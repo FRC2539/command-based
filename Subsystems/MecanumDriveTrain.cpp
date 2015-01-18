@@ -1,39 +1,21 @@
 #include "MecanumDriveTrain.h"
 
 #include "../RobotMap.h"
+#if defined(MECANUM_DRIVE)
 
 #include "../Custom/DriveTrain/EncoderDrive.h"
-#include <Talon.h>
+#include <CANTalon.h>
 #include <Gyro.h>
-#include <Encoder.h>
 
-#include "../Commands/ArcadeDriveCommand.h"
-
-MecanumDriveTrain::MecanumDriveTrain() : Subsystem("MecanumDriveTrain"),
-	currentY(0),
-	currentRotate(0)
+MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 {
-	frontRightMotor = new Talon(RobotMap::DriveBase::frontLeftMotorsPort);
-	frontLeftMotor = new Talon(RobotMap::DriveBase::frontRightMotorsPort);
-	backRightMotor = new Talon(RobotMap::DriveBase::backLeftMotorsPort);
-	backLeftMotor = new Talon(RobotMap::DriveBase::backRightMotorsPort);
-
-	leftEncoder = new Encoder(
-		RobotMap::DriveBase::leftEncoderPortA,
-		RobotMap::DriveBase::leftEncoderPortB
-	);
-	rightEncoder = new Encoder(
-		RobotMap::DriveBase::rightEncoderPortA,
-		RobotMap::DriveBase::rightEncoderPortB
-	);
-	leftEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
-	rightEncoder->SetDistancePerPulse(RobotMap::DriveBase::encoderSensitivity);
+	frontRightMotor = new CANTalon(RobotMap::DriveBase::frontLeftMotorsPort);
+	frontLeftMotor = new CANTalon(RobotMap::DriveBase::frontRightMotorsPort);
+	backRightMotor = new CANTalon(RobotMap::DriveBase::backLeftMotorsPort);
+	backLeftMotor = new CANTalon(RobotMap::DriveBase::backRightMotorsPort);
 
 	drive = new EncoderDrive(frontLeftMotor, frontRightMotor, backLeftMotor, backRightMotor);
 	drive->SetSafetyEnabled(false);
-
-	DEBUG_SENSOR(leftEncoder);
-	DEBUG_SENSOR(rightEncoder);
 
 	DEBUG_MOTOR(frontleftMotor);
 	DEBUG_MOTOR(frontrightMotor);
@@ -41,26 +23,22 @@ MecanumDriveTrain::MecanumDriveTrain() : Subsystem("MecanumDriveTrain"),
 	DEBUG_MOTOR(backrightMotor);
 }
 
-MecanumDriveTrain::~MecanumDriveTrain() {
-	delete drive;
+MecanumDriveTrain::~MecanumDriveTrain()
+{
 	delete frontLeftMotor;
 	delete frontRightMotor;
 	delete backLeftMotor;
 	delete backRightMotor;
-	delete leftEncoder;
-	delete rightEncoder;
 }
 
-void MecanumDriveTrain::InitDefaultCommand() {
-	SetDefaultCommand(new ArcadeDriveCommand());
-}
-
-void MecanumDriveTrain::move(float yValue, float xValue, float rotate) {
+void MecanumDriveTrain::move(float xValue, float yValue, float rotate)
+{
 	drive->MecanumDrive_Cartesian(-xValue, -yValue, -rotate);
 }
 
-void MecanumDriveTrain::setMaxSpeed(float speed)
+void MecanumDriveTrain::stop()
 {
-	drive->setMaxSpeed(speed);
+	drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0);
 }
 
+#endif

@@ -1,32 +1,30 @@
 #ifndef ARCADE_DRIVE_TRAIN_H
 #define ARCADE_DRIVE_TRAIN_H
 
-#include "../Custom/DebuggingSubsystem.h"
-#include <vector>
+#include "DriveTrain.h"
 
-class EncoderDrive;
 class Encoder;
 class Talon;
 
-class ArcadeDriveTrain: public Subsystem {
+class ArcadeDriveTrain: public DriveTrain {
 public:
 	ArcadeDriveTrain();
 	virtual ~ArcadeDriveTrain();
-	void InitDefaultCommand();
 
 	void move(float yValue, float rotateValue);
-
-	void setMaxSpeed(float speed);
+	virtual void stop();
 
 protected:
-	EncoderDrive* drive;
 	Talon* leftMotor;
 	Talon* rightMotor;
 	Encoder* leftEncoder;
 	Encoder* rightEncoder;
-
-	float currentY;
-	float currentRotate;
 };
+
+#define MOVE_WITH_JOYSTICK\
+	drivetrain->move(\
+		oi->getAxisValue(logicalAxes::DriveY),\
+		oi->getAxisValue(logicalAxes::DriveRotate)\
+	)
 
 #endif

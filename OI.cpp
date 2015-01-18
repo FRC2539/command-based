@@ -14,7 +14,7 @@
 #include "Commands/Types/ToggleCommand.h"
 
 // Available Commands for ControllerMap
-#include "Commands/PreciseArcadeDriveCommand.h"
+#include "Commands/PreciseDriveCommand.h"
 #include "Commands/ResetCommand.h"
 
 OI::OI()

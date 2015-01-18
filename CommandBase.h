@@ -3,9 +3,15 @@
 
 #include <Commands/Command.h>
 
-#include "Subsystems/MecanumDriveTrain.h"
+// These should not be converted to forward declaration, as the full subsystem
+// definitions are required by the Commands.
+#include "RobotMap.h"
+#if defined(MECANUM_DRIVE)
+	#include "Subsystems/MecanumDriveTrain.h"
+#elif defined(ARCADE_DRIVE)
+	#include "Subsystems/ArcadeDriveTrain.h"
+#endif
 #include "OI.h"
-#include "Subsystems/AirCompressor.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -22,9 +28,12 @@ public:
 	static void init();
 
 	// Create a single static instance of each of your subsystems
-	static MecanumDriveTrain *drivetrain;
+	#if defined(MECANUM_DRIVE)
+		static MecanumDriveTrain *drivetrain;
+	#elif defined(ARCADE_DRIVE)
+		static ArcadeDriveTrain *drivetrain;
+	#endif
 	static OI *oi;
-	static AirCompressor* aircompressor;
 };
 
 #endif

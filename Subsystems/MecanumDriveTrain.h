@@ -1,34 +1,30 @@
 #ifndef MECANUM_DRIVE_TRAIN_H
 #define MECANUM_DRIVE_TRAIN_H
 
-#include "../Custom/DebuggingSubsystem.h"
-#include <vector>
+#include "DriveTrain.h"
 
-class EncoderDrive;
-class Encoder;
-class Talon;
+class CANTalon;
 
-class MecanumDriveTrain: public Subsystem {
+class MecanumDriveTrain: public DriveTrain {
 public:
 	MecanumDriveTrain();
 	virtual ~MecanumDriveTrain();
-	void InitDefaultCommand();
 
-	void move(float yValue, float xValue, float rotateValue);
-
-	void setMaxSpeed(float speed);
+	void move(float xValue, float yValue, float rotateValue);
+	virtual void stop();
 
 protected:
-	EncoderDrive* drive;
-	Talon* frontLeftMotor;
-	Talon* frontRightMotor;
-	Talon* backLeftMotor;
-	Talon* backRightMotor;
-	Encoder* leftEncoder;
-	Encoder* rightEncoder;
-
-	float currentY;
-	float currentRotate;
+	CANTalon* frontLeftMotor;
+	CANTalon* frontRightMotor;
+	CANTalon* backLeftMotor;
+	CANTalon* backRightMotor;
 };
+
+#define MOVE_WITH_JOYSTICK\
+	drivetrain->move(\
+		oi->getAxisValue(logicalAxes::DriveX),\
+		oi->getAxisValue(logicalAxes::DriveY),\
+		oi->getAxisValue(logicalAxes::DriveRotate)\
+	)
 
 #endif

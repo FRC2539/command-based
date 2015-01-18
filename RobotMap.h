@@ -7,7 +7,6 @@
  * significantly reduces the number of magic numbers floating around.
  */
 
-//#define ENABLE_AIR_COMPRESSOR
 //#define DEBUG
 
 namespace RobotMap {
@@ -19,16 +18,13 @@ namespace RobotMap {
 	typedef const unsigned int PneumaticPort;
 
 	namespace DriveBase {
+		#define MECANUM_DRIVE
+		//#define ARCADE_DRIVE
+
 		PWMPort frontLeftMotorsPort = 0;
 		PWMPort frontRightMotorsPort = 1;
 		PWMPort backLeftMotorsPort = 2;
 		PWMPort backRightMotorsPort = 3;
-
-
-		DIOPort leftEncoderPortA = 4;
-		DIOPort leftEncoderPortB = 5;
-		DIOPort rightEncoderPortA = 6;
-		DIOPort rightEncoderPortB = 7;
 
 		const double encoderSensitivity = 0.053333333;
 
@@ -41,5 +37,11 @@ namespace RobotMap {
 		const double D = 0.001;
 	}
 }
+
+#if defined(MECANUM_DRIVE) && defined(ARCADE_DRIVE)
+	#error Multiple drive types specified
+#elif ! (defined(MECANUM_DRIVE) || defined(ARCADE_DRIVE))
+	#error No drive type specified
+#endif
 
 #endif

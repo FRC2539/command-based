@@ -10,5 +10,5 @@ ADD_AXIS(1, LeftY, logicalAxes::DriveY)
 ADD_AXIS(1, RightX, logicalAxes::DriveRotate)
 
 //ADD_BUTTON(1, LeftJoystick, WhilePressed, new PreciseArcadeDriveCommand())
-ADD_TOGGLE_BUTTON(1, LeftJoystick, PreciseArcadeDriveCommand)
+ADD_TOGGLE_BUTTON(1, LeftJoystick, PreciseDriveCommand)
 ADD_SIMPLE_BUTTON(1, Back, ResetCommand)
