@@ -13,7 +13,7 @@ void PreciseDriveCommand::Initialize()
 
 void PreciseDriveCommand::Execute()
 {
-	MOVE_WITH_JOYSTICK;
+	drivetrain->MOVE_WITH_JOYSTICK;
 }
 
 void PreciseDriveCommand::End()

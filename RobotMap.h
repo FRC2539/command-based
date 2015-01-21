@@ -26,7 +26,9 @@ namespace RobotMap {
 		PWMPort backLeftMotorsPort = 2;
 		PWMPort backRightMotorsPort = 3;
 
+		AnalogPort gyroPort = 0;
 		const double encoderSensitivity = 0.053333333;
+		const double gyroSensitivity = 0.007;
 
 		const double maxSpeed = 100;
 		const double accelerationFactor = 0.03;

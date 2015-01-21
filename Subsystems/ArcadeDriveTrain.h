@@ -22,7 +22,7 @@ protected:
 };
 
 #define MOVE_WITH_JOYSTICK\
-	drivetrain->move(\
+	move(\
 		oi->getAxisValue(logicalAxes::DriveY),\
 		oi->getAxisValue(logicalAxes::DriveRotate)\
 	)
