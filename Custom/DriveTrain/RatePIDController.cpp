@@ -1,17 +1,17 @@
-#include "EncoderRatePIDController.h"
+#include "RatePIDController.h"
 
 #include <PIDSource.h>
 #include <PIDOutput.h>
 #include <HAL/cpp/Synchronized.hpp>
 
-EncoderRatePIDController::EncoderRatePIDController(
+RatePIDController::RatePIDController(
 	float p, float i, float d, float f, PIDSource* source, PIDOutput* output
 ): SanePIDController(p, i, d, f, source, output) {}
 
 /* Overrides the default calculate to pass along the current value as a feed
  * forward value.
  */
-void EncoderRatePIDController::Calculate()
+void RatePIDController::Calculate()
 {
 	bool enabled;
 	PIDSource *pidInput;
@@ -83,4 +83,4 @@ void EncoderRatePIDController::Calculate()
 	}
 }
 
-void EncoderRatePIDController::StartLiveWindowMode() {}
+void RatePIDController::StartLiveWindowMode() {}

@@ -4,12 +4,11 @@
 #include <RobotDrive.h>
 
 #include <vector>
-#include <tuple>
 
 class SpeedController;
 class CANTalon;
 class Encoder;
-class EncoderRatePIDController;
+class RatePIDController;
 class PIDSource;
 
 class EncoderDrive : public RobotDrive {
@@ -30,7 +29,7 @@ public:
 	);
 
 	virtual void SetLeftRightMotorOutputs(float leftOutput, float rightOutput);
-	virtual void MecanumDrive(double x, double y, double rotate, double angle);
+	virtual void MecanumDrive(double x, double y, double rotate, double angle=0.0);
 	void setMaxSpeed(float speed);
 
 	void ignoreEncoders();
@@ -41,7 +40,7 @@ protected:
 	bool m_brokenEncoder;
 
 	std::vector<PIDSource*> sensors;
-	std::vector<EncoderRatePIDController*> outputs;
+	std::vector<RatePIDController*> outputs;
 	std::vector<SpeedController*> motors;
 	std::vector<float> speeds;
 

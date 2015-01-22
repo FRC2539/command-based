@@ -38,12 +38,12 @@ MecanumDriveTrain::~MecanumDriveTrain()
 
 void MecanumDriveTrain::move(float xValue, float yValue, float rotate)
 {
-	drive->MecanumDrive_Cartesian(-xValue, -yValue, -rotate);
+	drive->MecanumDrive(xValue, yValue, rotate, gyro->GetAngle());
 }
 
 void MecanumDriveTrain::stop()
 {
-	drive->MecanumDrive_Cartesian(0.0, 0.0, 0.0, gyro->GetAngle());
+	drive->MecanumDrive(0.0, 0.0, 0.0);
 }
 
 #endif

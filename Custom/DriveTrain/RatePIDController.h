@@ -1,13 +1,13 @@
-#ifndef ENCODER_RATE_PID_CONTROLLER
-#define ENCODER_RATE_PID_CONTROLLER
+#ifndef RATE_PID_CONTROLLER
+#define RATE_PID_CONTROLLER
 
 #include "../SanePIDController.h"
 class PIDSource;
 class PIDOutput;
 
-class EncoderRatePIDController : public SanePIDController {
+class RatePIDController : public SanePIDController {
 public:
-    EncoderRatePIDController(
+    RatePIDController(
 		float p,
 		float i,
 		float d,

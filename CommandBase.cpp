@@ -12,15 +12,8 @@ CommandBase::CommandBase(double timeout) : Command(timeout) {}
 CommandBase::CommandBase() : Command() {}
 
 CommandBase::~CommandBase() {
-	if (oi != NULL)
-	{
-		delete oi;
-	}
-
-	if (drivetrain != NULL)
-	{
-		delete drivetrain;
-	}
+	delete drivetrain;
+	delete oi;
 }
 
 void CommandBase::init() {

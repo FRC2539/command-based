@@ -7,7 +7,7 @@
 #include <CANTalon.h>
 #include <Encoder.h>
 
-#include "EncoderRatePIDController.h"
+#include "RatePIDController.h"
 #include "EncoderRatePIDSource.h"
 #include "CANTalonRatePIDSource.h"
 
@@ -116,7 +116,7 @@ void EncoderDrive::addMotor(PIDSource* sensor, SpeedController* motor)
 	sensors.push_back(sensor);
 	motors.push_back(motor);
 
-	EncoderRatePIDController* output = new EncoderRatePIDController(
+	RatePIDController* output = new RatePIDController(
 		RobotMap::DriveBase::P,
 		RobotMap::DriveBase::I,
 		RobotMap::DriveBase::D,
