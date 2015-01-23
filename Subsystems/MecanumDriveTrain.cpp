@@ -9,10 +9,10 @@
 
 MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 {
-	frontRightMotor = new CANTalon(RobotMap::DriveBase::frontLeftMotorsPort);
-	frontLeftMotor = new CANTalon(RobotMap::DriveBase::frontRightMotorsPort);
-	backRightMotor = new CANTalon(RobotMap::DriveBase::backLeftMotorsPort);
-	backLeftMotor = new CANTalon(RobotMap::DriveBase::backRightMotorsPort);
+	frontRightMotor = new CANTalon(RobotMap::DriveBase::frontLeftMotorID);
+	frontLeftMotor = new CANTalon(RobotMap::DriveBase::frontRightMotorID);
+	backRightMotor = new CANTalon(RobotMap::DriveBase::backLeftMotorID);
+	backLeftMotor = new CANTalon(RobotMap::DriveBase::backRightMotorID);
 
 	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);

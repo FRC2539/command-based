@@ -16,22 +16,22 @@ namespace RobotMap {
 	typedef const unsigned int AnalogPort;
 	typedef const unsigned int RelayPort;
 	typedef const unsigned int PneumaticPort;
+	typedef const unsigned int CanID;
 
 	namespace DriveBase {
 		#define MECANUM_DRIVE
 		//#define ARCADE_DRIVE
 
-		PWMPort frontLeftMotorsPort = 0;
-		PWMPort frontRightMotorsPort = 1;
-		PWMPort backLeftMotorsPort = 2;
-		PWMPort backRightMotorsPort = 3;
+		CanID frontLeftMotorID = 1;
+		CanID frontRightMotorID = 2;
+		CanID backLeftMotorID = 3;
+		CanID backRightMotorID = 4;
 
 		AnalogPort gyroPort = 0;
 		const double encoderSensitivity = 0.053333333;
 		const double gyroSensitivity = 0.007;
 
 		const double maxSpeed = 100;
-		const double accelerationFactor = 0.03;
 		const double preciseModeMaxSpeed = 20;
 
 		const double P = 0.0075;
