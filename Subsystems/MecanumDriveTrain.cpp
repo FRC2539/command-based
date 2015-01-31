@@ -19,7 +19,7 @@ MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 
 	drive = new EncoderDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 	drive->SetSafetyEnabled(false);
-
+	
 	DEBUG_MOTOR(frontleftMotor);
 	DEBUG_MOTOR(frontrightMotor);
 	DEBUG_MOTOR(backleftMotor);

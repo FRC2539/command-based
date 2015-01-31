@@ -67,7 +67,7 @@ void EncoderDrive::MecanumDrive(double x, double y, double rotate, double angle)
 {
 	if (m_brokenEncoder)
 	{
-		RobotDrive::MecanumDrive_Cartesian(x, y, rotate, angle);
+		RobotDrive::MecanumDrive_Cartesian(x, -y, rotate, angle);
 		return;
 	}
 

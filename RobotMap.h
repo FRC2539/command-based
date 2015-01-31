@@ -23,10 +23,11 @@ namespace RobotMap {
 		//#define ARCADE_DRIVE
 
 		CanID frontLeftMotorID = 1;
-		CanID frontRightMotorID = 2;
+		CanID frontRightMotorID = 5;
 		CanID backLeftMotorID = 3;
 		CanID backRightMotorID = 4;
 
+		
 		AnalogPort gyroPort = 0;
 		const double encoderSensitivity = 0.053333333;
 		const double gyroSensitivity = 0.007;
