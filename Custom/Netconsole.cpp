@@ -1,9 +1,8 @@
 #include "Netconsole.h"
-#include <iostream>
-#include <string>
 
-//template<typename output>
-void Netconsole::print(std::string label, float value)
+#include <iostream>
+
+void Netconsole::sendToConsole(std::string label, std::string value)
 {
 	storage[label] = value;
 	ticks++;
@@ -18,4 +17,4 @@ void Netconsole::print(std::string label, float value)
 }
 
 unsigned int Netconsole::ticks = 0;
-std::unordered_map<std::string, float> Netconsole::storage;
+std::unordered_map<std::string, std::string> Netconsole::storage;
