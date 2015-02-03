@@ -10,7 +10,8 @@ class MecanumDriveTrain: public DriveTrain {
 public:
 	MecanumDriveTrain();
 	virtual ~MecanumDriveTrain();
-
+	void setMotorSpeed(RobotMap::CanID motorID, float speed);
+	
 	void move(float xValue, float yValue, float rotateValue);
 	virtual void stop();
 

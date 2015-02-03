@@ -13,6 +13,8 @@
 
 #include "../../RobotMap.h"
 
+#include "../Netconsole.h"
+
 EncoderDrive::EncoderDrive(
 	SpeedController* leftMotor,
 	SpeedController* rightMotor,
@@ -63,10 +65,17 @@ void EncoderDrive::SetLeftRightMotorOutputs(float leftOutput, float rightOutput)
 	equalizeMotors();
 }
 
+
 void EncoderDrive::MecanumDrive(double x, double y, double rotate, double angle)
-{
+{	
+	
+
 	if (m_brokenEncoder)
 	{
+		Netconsole::print<double>("X", x);
+		Netconsole::print<double>("Y", y);
+		Netconsole::print<double>("Rotate", rotate);
+		
 		RobotDrive::MecanumDrive_Cartesian(x, -y, rotate, angle);
 		return;
 	}
@@ -188,3 +197,7 @@ void EncoderDrive::ignoreEncoders()
 	m_brokenEncoder = true;
 }
 
+void EncoderDrive::setMotorSpeed(RobotMap::CanID motorID, float speed)
+{
+	motors[motorID]->Set(speed);
+}

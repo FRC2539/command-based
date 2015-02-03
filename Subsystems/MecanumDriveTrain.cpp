@@ -7,23 +7,28 @@
 #include <CANTalon.h>
 #include <Gyro.h>
 
+#include "../Custom/Netconsole.h"
+
 MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 {
-	frontRightMotor = new CANTalon(RobotMap::DriveBase::frontLeftMotorID);
-	frontLeftMotor = new CANTalon(RobotMap::DriveBase::frontRightMotorID);
-	backRightMotor = new CANTalon(RobotMap::DriveBase::backLeftMotorID);
-	backLeftMotor = new CANTalon(RobotMap::DriveBase::backRightMotorID);
+	frontRightMotor = new CANTalon(RobotMap::DriveBase::frontRightMotorID);
+	frontLeftMotor = new CANTalon(RobotMap::DriveBase::frontLeftMotorID);
+	backRightMotor = new CANTalon(RobotMap::DriveBase::backRightMotorID);
+	backLeftMotor = new CANTalon(RobotMap::DriveBase::backLeftMotorID);
 
+
+	
 	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
 
 	drive = new EncoderDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 	drive->SetSafetyEnabled(false);
+	drive->ignoreEncoders();
 	
-	DEBUG_MOTOR(frontleftMotor);
-	DEBUG_MOTOR(frontrightMotor);
-	DEBUG_MOTOR(backleftMotor);
-	DEBUG_MOTOR(backrightMotor);
+	DEBUG_MOTOR(frontLeftMotor);
+	DEBUG_MOTOR(frontRightMotor);
+	DEBUG_MOTOR(backLeftMotor);
+	DEBUG_MOTOR(backRightMotor);
 }
 
 MecanumDriveTrain::~MecanumDriveTrain()
@@ -45,5 +50,11 @@ void MecanumDriveTrain::stop()
 {
 	drive->MecanumDrive(0.0, 0.0, 0.0);
 }
+
+void MecanumDriveTrain::setMotorSpeed(RobotMap::CanID motorID, float speed)
+{	drive->setMotorSpeed(motorID,speed);
+
+}
+
 
 #endif

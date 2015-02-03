@@ -3,6 +3,8 @@
 
 #include <RobotDrive.h>
 
+#include "../../RobotMap.h"
+
 #include <vector>
 
 class SpeedController;
@@ -31,7 +33,7 @@ public:
 	virtual void SetLeftRightMotorOutputs(float leftOutput, float rightOutput);
 	virtual void MecanumDrive(double x, double y, double rotate, double angle=0.0);
 	void setMaxSpeed(float speed);
-
+	void setMotorSpeed(RobotMap::CanID motorID, float speed);
 	void ignoreEncoders();
 
 protected:
