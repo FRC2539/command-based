@@ -195,6 +195,11 @@ void EncoderDrive::equalizeMotors()
 void EncoderDrive::ignoreEncoders()
 {
 	m_brokenEncoder = true;
+
+	for (auto pid : outputs)
+	{
+		pid->Disable();
+	}
 }
 
 void EncoderDrive::setMotorSpeed(RobotMap::CanID motorID, float speed)

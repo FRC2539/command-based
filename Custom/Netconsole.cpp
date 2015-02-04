@@ -4,6 +4,11 @@
 
 void Netconsole::sendToConsole(std::string label, std::string value)
 {
+	if (storage.count(label) == 0)
+	{
+		std::cout << label << ": " << value << "\n";
+	}
+
 	storage[label] = value;
 	ticks++;
 
