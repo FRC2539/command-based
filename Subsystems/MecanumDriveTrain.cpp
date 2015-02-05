@@ -15,20 +15,18 @@ MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 	frontLeftMotor = new CANTalon(RobotMap::DriveBase::frontLeftMotorID);
 	backRightMotor = new CANTalon(RobotMap::DriveBase::backRightMotorID);
 	backLeftMotor = new CANTalon(RobotMap::DriveBase::backLeftMotorID);
-
-
 	
 	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
 
 	drive = new EncoderDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 	drive->SetSafetyEnabled(false);
-	drive->ignoreEncoders();
 	
 	DEBUG_MOTOR(frontLeftMotor);
 	DEBUG_MOTOR(frontRightMotor);
 	DEBUG_MOTOR(backLeftMotor);
 	DEBUG_MOTOR(backRightMotor);
+	DEBUG_SENSOR(gyro);
 }
 
 MecanumDriveTrain::~MecanumDriveTrain()
@@ -43,7 +41,7 @@ MecanumDriveTrain::~MecanumDriveTrain()
 
 void MecanumDriveTrain::move(float xValue, float yValue, float rotate)
 {
-	drive->MecanumDrive(xValue, yValue, rotate, gyro->GetAngle());
+	drive->MecanumDrive(xValue, yValue, rotate, 0);
 }
 
 void MecanumDriveTrain::stop()

@@ -23,10 +23,10 @@ public:
 	LogitechDualShockController(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
 
 	enum Axis{
-		LeftX = 1,
-		LeftY = 2,
-		RightX = 3,
-		RightY = 4,
+		LeftX = 0,
+		LeftY = 1,
+		RightX = 2,
+		RightY = 3,
 		DPadX = 5,
 		DPadY = 6
 	};

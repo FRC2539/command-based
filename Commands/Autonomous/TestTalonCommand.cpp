@@ -8,10 +8,10 @@ TestTalonCommand::TestTalonCommand()
 
 void TestTalonCommand::Initialize()
 {
-	drivetrain->setMotorSpeed(1,0.5);
+	drivetrain->setMotorSpeed(2,0.5);
 }
 
 void TestTalonCommand::End()
 {
-	drivetrain->setMotorSpeed(1,0);
+	drivetrain->setMotorSpeed(2,0);
 }
