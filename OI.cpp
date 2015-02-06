@@ -16,6 +16,7 @@
 // Available Commands for ControllerMap
 #include "Commands/PreciseDriveCommand.h"
 #include "Commands/ResetCommand.h"
+#include "Commands/ButtonDriveCommand.h"
 
 OI::OI()
 {
