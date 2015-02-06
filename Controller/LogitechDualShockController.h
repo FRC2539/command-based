@@ -27,8 +27,8 @@ public:
 		LeftY = 1,
 		RightX = 2,
 		RightY = 3,
-		DPadX = 5,
-		DPadY = 6
+		DPadX = 4,
+		DPadY = 5
 	};
 
 	enum Buttons{

@@ -17,9 +17,9 @@ public:
 	LogitechAttack3Joystick(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
 
 	enum Axes{
-		X = 1,
-		Y = 2,
-		Throttle = 3
+		X = 0,
+		Y = 1,
+		Throttle = 2
 	};
 
 	enum Buttons{

@@ -22,14 +22,14 @@ public:
 	LogitechCrossfireController(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
 
 	enum Axes{
-		LeftX = 1,
-		LeftY = 2,
-		RightX = 4,
-		RightY = 5,
-		LeftTrigger = 3,
-		RightTrigger = 3,
-		DPadX = 6,
-		DPadY = 2
+		LeftX = 0,
+		LeftY = 1,
+		RightX = 3,
+		RightY = 4,
+		LeftTrigger = 2,
+		RightTrigger = 2,
+		DPadX = 5,
+		DPadY = 1
 	};
 
 	enum Buttons{

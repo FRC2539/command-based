@@ -18,14 +18,18 @@ MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 	
 	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
+	enableGyro = false;
 
 	drive = new EncoderDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 	drive->SetSafetyEnabled(false);
+	drive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
+	drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 	
 	DEBUG_MOTOR(frontLeftMotor);
 	DEBUG_MOTOR(frontRightMotor);
 	DEBUG_MOTOR(backLeftMotor);
 	DEBUG_MOTOR(backRightMotor);
+
 	DEBUG_SENSOR(gyro);
 }
 
@@ -41,7 +45,7 @@ MecanumDriveTrain::~MecanumDriveTrain()
 
 void MecanumDriveTrain::move(float xValue, float yValue, float rotate)
 {
-	drive->MecanumDrive(xValue, yValue, rotate, 0);
+	drive->MecanumDrive(xValue, yValue, rotate, GyroAngle());
 }
 
 void MecanumDriveTrain::stop()
@@ -49,10 +53,19 @@ void MecanumDriveTrain::stop()
 	drive->MecanumDrive(0.0, 0.0, 0.0);
 }
 
-void MecanumDriveTrain::setMotorSpeed(RobotMap::CanID motorID, float speed)
-{	drive->setMotorSpeed(motorID,speed);
-
+void MecanumDriveTrain::useGyro(bool isActive)
+{
+	enableGyro = isActive;
 }
 
+float MecanumDriveTrain::GyroAngle()
+{
+	if (enableGyro)
+	{
+		return gyro->GetAngle();
+	}
+
+	return 0;
+}
 
 #endif

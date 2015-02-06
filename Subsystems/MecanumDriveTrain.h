@@ -10,18 +10,23 @@ class MecanumDriveTrain: public DriveTrain {
 public:
 	MecanumDriveTrain();
 	virtual ~MecanumDriveTrain();
-	void setMotorSpeed(RobotMap::CanID motorID, float speed);
-	
+
 	void move(float xValue, float yValue, float rotateValue);
 	virtual void stop();
 
+	void useGyro(bool isActive);
+
 protected:
+	float GyroAngle();
+
 	CANTalon* frontLeftMotor;
 	CANTalon* frontRightMotor;
 	CANTalon* backLeftMotor;
 	CANTalon* backRightMotor;
 
 	Gyro* gyro;
+
+	bool enableGyro;
 };
 
 #define MOVE_WITH_JOYSTICK\

@@ -13,7 +13,6 @@
 
 #include "../../RobotMap.h"
 
-
 EncoderDrive::EncoderDrive(
 	SpeedController* leftMotor,
 	SpeedController* rightMotor,
@@ -42,12 +41,6 @@ EncoderDrive::EncoderDrive(
 	addMotor(new CANTalonRatePIDSource(frontRightMotor), frontRightMotor);
 	addMotor(new CANTalonRatePIDSource(backLeftMotor), backLeftMotor);
 	addMotor(new CANTalonRatePIDSource(backRightMotor), backRightMotor);
-	
-	SetInvertedMotor(kFrontRightMotor,true);
-	SetInvertedMotor(kRearRightMotor,true);
-	
-	//frontRightMotor->SetSensorDirection(true);
-	//backRightMotor->SetSensorDirection(true);
 
 	speeds.resize(motors.size());
 }
@@ -66,18 +59,15 @@ void EncoderDrive::SetLeftRightMotorOutputs(float leftOutput, float rightOutput)
 	}
 
 	speeds[0] = leftOutput;
-	speeds[1] = -rightOutput; // Should we set this motor inverted?
+	speeds[1] = rightOutput;
+
 	equalizeMotors();
 }
 
-
 void EncoderDrive::MecanumDrive(double x, double y, double rotate, double angle)
-{	
-	
-
+{
 	if (m_brokenEncoder)
 	{
-	
 		RobotDrive::MecanumDrive_Cartesian(x, -y, rotate, angle);
 		return;
 	}
@@ -104,8 +94,8 @@ void EncoderDrive::MecanumDrive(double x, double y, double rotate, double angle)
 	for (int i = 1; i < kMaxNumberOfMotors; i++)
 	{
 		speeds[i] *= m_invertedMotors[i];
-		
-	};
+	}
+
 	// Normalize joystick values
 	float maxSpeed = std::abs(speeds[kFrontLeftMotor]);
 	for (int i = 1; i < kMaxNumberOfMotors; i++)
@@ -203,13 +193,8 @@ void EncoderDrive::ignoreEncoders()
 {
 	m_brokenEncoder = true;
 
-	for (auto pid : outputs)
+	for (auto pidLoop : outputs)
 	{
-		pid->Disable();
+		pidLoop->Disable();
 	}
-}
-
-void EncoderDrive::setMotorSpeed(RobotMap::CanID motorID, float speed)
-{
-	motors[motorID]->Set(speed);
 }

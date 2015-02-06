@@ -25,6 +25,7 @@ ArcadeDriveTrain::ArcadeDriveTrain() : DriveTrain("ArcadeDriveTrain")
 
 	drive = new EncoderDrive(leftMotor, rightMotor, leftEncoder, rightEncoder);
 	drive->SetSafetyEnabled(false);
+	drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 
 	DEBUG_SENSOR(leftEncoder);
 	DEBUG_SENSOR(rightEncoder);
@@ -42,7 +43,7 @@ ArcadeDriveTrain::~ArcadeDriveTrain() {
 }
 
 void ArcadeDriveTrain::move(float yValue, float rotate) {
-	drive->ArcadeDrive(-yValue, -rotate, true);
+	drive->ArcadeDrive(-yValue, rotate, true);
 }
 
 void ArcadeDriveTrain::stop()
