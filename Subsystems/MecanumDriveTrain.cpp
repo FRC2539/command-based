@@ -24,7 +24,7 @@ MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 	drive->SetSafetyEnabled(false);
 	drive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
 	drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
-	
+
 	DEBUG_MOTOR(frontLeftMotor);
 	DEBUG_MOTOR(frontRightMotor);
 	DEBUG_MOTOR(backLeftMotor);
@@ -51,6 +51,8 @@ void MecanumDriveTrain::move(float xValue, float yValue, float rotate)
 void MecanumDriveTrain::stop()
 {
 	drive->MecanumDrive(0.0, 0.0, 0.0);
+	gyro->Reset();
+	drive->resetEncoders();
 }
 
 void MecanumDriveTrain::useGyro(bool isActive)

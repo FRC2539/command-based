@@ -32,12 +32,12 @@ namespace RobotMap {
 		const double encoderSensitivity = 0.053333333;
 		const double gyroSensitivity = 0.007;
 
-		const double maxSpeed = 100;
+		const double maxSpeed = 200;
 		const double preciseModeMaxSpeed = 20;
 
-		const double P = 0.00075;
+		const double P = 0.1;
 		const double I = 0;
-		const double D = 0;
+		const double D = 0.05;
 	}
 }
 

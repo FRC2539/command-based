@@ -198,3 +198,12 @@ void EncoderDrive::ignoreEncoders()
 		pidLoop->Disable();
 	}
 }
+
+void EncoderDrive::resetEncoders()
+{
+	for (auto pidLoop : outputs)
+	{
+		pidLoop->Reset();
+		pidLoop->Enable();
+	}
+}

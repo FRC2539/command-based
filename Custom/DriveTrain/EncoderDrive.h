@@ -34,6 +34,7 @@ public:
 	virtual void MecanumDrive(double x, double y, double rotate, double angle=0.0);
 	void setMaxSpeed(float speed);
 	void ignoreEncoders();
+	void resetEncoders();
 
 protected:
 	float m_maxSpeed;
