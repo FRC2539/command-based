@@ -17,6 +17,7 @@
 #include "Commands/PreciseDriveCommand.h"
 #include "Commands/ResetCommand.h"
 #include "Commands/ButtonDriveCommand.h"
+#include "Commands/ZeroGyroCommand.h"
 
 OI::OI()
 {

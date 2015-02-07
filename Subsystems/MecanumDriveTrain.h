@@ -15,6 +15,7 @@ public:
 	virtual void stop();
 
 	void useGyro(bool isActive);
+	void resetGyro();
 
 protected:
 	float GyroAngle();

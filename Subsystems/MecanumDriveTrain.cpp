@@ -18,7 +18,7 @@ MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 	
 	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
-	enableGyro = false;
+	enableGyro = true;
 
 	drive = new EncoderDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 	drive->SetSafetyEnabled(false);
@@ -51,7 +51,7 @@ void MecanumDriveTrain::move(float xValue, float yValue, float rotate)
 void MecanumDriveTrain::stop()
 {
 	drive->MecanumDrive(0.0, 0.0, 0.0);
-	gyro->Reset();
+	resetGyro();
 	drive->resetEncoders();
 }
 
@@ -68,6 +68,11 @@ float MecanumDriveTrain::GyroAngle()
 	}
 
 	return 0;
+}
+
+void MecanumDriveTrain::resetGyro()
+{
+	gyro->Reset();
 }
 
 #endif
