@@ -2,11 +2,13 @@
 #define MECANUM_DRIVE_TRAIN_H
 
 #include "DriveTrain.h"
+#include <PIDSource.h>
+#include <PIDOutput.h>
 
 class CANTalon;
 class Gyro;
 
-class MecanumDriveTrain: public DriveTrain {
+class MecanumDriveTrain: public DriveTrain, public PIDSource, public PIDOutput {
 public:
 	MecanumDriveTrain();
 	virtual ~MecanumDriveTrain();
@@ -16,6 +18,16 @@ public:
 
 	void useGyro(bool isActive);
 	void resetGyro();
+
+	enum PIDMode {
+		DriveX,
+		DriveY,
+		Rotate
+	};
+
+	virtual double PIDGet();
+	virtual void PIDWrite(float output);
+	void setPIDMode(PIDMode mode);
 
 protected:
 	float GyroAngle();
@@ -28,6 +40,7 @@ protected:
 	Gyro* gyro;
 
 	bool enableGyro;
+	PIDMode currentMode;
 };
 
 #define MOVE_WITH_JOYSTICK\

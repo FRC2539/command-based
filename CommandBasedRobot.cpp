@@ -9,7 +9,7 @@ class CommandBasedRobot : public IterativeRobot {
 private:
 	Command* autonomousCommand;
 	Command* resetCommand;
-#ifdef DEBUG
+#if defined(DEBUG)
 	LiveWindow* lw;
 #endif
 	
@@ -19,7 +19,7 @@ private:
 		autonomousCommand = new AutonomousCommandGroup();
 		resetCommand = new ResetCommand();
 
-#ifdef DEBUG
+#if defined(DEBUG)
 		lw = LiveWindow::GetInstance();
 #endif
 	}
@@ -41,7 +41,7 @@ private:
 
 		resetCommand->Start();
 
-#ifdef DEBUG
+#if defined(DEBUG)
 		lw->SetEnabled(true);
 #endif
 	}
@@ -49,22 +49,20 @@ private:
 	virtual void TeleopPeriodic() {
 		Scheduler::GetInstance()->Run();
 
-#ifdef DEBUG
+#if defined(DEBUG)
 		lw->Run();
 #endif
 	}
 
-#ifdef DEBUG
+#if defined(DEBUG)
 	virtual void TestInit() {
 		lw->SetEnabled(true);
 	}
-#endif
-	
+
 	virtual void TestPeriodic() {
-#ifdef DEBUG
 		lw->Run();
-#endif
 	}
+#endif
 };
 
 START_ROBOT_CLASS(CommandBasedRobot);

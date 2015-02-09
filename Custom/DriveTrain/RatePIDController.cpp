@@ -69,7 +69,7 @@ void RatePIDController::Calculate()
 		m_result += m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError);
 		m_prevError = m_error;
 
-		result = m_result / m_maximumInput * m_maximumOutput;
+		result = scaleInput(m_result);
 
 		if (result > m_maximumOutput)
 		{
@@ -82,6 +82,21 @@ void RatePIDController::Calculate()
 
 		pidOutput->PIDWrite(result);
 	}
+}
+
+/* Handles non-symmetrical and differing sizes of inputs and outputs */
+float RatePIDController::scaleInput(float input)
+{
+	// Normalize Input
+	input -= m_maximumInput;
+
+	// Scale input range to output range
+	input /= m_maximumInput - m_maximumInput;
+	input *= m_maximumOutput - m_minimumOutput;
+
+	// Denormalize
+	return input + m_minimumOutput;
+
 }
 
 void RatePIDController::StartLiveWindowMode() {}

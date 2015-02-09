@@ -20,6 +20,8 @@ public:
 
 protected:
 	virtual void Calculate();
+
+	float scaleInput(float input);
 };
 
 #endif

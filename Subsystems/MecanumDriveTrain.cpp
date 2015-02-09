@@ -9,7 +9,12 @@
 
 #include "../Custom/Netconsole.h"
 
-MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
+MecanumDriveTrain::MecanumDriveTrain() :
+	DriveTrain("MecanumDriveTrain"),
+	PIDSource(),
+	PIDOutput(),
+	enableGyro(false),
+	currentMode(DriveY)
 {
 	frontRightMotor = new CANTalon(RobotMap::DriveBase::frontRightMotorID);
 	frontLeftMotor = new CANTalon(RobotMap::DriveBase::frontLeftMotorID);
@@ -24,11 +29,6 @@ MecanumDriveTrain::MecanumDriveTrain() : DriveTrain("MecanumDriveTrain")
 	drive->SetSafetyEnabled(false);
 	drive->SetInvertedMotor(RobotDrive::kFrontRightMotor, true);
 	drive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
-
-	DEBUG_MOTOR(frontLeftMotor);
-	DEBUG_MOTOR(frontRightMotor);
-	DEBUG_MOTOR(backLeftMotor);
-	DEBUG_MOTOR(backRightMotor);
 
 	DEBUG_SENSOR(gyro);
 }
@@ -73,6 +73,41 @@ float MecanumDriveTrain::GyroAngle()
 void MecanumDriveTrain::resetGyro()
 {
 	gyro->Reset();
+}
+
+double MecanumDriveTrain::PIDGet()
+{
+	if (currentMode == DriveX)
+	{
+		return drive->getXPosition();
+	}
+	else if (currentMode == DriveY)
+	{
+		return drive->getYPosition();
+	}
+
+	return gyro->GetAngle();
+}
+
+void MecanumDriveTrain::PIDWrite(float output)
+{
+	if (currentMode == DriveX)
+	{
+		move(output, 0, 0);
+	}
+	else if (currentMode == DriveY)
+	{
+		move(0, output, 0);
+	}
+	else
+	{
+		move(0, 0, output);
+	}
+}
+
+void MecanumDriveTrain::setPIDMode(PIDMode mode)
+{
+	currentMode = mode;
 }
 
 #endif

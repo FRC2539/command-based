@@ -4,7 +4,7 @@
 #include <Commands/Subsystem.h>
 #include "../RobotMap.h"
 
-#ifdef DEBUG
+#if defined(DEBUG)
 #include <LiveWindow/LiveWindow.h>
 
 #define DEBUG_SENSOR(sensor)\
