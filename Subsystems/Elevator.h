@@ -12,9 +12,15 @@ public:
 	virtual void InitDefaultCommand();
 
 	void changePosition(int difference);
+	void directDrive(float percentVoltage);
+	void endDirectDrive();
 
 protected:
 	CANTalon* elevatorMotor;
+
+	unsigned int currentPosition;
+	unsigned int minPosition;
+	unsigned int maxPosition;
 };
 
 #endif

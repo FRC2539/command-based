@@ -14,6 +14,7 @@
 #include "Commands/PreciseDriveCommand.h"
 #include "Commands/ResetCommand.h"
 #include "Commands/ButtonDriveCommand.h"
+#include "Commands/ButtonElevatorCommand.h"
 #include "Commands/ZeroGyroCommand.h"
 #include "Commands/LowerElevatorCommand.h"
 #include "Commands/RaiseElevatorCommand.h"

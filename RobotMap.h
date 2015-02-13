@@ -27,7 +27,6 @@ namespace RobotMap {
 		CanID backLeftMotorID = 3;
 		CanID backRightMotorID = 4;
 
-		
 		AnalogPort gyroPort = 0;
 		const double encoderSensitivity = 0.053333333;
 		const double gyroSensitivity = 0.007;
@@ -39,10 +38,10 @@ namespace RobotMap {
 		const double I = 0;
 		const double D = 0.05;
 	}
-	
+
 	namespace Elevator {
-		const unsigned int elevatorStepSize = 200;
-		CanID ElevatormotorID = 2;
+		CanID elevatorMotorID = 2;
+		const unsigned int stepSize = 200;
 	}
 }
 

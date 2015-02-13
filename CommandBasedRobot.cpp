@@ -7,6 +7,7 @@
 
 class CommandBasedRobot : public IterativeRobot {
 private:
+	SendableChooser* autonomousProgram;
 	Command* autonomousCommand;
 	Command* resetCommand;
 #if defined(DEBUG)
@@ -16,7 +17,8 @@ private:
 	virtual void RobotInit() {
 		CommandBase::init();
 
-		autonomousCommand = new AutonomousCommandGroup();
+		autonomousProgram = new SendableChooser();
+		autonomousProgram->AddDefault("Default", new AutonomousCommandGroup());
 		resetCommand = new ResetCommand();
 
 #if defined(DEBUG)
@@ -25,6 +27,7 @@ private:
 	}
 	
 	virtual void AutonomousInit() {
+		autonomousCommand = (Command *) autonomousProgram->GetSelected();
 		autonomousCommand->Start();
 	}
 	
