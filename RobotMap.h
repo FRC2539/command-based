@@ -39,6 +39,11 @@ namespace RobotMap {
 		const double I = 0;
 		const double D = 0.05;
 	}
+	
+	namespace Elevator {
+		const unsigned int elevatorStepSize = 200;
+		CanID ElevatormotorID = 2;
+	}
 }
 
 #if defined(MECANUM_DRIVE) && defined(ARCADE_DRIVE)

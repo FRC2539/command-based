@@ -22,6 +22,7 @@ void CommandBase::init() {
 	#elif defined(ARCADE_DRIVE)
 		drivetrain = new ArcadeDriveTrain();
 	#endif
+	elevator = new Elevator();
 	oi = new OI();
 }
 
@@ -34,4 +35,5 @@ void CommandBase::init() {
 #elif defined(ARCADE_DRIVE)
 	ArcadeDriveTrain* CommandBase::drivetrain = NULL;
 #endif
+Elevator* CommandBase::elevator = NULL;
 OI* CommandBase::oi = NULL;

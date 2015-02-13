@@ -11,6 +11,7 @@
 #elif defined(ARCADE_DRIVE)
 	#include "Subsystems/ArcadeDriveTrain.h"
 #endif
+#include "Subsystems/Elevator.h"
 #include "OI.h"
 
 /**
@@ -33,6 +34,7 @@ public:
 	#elif defined(ARCADE_DRIVE)
 		static ArcadeDriveTrain *drivetrain;
 	#endif
+	static Elevator *elevator;
 	static OI *oi;
 };
 

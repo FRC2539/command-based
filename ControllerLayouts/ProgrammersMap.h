@@ -15,3 +15,5 @@ ADD_TOGGLE_BUTTON(0, X, PreciseDriveCommand);
 ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
 ADD_BUTTON(0, Y, WhileHeld, new ButtonDriveCommand(0.3));
 ADD_SIMPLE_BUTTON(0, B, ZeroGyroCommand);
+ADD_SIMPLE_BUTTON(0, LeftBumper, RaiseElevatorCommand);
+ADD_SIMPLE_BUTTON(0, LeftTrigger, LowerElevatorCommand);
