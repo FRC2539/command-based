@@ -9,16 +9,16 @@ class Elevator: public Subsystem {
 public:
 	Elevator();
 	virtual ~Elevator();
-	virtual void InitDefaultCommand();
 
 	void changePosition(int difference);
+	bool onTarget();
 	void directDrive(float percentVoltage);
 	void endDirectDrive();
 
 protected:
 	CANTalon* elevatorMotor;
 
-	unsigned int currentPosition;
+	unsigned int targetPosition;
 	unsigned int minPosition;
 	unsigned int maxPosition;
 };

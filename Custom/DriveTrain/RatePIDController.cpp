@@ -88,10 +88,10 @@ void RatePIDController::Calculate()
 float RatePIDController::scaleInput(float input)
 {
 	// Normalize Input
-	input -= m_maximumInput;
+	input -= m_minimumInput;
 
 	// Scale input range to output range
-	input /= m_maximumInput - m_maximumInput;
+	input /= m_maximumInput - m_minimumInput;
 	input *= m_maximumOutput - m_minimumOutput;
 
 	// Denormalize

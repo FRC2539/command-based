@@ -1,7 +1,7 @@
 #include "RaiseElevatorCommand.h"
 
 RaiseElevatorCommand::RaiseElevatorCommand()
-	: InstantCommand("RaiseElevator")
+	: DefaultCommand("RaiseElevator")
 {
 	Requires(elevator);
 }
@@ -9,4 +9,14 @@ RaiseElevatorCommand::RaiseElevatorCommand()
 void RaiseElevatorCommand::Initialize()
 {
 	elevator->changePosition(1);
+}
+
+bool RaiseElevatorCommand::IsFinished()
+{
+	return elevator->onTarget();
+}
+
+void RaiseElevatorCommand::End()
+{
+	elevator->changePosition(0);
 }

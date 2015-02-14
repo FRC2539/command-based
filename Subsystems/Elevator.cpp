@@ -5,8 +5,8 @@
 Elevator::Elevator() : Subsystem("Elevator"), minPosition(0), maxPosition(0)
 {
 	elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
-	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
-	currentPosition = elevatorMotor->Get();
+	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
+	targetPosition = elevatorMotor->Get();
 }
 
 Elevator::~Elevator()
@@ -16,18 +16,31 @@ Elevator::~Elevator()
 
 void Elevator::changePosition(int difference)
 {
-	currentPosition += difference * RobotMap::Elevator::stepSize;
-	if (maxPosition > 0 && currentPosition > maxPosition)
+	targetPosition += difference * RobotMap::Elevator::stepSize;
+	if (maxPosition > 0 && targetPosition > maxPosition)
 	{
-		currentPosition = maxPosition;
+		targetPosition = maxPosition;
 	}
-	else if (minPosition > 0 && currentPosition < minPosition)
+	else if (minPosition > 0 && targetPosition < minPosition)
 	{
-		currentPosition = minPosition;
+		targetPosition = minPosition;
 	}
-	elevatorMotor->Set(currentPosition);
+	elevatorMotor->Set(difference * RobotMap::Elevator::stepSpeed);
 }
- 
+
+bool Elevator::onTarget()
+{
+	int speed = elevatorMotor->Get();
+	if (speed < 0)
+	{
+		return elevatorMotor->GetEncPosition() <= targetPosition;
+	}
+	else
+	{
+		return elevatorMotor->GetEncPosition() >= targetPosition;
+	}
+}
+
 void Elevator::directDrive(float percentVoltage)
 {
 	elevatorMotor->SetControlMode(CANSpeedController::kPercentVbus);
@@ -37,8 +50,7 @@ void Elevator::directDrive(float percentVoltage)
 void Elevator::endDirectDrive()
 {
 	elevatorMotor->Set(0);
-	currentPosition = elevatorMotor->GetEncPosition();
-	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
-	elevatorMotor->Set(currentPosition);
+	targetPosition = elevatorMotor->GetEncPosition();
+	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 }
 
