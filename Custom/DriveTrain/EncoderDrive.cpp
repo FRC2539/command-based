@@ -178,7 +178,6 @@ void EncoderDrive::equalizeMotors()
 			{
 				speeds[i] = std::max(speeds[i], -maxInput);
 			}
-
 		}
 	}
 	for (int i=0; i < motorCount; i++)

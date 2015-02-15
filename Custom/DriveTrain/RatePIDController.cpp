@@ -96,7 +96,6 @@ float RatePIDController::scaleInput(float input)
 
 	// Denormalize
 	return input + m_minimumOutput;
-
 }
 
 void RatePIDController::StartLiveWindowMode() {}

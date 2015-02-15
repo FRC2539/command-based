@@ -25,7 +25,15 @@ void Elevator::changePosition(int difference)
 	{
 		targetPosition = minPosition;
 	}
-	elevatorMotor->Set(difference * RobotMap::Elevator::stepSpeed);
+
+	if (targetPosition < elevatorMotor->GetEncPosition())
+	{
+		elevatorMotor->Set(-RobotMap::Elevator::stepSpeed);
+	}
+	else
+	{
+		elevatorMotor->Set(RobotMap::Elevator::stepSpeed);
+	}
 }
 
 bool Elevator::onTarget()

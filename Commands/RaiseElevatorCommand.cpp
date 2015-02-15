@@ -18,5 +18,5 @@ bool RaiseElevatorCommand::IsFinished()
 
 void RaiseElevatorCommand::End()
 {
-	elevator->changePosition(0);
+	elevator->endDirectDrive();
 }

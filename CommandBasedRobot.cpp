@@ -17,8 +17,11 @@ private:
 	virtual void RobotInit() {
 		CommandBase::init();
 
+		autonomousCommand = new AutonomousCommandGroup();
 		autonomousProgram = new SendableChooser();
-		autonomousProgram->AddDefault("Default", new AutonomousCommandGroup());
+		autonomousProgram->AddDefault("Default", autonomousCommand);
+		SmartDashboard::PutData("Autonomous Program", autonomousProgram);
+
 		resetCommand = new ResetCommand();
 
 #if defined(DEBUG)
