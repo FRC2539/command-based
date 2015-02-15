@@ -1,4 +1,5 @@
 #include "Elevator.h"
+
 #include <CANTalon.h>
 #include "../RobotMap.h"
 
@@ -6,6 +7,7 @@ Elevator::Elevator() : Subsystem("Elevator"), minPosition(0), maxPosition(0)
 {
 	elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
 	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
+	elevatorMotor->SetSensorDirection(true);
 	targetPosition = elevatorMotor->Get();
 }
 
@@ -26,7 +28,7 @@ void Elevator::changePosition(int difference)
 		targetPosition = minPosition;
 	}
 
-	if (targetPosition < elevatorMotor->GetEncPosition())
+	if (targetPosition < elevatorMotor->GetPosition())
 	{
 		elevatorMotor->Set(-RobotMap::Elevator::stepSpeed);
 	}
@@ -41,11 +43,11 @@ bool Elevator::onTarget()
 	int speed = elevatorMotor->Get();
 	if (speed < 0)
 	{
-		return elevatorMotor->GetEncPosition() <= targetPosition;
+		return elevatorMotor->GetPosition() <= targetPosition;
 	}
 	else
 	{
-		return elevatorMotor->GetEncPosition() >= targetPosition;
+		return elevatorMotor->GetPosition() >= targetPosition;
 	}
 }
 
@@ -58,7 +60,15 @@ void Elevator::directDrive(float percentVoltage)
 void Elevator::endDirectDrive()
 {
 	elevatorMotor->Set(0);
-	targetPosition = elevatorMotor->GetEncPosition();
+	targetPosition = elevatorMotor->GetPosition();
 	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 }
 
+int Elevator::GetPosition()
+{
+	return elevatorMotor->GetPosition();
+}
+void Elevator::SetPosition(int ElevatorPosition)
+{
+	elevatorMotor->SetPosition(ElevatorPosition);
+}

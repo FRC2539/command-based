@@ -42,9 +42,14 @@ void ControllerAxis::makeThrottle()
 
 float ControllerAxis::getValue()
 {
+	float value = controller->GetAxisValue(axis);
+	if (value < 0.1 && value > -0.1)
+	{
+		value = 0;
+	}
 	if (throttle)
 	{
-		return modifier * 0.5 * (controller->GetAxisValue(axis) + 1);
+		return modifier * 0.5 * (value + 1);
 	}
-	return modifier * controller->GetAxisValue(axis);
+	return modifier * value;
 }

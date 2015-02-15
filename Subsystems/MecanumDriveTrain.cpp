@@ -23,7 +23,7 @@ MecanumDriveTrain::MecanumDriveTrain() :
 	
 	gyro = new Gyro(RobotMap::DriveBase::gyroPort);
 	gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
-	enableGyro = true;
+	enableGyro = false;
 
 	drive = new EncoderDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 	drive->SetSafetyEnabled(false);

@@ -30,6 +30,8 @@ private:
 	}
 	
 	virtual void AutonomousInit() {
+		Preferences* Preferences=Preferences::GetInstance();
+		CommandBase::elevator->SetPosition(Preferences->GetInt("elevatorPosition"));
 		autonomousCommand = (Command *) autonomousProgram->GetSelected();
 		autonomousCommand->Start();
 	}
@@ -43,6 +45,8 @@ private:
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		Preferences* Preferences=Preferences::GetInstance();
+		CommandBase::elevator->SetPosition(Preferences->GetInt("elevatorPosition"));
 		autonomousCommand->Cancel();
 
 		resetCommand->Start();
@@ -60,6 +64,11 @@ private:
 #endif
 	}
 
+	virtual void DisabledInit() {
+		Preferences* Preferences=Preferences::GetInstance();
+		Preferences->PutInt("elevatorPosition", CommandBase::elevator->GetPosition());
+		Preferences->Save();
+	}
 #if defined(DEBUG)
 	virtual void TestInit() {
 		lw->SetEnabled(true);

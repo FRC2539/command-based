@@ -12,6 +12,7 @@
 	#include "Subsystems/ArcadeDriveTrain.h"
 #endif
 #include "Subsystems/Elevator.h"
+#include "Subsystems/Tines.h"
 #include "OI.h"
 
 /**
@@ -35,6 +36,7 @@ public:
 		static ArcadeDriveTrain *drivetrain;
 	#endif
 	static Elevator *elevator;
+	static Tines *tines;
 	static OI *oi;
 };
 

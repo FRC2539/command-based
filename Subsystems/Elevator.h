@@ -14,6 +14,8 @@ public:
 	bool onTarget();
 	void directDrive(float percentVoltage);
 	void endDirectDrive();
+	int GetPosition();
+	void SetPosition(int ElevatorPosition);
 
 protected:
 	CANTalon* elevatorMotor;

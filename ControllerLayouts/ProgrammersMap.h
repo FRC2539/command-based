@@ -11,10 +11,10 @@ ADD_AXIS(0, LeftX, logicalAxes::DriveX);
 ADD_AXIS(0, RightX, logicalAxes::DriveRotate);
 
 //ADD_BUTTON(1, LeftJoystick, WhileHeld, new PreciseDriveCommand());
-ADD_TOGGLE_BUTTON(0, X, PreciseDriveCommand);
+ADD_TOGGLE_BUTTON(0, LeftJoystick, PreciseDriveCommand);
 ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
 ADD_BUTTON(0, Y, WhileHeld, new ButtonElevatorCommand(0.3));
 ADD_BUTTON(0, A, WhileHeld, new ButtonElevatorCommand(-0.3));
-ADD_SIMPLE_BUTTON(0, B, ZeroGyroCommand);
-ADD_SIMPLE_BUTTON(0, LeftBumper, RaiseElevatorCommand);
-ADD_SIMPLE_BUTTON(0, LeftTrigger, LowerElevatorCommand);
+ADD_SIMPLE_BUTTON(0, Start, ZeroGyroCommand);
+ADD_BUTTON(0, X, WhileHeld, new ButtonTinesCommand(1));
+ADD_BUTTON(0, B, WhileHeld, new ButtonTinesCommand(-1));

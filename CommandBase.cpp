@@ -23,6 +23,7 @@ void CommandBase::init() {
 		drivetrain = new ArcadeDriveTrain();
 	#endif
 	elevator = new Elevator();
+	tines = new Tines();
 	oi = new OI();
 }
 
@@ -36,4 +37,5 @@ void CommandBase::init() {
 	ArcadeDriveTrain* CommandBase::drivetrain = NULL;
 #endif
 Elevator* CommandBase::elevator = NULL;
+Tines* CommandBase::tines = NULL;
 OI* CommandBase::oi = NULL;

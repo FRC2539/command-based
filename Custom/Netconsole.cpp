@@ -16,10 +16,16 @@ void Netconsole::sendToConsole(std::string label, std::string value)
 	{
 		for (auto element : storage)
 		{
-			std::cout << element.first << ": " << element.second << "\n";
+			writeOut(element.first, element.second);
 		}
 	}
 }
+
+void Netconsole::writeOut(std::string label, std::string value)
+{
+	std::cout << label << ": " << value << "\n";
+}
+
 
 unsigned int Netconsole::ticks = 0;
 std::unordered_map<std::string, std::string> Netconsole::storage;
