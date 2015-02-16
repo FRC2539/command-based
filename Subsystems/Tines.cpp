@@ -8,8 +8,8 @@
 
 Tines::Tines() : Subsystem("Tines"), minPosition(0), maxPosition(0)
 {
-	tinesMotor = new Talon(RobotMap::Tines::tinesMotor);
-	distanceDetector = new AnalogPotentiometer(RobotMap::Tines::stringPotentiometer);
+	tinesMotor = new Talon(RobotMap::Tines::tinesMotorPort);
+	distanceDetector = new AnalogPotentiometer(RobotMap::Tines::stringPotentiometerPort);
 }
 
 Tines::~Tines()

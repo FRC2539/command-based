@@ -14,7 +14,8 @@ private:
 	LiveWindow* lw;
 #endif
 	
-	virtual void RobotInit() {
+	virtual void RobotInit()
+	{
 		CommandBase::init();
 
 		autonomousCommand = new AutonomousCommandGroup();
@@ -29,24 +30,27 @@ private:
 #endif
 	}
 	
-	virtual void AutonomousInit() {
-		Preferences* Preferences=Preferences::GetInstance();
-		CommandBase::elevator->SetPosition(Preferences->GetInt("elevatorPosition"));
+	virtual void AutonomousInit()
+	{
+		CommandBase::elevator->loadSettings();
+
 		autonomousCommand = (Command *) autonomousProgram->GetSelected();
 		autonomousCommand->Start();
 	}
 	
-	virtual void AutonomousPeriodic() {
+	virtual void AutonomousPeriodic()
+	{
 		Scheduler::GetInstance()->Run();
 	}
 	
-	virtual void TeleopInit() {
+	virtual void TeleopInit()
+	{
+		CommandBase::elevator->loadSettings();
+
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		Preferences* Preferences=Preferences::GetInstance();
-		CommandBase::elevator->SetPosition(Preferences->GetInt("elevatorPosition"));
 		autonomousCommand->Cancel();
 
 		resetCommand->Start();
@@ -56,7 +60,8 @@ private:
 #endif
 	}
 	
-	virtual void TeleopPeriodic() {
+	virtual void TeleopPeriodic()
+	{
 		Scheduler::GetInstance()->Run();
 
 #if defined(DEBUG)
@@ -64,17 +69,19 @@ private:
 #endif
 	}
 
-	virtual void DisabledInit() {
-		Preferences* Preferences=Preferences::GetInstance();
-		Preferences->PutInt("elevatorPosition", CommandBase::elevator->GetPosition());
-		Preferences->Save();
+	virtual void DisabledInit()
+	{
+		CommandBase::elevator->storeSettings();
 	}
+
 #if defined(DEBUG)
-	virtual void TestInit() {
+	virtual void TestInit()
+	{
 		lw->SetEnabled(true);
 	}
 
-	virtual void TestPeriodic() {
+	virtual void TestPeriodic()
+	{
 		lw->Run();
 	}
 #endif

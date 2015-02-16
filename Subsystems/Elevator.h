@@ -10,19 +10,30 @@ public:
 	Elevator();
 	virtual ~Elevator();
 
-	void changePosition(int difference);
+	void changeLevel(int difference);
 	bool onTarget();
-	void directDrive(float percentVoltage);
-	void endDirectDrive();
-	int GetPosition();
-	void SetPosition(int ElevatorPosition);
+
+	void directDrive(float speed);
+	void recalculateLevel();
+
+	void storeSettings();
+	void loadSettings();
+
+	void zeroElevator();
+
+	void enableSoftLimits();
+	void disableSoftLimits();
 
 protected:
+	int convertToLevel(int encoderValue);
+
 	CANTalon* elevatorMotor;
 
 	unsigned int targetPosition;
-	unsigned int minPosition;
-	unsigned int maxPosition;
+	unsigned int level;
+	bool fuzzyLevel;
+
+	bool settingsLoaded;
 };
 
 #endif

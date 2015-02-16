@@ -41,13 +41,21 @@ namespace RobotMap {
 
 	namespace Elevator {
 		CanID elevatorMotorID = 2;
+
 		const unsigned int stepSize = 200;
 		const unsigned int stepSpeed = 20;
+
+		const unsigned int minPosition = 0;
+		const unsigned int maxPosition = 10000;
+
+		const double P = 0.1;
+		const double I = 0;
+		const double D = 0;
 	}
 
 	namespace Tines {
-		PWMPort tinesMotor = 9;
-		AnalogPort stringPotentiometer = 3;
+		PWMPort tinesMotorPort = 9;
+		AnalogPort stringPotentiometerPort = 3;
 	}
 }
 

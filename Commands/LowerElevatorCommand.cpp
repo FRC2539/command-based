@@ -8,7 +8,7 @@ LowerElevatorCommand::LowerElevatorCommand()
 
 void LowerElevatorCommand::Initialize()
 {
-	elevator->changePosition(-1);
+	elevator->changeLevel(-1);
 }
 
 bool LowerElevatorCommand::IsFinished()
@@ -18,5 +18,5 @@ bool LowerElevatorCommand::IsFinished()
 
 void LowerElevatorCommand::End()
 {
-	elevator->endDirectDrive();
+	elevator->directDrive(0);
 }

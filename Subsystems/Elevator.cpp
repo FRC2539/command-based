@@ -1,14 +1,30 @@
 #include "Elevator.h"
 
 #include <CANTalon.h>
-#include "../RobotMap.h"
+#include <Preferences.h>
+#include <cmath>
 
-Elevator::Elevator() : Subsystem("Elevator"), minPosition(0), maxPosition(0)
+#include "../RobotMap.h"
+#include "../Custom/Netconsole.h"
+
+Elevator::Elevator() : Subsystem("Elevator"),
+	settingsLoaded(false),
+	targetPosition(-1),
+	level(0),
+	fuzzyLevel(true)
 {
 	elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
 	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 	elevatorMotor->SetSensorDirection(true);
-	targetPosition = elevatorMotor->Get();
+	elevatorMotor->ConfigSoftPositionLimits(
+		RobotMap::Elevator::maxPosition,
+		RobotMap::Elevator::minPosition
+	);
+	elevatorMotor->SetPID(
+		RobotMap::Elevator::P,
+		RobotMap::Elevator::I,
+		RobotMap::Elevator::D
+	);
 }
 
 Elevator::~Elevator()
@@ -16,16 +32,28 @@ Elevator::~Elevator()
 	delete elevatorMotor;
 }
 
-void Elevator::changePosition(int difference)
+void Elevator::changeLevel(int difference)
 {
-	targetPosition += difference * RobotMap::Elevator::stepSize;
-	if (maxPosition > 0 && targetPosition > maxPosition)
+	if (fuzzyLevel == true && difference < 0)
 	{
-		targetPosition = maxPosition;
+		difference++;
 	}
-	else if (minPosition > 0 && targetPosition < minPosition)
+	level += difference;
+	targetPosition = RobotMap::Elevator::minPosition + level * RobotMap::Elevator::stepSize;
+	if (targetPosition > RobotMap::Elevator::maxPosition)
 	{
-		targetPosition = minPosition;
+		targetPosition -= RobotMap::Elevator::stepSize;
+		while (targetPosition > RobotMap::Elevator::maxPosition)
+		{
+			level--;
+			targetPosition -= RobotMap::Elevator::stepSize;
+		}
+		targetPosition = RobotMap::Elevator::maxPosition;
+	}
+	else if (targetPosition < RobotMap::Elevator::minPosition)
+	{
+		level = 0;
+		targetPosition = RobotMap::Elevator::minPosition;
 	}
 
 	if (targetPosition < elevatorMotor->GetPosition())
@@ -36,6 +64,8 @@ void Elevator::changePosition(int difference)
 	{
 		elevatorMotor->Set(RobotMap::Elevator::stepSpeed);
 	}
+
+	fuzzyLevel = false;
 }
 
 bool Elevator::onTarget()
@@ -51,24 +81,73 @@ bool Elevator::onTarget()
 	}
 }
 
-void Elevator::directDrive(float percentVoltage)
+void Elevator::directDrive(float speed)
 {
-	elevatorMotor->SetControlMode(CANSpeedController::kPercentVbus);
-	elevatorMotor->Set(percentVoltage);
+	elevatorMotor->Set(speed);
+	Netconsole::instant<int>("Elevator", elevatorMotor->GetPosition());
 }
 
-void Elevator::endDirectDrive()
+void Elevator::recalculateLevel()
 {
-	elevatorMotor->Set(0);
-	targetPosition = elevatorMotor->GetPosition();
-	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
+	level = convertToLevel(elevatorMotor->GetPosition());
+	fuzzyLevel = true;
 }
 
-int Elevator::GetPosition()
+int Elevator::convertToLevel(int encoderValue)
 {
-	return elevatorMotor->GetPosition();
+	float value = encoderValue - RobotMap::Elevator::minPosition;
+	value /= RobotMap::Elevator::stepSize;
+
+	return (int)std::floor(value);
 }
-void Elevator::SetPosition(int ElevatorPosition)
+
+void Elevator::loadSettings()
 {
-	elevatorMotor->SetPosition(ElevatorPosition);
+	if (settingsLoaded == true)
+	{
+		return;
+	}
+
+	Preferences* preferences = Preferences::GetInstance();
+	if (preferences->ContainsKey("elevatorPosition"))
+	{
+		elevatorMotor->SetPosition(preferences->GetInt("elevatorPosition"));
+		level = convertToLevel(elevatorMotor->GetPosition());
+		settingsLoaded = true;
+		fuzzyLevel = true;
+	}
+}
+
+void Elevator::storeSettings()
+{
+	if (settingsLoaded == false)
+	{
+		return;
+	}
+
+	Preferences* preferences = Preferences::GetInstance();
+	preferences->PutInt("elevatorPosition", elevatorMotor->GetPosition());
+	preferences->Save();
+}
+
+void Elevator::zeroElevator()
+{
+	elevatorMotor->SetPosition(0);
+	targetPosition = 0;
+	level = 0;
+
+	settingsLoaded = true;
+	fuzzyLevel = false;
+}
+
+void Elevator::enableSoftLimits()
+{
+	elevatorMotor->ConfigLimitMode(
+		CANSpeedController::kLimitMode_SoftPositionLimits
+	);
+}
+
+void Elevator::disableSoftLimits()
+{
+	elevatorMotor->DisableSoftPositionLimits();
 }

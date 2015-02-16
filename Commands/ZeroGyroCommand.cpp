@@ -1,7 +1,7 @@
 #include "ZeroGyroCommand.h"
 
 ZeroGyroCommand::ZeroGyroCommand()
-	: InstantCommand("PreciseDrive")
+	: InstantCommand("ZeroGyro")
 {
 	Requires(drivetrain);
 }

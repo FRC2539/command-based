@@ -8,7 +8,7 @@ RaiseElevatorCommand::RaiseElevatorCommand()
 
 void RaiseElevatorCommand::Initialize()
 {
-	elevator->changePosition(1);
+	elevator->changeLevel(1);
 }
 
 bool RaiseElevatorCommand::IsFinished()
@@ -18,5 +18,5 @@ bool RaiseElevatorCommand::IsFinished()
 
 void RaiseElevatorCommand::End()
 {
-	elevator->endDirectDrive();
+	elevator->directDrive(0);
 }
