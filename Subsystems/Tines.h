@@ -11,6 +11,7 @@ public:
 	virtual ~Tines();
 
 	void directDrive(float percentVoltage);
+	double getWidth();
 
 protected:
 	Talon* tinesMotor;

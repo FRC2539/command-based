@@ -8,6 +8,7 @@ class ButtonTinesCommand : public DefaultCommand {
 public:
 	ButtonTinesCommand(float speed);
 	void Initialize();
+	void IsFinished();
 	void End();
 
 protected:
