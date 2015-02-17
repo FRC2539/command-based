@@ -126,16 +126,13 @@ void EncoderDrive::addMotor(PIDSource* sensor, SpeedController* motor)
 		RobotMap::DriveBase::P,
 		RobotMap::DriveBase::I,
 		RobotMap::DriveBase::D,
-		1,
 		sensor,
 		motor
 	);
 	output->SetInputRange(-m_maxSpeed, m_maxSpeed);
-	output->SetPercentTolerance('1');
 	output->Enable();
 	outputs.push_back(output);
 }
-
 
 void EncoderDrive::equalizeMotors()
 {

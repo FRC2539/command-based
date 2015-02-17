@@ -13,7 +13,7 @@ void ButtonTinesCommand::Initialize()
 	tines->directDrive(m_speed);
 }
 
-void ButtonTinesCommand::IsFinished()
+bool ButtonTinesCommand::IsFinished()
 {
 	if (m_speed < 0)
 	{

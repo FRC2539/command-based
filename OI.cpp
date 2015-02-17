@@ -20,6 +20,8 @@
 #include "Commands/ZeroElevatorCommand.h"
 #include "Commands/LowerElevatorCommand.h"
 #include "Commands/RaiseElevatorCommand.h"
+#include "Commands/Autonomous/CloseTinesCommand.h"
+#include "Commands/Autonomous/SetTinesCommand.h"
 
 OI::OI()
 {

@@ -8,11 +8,11 @@ class CloseTinesCommand : public DefaultCommand {
 public:
 	CloseTinesCommand();
 	void Initialize();
-	void End();
 	bool IsFinished();
+	void End();
 	
 protected:
-	double previousgetwidth;
+	double previousWidth;
 	int stoppedCount;
 };
 

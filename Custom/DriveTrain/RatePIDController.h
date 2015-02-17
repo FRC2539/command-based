@@ -11,9 +11,8 @@ public:
 		float p,
 		float i,
 		float d,
-		float f,
-		PIDSource *source,
-		PIDOutput *output
+		PIDSource* source,
+		PIDOutput* output
 	);
 
 	virtual void StartLiveWindowMode();

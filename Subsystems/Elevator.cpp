@@ -5,6 +5,9 @@
 #include <cmath>
 
 #include "../RobotMap.h"
+#include "../Custom/DriveTrain/RatePIDController.h"
+#include "../Custom/DriveTrain/CANTalonRatePIDSource.h"
+#include "../Commands/MaintainHeightCommand.h"
 #include "../Custom/Netconsole.h"
 
 Elevator::Elevator() : Subsystem("Elevator"),
@@ -14,7 +17,6 @@ Elevator::Elevator() : Subsystem("Elevator"),
 	fuzzyLevel(true)
 {
 	elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
-	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 	elevatorMotor->SetSensorDirection(true);
 	elevatorMotor->ConfigSoftPositionLimits(
 		RobotMap::Elevator::maxPosition,
@@ -25,11 +27,35 @@ Elevator::Elevator() : Subsystem("Elevator"),
 		RobotMap::Elevator::I,
 		RobotMap::Elevator::D
 	);
+
+	pidLoop = new RatePIDController(
+		RobotMap::Elevator::P,
+		RobotMap::Elevator::I,
+		RobotMap::Elevator::D,
+		new CANTalonRatePIDSource(elevatorMotor),
+		elevatorMotor
+	);
+	pidLoop->SetInputRange(
+		-RobotMap::Elevator::stepSpeed,
+		RobotMap::Elevator::stepSpeed
+	);
 }
 
 Elevator::~Elevator()
 {
 	delete elevatorMotor;
+}
+
+void Elevator::InitDefaultCommand()
+{
+	SetDefaultCommand(new MaintainHeightCommand());
+}
+
+void Elevator::maintainHeight()
+{
+	pidLoop->Disable();
+	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
+	elevatorMotor->Set(elevatorMotor->GetPosition());
 }
 
 void Elevator::changeLevel(int difference)
@@ -56,16 +82,21 @@ void Elevator::changeLevel(int difference)
 		targetPosition = RobotMap::Elevator::minPosition;
 	}
 
-	if (targetPosition < elevatorMotor->GetPosition())
+	moveToward(targetPosition);
+
+	fuzzyLevel = false;
+}
+
+void Elevator::moveToward(int height)
+{
+	if (height < elevatorMotor->GetPosition())
 	{
-		elevatorMotor->Set(-RobotMap::Elevator::stepSpeed);
+		directDrive(-RobotMap::Elevator::stepSpeed);
 	}
 	else
 	{
-		elevatorMotor->Set(RobotMap::Elevator::stepSpeed);
+		directDrive(RobotMap::Elevator::stepSpeed);
 	}
-
-	fuzzyLevel = false;
 }
 
 bool Elevator::onTarget()
@@ -83,8 +114,13 @@ bool Elevator::onTarget()
 
 void Elevator::directDrive(float speed)
 {
-	elevatorMotor->Set(speed);
-	Netconsole::instant<int>("Elevator", elevatorMotor->GetPosition());
+	elevatorMotor->SetControlMode(CANSpeedController::kPercentVbus);
+	pidLoop->SetSetpoint(speed);
+	if (pidLoop->IsEnabled() == false)
+	{
+		pidLoop->Enable();
+	}
+	Netconsole::instant<int>("Height", elevatorMotor->GetPosition());
 }
 
 void Elevator::recalculateLevel()

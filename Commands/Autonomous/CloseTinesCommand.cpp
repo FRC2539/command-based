@@ -1,5 +1,7 @@
 #include "CloseTinesCommand.h"
 
+#include "../../RobotMap.h"
+
 CloseTinesCommand::CloseTinesCommand()
 	: DefaultCommand("CloseTines") 
 {
@@ -9,21 +11,21 @@ CloseTinesCommand::CloseTinesCommand()
 void CloseTinesCommand::Initialize()
 {
 	tines->directDrive(-1);
-	previousgetwidth = tines->getWidth();
+	previousWidth = tines->getWidth();
 	stoppedCount = 0;
-}
-
-void CloseTinesCommand::End()
-{
-	tines->directDrive(0.1);
 }
 
 bool CloseTinesCommand::IsFinished()
 {
-	double getWidth = tines->getWidth();
-	if(previousgetwidth - getWidth > .05)
+	double width = tines->getWidth();
+	if (width <= RobotMap::Tines::minWidth)
 	{
-		previousgetwidth = getWidth;
+		return true;
+	}
+
+	if (previousWidth - width >= .05)
+	{
+		previousWidth = width;
 		stoppedCount = 0;
 		return false;
 	}
@@ -31,7 +33,12 @@ bool CloseTinesCommand::IsFinished()
 	{
 		stoppedCount++;
 	}
-	
+
 	return stoppedCount > 5;
+}
+
+void CloseTinesCommand::End()
+{
+	tines->directDrive(0.1);
 }
 

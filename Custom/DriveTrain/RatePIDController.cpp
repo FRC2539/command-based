@@ -5,8 +5,8 @@
 #include <HAL/cpp/Synchronized.hpp>
 
 RatePIDController::RatePIDController(
-	float p, float i, float d, float f, PIDSource* source, PIDOutput* output
-): SanePIDController(p, i, d, f, source, output) {}
+	float p, float i, float d, PIDSource* source, PIDOutput* output
+): SanePIDController(p, i, d, source, output) {}
 
 /* Overrides the default calculate to pass along the current value as a feed
  * forward value.
