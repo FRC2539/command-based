@@ -17,11 +17,11 @@ bool ButtonTinesCommand::IsFinished()
 {
 	if (m_speed < 0)
 	{
-		return tines->getWidth() <= RobotMap::Elevator::minPosition;
+		return tines->getWidth() <= RobotMap::Tines::minWidth;
 	}
 	else
 	{
-		return tines->getWidth() >= RobotMap::Elevator::maxPosition;
+		return tines->getWidth() >= RobotMap::Tines::maxWidth;
 	}
 }
 

@@ -28,11 +28,11 @@ namespace RobotMap {
 		CanID backRightMotorID = 4;
 
 		AnalogPort gyroPort = 0;
-		const double encoderSensitivity = 0.053333333;
+		const double encoderSensitivity = 0.02;
 		const double gyroSensitivity = 0.007;
 
 		const double maxSpeed = 200;
-		const double preciseModeMaxSpeed = 20;
+		const double preciseModeMaxSpeed = 50;
 
 		const double P = 0.1;
 		const double I = 0;
@@ -43,12 +43,12 @@ namespace RobotMap {
 		CanID elevatorMotorID = 2;
 
 		const unsigned int stepSize = 1000;
-		const unsigned int stepSpeed = 100;
+		const double stepSpeed = 400;
 
 		const unsigned int minPosition = 0;
-		const unsigned int maxPosition = 10000;
+		const unsigned int maxPosition = 6000;
 
-		const double P = 0.3;
+		const double P = 1;
 		const double I = 0;
 		const double D = 0;
 	}

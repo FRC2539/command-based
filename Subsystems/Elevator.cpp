@@ -27,6 +27,7 @@ Elevator::Elevator() : Subsystem("Elevator"),
 		RobotMap::Elevator::I,
 		RobotMap::Elevator::D
 	);
+	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 
 	pidLoop = new RatePIDController(
 		RobotMap::Elevator::P,
@@ -48,14 +49,15 @@ Elevator::~Elevator()
 
 void Elevator::InitDefaultCommand()
 {
-	SetDefaultCommand(new MaintainHeightCommand());
+	//SetDefaultCommand(new MaintainHeightCommand());
 }
 
 void Elevator::maintainHeight()
 {
-	pidLoop->Disable();
+	pidLoop->Reset();
 	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
 	elevatorMotor->Set(elevatorMotor->GetPosition());
+	Netconsole::instant<float>("Hold", elevatorMotor->GetPosition());
 }
 
 void Elevator::changeLevel(int difference)
@@ -89,7 +91,8 @@ void Elevator::changeLevel(int difference)
 
 void Elevator::moveToward(int height)
 {
-	if (height < elevatorMotor->GetPosition())
+	targetPosition = height;
+	if (targetPosition < elevatorMotor->GetPosition())
 	{
 		directDrive(-RobotMap::Elevator::stepSpeed);
 	}
@@ -106,20 +109,28 @@ bool Elevator::onTarget()
 	{
 		return elevatorMotor->GetPosition() <= targetPosition;
 	}
-	else
+	else if (speed > 0)
 	{
 		return elevatorMotor->GetPosition() >= targetPosition;
 	}
+	
+	return false;
 }
 
 void Elevator::directDrive(float speed)
 {
-	elevatorMotor->SetControlMode(CANSpeedController::kPercentVbus);
+	/*elevatorMotor->SetControlMode(CANSpeedController::kPercentVbus);
+	elevatorMotor->Set(0);
 	pidLoop->SetSetpoint(speed);
-	if (pidLoop->IsEnabled() == false)
+	if (speed == 0)
+	{
+		pidLoop->Reset();
+	}
+	else if (pidLoop->IsEnabled() == false)
 	{
 		pidLoop->Enable();
-	}
+	}*/
+	elevatorMotor->Set(speed);
 	Netconsole::instant<int>("Height", elevatorMotor->GetPosition());
 }
 

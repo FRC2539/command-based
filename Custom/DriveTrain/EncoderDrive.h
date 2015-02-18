@@ -36,9 +36,6 @@ public:
 	void ignoreEncoders();
 	void resetEncoders();
 
-	float getYPosition();
-	float getXPosition();
-
 protected:
 	float m_maxSpeed;
 

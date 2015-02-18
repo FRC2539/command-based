@@ -79,11 +79,21 @@ double MecanumDriveTrain::PIDGet()
 {
 	if (currentMode == DriveX)
 	{
-		return drive->getXPosition();
+		float position = frontLeftMotor->GetPosition();
+		position += frontRightMotor->GetPosition(); // double inverted
+		position += backLeftMotor->GetPosition() * -1;
+		position += backRightMotor->GetPosition() * -1;
+
+		return position / 4;
 	}
 	else if (currentMode == DriveY)
 	{
-		return drive->getYPosition();
+		float position = frontLeftMotor->GetPosition();
+		position += frontRightMotor->GetPosition() * -1;
+		position += backLeftMotor->GetPosition();
+		position += backRightMotor->GetPosition() * -1;
+	
+		return position / 4;
 	}
 
 	return gyro->GetAngle();

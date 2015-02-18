@@ -13,6 +13,8 @@
 
 #include "../../RobotMap.h"
 
+#include "../Netconsole.h"
+
 EncoderDrive::EncoderDrive(
 	SpeedController* leftMotor,
 	SpeedController* rightMotor,
@@ -205,27 +207,4 @@ void EncoderDrive::resetEncoders()
 			pidLoop->Enable();
 		}
 	}
-}
-
-float EncoderDrive::getYPosition()
-{
-	float position = 0;
-	int sensorCount = sensors.size();
-
-	for (int i=0; i < sensorCount; i++)
-	{
-		position += sensors[i]->PIDGet() * m_invertedMotors[i];
-	}
-
-	return position / sensorCount;
-}
-
-float EncoderDrive::getXPosition()
-{
-	float position = sensors[kFrontLeftMotor]->PIDGet();
-	position += sensors[kFrontRightMotor]->PIDGet(); // double inverted
-	position += sensors[kRearLeftMotor]->PIDGet() * -1;
-	position += sensors[kRearRightMotor]->PIDGet() * -1;
-
-	return position / 4;
 }
