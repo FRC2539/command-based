@@ -8,7 +8,7 @@ TurnAngleCommand::TurnAngleCommand(double angle)
 	m_angle(angle)
 {
 	Requires(drivetrain);
-	pidLoop = new PIDController(0.01, 0, 0, drivetrain, drivetrain);
+	pidLoop = new PIDController(0.05, 0, 0, drivetrain, drivetrain);
 	pidLoop->SetAbsoluteTolerance(2);
 }
 
@@ -27,6 +27,6 @@ bool TurnAngleCommand::IsFinished()
 
 void TurnAngleCommand::End()
 {
-	pidLoop->Disable();
+	pidLoop->Reset();
 	drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
 }

@@ -1,20 +1,24 @@
 #include "SetTinesCommand.h"
 
 #include "../../RobotMap.h"
+
 SetTinesCommand::SetTinesCommand(double target)
-	: DefaultCommand("SetTines"), targetWidth(target)
+	: DefaultCommand("SetTines"), targetWidth(target), speed(0)
 {
 	Requires(tines);
+
+	if (targetWidth > RobotMap::Tines::maxWidth)
+	{
+		targetWidth = RobotMap::Tines::maxWidth;
+	}
+	else if (targetWidth < RobotMap::Tines::minWidth)
+	{
+		targetWidth = RobotMap::Tines::minWidth;
+	}
 }
 
 void SetTinesCommand::Initialize()
 {
-	if (targetWidth > RobotMap::Tines::maxWidth)
-		targetWidth = RobotMap::Tines::maxWidth;
-	
-	if (targetWidth < RobotMap::Tines::minWidth)
-		targetWidth = RobotMap::Tines::minWidth;
-	
 	if (targetWidth > tines->getWidth())
 	{
 		speed = 1;
@@ -24,11 +28,6 @@ void SetTinesCommand::Initialize()
 		speed = -1;
 	}
 	tines->directDrive(speed);
-}
-
-void SetTinesCommand::End()
-{
-	tines->directDrive(0);
 }
 
 bool SetTinesCommand::IsFinished()
@@ -42,5 +41,10 @@ bool SetTinesCommand::IsFinished()
 	{
 		return width >= targetWidth;
 	}
+}
+
+void SetTinesCommand::End()
+{
+	tines->directDrive(0);
 }
 

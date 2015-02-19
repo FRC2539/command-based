@@ -13,8 +13,6 @@
 
 #include "../../RobotMap.h"
 
-#include "../Netconsole.h"
-
 EncoderDrive::EncoderDrive(
 	SpeedController* leftMotor,
 	SpeedController* rightMotor,

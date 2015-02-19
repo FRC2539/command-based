@@ -8,7 +8,7 @@ DriveDistanceCommand::DriveDistanceCommand(double distance, Direction direction)
 	m_direction(direction)
 {
 	Requires(drivetrain);
-	pidLoop = new PIDController(0.01, 0, 0, drivetrain, drivetrain);
+	pidLoop = new PIDController(0.05, 0, 0, drivetrain, drivetrain);
 	pidLoop->SetAbsoluteTolerance(5);
 	m_distance = distance / RobotMap::DriveBase::encoderSensitivity;
 }
@@ -36,6 +36,6 @@ bool DriveDistanceCommand::IsFinished()
 
 void DriveDistanceCommand::End()
 {
-	pidLoop->Disable();
+	pidLoop->Reset();
 	drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
 }

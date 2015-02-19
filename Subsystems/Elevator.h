@@ -4,7 +4,6 @@
 #include "../Custom/DebuggingSubsystem.h"
 
 class CANTalon;
-class RatePIDController;
 
 class Elevator: public Subsystem {
 public:
@@ -14,7 +13,7 @@ public:
 	virtual void InitDefaultCommand();
 
 	void maintainHeight();
-	void moveToward(int height);
+	void moveToward(unsigned int height);
 	void changeLevel(int difference);
 	bool onTarget();
 
@@ -29,15 +28,21 @@ public:
 	void enableSoftLimits();
 	void disableSoftLimits();
 
-protected:
-	int convertToLevel(int encoderValue);
+	enum Direction {
+		UP,
+		DOWN,
+		HOLD
+	};
 
+protected:
 	CANTalon* elevatorMotor;
-	RatePIDController* pidLoop;
 
 	unsigned int targetPosition;
+	bool atExactLevel;
+	Direction direction;
+
 	unsigned int level;
-	bool fuzzyLevel;
+	unsigned int maxLevel;
 
 	bool settingsLoaded;
 };

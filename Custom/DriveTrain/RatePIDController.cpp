@@ -1,9 +1,10 @@
 #include "RatePIDController.h"
-#include "../Netconsole.h"
 
 #include <PIDSource.h>
 #include <PIDOutput.h>
 #include <HAL/cpp/Synchronized.hpp>
+#include <ErrorBase.h>
+#include <WPIErrors.h>
 
 RatePIDController::RatePIDController(
 	float p, float i, float d, PIDSource* source, PIDOutput* output
@@ -14,8 +15,6 @@ RatePIDController::RatePIDController(
  */
 void RatePIDController::Calculate()
 {
-	static int count = 0;
-	count++;
 	bool enabled;
 	PIDSource *pidInput;
 	PIDOutput *pidOutput;
@@ -70,8 +69,16 @@ void RatePIDController::Calculate()
 		}
 
 		m_result += m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError);
-		float change = (m_error - m_prevError);
 		m_prevError = m_error;
+
+		if (m_result > m_maximumInput)
+		{
+			m_result = m_maximumInput;
+		}
+		else if (m_result < m_minimumInput)
+		{
+			m_result = m_minimumInput;
+		}
 
 		result = scaleInput(m_result);
 
@@ -103,3 +110,16 @@ float RatePIDController::scaleInput(float input)
 }
 
 void RatePIDController::StartLiveWindowMode() {}
+
+void RatePIDController::Enable()
+{
+	if (m_maximumInput == m_minimumInput)
+	{
+		wpi_setGlobalWPIErrorWithContext(
+			IncompatibleMode,
+			"Input range has not been defined"
+		);
+		return;
+	}
+	SanePIDController::Enable();
+}

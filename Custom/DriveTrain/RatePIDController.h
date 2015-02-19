@@ -2,6 +2,7 @@
 #define RATE_PID_CONTROLLER
 
 #include "../SanePIDController.h"
+
 class PIDSource;
 class PIDOutput;
 
@@ -16,6 +17,7 @@ public:
 	);
 
 	virtual void StartLiveWindowMode();
+	virtual void Enable();
 
 protected:
 	virtual void Calculate();

@@ -5,16 +5,13 @@
 #include <cmath>
 
 #include "../RobotMap.h"
-#include "../Custom/DriveTrain/RatePIDController.h"
 #include "../Custom/DriveTrain/CANTalonRatePIDSource.h"
 #include "../Commands/MaintainHeightCommand.h"
 #include "../Custom/Netconsole.h"
 
 Elevator::Elevator() : Subsystem("Elevator"),
 	settingsLoaded(false),
-	targetPosition(-1),
-	level(0),
-	fuzzyLevel(true)
+	targetPosition(-1)
 {
 	elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
 	elevatorMotor->SetSensorDirection(true);
@@ -29,17 +26,11 @@ Elevator::Elevator() : Subsystem("Elevator"),
 	);
 	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 
-	pidLoop = new RatePIDController(
-		RobotMap::Elevator::P,
-		RobotMap::Elevator::I,
-		RobotMap::Elevator::D,
-		new CANTalonRatePIDSource(elevatorMotor),
-		elevatorMotor
+	maxLevel = std::ceil(
+		(RobotMap::Elevator::maxPosition - RobotMap::Elevator::minPosition) /
+		(float)RobotMap::Elevator::stepSize
 	);
-	pidLoop->SetInputRange(
-		-RobotMap::Elevator::stepSpeed,
-		RobotMap::Elevator::stepSpeed
-	);
+	recalculateLevel();
 }
 
 Elevator::~Elevator()
@@ -49,12 +40,11 @@ Elevator::~Elevator()
 
 void Elevator::InitDefaultCommand()
 {
-	//SetDefaultCommand(new MaintainHeightCommand());
+	SetDefaultCommand(new MaintainHeightCommand());
 }
 
 void Elevator::maintainHeight()
 {
-	pidLoop->Reset();
 	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
 	elevatorMotor->Set(elevatorMotor->GetPosition());
 	Netconsole::instant<float>("Hold", elevatorMotor->GetPosition());
@@ -62,37 +52,27 @@ void Elevator::maintainHeight()
 
 void Elevator::changeLevel(int difference)
 {
-	if (fuzzyLevel == true && difference < 0)
+	if (atExactLevel == false && difference < 0)
 	{
 		difference++;
 	}
 	level += difference;
-	targetPosition = RobotMap::Elevator::minPosition + level * RobotMap::Elevator::stepSize;
-	if (targetPosition > RobotMap::Elevator::maxPosition)
-	{
-		targetPosition -= RobotMap::Elevator::stepSize;
-		while (targetPosition > RobotMap::Elevator::maxPosition)
-		{
-			level--;
-			targetPosition -= RobotMap::Elevator::stepSize;
-		}
-		targetPosition = RobotMap::Elevator::maxPosition;
-	}
-	else if (targetPosition < RobotMap::Elevator::minPosition)
-	{
-		level = 0;
-		targetPosition = RobotMap::Elevator::minPosition;
-	}
+	level = std::max(level, (unsigned)0);
+	level = std::min(level, maxLevel);
 
-	moveToward(targetPosition);
+	moveToward(
+		RobotMap::Elevator::minPosition + level * RobotMap::Elevator::stepSize
+	);
 
-	fuzzyLevel = false;
+	atExactLevel = true;
 }
 
-void Elevator::moveToward(int height)
+void Elevator::moveToward(unsigned int height)
 {
-	targetPosition = height;
-	if (targetPosition < elevatorMotor->GetPosition())
+	height = std::max(RobotMap::Elevator::minPosition, height);
+	height = std::min(RobotMap::Elevator::maxPosition, height);
+
+	if (height < elevatorMotor->GetPosition())
 	{
 		directDrive(-RobotMap::Elevator::stepSpeed);
 	}
@@ -100,52 +80,56 @@ void Elevator::moveToward(int height)
 	{
 		directDrive(RobotMap::Elevator::stepSpeed);
 	}
+
+	targetPosition = height;
 }
 
 bool Elevator::onTarget()
 {
-	int speed = elevatorMotor->Get();
-	if (speed < 0)
+	if (direction == DOWN)
 	{
 		return elevatorMotor->GetPosition() <= targetPosition;
 	}
-	else if (speed > 0)
+	else
 	{
 		return elevatorMotor->GetPosition() >= targetPosition;
 	}
-	
-	return false;
 }
 
 void Elevator::directDrive(float speed)
 {
-	/*elevatorMotor->SetControlMode(CANSpeedController::kPercentVbus);
-	elevatorMotor->Set(0);
-	pidLoop->SetSetpoint(speed);
+	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
+	elevatorMotor->Set(speed);
+
 	if (speed == 0)
 	{
-		pidLoop->Reset();
+		direction = HOLD;
 	}
-	else if (pidLoop->IsEnabled() == false)
+	else if (speed < 0)
 	{
-		pidLoop->Enable();
-	}*/
-	elevatorMotor->Set(speed);
+		direction = DOWN;
+	}
+	else
+	{
+		direction = UP;
+	}
 	Netconsole::instant<int>("Height", elevatorMotor->GetPosition());
 }
 
 void Elevator::recalculateLevel()
 {
-	level = convertToLevel(elevatorMotor->GetPosition());
-	fuzzyLevel = true;
-}
+	int value = elevatorMotor->GetPosition() - RobotMap::Elevator::minPosition;
+	int error = value % RobotMap::Elevator::stepSize;
+	if (error < 10)
+	{
+		atExactLevel = true;
+	}
+	else
+	{
+		atExactLevel = (error - RobotMap::Elevator::stepSize > -10);
+	}
 
-int Elevator::convertToLevel(int encoderValue)
-{
-	float value = encoderValue - RobotMap::Elevator::minPosition;
-	value /= RobotMap::Elevator::stepSize;
-
-	return (int)std::floor(value);
+	level = std::floor((float)value / RobotMap::Elevator::stepSize);
 }
 
 void Elevator::loadSettings()
@@ -159,9 +143,8 @@ void Elevator::loadSettings()
 	if (preferences->ContainsKey("elevatorPosition"))
 	{
 		elevatorMotor->SetPosition(preferences->GetInt("elevatorPosition"));
-		level = convertToLevel(elevatorMotor->GetPosition());
+		recalculateLevel();
 		settingsLoaded = true;
-		fuzzyLevel = true;
 	}
 }
 
@@ -184,7 +167,9 @@ void Elevator::zeroElevator()
 	level = 0;
 
 	settingsLoaded = true;
-	fuzzyLevel = false;
+	atExactLevel = true;
+
+	GetDefaultCommand()->Cancel();
 }
 
 void Elevator::enableSoftLimits()

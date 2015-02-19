@@ -34,7 +34,7 @@ bool CloseTinesCommand::IsFinished()
 		stoppedCount++;
 	}
 
-	return stoppedCount > 30;
+	return stoppedCount > 15;
 }
 
 void CloseTinesCommand::End()
