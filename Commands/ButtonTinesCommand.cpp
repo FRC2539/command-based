@@ -15,6 +15,7 @@ void ButtonTinesCommand::Initialize()
 
 bool ButtonTinesCommand::IsFinished()
 {
+	tines->displayWidth();
 	if (m_speed < 0)
 	{
 		return tines->getWidth() <= RobotMap::Tines::minWidth;

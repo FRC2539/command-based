@@ -13,6 +13,8 @@ public:
 	void directDrive(float percentVoltage);
 	double getWidth();
 
+	void displayWidth();
+
 protected:
 	Talon* tinesMotor;
 	AnalogPotentiometer* distanceDetector;

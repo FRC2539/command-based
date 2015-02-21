@@ -25,6 +25,9 @@ public:
 
 	void zeroElevator();
 
+	void displayLevel();
+	void displayHeight();
+
 	void enableSoftLimits();
 	void disableSoftLimits();
 
@@ -41,8 +44,8 @@ protected:
 	bool atExactLevel;
 	Direction direction;
 
-	unsigned int level;
-	unsigned int maxLevel;
+	int level;
+	int maxLevel;
 
 	bool settingsLoaded;
 };

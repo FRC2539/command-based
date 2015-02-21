@@ -42,8 +42,9 @@ namespace RobotMap {
 	namespace Elevator {
 		CanID elevatorMotorID = 2;
 
-		const unsigned int stepSize = 1450;
-		const double stepSpeed = 400;
+		const unsigned int toteHeight = 1450;
+		const unsigned int levelOffset = 500;
+		const double speed = 400;
 
 		const unsigned int minPosition = 0;
 		const unsigned int maxPosition = 6000;

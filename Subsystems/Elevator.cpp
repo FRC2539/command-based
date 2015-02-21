@@ -2,12 +2,12 @@
 
 #include <CANTalon.h>
 #include <Preferences.h>
+#include <SmartDashboard/SmartDashboard.h>
 #include <cmath>
 
 #include "../RobotMap.h"
 #include "../Custom/DriveTrain/CANTalonRatePIDSource.h"
 #include "../Commands/MaintainHeightCommand.h"
-#include "../Custom/Netconsole.h"
 
 Elevator::Elevator() : Subsystem("Elevator"),
 	settingsLoaded(false),
@@ -27,8 +27,8 @@ Elevator::Elevator() : Subsystem("Elevator"),
 	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 
 	maxLevel = std::ceil(
-		(RobotMap::Elevator::maxPosition - RobotMap::Elevator::minPosition) /
-		(float)RobotMap::Elevator::stepSize
+		(RobotMap::Elevator::maxPosition - RobotMap::Elevator::levelOffset) /
+		(float)RobotMap::Elevator::toteHeight
 	);
 	recalculateLevel();
 }
@@ -47,7 +47,6 @@ void Elevator::maintainHeight()
 {
 	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
 	elevatorMotor->Set(elevatorMotor->GetPosition());
-	Netconsole::instant<float>("Hold", elevatorMotor->GetPosition());
 }
 
 void Elevator::changeLevel(int difference)
@@ -57,11 +56,11 @@ void Elevator::changeLevel(int difference)
 		difference++;
 	}
 	level += difference;
-	level = std::max(level, (unsigned)0);
+	level = std::max(level, -1);
 	level = std::min(level, maxLevel);
 
 	moveToward(
-		RobotMap::Elevator::minPosition + level * RobotMap::Elevator::stepSize
+		RobotMap::Elevator::levelOffset + level * RobotMap::Elevator::toteHeight
 	);
 
 	atExactLevel = true;
@@ -74,11 +73,11 @@ void Elevator::moveToward(unsigned int height)
 
 	if (height < elevatorMotor->GetPosition())
 	{
-		directDrive(-RobotMap::Elevator::stepSpeed);
+		directDrive(-RobotMap::Elevator::speed);
 	}
 	else
 	{
-		directDrive(RobotMap::Elevator::stepSpeed);
+		directDrive(RobotMap::Elevator::speed);
 	}
 
 	targetPosition = height;
@@ -113,23 +112,20 @@ void Elevator::directDrive(float speed)
 	{
 		direction = UP;
 	}
-	Netconsole::instant<int>("Height", elevatorMotor->GetPosition());
 }
 
 void Elevator::recalculateLevel()
 {
-	int value = elevatorMotor->GetPosition() - RobotMap::Elevator::minPosition;
-	int error = value % RobotMap::Elevator::stepSize;
-	if (error < 10)
+	int value = elevatorMotor->GetPosition() - RobotMap::Elevator::levelOffset;
+	value += 10; // "Exact" means within 10 ticks
+	int error = value % RobotMap::Elevator::toteHeight;
+	if (error <= 20 && error >= 0) // Up to 10 above or 10 below
 	{
 		atExactLevel = true;
 	}
-	else
-	{
-		atExactLevel = (error - RobotMap::Elevator::stepSize > -10);
-	}
 
-	level = std::floor((float)value / RobotMap::Elevator::stepSize);
+	level = std::floor((float)value / RobotMap::Elevator::toteHeight);
+	displayLevel();
 }
 
 void Elevator::loadSettings()
@@ -164,12 +160,31 @@ void Elevator::zeroElevator()
 {
 	elevatorMotor->SetPosition(0);
 	targetPosition = 0;
-	level = 0;
+	level = -1;
 
 	settingsLoaded = true;
 	atExactLevel = true;
 
 	GetDefaultCommand()->Cancel();
+	displayLevel();
+}
+
+void Elevator::displayLevel()
+{
+	std::string precision = " Approximate";
+	if (atExactLevel == true)
+	{
+		precision = " Exact";
+	}
+	SmartDashboard::PutString(
+		"Elevator Level",
+		std::to_string(level + 1) + precision
+	);
+}
+
+void Elevator::displayHeight()
+{
+	SmartDashboard::PutNumber("Elevator Height", elevatorMotor->GetPosition());
 }
 
 void Elevator::enableSoftLimits()

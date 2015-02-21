@@ -32,6 +32,7 @@ void SetTinesCommand::Initialize()
 
 bool SetTinesCommand::IsFinished()
 {
+	tines->displayWidth();
 	double width = tines->getWidth();
 	if (speed < 0)
 	{

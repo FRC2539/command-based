@@ -17,6 +17,7 @@ void CloseTinesCommand::Initialize()
 
 bool CloseTinesCommand::IsFinished()
 {
+	tines->displayWidth();
 	double width = tines->getWidth();
 	if (width <= RobotMap::Tines::minWidth)
 	{

@@ -30,8 +30,8 @@ ADD_BUTTON(1, B, WhenPressed, new SetTinesCommand(RobotMap::Tines::maxWidth));
 
 ADD_BUTTON(1, LeftBumper, WhileHeld, new ButtonTinesCommand(1));
 ADD_BUTTON(1, LeftTrigger, WhileHeld, new ButtonTinesCommand(-1));
-ADD_BUTTON(1, RightBumper, WhileHeld, new ButtonElevatorCommand(RobotMap::Elevator::stepSpeed));
-ADD_BUTTON(1, RightTrigger, WhileHeld, new ButtonElevatorCommand(-RobotMap::Elevator::stepSpeed));
+ADD_BUTTON(1, RightBumper, WhileHeld, new ButtonElevatorCommand(RobotMap::Elevator::speed));
+ADD_BUTTON(1, RightTrigger, WhileHeld, new ButtonElevatorCommand(-RobotMap::Elevator::speed));
 
 ADD_SIMPLE_BUTTON(1, Back, ResetCommand);
 ADD_BUTTON(1, Start, WhileHeld, new ZeroElevatorCommand());

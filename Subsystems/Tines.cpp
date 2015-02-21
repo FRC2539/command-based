@@ -2,9 +2,9 @@
 
 #include <Talon.h>
 #include <AnalogPotentiometer.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 #include "../RobotMap.h"
-#include "../Custom/Netconsole.h"
 
 Tines::Tines() : Subsystem("Tines"), minPosition(0), maxPosition(0)
 {
@@ -31,7 +31,6 @@ Tines::~Tines()
 void Tines::directDrive(float percentVoltage)
 {
 	tinesMotor->Set(percentVoltage);
-	Netconsole::instant<float>("Width", distanceDetector->Get());
 }
 
 double Tines::getWidth()
@@ -39,3 +38,7 @@ double Tines::getWidth()
 	return distanceDetector->Get();
 }
 
+void Tines::displayWidth()
+{
+	SmartDashboard::PutNumber("Tine Width", getWidth());
+}

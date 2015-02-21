@@ -9,4 +9,5 @@ MaintainHeightCommand::MaintainHeightCommand()
 void MaintainHeightCommand::Initialize()
 {
 	elevator->maintainHeight();
+	elevator->displayHeight();
 }

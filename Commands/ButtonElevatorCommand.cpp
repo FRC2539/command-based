@@ -11,6 +11,11 @@ void ButtonElevatorCommand::Initialize()
 	elevator->directDrive(m_speed);
 }
 
+void ButtonElevatorCommand::Run()
+{
+	elevator->displayHeight();
+}
+
 void ButtonElevatorCommand::End()
 {
 	elevator->directDrive(0);

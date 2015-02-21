@@ -8,6 +8,7 @@ class ButtonElevatorCommand : public DefaultCommand {
 public:
 	ButtonElevatorCommand(float speed);
 	void Initialize();
+	void Run();
 	void End();
 
 protected:

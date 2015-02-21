@@ -7,8 +7,6 @@
 #include <CANTalon.h>
 #include <Gyro.h>
 
-#include "../Custom/Netconsole.h"
-
 MecanumDriveTrain::MecanumDriveTrain() :
 	DriveTrain("MecanumDriveTrain"),
 	PIDSource(),

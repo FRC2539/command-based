@@ -13,6 +13,7 @@ void SetElevatorCommand::Initialize()
 
 bool SetElevatorCommand::IsFinished()
 {
+	elevator->displayHeight();
 	return elevator->onTarget();
 }
 
