@@ -28,6 +28,8 @@ public:
 	virtual double PIDGet();
 	virtual void PIDWrite(float output);
 	void setPIDMode(PIDMode mode);
+	
+	float currentSpeed();
 
 protected:
 	float GyroAngle();

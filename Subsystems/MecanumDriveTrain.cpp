@@ -118,4 +118,15 @@ void MecanumDriveTrain::setPIDMode(PIDMode mode)
 	currentMode = mode;
 }
 
+float MecanumDriveTrain::currentSpeed()
+{
+	float position = frontLeftMotor->GetSpeed();
+		position += frontRightMotor->GetSpeed() * -1;
+		position += backLeftMotor->GetSpeed();
+		position += backRightMotor->GetSpeed()* -1;
+		
+		return position / 4;
+
+}
+
 #endif

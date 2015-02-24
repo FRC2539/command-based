@@ -10,11 +10,12 @@
 AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
 	AddSequential(new ResetCommand());
-	AddSequential(new SetTinesCommand(22));
-	AddSequential(new SetElevatorCommand(4655));
+	//AddSequential(new SetTinesCommand(22));
+	//AddSequential(new SetElevatorCommand(4655));
 	AddSequential(new DriveDistanceCommand(22, DriveDistanceCommand::Y));
-	AddSequential(new SetElevatorCommand(4250));
-	//AddSequential(new SetTinesCommand(29));
+	//AddSequential(new SetElevatorCommand(4250));
+	//AddSequential(new SetTinesCommand(25));
+	AddSequential(new DriveDistanceCommand(-10, DriveDistanceCommand::Y));
 	//AddSequential(new SetElevatorCommand(0));
 	//AddSequential(new CloseTinesCommand());
 	//AddSequential(new SetElevatorCommand(375));

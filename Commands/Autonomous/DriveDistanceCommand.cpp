@@ -8,8 +8,8 @@ DriveDistanceCommand::DriveDistanceCommand(double distance, Direction direction)
 	m_direction(direction)
 {
 	Requires(drivetrain);
-	pidLoop = new PIDController(0.05, 0, 0, drivetrain, drivetrain);
-	pidLoop->SetAbsoluteTolerance(5);
+	pidLoop = new PIDController(.001, .001, 0, drivetrain, drivetrain);
+	pidLoop->SetAbsoluteTolerance(35);
 	m_distance = distance / RobotMap::DriveBase::encoderSensitivity;
 }
 
@@ -31,7 +31,19 @@ void DriveDistanceCommand::Initialize()
 
 bool DriveDistanceCommand::IsFinished()
 {
-	return pidLoop->OnTarget();
+		
+	if (-0.25 < drivetrain->currentSpeed() && drivetrain->currentSpeed() < .025)
+	{
+		return pidLoop->OnTarget();
+		return true;
+	}
+	else
+	{
+		return false;
+
+	}
+	
+
 }
 
 void DriveDistanceCommand::End()
