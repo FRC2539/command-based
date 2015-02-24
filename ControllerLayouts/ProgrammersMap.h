@@ -16,7 +16,6 @@ ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
 ADD_BUTTON(0, RightBumper, WhileHeld, new ButtonElevatorCommand(RobotMap::Elevator::speed));
 ADD_BUTTON(0, RightTrigger, WhileHeld, new ButtonElevatorCommand(-RobotMap::Elevator::speed));
 ADD_SIMPLE_BUTTON(0, LeftBumper, ZeroGyroCommand);
-ADD_BUTTON(0, LeftTrigger, WhileHeld, new ZeroElevatorCommand());
 ADD_SIMPLE_BUTTON(0, Y, RaiseElevatorCommand);
 ADD_SIMPLE_BUTTON(0, A, LowerElevatorCommand);
 ADD_BUTTON(0, X, WhileHeld, new ButtonTinesCommand(1));

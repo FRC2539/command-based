@@ -13,11 +13,12 @@ public:
 	virtual void InitDefaultCommand();
 
 	void maintainHeight();
-	void moveToward(unsigned int height);
+	void moveToward(int height);
 	void changeLevel(int difference);
 	bool onTarget();
 
 	void directDrive(float speed);
+	void doneMoving();
 	void recalculateLevel();
 
 	void storeSettings();
@@ -40,7 +41,7 @@ public:
 protected:
 	CANTalon* elevatorMotor;
 
-	unsigned int targetPosition;
+	int targetPosition;
 	bool atExactLevel;
 	Direction direction;
 

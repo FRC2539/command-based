@@ -34,4 +34,3 @@ ADD_BUTTON(1, RightBumper, WhileHeld, new ButtonElevatorCommand(RobotMap::Elevat
 ADD_BUTTON(1, RightTrigger, WhileHeld, new ButtonElevatorCommand(-RobotMap::Elevator::speed));
 
 ADD_SIMPLE_BUTTON(1, Back, ResetCommand);
-ADD_BUTTON(1, Start, WhileHeld, new ZeroElevatorCommand());

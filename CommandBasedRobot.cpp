@@ -2,6 +2,8 @@
 #include <LiveWindow/LiveWindow.h>
 #include <Commands/Command.h>
 #include "Commands/Autonomous/AutonomousCommandGroup.h"
+#include "Commands/Autonomous/BinOnlyCommandGroup.h"
+#include "Commands/Autonomous/DriveOnlyCommandGroup.h"
 #include "Commands/ResetCommand.h"
 #include "CommandBase.h"
 
@@ -20,7 +22,18 @@ private:
 
 		autonomousCommand = new AutonomousCommandGroup();
 		autonomousProgram = new SendableChooser();
-		autonomousProgram->AddDefault("Default", autonomousCommand);
+		autonomousProgram->AddDefault(
+			"Take Bin and Tote",
+			autonomousCommand
+		);
+		autonomousProgram->AddObject(
+			"Take Bin Only",
+			new BinOnlyCommandGroup()
+		);
+		autonomousProgram->AddObject(
+			"Just Drive Forward",
+			new DriveOnlyCommandGroup()
+		);
 		SmartDashboard::PutData("Autonomous Program", autonomousProgram);
 
 		resetCommand = new ResetCommand();

@@ -19,6 +19,7 @@ Elevator::Elevator() : Subsystem("Elevator"),
 		RobotMap::Elevator::maxPosition,
 		RobotMap::Elevator::minPosition
 	);
+	elevatorMotor->DisableSoftPositionLimits();
 	elevatorMotor->SetPID(
 		RobotMap::Elevator::P,
 		RobotMap::Elevator::I,
@@ -66,11 +67,8 @@ void Elevator::changeLevel(int difference)
 	atExactLevel = true;
 }
 
-void Elevator::moveToward(unsigned int height)
+void Elevator::moveToward(int height)
 {
-	height = std::max(RobotMap::Elevator::minPosition, height);
-	height = std::min(RobotMap::Elevator::maxPosition, height);
-
 	if (height < elevatorMotor->GetPosition())
 	{
 		directDrive(-RobotMap::Elevator::speed);
@@ -85,13 +83,23 @@ void Elevator::moveToward(unsigned int height)
 
 bool Elevator::onTarget()
 {
-	if (direction == DOWN)
+	if (direction == DOWN && targetPosition <= 0)
 	{
-		return elevatorMotor->GetPosition() <= targetPosition;
+		return elevatorMotor->IsRevLimitSwitchClosed();
+	}
+	else if (direction == DOWN)
+	{
+		return elevatorMotor->GetPosition() <= targetPosition ||
+			elevatorMotor->IsRevLimitSwitchClosed();
+	}
+	else if (targetPosition > RobotMap::Elevator::maxPosition)
+	{
+		return elevatorMotor->IsFwdLimitSwitchClosed();
 	}
 	else
 	{
-		return elevatorMotor->GetPosition() >= targetPosition;
+		return elevatorMotor->GetPosition() >= targetPosition ||
+			elevatorMotor->IsFwdLimitSwitchClosed();
 	}
 }
 
@@ -112,6 +120,25 @@ void Elevator::directDrive(float speed)
 	{
 		direction = UP;
 	}
+}
+
+void Elevator::doneMoving()
+{
+	directDrive(0);
+	if (elevatorMotor->IsFwdLimitSwitchClosed())
+	{
+		if (elevatorMotor->GetPosition() < RobotMap::Elevator::maxPosition)
+		{
+			elevatorMotor->SetPosition(RobotMap::Elevator::maxPosition);
+		}
+	}
+	else if (elevatorMotor->IsRevLimitSwitchClosed())
+	{
+		zeroElevator();
+		return;
+	}
+
+	recalculateLevel();
 }
 
 void Elevator::recalculateLevel()

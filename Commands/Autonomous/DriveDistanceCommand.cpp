@@ -5,12 +5,16 @@
 
 DriveDistanceCommand::DriveDistanceCommand(double distance, Direction direction)
 	: DefaultCommand("DriveDistance"),
-	m_direction(direction)
+	m_direction(direction),
+	onTarget(false),
+	inverted(1)
 {
 	Requires(drivetrain);
-	pidLoop = new PIDController(.001, .001, 0, drivetrain, drivetrain);
-	pidLoop->SetAbsoluteTolerance(35);
 	m_distance = distance / RobotMap::DriveBase::encoderSensitivity;
+	if (distance < 0)
+	{
+		inverted = -1;
+	}
 }
 
 void DriveDistanceCommand::Initialize()
@@ -25,29 +29,55 @@ void DriveDistanceCommand::Initialize()
 		drivetrain->setPIDMode(drivetrain->DriveY);
 	}
 
-	pidLoop->SetSetpoint(drivetrain->PIDGet() + m_distance);
-	pidLoop->Enable();
+	targetPosition = drivetrain->PIDGet() + m_distance;
+	onTarget = false;
 }
 
 bool DriveDistanceCommand::IsFinished()
 {
-		
-	if (-0.25 < drivetrain->currentSpeed() && drivetrain->currentSpeed() < .025)
+	if (onTarget == true)
 	{
-		return pidLoop->OnTarget();
-		return true;
+		float speed = drivetrain->currentSpeed();
+		return speed > -0.05 && speed < 0.05;
+	}
+
+	float distance = distanceToTarget();
+	if (distance > 1000)
+	{
+		drivetrain->PIDWrite(inverted);
+	}
+	else if (distance > 500)
+	{
+		drivetrain->PIDWrite(0.5 * inverted);
+	}
+	else if (distance > 100)
+	{
+		drivetrain->PIDWrite(0.25 * inverted);
 	}
 	else
 	{
-		return false;
-
+		onTarget = true;
+		drivetrain->PIDWrite(0);
 	}
-	
 
+	return false;
 }
 
 void DriveDistanceCommand::End()
 {
-	pidLoop->Reset();
 	drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
+}
+
+double DriveDistanceCommand::distanceToTarget()
+{
+	float position = drivetrain->PIDGet();
+
+	if (inverted < 0)
+	{
+		return position - targetPosition;
+	}
+	else
+	{
+		return targetPosition - position;
+	}
 }

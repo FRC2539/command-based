@@ -19,5 +19,5 @@ bool LowerElevatorCommand::IsFinished()
 
 void LowerElevatorCommand::End()
 {
-	elevator->directDrive(0);
+	elevator->doneMoving();
 }

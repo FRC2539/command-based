@@ -19,10 +19,14 @@ public:
 	void End();
 
 protected:
+	double distanceToTarget();
+
 	double m_distance;
 	Direction m_direction;
 
-	PIDController* pidLoop;
+	bool onTarget;
+	double targetPosition;
+	float inverted;
 };
 
 #endif

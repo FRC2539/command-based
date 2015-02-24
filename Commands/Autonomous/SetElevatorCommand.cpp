@@ -19,7 +19,6 @@ bool SetElevatorCommand::IsFinished()
 
 void SetElevatorCommand::End()
 {
-	elevator->directDrive(0);
-	elevator->recalculateLevel();
+	elevator->doneMoving();
 }
 

@@ -18,6 +18,5 @@ void ButtonElevatorCommand::Run()
 
 void ButtonElevatorCommand::End()
 {
-	elevator->directDrive(0);
-	elevator->recalculateLevel();
+	elevator->doneMoving();
 }
