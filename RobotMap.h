@@ -44,7 +44,7 @@ namespace RobotMap {
 
 		const unsigned int toteHeight = 1450;
 		const unsigned int levelOffset = 500;
-		const double speed = 400;
+		const double speed = 600;
 
 		const unsigned int minPosition = 0;
 		const unsigned int maxPosition = 6000;

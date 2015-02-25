@@ -42,15 +42,15 @@ bool DriveDistanceCommand::IsFinished()
 	}
 
 	float distance = distanceToTarget();
-	if (distance > 1000)
+	if (distance > 300)
 	{
 		drivetrain->PIDWrite(inverted);
 	}
-	else if (distance > 500)
+	else if (distance > 100)
 	{
 		drivetrain->PIDWrite(0.5 * inverted);
 	}
-	else if (distance > 100)
+	else if (distance > 25)
 	{
 		drivetrain->PIDWrite(0.25 * inverted);
 	}
