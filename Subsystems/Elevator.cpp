@@ -47,6 +47,7 @@ void Elevator::InitDefaultCommand()
 void Elevator::maintainHeight()
 {
 	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
+	elevatorMotor->ClearIaccum();
 	elevatorMotor->Set(elevatorMotor->GetPosition());
 }
 
@@ -106,6 +107,7 @@ bool Elevator::onTarget()
 void Elevator::directDrive(float speed)
 {
 	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
+	elevatorMotor->ClearIaccum();
 	elevatorMotor->Set(speed);
 
 	if (speed == 0)
