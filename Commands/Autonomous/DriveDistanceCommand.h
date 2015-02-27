@@ -13,7 +13,7 @@ public:
 		Y
 	};
 
-	DriveDistanceCommand(double distance, Direction direction=Y);
+	DriveDistanceCommand(double distance, Direction direction=Y, double speed=0);
 	void Initialize();
 	bool IsFinished();
 	void End();
@@ -24,6 +24,8 @@ protected:
 	double m_distance;
 	Direction m_direction;
 
+	double m_speed;
+	
 	bool onTarget;
 	double targetPosition;
 	float inverted;

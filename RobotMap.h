@@ -31,7 +31,7 @@ namespace RobotMap {
 		const double encoderSensitivity = 0.02;
 		const double gyroSensitivity = 0.007;
 
-		const double maxSpeed = 200;
+		const double maxSpeed = 175;
 		const double preciseModeMaxSpeed = 50;
 
 		const double P = 0.1;
@@ -42,7 +42,7 @@ namespace RobotMap {
 	namespace Elevator {
 		CanID elevatorMotorID = 2;
 
-		const unsigned int toteHeight = 1450;
+		const unsigned int toteHeight = 1750;
 		const unsigned int levelOffset = 500;
 		const double speed = 600;
 
@@ -59,7 +59,7 @@ namespace RobotMap {
 		AnalogPort stringPotentiometerPort = 3;
 
 		const double maxWidth = 29;
-		const double minWidth = 14.5;
+		const double minWidth = 14.5; 
 	}
 }
 

@@ -4,7 +4,7 @@
 #include <PIDController.h>
 #include "../../RobotMap.h"
 
-DriveDistanceCommand::DriveDistanceCommand(double distance, Direction direction)
+DriveDistanceCommand::DriveDistanceCommand(double distance, Direction direction, double speed)
 	: DefaultCommand("DriveDistance"),
 	m_direction(direction),
 	onTarget(false),
@@ -16,11 +16,17 @@ DriveDistanceCommand::DriveDistanceCommand(double distance, Direction direction)
 	{
 		inverted = -1;
 	}
+	
+	m_speed = speed;
+	if (speed == 0)
+	{
+		m_speed = RobotMap::DriveBase::preciseModeMaxSpeed;
+	}
 }
 
 void DriveDistanceCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(RobotMap::DriveBase::preciseModeMaxSpeed);
+	drivetrain->setMaxSpeed(m_speed);
 	if (m_direction == Direction::X)
 	{
 		drivetrain->setPIDMode(drivetrain->DriveX);
@@ -43,7 +49,7 @@ bool DriveDistanceCommand::IsFinished()
 		return speed > -0.05 && speed < 0.05;
 	}
 
-	float distance = distanceToTarget();
+	double distance = distanceToTarget();
 	if (distance < 10)
 	{
 		onTarget = true;

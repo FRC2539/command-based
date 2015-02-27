@@ -152,6 +152,10 @@ void Elevator::recalculateLevel()
 	{
 		atExactLevel = true;
 	}
+	if (elevatorMotor->IsRevLimitSwitchClosed())
+	{
+		atExactLevel = true;
+	}
 
 	level = std::floor((float)value / RobotMap::Elevator::toteHeight);
 	displayLevel();
