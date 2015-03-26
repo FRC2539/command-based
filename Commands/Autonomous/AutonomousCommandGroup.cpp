@@ -19,7 +19,7 @@ AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
  	AddSequential(new DriveDistanceCommand(2, DriveDistanceCommand::Y));
 	AddSequential(new SetTinesCommand(16));
 	AddSequential(new SetElevatorCommand(500));
-	AddSequential(new TurnAngleCommand(-85)); 
+	AddSequential(new TurnAngleCommand(85)); 
 	AddSequential(new DriveDistanceCommand(115, DriveDistanceCommand::Y, 100));
 
 }

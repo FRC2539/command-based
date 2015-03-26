@@ -50,7 +50,7 @@ namespace RobotMap {
 		const unsigned int maxPosition = 6000;
 
 		const double P = 1;
-		const double I = 0;
+		const double I = 0.001;
 		const double D = 0;
 	}
 
