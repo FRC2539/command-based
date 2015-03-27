@@ -26,7 +26,7 @@ ADD_SIMPLE_BUTTON(0, B, ZeroGyroCommand);
 ADD_SIMPLE_BUTTON(1, Y, RaiseElevatorCommand);
 ADD_SIMPLE_BUTTON(1, A, LowerElevatorCommand);
 ADD_SIMPLE_BUTTON(1, B, CloseTinesCommand);
-ADD_BUTTON(1, X, WhenPressed, new SetTinesCommand(RobotMap::Tines::maxWidth));
+ADD_BUTTON(1, X, WhenPressed, new SetTinesCommand(25));
 
 ADD_BUTTON(1, LeftBumper, WhileHeld, new ButtonTinesCommand(1));
 ADD_BUTTON(1, LeftTrigger, WhileHeld, new ButtonTinesCommand(-1));
