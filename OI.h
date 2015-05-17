@@ -6,7 +6,7 @@
 #include "Controller/LogicalAxes.h"
 
 class ControllerAxis;
-class ControllerButton;
+class Button;
 class JoystickButton;
 class GenericController;
 
@@ -19,7 +19,7 @@ public:
 
 protected:
 	GenericController* controllers[5]; // arbitrary choice of 4 controllers max
-	std::vector<ControllerButton*> buttons;
+	std::vector<Button*> buttons;
 	ControllerAxis* axes[logicalAxes::NumOfAxes];
 };
 

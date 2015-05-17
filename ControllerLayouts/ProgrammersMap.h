@@ -20,3 +20,5 @@ ADD_SIMPLE_BUTTON(0, Y, RaiseElevatorCommand);
 ADD_SIMPLE_BUTTON(0, A, LowerElevatorCommand);
 ADD_BUTTON(0, X, WhileHeld, new ButtonTinesCommand(1));
 ADD_BUTTON(0, B, WhileHeld, new ButtonTinesCommand(-1));
+ADD_BUTTON(0, DPadUp, WhileHeld, new ButtonDriveCommand(.25));
+ADD_BUTTON(0, DPadDown, WhileHeld, new ButtonDriveCommand(-.25));

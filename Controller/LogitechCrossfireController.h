@@ -42,7 +42,11 @@ public:
 		Back = 7,
 		Start = 8,
 		LeftJoystick = 9,
-		RightJoystick = 10
+		RightJoystick = 10,
+		DPadUp = 20,
+		DPadRight = 21,
+		DPadDown = 22,
+		dPadLeft = 23
 	};
 
 protected:

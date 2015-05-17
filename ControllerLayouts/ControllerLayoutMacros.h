@@ -19,15 +19,39 @@
 
 #define ADD_BUTTON(port, button, event, command)\
 	lastCommand = command;\
-	buttons.push_back(new ControllerButton(controllers[port], ControllerHack##port->button));\
+	buttonIntValue = ControllerHack##port->button;\
+	if (buttonIntValue >= 20)\
+	{\
+		buttons.push_back(new POVButton(controllers[port], (buttonIntValue - 20) * 90));\
+	}\
+	else\
+	{\
+		buttons.push_back(new ControllerButton(controllers[port], buttonIntValue));\
+	}\
 	buttons.back()->event(lastCommand)
 
 #define ADD_SIMPLE_BUTTON(port, button, command_class)\
 	lastCommand = new command_class();\
-	buttons.push_back(new ControllerButton(controllers[port], ControllerHack##port->button));\
+	buttonIntValue = ControllerHack##port->button;\
+	if (buttonIntValue >= 20)\
+	{\
+		buttons.push_back(new POVButton(controllers[port], (buttonIntValue - 20) * 90));\
+	}\
+	else\
+	{\
+		buttons.push_back(new ControllerButton(controllers[port], buttonIntValue));\
+	}\
 	buttons.back()->WhenPressed(lastCommand)
 
 #define ADD_TOGGLE_BUTTON(port, button, command_class)\
 	lastCommand = new command_class();\
-	buttons.push_back(new ControllerButton(controllers[port], ControllerHack##port->button));\
+	buttonIntValue = ControllerHack##port->button;\
+	if (buttonIntValue >= 20)\
+	{\
+		buttons.push_back(new POVButton(controllers[port], (buttonIntValue - 20) * 90));\
+	}\
+	else\
+	{\
+		buttons.push_back(new ControllerButton(controllers[port], buttonIntValue));\
+	}\
 	buttons.back()->ToggleWhenPressed(lastCommand)
