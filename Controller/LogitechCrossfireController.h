@@ -46,7 +46,7 @@ public:
 		DPadUp = 20,
 		DPadRight = 21,
 		DPadDown = 22,
-		dPadLeft = 23
+		DPadLeft = 23
 	};
 
 protected:
