@@ -1,21 +1,20 @@
 #ifndef TURN_ANGLE_COMMAND_H
 #define TURN_ANGLE_COMMAND_H
 
-#include "../Types/DefaultCommand.h"
+#include "../Types/PIDCommand.h"
 
-class PIDController;
-
-class TurnAngleCommand : public DefaultCommand {
+class TurnAngleCommand : public PIDCommand {
 
 public:
 	TurnAngleCommand(double angle);
 	void Initialize();
-	bool IsFinished();
 	void End();
 
 protected:
+	double ReturnPIDInput();
+	void UsePIDOutput(double output);
+
 	double m_angle;
-	double m_target;
 };
 
 #endif
