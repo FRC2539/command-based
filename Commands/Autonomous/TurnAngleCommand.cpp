@@ -8,25 +8,29 @@ TurnAngleCommand::TurnAngleCommand(double angle)
 	m_angle(angle)
 {
 	Requires(drivetrain);
-	pidLoop = new PIDController(0.05, 0, 0, drivetrain, drivetrain);
-	pidLoop->SetAbsoluteTolerance(2);
 }
 
 void TurnAngleCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(RobotMap::DriveBase::preciseModeMaxSpeed);
-	drivetrain->setPIDMode(drivetrain->Rotate);
-	pidLoop->SetSetpoint(drivetrain->PIDGet() + m_angle);
-	pidLoop->Enable();
+	float speed = RobotMap::DriveBase::preciseModeMaxSpeed;
+	if (m_angle < 0)
+	{
+		speed *= -1;
+	}
+	m_target = drivetrain->getAngle() + m_angle;
+	drivetrain->move(0, 0, speed);
 }
 
 bool TurnAngleCommand::IsFinished()
 {
-	return pidLoop->OnTarget();
+	if (m_angle < 0)
+	{
+		return (drivetrain->getAngle() < m_target);
+	}
+	return (drivetrain->getAngle() > m_target);
 }
 
 void TurnAngleCommand::End()
 {
-	pidLoop->Reset();
-	drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
+	drivetrain->stop();
 }

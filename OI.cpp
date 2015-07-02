@@ -14,7 +14,7 @@
 // Available Commands for ControllerMap
 #include "Commands/PreciseDriveCommand.h"
 #include "Commands/ResetCommand.h"
-#include "Commands/ButtonMecanumDriveCommand.h"
+#include "Commands/ButtonDriveCommand.h"
 #include "Commands/ButtonElevatorCommand.h"
 #include "Commands/ButtonTinesCommand.h"
 #include "Commands/ZeroGyroCommand.h"

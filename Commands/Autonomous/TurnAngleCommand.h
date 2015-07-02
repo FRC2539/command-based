@@ -15,8 +15,7 @@ public:
 
 protected:
 	double m_angle;
-
-	PIDController* pidLoop;
+	double m_target;
 };
 
 #endif

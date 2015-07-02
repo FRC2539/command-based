@@ -1,21 +1,51 @@
 #ifndef DRIVE_TRAIN_H
 #define DRIVE_TRAIN_H
 
+#include <CANTalon.h>
+#include <vector>
+
 #include "../Custom/DebuggingSubsystem.h"
 
-class EncoderDrive;
+class Gyro;
 
 class DriveTrain: public Subsystem {
 public:
-	DriveTrain(const char* type);
+	DriveTrain();
 	virtual ~DriveTrain();
 	virtual void InitDefaultCommand();
 
 	void setMaxSpeed(float speed);
-	virtual void stop() = 0;
+	void move(float x, float y, float rotate);
+	void stop();
+
+	void enableFieldOrientation(bool isActive=true);
+	void disableFieldOrientation();
+	float getAngle();
+	void resetGyro();
+
+	enum SensorMoveDirection {
+		DriveX,
+		DriveY,
+		Rotate
+	};
+
+	void moveDistance(double distance, SensorMoveDirection direction=DriveY);
+	bool doneMoving();
 
 protected:
-	EncoderDrive* drive;
+	float m_maxSpeed;
+	bool m_fieldOrientation;
+
+	Gyro* m_gyro;
+	std::vector<CANTalon*> m_motors;
+	std::vector<float> m_speeds;
+
+	SensorMoveDirection m_direction;
+
+	void equalizeMotors();
+	void setOutputs();
+
+	void setMode(CANTalon::ControlMode mode);
 };
 
 #endif

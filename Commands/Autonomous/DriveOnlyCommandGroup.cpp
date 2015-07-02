@@ -6,7 +6,7 @@
 DriveOnlyCommandGroup::DriveOnlyCommandGroup() : CommandGroup("DriveOnly")
 {
 	AddSequential(new ResetCommand());
-	AddSequential(new DriveDistanceCommand(150, DriveDistanceCommand::Y, 125));
+	AddSequential(new DriveDistanceCommand(150, DriveDistanceCommand::Y));
 	
 }
 

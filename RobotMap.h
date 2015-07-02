@@ -33,10 +33,7 @@ namespace RobotMap {
 
 		const double maxSpeed = 175;
 		const double preciseModeMaxSpeed = 50;
-
-		const double P = 0.1;
-		const double I = 0;
-		const double D = 0.05;
+		const double accelerationRate = 0.05;
 	}
 
 	namespace Elevator {

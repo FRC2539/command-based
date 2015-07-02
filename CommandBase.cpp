@@ -17,11 +17,7 @@ CommandBase::~CommandBase() {
 }
 
 void CommandBase::init() {
-	#if defined(MECANUM_DRIVE)
-		drivetrain = new MecanumDriveTrain();
-	#elif defined(ARCADE_DRIVE)
-		drivetrain = new ArcadeDriveTrain();
-	#endif
+	drivetrain = new DriveTrain();
 	elevator = new Elevator();
 	tines = new Tines();
 	oi = new OI();
@@ -31,11 +27,7 @@ void CommandBase::init() {
 /* Each subsystem must be initially set to NULL in order for the static symbols
  * to be available on the roboRIO
  */
-#if defined(MECANUM_DRIVE)
-	MecanumDriveTrain* CommandBase::drivetrain = NULL;
-#elif defined(ARCADE_DRIVE)
-	ArcadeDriveTrain* CommandBase::drivetrain = NULL;
-#endif
+DriveTrain* CommandBase::drivetrain = NULL;
 Elevator* CommandBase::elevator = NULL;
 Tines* CommandBase::tines = NULL;
 OI* CommandBase::oi = NULL;

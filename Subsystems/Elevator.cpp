@@ -6,7 +6,6 @@
 #include <cmath>
 
 #include "../RobotMap.h"
-#include "../Custom/DriveTrain/CANTalonRatePIDSource.h"
 #include "../Commands/MaintainHeightCommand.h"
 
 Elevator::Elevator() : Subsystem("Elevator"),

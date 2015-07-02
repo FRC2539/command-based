@@ -13,7 +13,11 @@ void PreciseDriveCommand::Initialize()
 
 void PreciseDriveCommand::Execute()
 {
-	drivetrain->MOVE_WITH_JOYSTICK;
+	drivetrain->move(
+		oi->getAxisValue(logicalAxes::DriveX),
+		oi->getAxisValue(logicalAxes::DriveY),
+		oi->getAxisValue(logicalAxes::DriveRotate)
+	);
 }
 
 void PreciseDriveCommand::End()

@@ -7,6 +7,10 @@ DriveCommand::DriveCommand() : DefaultCommand("Drive")
 
 void DriveCommand::Execute()
 {
-	drivetrain->MOVE_WITH_JOYSTICK;
+	drivetrain->move(
+		oi->getAxisValue(logicalAxes::DriveX),
+		oi->getAxisValue(logicalAxes::DriveY),
+		oi->getAxisValue(logicalAxes::DriveRotate)
+	);
 }
 

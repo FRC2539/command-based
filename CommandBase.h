@@ -6,11 +6,7 @@
 // These should not be converted to forward declaration, as the full subsystem
 // definitions are required by the Commands.
 #include "RobotMap.h"
-#if defined(MECANUM_DRIVE)
-	#include "Subsystems/MecanumDriveTrain.h"
-#elif defined(ARCADE_DRIVE)
-	#include "Subsystems/ArcadeDriveTrain.h"
-#endif
+#include "Subsystems/DriveTrain.h"
 #include "Subsystems/Elevator.h"
 #include "Subsystems/Tines.h"
 #include "OI.h"
@@ -30,11 +26,7 @@ public:
 	static void init();
 
 	// Create a single static instance of each of your subsystems
-	#if defined(MECANUM_DRIVE)
-		static MecanumDriveTrain *drivetrain;
-	#elif defined(ARCADE_DRIVE)
-		static ArcadeDriveTrain *drivetrain;
-	#endif
+	static DriveTrain *drivetrain;
 	static Elevator *elevator;
 	static Tines *tines;
 	static OI *oi;
