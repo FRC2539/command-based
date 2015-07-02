@@ -9,6 +9,7 @@ TurnAngleCommand::TurnAngleCommand(double angle)
 	Requires(drivetrain);
 
 	setMaxOutput(.25);
+	setAbsoluteError(2);
 }
 
 void TurnAngleCommand::Initialize()
