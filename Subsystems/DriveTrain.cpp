@@ -93,8 +93,14 @@ void DriveTrain::move(float y, float x, float rotate)
 		}
 	}
 
+	if (m_readEncoders == false)
+	{
+		setOutputs(1);
+		return;
+	}
+
 	equalizeMotors();
-	setOutputs();
+	setOutputs(m_maxSpeed);
 }
 
 void DriveTrain::stop()
@@ -140,7 +146,7 @@ void DriveTrain::equalizeMotors()
 	}
 }
 
-void DriveTrain::setOutputs()
+void DriveTrain::setOutputs(float maxValue)
 {
 	int index = -1;
 	for (auto motor : m_motors)
@@ -150,7 +156,7 @@ void DriveTrain::setOutputs()
 		{
 			continue;
 		}
-		motor->Set(m_speeds[index] * m_maxSpeed);
+		motor->Set(m_speeds[index] * maxValue);
 	}
 }
 
@@ -174,11 +180,28 @@ float DriveTrain::getAngle()
 	return m_gyro->GetAngle();
 }
 
+void DriveTrain::useEncoders()
+{
+	m_readEncoders = true;
+	setMode(CANTalon::kSpeed);
+}
+
+void DriveTrain::ignoreEncoders()
+{
+	m_readEncoders = false;
+	setMode(CANTalon::kPercentVbus);
+}
+
 void DriveTrain::moveDistance(
 	double distance,
 	DriveTrain::SensorMoveDirection direction
 )
 {
+	if (m_readEncoders == false)
+	{
+		return;
+	}
+
 	distance /= RobotMap::DriveBase::encoderSensitivity;
 
 	setMode(CANTalon::kPosition);

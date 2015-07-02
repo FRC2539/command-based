@@ -23,6 +23,9 @@ public:
 	float getAngle();
 	void resetGyro();
 
+	void useEncoders();
+	void ignoreEncoders();
+
 	enum SensorMoveDirection {
 		DriveX,
 		DriveY,
@@ -35,6 +38,7 @@ public:
 protected:
 	float m_maxSpeed;
 	bool m_fieldOrientation;
+	bool m_readEncoders;
 
 	Gyro* m_gyro;
 	std::vector<CANTalon*> m_motors;
@@ -43,7 +47,7 @@ protected:
 	SensorMoveDirection m_direction;
 
 	void equalizeMotors();
-	void setOutputs();
+	void setOutputs(float maxValue);
 
 	void setMode(CANTalon::ControlMode mode);
 };

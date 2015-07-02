@@ -5,8 +5,8 @@ POVButton::POVButton(GenericHID *joystick, int angle, bool mutuallyExclusive) :
 	m_angle(angle),
 	m_mutuallyExclusive(mutuallyExclusive)
 {
-	m_angle_more = (angle + 30) % 360;
-	m_angle_less = angle - 30;
+	m_angle_more = (angle + 45) % 360;
+	m_angle_less = angle - 45;
 	if (m_angle_less < 0)
 	{
 		m_angle_less += 360;
