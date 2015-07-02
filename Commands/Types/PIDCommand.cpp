@@ -109,6 +109,16 @@ PIDController *PIDCommand::GetPIDController()
 
 void PIDCommand::SetSetpoint(double setpoint)
 {
+	double current = GetSetpoint();
+
+	if (current < setpoint)
+	{
+		m_controller->SetInputRange(current, setpoint);
+	}
+	else
+	{
+		m_controller->SetInputRange(setpoint, current);
+	}
 	m_controller->SetSetpoint(setpoint);
 }
 
