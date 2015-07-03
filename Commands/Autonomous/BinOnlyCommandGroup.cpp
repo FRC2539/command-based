@@ -11,7 +11,7 @@ BinOnlyCommandGroup::BinOnlyCommandGroup() : CommandGroup("BinOnly")
 	AddSequential(new ResetCommand());
 	AddSequential(new SetTinesCommand(22));
 	AddSequential(new SetElevatorCommand(4655));
-	AddSequential(new DriveDistanceCommand(-4, DriveDistanceCommand::Y));
+	AddSequential(new DriveDistanceCommand(-4, DriveTrain::DriveY));
 	AddSequential(new TurnAngleCommand(-85));
-	AddSequential(new DriveDistanceCommand(115, DriveDistanceCommand::Y));
+	AddSequential(new DriveDistanceCommand(115, DriveTrain::DriveY));
 }

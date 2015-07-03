@@ -6,19 +6,17 @@
 class DriveDistanceCommand : public DefaultCommand {
 
 public:
-	enum Direction {
-		X,
-		Y
-	};
-
-	DriveDistanceCommand(double distance, Direction direction=Y);
+	DriveDistanceCommand(
+		double distance,
+		DriveTrain::SensorMoveDirection direction=DriveTrain::DriveY
+	);
 	void Initialize();
 	bool IsFinished();
 	void End();
 
 protected:
 	double m_distance;
-	Direction m_direction;
+	DriveTrain::SensorMoveDirection m_direction;
 
 };
 

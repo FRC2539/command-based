@@ -8,18 +8,20 @@ TurnAngleCommand::TurnAngleCommand(double angle)
 {
 	Requires(drivetrain);
 
-	setMaxOutput(.25);
+	setMaxOutput(1);
 	setAbsoluteError(2);
 }
 
 void TurnAngleCommand::Initialize()
 {
+	drivetrain->setMaxSpeed(RobotMap::DriveBase::preciseModeMaxSpeed);
 	SetSetpointRelative(m_angle);
 }
 
 void TurnAngleCommand::End()
 {
 	drivetrain->stop();
+	drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
 }
 
 void TurnAngleCommand::UsePIDOutput(double output)

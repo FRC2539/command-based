@@ -2,7 +2,7 @@
 
 DriveDistanceCommand::DriveDistanceCommand(
 	double distance,
-	Direction direction
+	DriveTrain::SensorMoveDirection direction
 ) : DefaultCommand("DriveDistance"),
 	m_direction(direction),
 	m_distance(distance)
@@ -12,14 +12,7 @@ DriveDistanceCommand::DriveDistanceCommand(
 
 void DriveDistanceCommand::Initialize()
 {
-	if (m_direction == Direction::X)
-	{
-		drivetrain->moveDistance(m_distance, drivetrain->DriveX);
-	}
-	else
-	{
-		drivetrain->moveDistance(m_distance, drivetrain->DriveY);
-	}
+	drivetrain->moveDistance(m_distance, m_direction);
 }
 
 bool DriveDistanceCommand::IsFinished()

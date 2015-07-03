@@ -19,7 +19,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 	for (auto motor : m_motors)
 	{
 		motor->SetVoltageRampRate(0.5);
-		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 		motor->SetSafetyEnabled(false);
 	}
 
@@ -56,8 +56,12 @@ DriveTrain::~DriveTrain()
 	delete m_gyro;
 }
 
-void DriveTrain::move(float y, float x, float rotate)
+void DriveTrain::move(float x, float y, float rotate)
 {
+#if defined(ARCADE_DRIVE)
+	x = 0;
+#endif
+
 	if (m_fieldOrientation)
 	{
 		float angle = getAngle();
@@ -105,6 +109,10 @@ void DriveTrain::move(float y, float x, float rotate)
 
 void DriveTrain::stop()
 {
+	for (auto motor : m_motors)
+	{
+		motor->ClearIaccum();
+	}
 	move(0, 0, 0);
 }
 
@@ -148,15 +156,14 @@ void DriveTrain::equalizeMotors()
 
 void DriveTrain::setOutputs(float maxValue)
 {
-	int index = -1;
+	unsigned int index = 0;
 	for (auto motor : m_motors)
 	{
-		index++;
-		if (motor->GetControlMode() == CANTalon::kFollower)
+		if (motor->GetControlMode() != CANTalon::kFollower)
 		{
-			continue;
+			motor->Set(m_speeds[index] * maxValue);
 		}
-		motor->Set(m_speeds[index] * maxValue);
+		index++;
 	}
 }
 
@@ -192,13 +199,14 @@ void DriveTrain::ignoreEncoders()
 	setMode(CANTalon::kPercentVbus);
 }
 
-void DriveTrain::moveDistance(
-	double distance,
-	DriveTrain::SensorMoveDirection direction
-)
+void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 {
 	if (m_readEncoders == false)
 	{
+		wpi_setErrorWithContext(
+			129,
+			"Cannot determine distance while encoders are disabled"
+		);
 		return;
 	}
 
@@ -294,6 +302,7 @@ void DriveTrain::setMode(CANTalon::ControlMode mode)
 		}
 		else if (mode == CANTalon::kSpeed)
 		{
+			motor->ClearIaccum();
 			motor->SetPID(0, RobotMap::DriveBase::accelerationRate, 0);
 		}
 		motor->SetControlMode(mode);
