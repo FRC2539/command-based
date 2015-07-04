@@ -1,22 +1,17 @@
 #include "ButtonElevatorCommand.h"
 
-ButtonElevatorCommand::ButtonElevatorCommand(float speed)
-	: DefaultCommand("ButtonElevator"), m_speed(speed)
+ButtonElevatorCommand::ButtonElevatorCommand(Elevator::Direction direction)
+	: DefaultCommand("ButtonElevator"), m_direction(direction)
 {
 	Requires(elevator);
 }
 
 void ButtonElevatorCommand::Initialize()
 {
-	elevator->directDrive(m_speed);
+	elevator->go(m_direction);
 }
 
-void ButtonElevatorCommand::Run()
+void ButtonElevatorCommand::Execute()
 {
-	elevator->displayHeight();
-}
-
-void ButtonElevatorCommand::End()
-{
-	elevator->doneMoving();
+	elevator->updateDashboardHeight();
 }

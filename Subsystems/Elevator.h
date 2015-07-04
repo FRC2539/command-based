@@ -12,43 +12,37 @@ public:
 
 	virtual void InitDefaultCommand();
 
-	void maintainHeight();
-	void moveToward(int height);
-	void changeLevel(int difference);
-	bool onTarget();
-
-	void directDrive(float speed);
-	void doneMoving();
-	void recalculateLevel();
-
-	void storeSettings();
-	void loadSettings();
-
-	void zeroElevator();
-
-	void displayLevel();
-	void displayHeight();
-
-	void enableSoftLimits();
-	void disableSoftLimits();
-
 	enum Direction {
 		UP,
 		DOWN,
 		HOLD
 	};
 
+	void go(Direction direction);
+	void goTo(int height);
+	void changeLevel(int difference);
+
+	bool atTargetPosition();
+	void updateDashboardHeight();
+
 protected:
-	CANTalon* elevatorMotor;
+	void calculateLevel();
 
-	int targetPosition;
-	bool atExactLevel;
-	Direction direction;
+	void storeSettings();
+	void loadSettings();
 
-	int level;
-	int maxLevel;
+	void updateDashboardLevel();
 
-	bool settingsLoaded;
+	CANTalon* m_elevatorMotor;
+
+	int m_targetHeight;
+	bool m_atExactLevel;
+	Direction m_direction;
+
+	int m_currentLevel;
+	int m_maxLevel;
+
+	bool m_settingsLoaded;
 };
 
 #endif

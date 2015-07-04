@@ -23,14 +23,14 @@ ADD_SIMPLE_BUTTON(0, B, ZeroGyroCommand);
  * Pickup Controller
  */
 
-ADD_SIMPLE_BUTTON(1, Y, RaiseElevatorCommand);
-ADD_SIMPLE_BUTTON(1, A, LowerElevatorCommand);
 ADD_SIMPLE_BUTTON(1, B, CloseTinesCommand);
 ADD_BUTTON(1, X, WhenPressed, new SetTinesCommand(25));
 
 ADD_BUTTON(1, LeftBumper, WhileHeld, new ButtonTinesCommand(1));
 ADD_BUTTON(1, LeftTrigger, WhileHeld, new ButtonTinesCommand(-1));
-ADD_BUTTON(1, RightBumper, WhileHeld, new ButtonElevatorCommand(RobotMap::Elevator::speed));
-ADD_BUTTON(1, RightTrigger, WhileHeld, new ButtonElevatorCommand(-RobotMap::Elevator::speed));
+ADD_BUTTON(1, Y, WhenPressed, new ChangeElevatorLevelCommand(1));
+ADD_BUTTON(1, A, WhenPressed, new ChangeElevatorLevelCommand(-1));
+ADD_BUTTON(1, RightBumper, WhileHeld, new ButtonElevatorCommand(Elevator::UP));
+ADD_BUTTON(1, RightTrigger, WhileHeld, new ButtonElevatorCommand(Elevator::DOWN));
 
 ADD_SIMPLE_BUTTON(1, Back, ResetCommand);

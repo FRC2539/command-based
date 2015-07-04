@@ -10,7 +10,7 @@ ResetCommand::ResetCommand() : InstantCommand("Reset")
 void ResetCommand::Initialize()
 {
 	drivetrain->stop();
-	elevator->directDrive(0);
+	elevator->go(Elevator::HOLD);
 	tines->directDrive(0);
 }
 

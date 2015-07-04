@@ -6,163 +6,163 @@
 #include <cmath>
 
 #include "../RobotMap.h"
-#include "../Commands/MaintainHeightCommand.h"
+#include "../Commands/MaintainElevatorHeightCommand.h"
 
 Elevator::Elevator() : Subsystem("Elevator"),
-	settingsLoaded(false),
-	targetPosition(-1)
+	m_settingsLoaded(false),
+	m_targetHeight(-1),
+	m_currentLevel(-1)
 {
-	elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
-	elevatorMotor->SetSensorDirection(true);
-	elevatorMotor->ConfigSoftPositionLimits(
-		RobotMap::Elevator::maxPosition,
-		RobotMap::Elevator::minPosition
-	);
-	elevatorMotor->DisableSoftPositionLimits();
-	elevatorMotor->SetPID(
+	m_elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
+	m_elevatorMotor->SetSensorDirection(true);
+	m_elevatorMotor->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+	m_elevatorMotor->SetPosition(0);
+	m_elevatorMotor->SetPID(
 		RobotMap::Elevator::P,
 		RobotMap::Elevator::I,
 		RobotMap::Elevator::D
 	);
-	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
 
-	maxLevel = std::ceil(
+	m_maxLevel = std::ceil(
 		(RobotMap::Elevator::maxPosition - RobotMap::Elevator::levelOffset) /
 		(float)RobotMap::Elevator::toteHeight
 	);
-	recalculateLevel();
 }
 
 Elevator::~Elevator()
 {
-	delete elevatorMotor;
+	delete m_elevatorMotor;
 }
 
 void Elevator::InitDefaultCommand()
 {
-	SetDefaultCommand(new MaintainHeightCommand());
+	SetDefaultCommand(new MaintainElevatorHeightCommand());
 }
 
-void Elevator::maintainHeight()
+void Elevator::go(Elevator::Direction direction)
 {
-	elevatorMotor->SetControlMode(CANSpeedController::kPosition);
-	elevatorMotor->ClearIaccum();
-	elevatorMotor->Set(elevatorMotor->GetPosition());
+	m_direction = direction;
+	if (m_settingsLoaded == false)
+	{
+		loadSettings();
+	}
+
+	m_elevatorMotor->ClearIaccum();
+	if (direction == HOLD)
+	{
+		m_elevatorMotor->SetControlMode(CANTalon::kPosition);
+		m_elevatorMotor->Set(m_elevatorMotor->GetPosition());
+
+		calculateLevel();
+		storeSettings();
+	}
+	else if (direction == UP)
+	{
+		m_elevatorMotor->SetControlMode(CANTalon::kSpeed);
+		m_elevatorMotor->Set(RobotMap::Elevator::speed);
+	}
+	else if (direction == DOWN)
+	{
+		m_elevatorMotor->SetControlMode(CANTalon::kSpeed);
+		m_elevatorMotor->Set(-RobotMap::Elevator::speed);
+	}
 }
 
 void Elevator::changeLevel(int difference)
 {
-	if (atExactLevel == false && difference < 0)
+	if (m_atExactLevel == false && difference < 0)
 	{
+		m_atExactLevel == true; // In case this is called multiple times
 		difference++;
 	}
-	level += difference;
-	level = std::max(level, -1);
-	level = std::min(level, maxLevel);
+	m_currentLevel += difference;
+	m_currentLevel = std::max(m_currentLevel, -1);
+	m_currentLevel = std::min(m_currentLevel, m_maxLevel);
 
-	moveToward(
-		RobotMap::Elevator::levelOffset + level * RobotMap::Elevator::toteHeight
+	goTo(
+		RobotMap::Elevator::levelOffset
+		+ m_currentLevel * RobotMap::Elevator::toteHeight
 	);
-
-	atExactLevel = true;
 }
 
-void Elevator::moveToward(int height)
+void Elevator::goTo(int height)
 {
-	if (height < elevatorMotor->GetPosition())
+	if (height < m_elevatorMotor->GetPosition())
 	{
-		directDrive(-RobotMap::Elevator::speed);
+		go(DOWN);
 	}
 	else
 	{
-		directDrive(RobotMap::Elevator::speed);
+		go(UP);
 	}
 
-	targetPosition = height;
+	m_targetHeight = height;
 }
 
-bool Elevator::onTarget()
+bool Elevator::atTargetPosition()
 {
-	if (direction == DOWN && targetPosition <= 0)
+	bool done = false;
+	if (m_direction == DOWN)
 	{
-		return elevatorMotor->IsRevLimitSwitchClosed();
-	}
-	else if (direction == DOWN)
-	{
-		return elevatorMotor->GetPosition() <= targetPosition ||
-			elevatorMotor->IsRevLimitSwitchClosed();
-	}
-	else if (targetPosition > RobotMap::Elevator::maxPosition)
-	{
-		return elevatorMotor->IsFwdLimitSwitchClosed();
-	}
-	else
-	{
-		return elevatorMotor->GetPosition() >= targetPosition ||
-			elevatorMotor->IsFwdLimitSwitchClosed();
-	}
-}
-
-void Elevator::directDrive(float speed)
-{
-	elevatorMotor->SetControlMode(CANSpeedController::kSpeed);
-	elevatorMotor->ClearIaccum();
-	elevatorMotor->Set(speed);
-
-	if (speed == 0)
-	{
-		direction = HOLD;
-	}
-	else if (speed < 0)
-	{
-		direction = DOWN;
-	}
-	else
-	{
-		direction = UP;
-	}
-}
-
-void Elevator::doneMoving()
-{
-	directDrive(0);
-	if (elevatorMotor->IsFwdLimitSwitchClosed())
-	{
-		if (elevatorMotor->GetPosition() < RobotMap::Elevator::maxPosition)
+		if (m_elevatorMotor->IsRevLimitSwitchClosed())
 		{
-			elevatorMotor->SetPosition(RobotMap::Elevator::maxPosition);
+			done = true;
+
+			m_elevatorMotor->SetPosition(0);
+			m_settingsLoaded = true; // We know where we are, store it
+		}
+		else if (m_targetHeight > 0)
+		{
+			done = m_elevatorMotor->GetPosition() <= m_targetHeight;
 		}
 	}
-	else if (elevatorMotor->IsRevLimitSwitchClosed())
+	else if (m_direction == UP)
 	{
-		zeroElevator();
+		if (m_elevatorMotor->IsFwdLimitSwitchClosed())
+		{
+			done = true;
+
+			if (m_elevatorMotor->GetPosition() < RobotMap::Elevator::maxPosition)
+			{
+				m_elevatorMotor->SetPosition(RobotMap::Elevator::maxPosition);
+			}
+		}
+		else if (m_targetHeight < RobotMap::Elevator::maxPosition)
+		{
+			done = m_elevatorMotor->GetPosition() >= m_targetHeight;
+		}
+	}
+
+	return done;
+}
+
+void Elevator::calculateLevel()
+{
+	if (m_settingsLoaded == false)
+	{
 		return;
 	}
 
-	recalculateLevel();
-}
-
-void Elevator::recalculateLevel()
-{
-	int value = elevatorMotor->GetPosition() - RobotMap::Elevator::levelOffset;
+	int value = m_elevatorMotor->GetPosition()
+		- RobotMap::Elevator::levelOffset;
 	value += 10; // "Exact" means within 10 ticks
+	m_currentLevel = std::floor((float)value / RobotMap::Elevator::toteHeight);
+
 	int error = value % RobotMap::Elevator::toteHeight;
-	if (error <= 20 && error >= 0) // Up to 10 above or 10 below
+	m_atExactLevel = (error >= 0 && error <= 20); // Up to 10 above or 10 below
+
+	if (m_elevatorMotor->IsRevLimitSwitchClosed())
 	{
-		atExactLevel = true;
-	}
-	if (elevatorMotor->IsRevLimitSwitchClosed())
-	{
-		atExactLevel = true;
+		m_atExactLevel = true;
 	}
 
-	level = std::floor((float)value / RobotMap::Elevator::toteHeight);
-	displayLevel();
+	updateDashboardLevel();
+	updateDashboardHeight();
 }
 
 void Elevator::loadSettings()
 {
-	if (settingsLoaded == true)
+	if (m_settingsLoaded == true)
 	{
 		return;
 	}
@@ -170,63 +170,48 @@ void Elevator::loadSettings()
 	Preferences* preferences = Preferences::GetInstance();
 	if (preferences->ContainsKey("elevatorPosition"))
 	{
-		elevatorMotor->SetPosition(preferences->GetInt("elevatorPosition"));
-		recalculateLevel();
-		settingsLoaded = true;
+		m_elevatorMotor->SetPosition(preferences->GetInt("elevatorPosition"));
+		m_settingsLoaded = true;
+		calculateLevel();
+	}
+	else
+	{
+		SmartDashboard::PutString(
+			"Elevator Level",
+			"Lower elevator to bottom to calibrate"
+		);
 	}
 }
 
 void Elevator::storeSettings()
 {
-	if (settingsLoaded == false)
+	if (m_settingsLoaded == false)
 	{
 		return;
 	}
 
 	Preferences* preferences = Preferences::GetInstance();
-	preferences->PutInt("elevatorPosition", elevatorMotor->GetPosition());
+	preferences->PutInt("elevatorPosition", m_elevatorMotor->GetPosition());
 	preferences->Save();
 }
 
-void Elevator::zeroElevator()
-{
-	elevatorMotor->SetPosition(0);
-	targetPosition = 0;
-	level = -1;
-
-	settingsLoaded = true;
-	atExactLevel = true;
-
-	GetDefaultCommand()->Cancel();
-	displayLevel();
-}
-
-void Elevator::displayLevel()
+void Elevator::updateDashboardLevel()
 {
 	std::string precision = " Approximate";
-	if (atExactLevel == true)
+	if (m_atExactLevel == true)
 	{
 		precision = " Exact";
 	}
 	SmartDashboard::PutString(
 		"Elevator Level",
-		std::to_string(level + 1) + precision
+		std::to_string(m_currentLevel + 1) + precision
 	);
 }
 
-void Elevator::displayHeight()
+void Elevator::updateDashboardHeight()
 {
-	SmartDashboard::PutNumber("Elevator Height", elevatorMotor->GetPosition());
-}
-
-void Elevator::enableSoftLimits()
-{
-	elevatorMotor->ConfigLimitMode(
-		CANSpeedController::kLimitMode_SoftPositionLimits
+	SmartDashboard::PutNumber(
+		"Elevator Height",
+		m_elevatorMotor->GetPosition()
 	);
-}
-
-void Elevator::disableSoftLimits()
-{
-	elevatorMotor->DisableSoftPositionLimits();
 }

@@ -10,10 +10,12 @@
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 {
-	m_motors.push_back(new CANTalon(RobotMap::DriveBase::frontLeftMotorID));
-	m_motors.push_back(new CANTalon(RobotMap::DriveBase::frontRightMotorID));
-	m_motors.push_back(new CANTalon(RobotMap::DriveBase::backLeftMotorID));
-	m_motors.push_back(new CANTalon(RobotMap::DriveBase::backRightMotorID));
+	m_motors = {
+		new CANTalon(RobotMap::DriveBase::frontLeftMotorID),
+		new CANTalon(RobotMap::DriveBase::frontRightMotorID),
+		new CANTalon(RobotMap::DriveBase::backLeftMotorID),
+		new CANTalon(RobotMap::DriveBase::backRightMotorID)
+	};
 
 	setMode(CANTalon::kSpeed);
 	for (auto motor : m_motors)

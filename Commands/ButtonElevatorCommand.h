@@ -6,13 +6,12 @@
 class ButtonElevatorCommand : public DefaultCommand {
 
 public:
-	ButtonElevatorCommand(float speed);
+	ButtonElevatorCommand(Elevator::Direction direction);
 	void Initialize();
-	void Run();
-	void End();
+	void Execute();
 
 protected:
-	float m_speed;
+	Elevator::Direction m_direction;
 };
 
 #endif

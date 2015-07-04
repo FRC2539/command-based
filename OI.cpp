@@ -18,8 +18,7 @@
 #include "Commands/ButtonElevatorCommand.h"
 #include "Commands/ButtonTinesCommand.h"
 #include "Commands/ZeroGyroCommand.h"
-#include "Commands/LowerElevatorCommand.h"
-#include "Commands/RaiseElevatorCommand.h"
+#include "Commands/ChangeElevatorLevelCommand.h"
 #include "Commands/Autonomous/CloseTinesCommand.h"
 #include "Commands/Autonomous/SetTinesCommand.h"
 

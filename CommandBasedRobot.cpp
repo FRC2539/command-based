@@ -45,8 +45,6 @@ private:
 	
 	virtual void AutonomousInit()
 	{
-		CommandBase::elevator->loadSettings();
-
 		autonomousCommand = (Command *) autonomousProgram->GetSelected();
 		autonomousCommand->Start();
 	}
@@ -58,8 +56,6 @@ private:
 	
 	virtual void TeleopInit()
 	{
-		CommandBase::elevator->loadSettings();
-
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
@@ -80,11 +76,6 @@ private:
 #if defined(DEBUG)
 		lw->Run();
 #endif
-	}
-
-	virtual void DisabledInit()
-	{
-		CommandBase::elevator->storeSettings();
 	}
 
 #if defined(DEBUG)

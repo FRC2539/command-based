@@ -8,11 +8,11 @@ class SetElevatorCommand : public DefaultCommand {
 public:
 	SetElevatorCommand(int target);
 	void Initialize();
+	void Execute();
 	bool IsFinished();
-	void End();
 
 protected:
-	int targetHeight;
+	int m_targetHeight;
 };
 
 #endif
