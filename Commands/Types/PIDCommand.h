@@ -28,7 +28,7 @@ public:
 	virtual void PIDWrite(float output);
 
 	// PIDSource interface
-	virtual double PIDGet();
+	virtual double PIDGet() const;
 
 	void setPercentError(double error);
 	void setAbsoluteError(double error);
@@ -45,7 +45,7 @@ protected:
 	double GetSetpoint();
 	double GetPosition();
 
-	virtual double ReturnPIDInput() = 0;
+	virtual double ReturnPIDInput() const = 0;
 	virtual void UsePIDOutput(double output) = 0;
 
 private:

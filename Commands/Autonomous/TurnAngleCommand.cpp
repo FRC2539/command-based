@@ -29,7 +29,7 @@ void TurnAngleCommand::UsePIDOutput(double output)
 	drivetrain->move(0, 0, output);
 }
 
-double TurnAngleCommand::ReturnPIDInput()
+double TurnAngleCommand::ReturnPIDInput() const
 {
 	drivetrain->getAngle();
 }

@@ -11,7 +11,7 @@ public:
 	void End();
 
 protected:
-	double ReturnPIDInput();
+	double ReturnPIDInput() const;
 	void UsePIDOutput(double output);
 
 	double m_angle;

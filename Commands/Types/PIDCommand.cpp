@@ -97,7 +97,7 @@ void PIDCommand::PIDWrite(float output)
 	UsePIDOutput(output);
 }
 
-double PIDCommand::PIDGet()
+double PIDCommand::PIDGet() const
 {
 	return ReturnPIDInput();
 }
