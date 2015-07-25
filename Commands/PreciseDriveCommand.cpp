@@ -8,7 +8,7 @@ PreciseDriveCommand::PreciseDriveCommand()
 
 void PreciseDriveCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(RobotMap::DriveBase::preciseModeMaxSpeed);
+	drivetrain->setMaxSpeed(Config::DriveBase::preciseModeMaxSpeed);
 }
 
 void PreciseDriveCommand::Execute()
@@ -22,5 +22,5 @@ void PreciseDriveCommand::Execute()
 
 void PreciseDriveCommand::End()
 {
-	drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
+	drivetrain->setMaxSpeed(Config::DriveBase::maxSpeed);
 }

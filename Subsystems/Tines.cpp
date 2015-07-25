@@ -4,16 +4,16 @@
 #include <AnalogPotentiometer.h>
 #include <SmartDashboard/SmartDashboard.h>
 
-#include "../RobotMap.h"
+#include "../Config.h"
 
 Tines::Tines() : Subsystem("Tines"), minPosition(0), maxPosition(0)
 {
-	tinesMotor = new Talon(RobotMap::Tines::tinesMotorPort);
+	tinesMotor = new Talon(Config::Tines::tinesMotorPort);
 	// Measurements: 0.794462=29 3/16", 0.306603=14 1/8"
 	// Offset = 4.6587247
 	// Max = 30.874699 + Offset
 	distanceDetector = new AnalogPotentiometer(
-		RobotMap::Tines::stringPotentiometerPort,
+		Config::Tines::stringPotentiometerPort,
 		30.874699,
 		4.6587247
 	);

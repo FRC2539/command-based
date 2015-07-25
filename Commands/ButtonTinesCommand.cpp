@@ -1,6 +1,6 @@
 #include "ButtonTinesCommand.h"
 
-#include "../RobotMap.h"
+#include "../Config.h"
 
 ButtonTinesCommand::ButtonTinesCommand(float speed)
 	: DefaultCommand("ButtonTines"), m_speed(speed)
@@ -18,11 +18,11 @@ bool ButtonTinesCommand::IsFinished()
 	tines->displayWidth();
 	if (m_speed < 0)
 	{
-		return tines->getWidth() <= RobotMap::Tines::minWidth;
+		return tines->getWidth() <= Config::Tines::minWidth;
 	}
 	else
 	{
-		return tines->getWidth() >= RobotMap::Tines::maxWidth;
+		return tines->getWidth() >= Config::Tines::maxWidth;
 	}
 }
 

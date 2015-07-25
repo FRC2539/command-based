@@ -1,6 +1,6 @@
 #include "TurnAngleCommand.h"
 
-#include "../../RobotMap.h"
+#include "../../Config.h"
 
 TurnAngleCommand::TurnAngleCommand(double angle)
 	: PIDCommand("TurnAngle", 0.5, 0, 0),
@@ -14,14 +14,14 @@ TurnAngleCommand::TurnAngleCommand(double angle)
 
 void TurnAngleCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(RobotMap::DriveBase::preciseModeMaxSpeed);
+	drivetrain->setMaxSpeed(Config::DriveBase::preciseModeMaxSpeed);
 	SetSetpointRelative(m_angle);
 }
 
 void TurnAngleCommand::End()
 {
 	drivetrain->stop();
-	drivetrain->setMaxSpeed(RobotMap::DriveBase::maxSpeed);
+	drivetrain->setMaxSpeed(Config::DriveBase::maxSpeed);
 }
 
 void TurnAngleCommand::UsePIDOutput(double output)

@@ -23,7 +23,7 @@ void Netconsole::sendToConsole(std::string label, std::string value)
 
 void Netconsole::writeOut(std::string label, std::string value)
 {
-	std::cout << label << ": " << value << "\n";
+	std::cout << label << ": " << value << std::endl;
 }
 
 unsigned int Netconsole::ticks = 0;

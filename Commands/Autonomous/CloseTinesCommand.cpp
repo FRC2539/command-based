@@ -1,6 +1,6 @@
 #include "CloseTinesCommand.h"
 
-#include "../../RobotMap.h"
+#include "../../Config.h"
 
 CloseTinesCommand::CloseTinesCommand()
 	: DefaultCommand("CloseTines") 
@@ -19,7 +19,7 @@ bool CloseTinesCommand::IsFinished()
 {
 	tines->displayWidth();
 	double width = tines->getWidth();
-	if (width <= RobotMap::Tines::minWidth)
+	if (width <= Config::Tines::minWidth)
 	{
 		return true;
 	}

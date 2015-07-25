@@ -2,7 +2,7 @@
 #define DEBUGGING_SUBSYSTEM
 
 #include <Commands/Subsystem.h>
-#include "../RobotMap.h"
+#include "../Config.h"
 
 #if defined(DEBUG)
 #include <LiveWindow/LiveWindow.h>

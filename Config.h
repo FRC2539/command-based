@@ -1,15 +1,15 @@
-#ifndef ROBOTMAP_H
-#define ROBOTMAP_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
 /**
- * The RobotMap is where we store constants, the most common of which are port
+ * The Config is where we store constants, the most common of which are port
  * numbers. This provides flexibility, makes checking the wiring easier, and
  * significantly reduces the number of magic numbers floating around.
  */
 
 //#define DEBUG
 
-namespace RobotMap {
+namespace Config {
 
 	typedef const unsigned int PWMPort;
 	typedef const unsigned int DIOPort;

@@ -6,15 +6,15 @@
 #include <cmath>
 
 #include "../Commands/DriveCommand.h"
-#include "../RobotMap.h"
+#include "../Config.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 {
 	m_motors = {
-		new CANTalon(RobotMap::DriveBase::frontLeftMotorID),
-		new CANTalon(RobotMap::DriveBase::frontRightMotorID),
-		new CANTalon(RobotMap::DriveBase::backLeftMotorID),
-		new CANTalon(RobotMap::DriveBase::backRightMotorID)
+		new CANTalon(Config::DriveBase::frontLeftMotorID),
+		new CANTalon(Config::DriveBase::frontRightMotorID),
+		new CANTalon(Config::DriveBase::backLeftMotorID),
+		new CANTalon(Config::DriveBase::backRightMotorID)
 	};
 
 	setMode(CANTalon::kSpeed);
@@ -31,20 +31,20 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 		CANTalon::kFollower
 	);
 	m_motors[RobotDrive::kRearLeftMotor]->Set(
-		RobotMap::DriveBase::frontLeftMotorID
+		Config::DriveBase::frontLeftMotorID
 	);
 	m_motors[RobotDrive::kRearRightMotor]->SetControlMode(
 		CANTalon::kFollower
 	);
 	m_motors[RobotDrive::kRearRightMotor]->Set(
-		RobotMap::DriveBase::frontRightMotorID
+		Config::DriveBase::frontRightMotorID
 	);
 #endif
 
 	m_speeds.resize(m_motors.size());
 
-	m_gyro = new Gyro(RobotMap::DriveBase::gyroPort);
-	m_gyro->SetSensitivity(RobotMap::DriveBase::gyroSensitivity);
+	m_gyro = new Gyro(Config::DriveBase::gyroPort);
+	m_gyro->SetSensitivity(Config::DriveBase::gyroSensitivity);
 	m_fieldOrientation = false;
 }
 
@@ -212,7 +212,7 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 		return;
 	}
 
-	distance /= RobotMap::DriveBase::encoderSensitivity;
+	distance /= Config::DriveBase::encoderSensitivity;
 
 	setMode(CANTalon::kPosition);
 
@@ -305,7 +305,7 @@ void DriveTrain::setMode(CANTalon::ControlMode mode)
 		else if (mode == CANTalon::kSpeed)
 		{
 			motor->ClearIaccum();
-			motor->SetPID(0, RobotMap::DriveBase::accelerationRate, 0);
+			motor->SetPID(0, Config::DriveBase::accelerationRate, 0);
 		}
 		motor->SetControlMode(mode);
 	}

@@ -5,7 +5,7 @@
 #include <SmartDashboard/SmartDashboard.h>
 #include <cmath>
 
-#include "../RobotMap.h"
+#include "../Config.h"
 #include "../Commands/MaintainElevatorHeightCommand.h"
 
 Elevator::Elevator() : Subsystem("Elevator"),
@@ -13,19 +13,19 @@ Elevator::Elevator() : Subsystem("Elevator"),
 	m_targetHeight(-1),
 	m_currentLevel(-1)
 {
-	m_elevatorMotor = new CANTalon(RobotMap::Elevator::elevatorMotorID);
+	m_elevatorMotor = new CANTalon(Config::Elevator::elevatorMotorID);
 	m_elevatorMotor->SetSensorDirection(true);
 	m_elevatorMotor->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
 	m_elevatorMotor->SetPosition(0);
 	m_elevatorMotor->SetPID(
-		RobotMap::Elevator::P,
-		RobotMap::Elevator::I,
-		RobotMap::Elevator::D
+		Config::Elevator::P,
+		Config::Elevator::I,
+		Config::Elevator::D
 	);
 
 	m_maxLevel = std::ceil(
-		(RobotMap::Elevator::maxPosition - RobotMap::Elevator::levelOffset) /
-		(float)RobotMap::Elevator::toteHeight
+		(Config::Elevator::maxPosition - Config::Elevator::levelOffset) /
+		(float)Config::Elevator::toteHeight
 	);
 }
 
@@ -59,12 +59,12 @@ void Elevator::go(Elevator::Direction direction)
 	else if (direction == UP)
 	{
 		m_elevatorMotor->SetControlMode(CANTalon::kSpeed);
-		m_elevatorMotor->Set(RobotMap::Elevator::speed);
+		m_elevatorMotor->Set(Config::Elevator::speed);
 	}
 	else if (direction == DOWN)
 	{
 		m_elevatorMotor->SetControlMode(CANTalon::kSpeed);
-		m_elevatorMotor->Set(-RobotMap::Elevator::speed);
+		m_elevatorMotor->Set(-Config::Elevator::speed);
 	}
 }
 
@@ -80,8 +80,8 @@ void Elevator::changeLevel(int difference)
 	m_currentLevel = std::min(m_currentLevel, m_maxLevel);
 
 	goTo(
-		RobotMap::Elevator::levelOffset
-		+ m_currentLevel * RobotMap::Elevator::toteHeight
+		Config::Elevator::levelOffset
+		+ m_currentLevel * Config::Elevator::toteHeight
 	);
 }
 
@@ -122,12 +122,12 @@ bool Elevator::atTargetPosition()
 		{
 			done = true;
 
-			if (m_elevatorMotor->GetPosition() < RobotMap::Elevator::maxPosition)
+			if (m_elevatorMotor->GetPosition() < Config::Elevator::maxPosition)
 			{
-				m_elevatorMotor->SetPosition(RobotMap::Elevator::maxPosition);
+				m_elevatorMotor->SetPosition(Config::Elevator::maxPosition);
 			}
 		}
-		else if (m_targetHeight < RobotMap::Elevator::maxPosition)
+		else if (m_targetHeight < Config::Elevator::maxPosition)
 		{
 			done = m_elevatorMotor->GetPosition() >= m_targetHeight;
 		}
@@ -144,11 +144,11 @@ void Elevator::calculateLevel()
 	}
 
 	int value = m_elevatorMotor->GetPosition()
-		- RobotMap::Elevator::levelOffset;
+		- Config::Elevator::levelOffset;
 	value += 10; // "Exact" means within 10 ticks
-	m_currentLevel = std::floor((float)value / RobotMap::Elevator::toteHeight);
+	m_currentLevel = std::floor((float)value / Config::Elevator::toteHeight);
 
-	int error = value % RobotMap::Elevator::toteHeight;
+	int error = value % Config::Elevator::toteHeight;
 	m_atExactLevel = (error >= 0 && error <= 20); // Up to 10 above or 10 below
 
 	if (m_elevatorMotor->IsRevLimitSwitchClosed())
