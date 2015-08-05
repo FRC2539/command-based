@@ -49,7 +49,7 @@ protected:
 	void equalizeMotors();
 	void setOutputs(float maxValue);
 
-	void setMode(CANTalon::ControlMode mode);
+	void setMode(CANTalon::ControlMode mode, bool resetAll=false);
 };
 
 #endif

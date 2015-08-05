@@ -17,7 +17,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 		new CANTalon(Config::DriveBase::backRightMotorID)
 	};
 
-	setMode(CANTalon::kSpeed);
+	setMode(CANTalon::kSpeed, true);
 	for (auto motor : m_motors)
 	{
 		motor->SetVoltageRampRate(0.5);
@@ -26,7 +26,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 	}
 
 #if defined(ARCADE_DRIVE)
-	// Only control the front motors and have the back motors follow
+	// Only control the front motors and have the back motors follow because
+	// there is only one encoder per side in an arcade drive setup.
 	m_motors[RobotDrive::kRearLeftMotor]->SetControlMode(
 		CANTalon::kFollower
 	);
@@ -289,11 +290,11 @@ void DriveTrain::setMaxSpeed(float speed)
 	m_maxSpeed = speed;
 }
 
-void DriveTrain::setMode(CANTalon::ControlMode mode)
+void DriveTrain::setMode(CANSpeedController::ControlMode mode, bool resetAll)
 {
 	for (auto motor : m_motors)
 	{
-		if (motor->GetControlMode() == CANTalon::kFollower)
+		if ( ! resetAll && motor->GetControlMode() == CANTalon::kFollower)
 		{
 			continue;
 		}
