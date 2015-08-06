@@ -31,9 +31,9 @@ namespace Config {
 		const double encoderSensitivity = 0.02;
 		const double gyroSensitivity = 0.007;
 
-		const double maxSpeed = 175;
+		const double maxSpeed = 150;
 		const double preciseModeMaxSpeed = 50;
-		const double accelerationRate = 0.05;
+		const double accelerationRate = 0.01;
 	}
 
 	namespace Elevator {

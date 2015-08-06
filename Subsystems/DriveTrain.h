@@ -44,8 +44,6 @@ protected:
 	std::vector<CANTalon*> m_motors;
 	std::vector<float> m_speeds;
 
-	SensorMoveDirection m_direction;
-
 	void equalizeMotors();
 	void setOutputs(float maxValue);
 

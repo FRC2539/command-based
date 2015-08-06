@@ -46,7 +46,10 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 
 	m_gyro = new Gyro(Config::DriveBase::gyroPort);
 	m_gyro->SetSensitivity(Config::DriveBase::gyroSensitivity);
+
+	m_maxSpeed = Config::DriveBase::maxSpeed;
 	m_fieldOrientation = false;
+	m_readEncoders = true;
 }
 
 DriveTrain::~DriveTrain()
@@ -102,7 +105,7 @@ void DriveTrain::move(float x, float y, float rotate)
 
 	if (m_readEncoders == false)
 	{
-		setOutputs(1);
+		setOutputs(m_maxSpeed / Config::DriveBase::maxSpeed);
 		return;
 	}
 
@@ -112,10 +115,8 @@ void DriveTrain::move(float x, float y, float rotate)
 
 void DriveTrain::stop()
 {
-	for (auto motor : m_motors)
-	{
-		motor->ClearIaccum();
-	}
+	setMode(CANTalon::kSpeed);
+	m_maxSpeed = Config::DriveBase::maxSpeed;
 	move(0, 0, 0);
 }
 
@@ -256,21 +257,15 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 bool DriveTrain::doneMoving()
 {
 	float maxError = 10;
-	bool onTarget = true;
 	for (auto motor : m_motors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)
 		{
-			onTarget = false;
+			return false;
 		}
 	}
 
-	if (onTarget)
-	{
-		setMode(CANTalon::kSpeed);
-	}
-
-	return onTarget;
+	return true;
 }
 
 void DriveTrain::InitDefaultCommand()
