@@ -20,10 +20,12 @@ private:
 	{
 		CommandBase::init();
 
+		autonomousCommand = new AutonomousCommandGroup();
+
 		autonomousProgram = new SendableChooser();
 		autonomousProgram->AddDefault(
 			"Take Bin and Tote",
-			new AutonomousCommandGroup()
+			autonomousCommand
 		);
 		autonomousProgram->AddObject(
 			"Take Bin Only",
