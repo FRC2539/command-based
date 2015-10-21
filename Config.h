@@ -55,8 +55,8 @@ namespace Config {
 		PWMPort tinesMotorPort = 9;
 		AnalogPort stringPotentiometerPort = 3;
 
-		const double maxWidth = 27;
-		const double minWidth = 14.5; 
+		const double maxWidth = 29;
+		const double minWidth = 17;
 	}
 }
 

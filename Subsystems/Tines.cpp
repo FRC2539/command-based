@@ -10,12 +10,12 @@ Tines::Tines() : Subsystem("Tines"), minPosition(0), maxPosition(0)
 {
 	tinesMotor = new Talon(Config::Tines::tinesMotorPort);
 	// Measurements: 0.794462=29 3/16", 0.306603=14 1/8"
-	// Offset = 4.6587247
-	// Max = 30.874699 + Offset
+	// Offset = 14.5
+	// Max = 31.77458 + Offset
 	distanceDetector = new AnalogPotentiometer(
 		Config::Tines::stringPotentiometerPort,
-		30.874699,
-		4.6587247
+		31.77458,
+		14.5
 	);
 
 	DEBUG_MOTOR(tinesMotor);
