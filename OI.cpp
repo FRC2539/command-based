@@ -21,6 +21,7 @@
 #include "Commands/ChangeElevatorLevelCommand.h"
 #include "Commands/Autonomous/CloseTinesCommand.h"
 #include "Commands/Autonomous/SetTinesCommand.h"
+#include "Commands/PreciseWidthPickupCommand.h"
 
 OI::OI()
 {
