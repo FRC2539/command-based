@@ -8,42 +8,22 @@
 
 #include <PIDController.h>
 
-PIDCommand::PIDCommand(const char *name, double p, double i, double d, double f, double period) :
+PIDCommand::PIDCommand(const char *name, double target, double p, double i, double d, double f, double period) :
 DefaultCommand(name)
 {
-	m_controller = new PIDController(p, i, d, this, this, period);
-	m_controller->SetTolerance(0.5);
+	Setup(target, p, i, d, f, period);
 }
 
-PIDCommand::PIDCommand(double p, double i, double d, double f, double period)
+PIDCommand::PIDCommand(double target, double p, double i, double d, double f, double period)
 {
+	Setup(target, p, i, d, f, period);
+}
+
+void PIDCommand::Setup(double target, double p, double i, double d, double f, double period)
+{
+	m_target = target;
+
 	m_controller = new PIDController(p, i, d, f, this, this, period);
-	m_controller->SetTolerance(0.5);
-}
-
-PIDCommand::PIDCommand(const char *name, double p, double i, double d) :
-DefaultCommand(name)
-{
-	m_controller = new PIDController(p, i, d, this, this);
-	m_controller->SetTolerance(0.5);
-}
-
-PIDCommand::PIDCommand(const char *name, double p, double i, double d, double period) :
-DefaultCommand(name)
-{
-	m_controller = new PIDController(p, i, d, this, this, period);
-	m_controller->SetTolerance(0.5);
-}
-
-PIDCommand::PIDCommand(double p, double i, double d)
-{
-	m_controller = new PIDController(p, i, d, this, this);
-	m_controller->SetTolerance(0.5);
-}
-
-PIDCommand::PIDCommand(double p, double i, double d, double period)
-{
-	m_controller = new PIDController(p, i, d, this, this, period);
 	m_controller->SetTolerance(0.5);
 }
 
@@ -57,9 +37,19 @@ void PIDCommand::_Initialize()
 	m_controller->Enable();
 }
 
+void PIDCommand::Initialize()
+{
+    SetSetpoint(m_target);
+}
+
 bool PIDCommand::IsFinished()
 {
 	return m_controller->OnTarget();
+}
+
+void PIDCommand::End()
+{
+    UsePIDOutput(0);
 }
 
 void PIDCommand::_End()
