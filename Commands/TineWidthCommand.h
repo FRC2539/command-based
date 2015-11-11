@@ -1,7 +1,7 @@
 #ifndef TINE_WIDTH_COMMAND_H
 #define TINE_WIDTH_COMMAND_H
 
-#include "../Types/PIDCommand.h"
+#include "Types/PIDCommand.h"
 
 class TineWidthCommand : public PIDCommand {
 

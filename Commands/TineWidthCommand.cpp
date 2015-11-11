@@ -2,7 +2,7 @@
 
 #include "../Config.h"
 
-TineWidthCommand::TineWidthCommand(int width)
+TineWidthCommand::TineWidthCommand(float width)
 	: PIDCommand("TineWidth", width, 1, 0, 0)
 {
 	Requires(tines);
@@ -30,6 +30,7 @@ void TineWidthCommand::Initialize()
 
 bool TineWidthCommand::IsFinished()
 {
+	tines->displayWidth();
 	return PIDCommand::IsFinished() || isStalled();
 }
 

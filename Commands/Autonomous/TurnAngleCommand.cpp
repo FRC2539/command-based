@@ -3,8 +3,7 @@
 #include "../../Config.h"
 
 TurnAngleCommand::TurnAngleCommand(double angle)
-	: PIDCommand("TurnAngle", 0.5, 0, 0),
-	m_angle(angle)
+	: PIDCommand("TurnAngle", angle, 0.5, 0, 0)
 {
 	Requires(drivetrain);
 
@@ -15,7 +14,7 @@ TurnAngleCommand::TurnAngleCommand(double angle)
 void TurnAngleCommand::Initialize()
 {
 	drivetrain->setMaxSpeed(Config::DriveBase::preciseModeMaxSpeed);
-	SetSetpointRelative(m_angle);
+	SetSetpointRelative(m_target);
 }
 
 void TurnAngleCommand::End()
