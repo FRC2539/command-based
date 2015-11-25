@@ -12,9 +12,10 @@ public:
 	void End();
 
 protected:
-	float m_speed;
-	bool reverse;
-	double preciseWidth;
+	bool m_isOpening;
+	double m_targetWidth;
+	double m_previousWidth;
+	int m_stoppedCount;
 };
 
 #endif

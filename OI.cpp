@@ -22,6 +22,7 @@
 #include "Commands/Autonomous/CloseTinesCommand.h"
 #include "Commands/Autonomous/SetTinesCommand.h"
 #include "Commands/PreciseWidthPickupCommand.h"
+#include "Commands/TineWidthCommand.h"
 
 OI::OI()
 {

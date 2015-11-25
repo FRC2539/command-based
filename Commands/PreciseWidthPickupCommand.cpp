@@ -3,44 +3,67 @@
 #include "../Config.h"
 
 PreciseWidthPickupCommand::PreciseWidthPickupCommand(double toteMeasurements)
-	: DefaultCommand("PreciseWidthPickupCommand"), preciseWidth(toteMeasurements)
+	: DefaultCommand("PreciseWidthPickupCommand"), m_targetWidth(toteMeasurements)
 {
 	Requires(tines);
+	if (m_targetWidth < Config::Tines::minWidth)
+	{
+		m_targetWidth = Config::Tines::minWidth;
+	}
+	else if (m_targetWidth > Config::Tines::maxWidth)
+	{
+		m_targetWidth = Config::Tines::maxWidth;
+	}
 }
-
 void PreciseWidthPickupCommand::Initialize()
 {
-	if (tines->getWidth() < preciseWidth+0.01)
+	double currentWidth = tines->getWidth();
+	if (currentWidth < m_targetWidth)
 	{
-		reverse = false;
+		m_isOpening = true;
 		tines->directDrive(1);
 	}
-
-	else if (tines->getWidth() > preciseWidth-0.01)
+	else
 	{
-		reverse = true;
+		m_isOpening = false;
 		tines->directDrive(-1);
 	}
+	m_previousWidth = currentWidth;
+	m_stoppedCount = 0;
 }
 
 bool PreciseWidthPickupCommand::IsFinished()
 {
-	if (reverse==false)
+	double currentWidth = tines->getWidth();
+	if (m_isOpening)
 	{
-		if (tines->getWidth() < preciseWidth-0.01)
+		if (currentWidth > m_targetWidth)
 		{
-			return false;
+			return true;
 		}
 	}
-	else if(reverse==true)
+	else if( ! m_isOpening)
 	{
-		if (tines->getWidth() > preciseWidth+0.01)
+		if (currentWidth < m_targetWidth)
 		{
-			return false;
+			return true;
 		}
-	}
 
-	return true;
+		if (m_previousWidth - currentWidth >= 0.05)
+		{
+			m_previousWidth = currentWidth;
+			m_stoppedCount = 0;
+		}
+		else
+		{
+			m_stoppedCount++;
+			if (m_stoppedCount > 15)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void PreciseWidthPickupCommand::End()

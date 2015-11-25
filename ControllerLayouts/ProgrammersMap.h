@@ -20,6 +20,6 @@ ADD_BUTTON(0, DPadUp, WhileHeld, new ButtonDriveCommand(0, .25));
 ADD_BUTTON(0, DPadDown, WhileHeld, new ButtonDriveCommand(0, -.25));
 ADD_BUTTON(0, DPadRight, WhileHeld, new ButtonDriveCommand(.25, 0));
 ADD_BUTTON(0, DPadLeft, WhileHeld, new ButtonDriveCommand(-.25, 0));
-ADD_BUTTON(0, LeftTrigger, WhenPressed, new PreciseWidthPickupCommand(16));
-ADD_BUTTON(0, RightTrigger, WhenPressed, new PreciseWidthPickupCommand(25));
+ADD_BUTTON(0, LeftTrigger, WhenPressed, new PreciseWidthPickupCommand(25));
+ADD_BUTTON(0, RightTrigger, WhenPressed, new PreciseWidthPickupCommand(16));
 ADD_BUTTON(0, A, WhenPressed, new PreciseWidthPickupCommand(Config::Tines::maxWidth));

@@ -11,7 +11,7 @@ public:
 	bool IsFinished();
 
 protected:
-	bool isStalled();
+	void StopIfStalled();
 
 	virtual double ReturnPIDInput() const;
 	virtual void UsePIDOutput(double output);
