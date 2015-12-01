@@ -19,6 +19,7 @@ public:
 	{
 		writeOut(label, std::to_string(value));
 	};
+	static void reset();
 
 protected:
 	static void sendToConsole(std::string label, std::string value);

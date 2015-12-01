@@ -26,5 +26,10 @@ void Netconsole::writeOut(std::string label, std::string value)
 	std::cout << label << ": " << value << std::endl;
 }
 
+void Netconsole::reset()
+{
+	storage.clear();
+}
+
 unsigned int Netconsole::ticks = 0;
 std::unordered_map<std::string, std::string> Netconsole::storage;

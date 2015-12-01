@@ -8,17 +8,15 @@ class TineWidthCommand : public PIDCommand {
 public:
 	TineWidthCommand(float width);
 	void Initialize();
-	bool IsFinished();
+	void Execute();
 
 protected:
-	void StopIfStalled();
-
 	virtual double ReturnPIDInput() const;
 	virtual void UsePIDOutput(double output);
 
 	float m_lastWidth;
 	unsigned int m_stalledCount;
-	bool m_closing;
+	bool m_isOpening;
 };
 
 #endif
