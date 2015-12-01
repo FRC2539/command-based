@@ -2,7 +2,6 @@
 
 #include "../Config.h"
 #include <cmath>
-#include "../Custom/Netconsole.h"
 
 TineWidthCommand::TineWidthCommand(float width)
 	: PIDCommand("TineWidth", width, 1, 0, 0)
@@ -23,10 +22,8 @@ TineWidthCommand::TineWidthCommand(float width)
 
 void TineWidthCommand::Initialize()
 {
-	Netconsole::reset();
 	m_stalledCount = 0;
 	m_lastWidth = tines->getWidth();
-	Netconsole::instant("Width", m_lastWidth);
 	m_isOpening = (m_target > m_lastWidth);
 
 	PIDCommand::Initialize();
@@ -37,12 +34,12 @@ void TineWidthCommand::Execute()
 	tines->displayWidth();
 	float currentWidth = tines->getWidth();
 
-	if (m_isOpening && currentWidth - m_lastWidth >= 0.5)
+	if (m_isOpening && currentWidth - m_lastWidth >= 0.1)
 	{
 		m_lastWidth = currentWidth;
 		m_stalledCount = 0;
 	}
-	else if ( ! m_isOpening && currentWidth - m_lastWidth <= -0.5)
+	else if ( ! m_isOpening && currentWidth - m_lastWidth <= -0.1)
 	{
 		m_lastWidth = currentWidth;
 		m_stalledCount = 0;
@@ -51,7 +48,6 @@ void TineWidthCommand::Execute()
 	{
 		if (m_stalledCount >= 15)
 		{
-			Netconsole::instant("Stalled", currentWidth);
 			this->Cancel();
 		}
 
