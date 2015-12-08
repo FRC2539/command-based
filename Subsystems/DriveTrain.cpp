@@ -11,10 +11,10 @@
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 {
 	m_motors = {
-		new CANTalon(Config::DriveBase::frontLeftMotorID),
-		new CANTalon(Config::DriveBase::frontRightMotorID),
-		new CANTalon(Config::DriveBase::backLeftMotorID),
-		new CANTalon(Config::DriveBase::backRightMotorID)
+		new CANTalon(Config::DriveTrain::frontLeftMotorID),
+		new CANTalon(Config::DriveTrain::frontRightMotorID),
+		new CANTalon(Config::DriveTrain::backLeftMotorID),
+		new CANTalon(Config::DriveTrain::backRightMotorID)
 	};
 
 	setMode(CANTalon::kSpeed, true);
@@ -32,22 +32,22 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 		CANTalon::kFollower
 	);
 	m_motors[RobotDrive::kRearLeftMotor]->Set(
-		Config::DriveBase::frontLeftMotorID
+		Config::DriveTrain::frontLeftMotorID
 	);
 	m_motors[RobotDrive::kRearRightMotor]->SetControlMode(
 		CANTalon::kFollower
 	);
 	m_motors[RobotDrive::kRearRightMotor]->Set(
-		Config::DriveBase::frontRightMotorID
+		Config::DriveTrain::frontRightMotorID
 	);
 #endif
 
 	m_speeds.resize(m_motors.size());
 
-	m_gyro = new Gyro(Config::DriveBase::gyroPort);
-	m_gyro->SetSensitivity(Config::DriveBase::gyroSensitivity);
+	m_gyro = new Gyro(Config::DriveTrain::gyroPort);
+	m_gyro->SetSensitivity(Config::DriveTrain::gyroSensitivity);
 
-	m_maxSpeed = Config::DriveBase::maxSpeed;
+	m_maxSpeed = Config::DriveTrain::maxSpeed;
 	m_fieldOrientation = false;
 	m_readEncoders = true;
 }
@@ -105,7 +105,7 @@ void DriveTrain::move(float x, float y, float rotate)
 
 	if (m_readEncoders == false)
 	{
-		setOutputs(m_maxSpeed / Config::DriveBase::maxSpeed);
+		setOutputs(m_maxSpeed / Config::DriveTrain::maxSpeed);
 		return;
 	}
 
@@ -116,7 +116,7 @@ void DriveTrain::move(float x, float y, float rotate)
 void DriveTrain::stop()
 {
 	setMode(CANTalon::kSpeed);
-	m_maxSpeed = Config::DriveBase::maxSpeed;
+	m_maxSpeed = Config::DriveTrain::maxSpeed;
 	move(0, 0, 0);
 }
 
@@ -214,7 +214,7 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 		return;
 	}
 
-	distance /= Config::DriveBase::encoderSensitivity;
+	distance /= Config::DriveTrain::encoderSensitivity;
 
 	setMode(CANTalon::kPosition);
 
@@ -270,7 +270,7 @@ bool DriveTrain::doneMoving()
 
 void DriveTrain::InitDefaultCommand()
 {
-	SetDefaultCommand(new DriveCommand());
+	SetDefaultCommand(new DriveCommand(Config::DriveTrain::maxSpeed));
 }
 
 void DriveTrain::setMaxSpeed(float speed)
@@ -301,7 +301,7 @@ void DriveTrain::setMode(CANSpeedController::ControlMode mode, bool resetAll)
 		else if (mode == CANTalon::kSpeed)
 		{
 			motor->ClearIaccum();
-			motor->SetPID(0, Config::DriveBase::accelerationRate, 0);
+			motor->SetPID(0, Config::DriveTrain::accelerationRate, 0);
 		}
 		motor->SetControlMode(mode);
 	}

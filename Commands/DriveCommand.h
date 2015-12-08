@@ -6,8 +6,12 @@
 class DriveCommand : public DefaultCommand {
 
 public:
-	DriveCommand(const char* name="Drive");
+	explicit DriveCommand(const double speed);
+	void Initialize();
 	void Execute();
+
+protected:
+	double m_speed;
 };
 
 #endif

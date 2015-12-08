@@ -18,7 +18,7 @@ namespace Config {
 	typedef const unsigned int PneumaticPort;
 	typedef const unsigned int CanID;
 
-	namespace DriveBase {
+	namespace DriveTrain {
 		//#define MECANUM_DRIVE
 		#define ARCADE_DRIVE
 

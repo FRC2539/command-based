@@ -16,7 +16,7 @@ ADD_AXIS(0, LeftX, logicalAxes::DriveX);
 ADD_AXIS(0, RightX, logicalAxes::DriveRotate);
 
 ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
-ADD_TOGGLE_BUTTON(0, A, PreciseDriveCommand);
+ADD_TOGGLE_BUTTON(0, A, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
 
 /*
  * Other Controller

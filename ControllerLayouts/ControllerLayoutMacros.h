@@ -33,5 +33,5 @@
 #define ADD_SIMPLE_BUTTON(port, button, command_class)\
 	ADD_BUTTON(port, button, WhenPressed, new command_class())
 
-#define ADD_TOGGLE_BUTTON(port, button, command_class)\
-	ADD_BUTTON(port, button, ToggleWhenPressed, new command_class())
+#define ADD_TOGGLE_BUTTON(port, button, command)\
+	ADD_BUTTON(port, button, ToggleWhenPressed, command)
