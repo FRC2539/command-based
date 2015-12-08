@@ -3,18 +3,16 @@
 #include "Controller/ControllerAxis.h"
 #include "Controller/DummyControllerAxis.h"
 #include "Controller/ControllerButton.h"
+#include "Controller/POVButton.h"
 
 #include "Controller/LogitechAttack3Joystick.h"
 #include "Controller/LogitechCrossfireController.h"
 #include "Controller/LogitechDualShockController.h"
-#include "Controller/AndroidDriverStation.h"
 
 #include "ControllerLayouts/ControllerLayoutMacros.h"
 
-#include "Commands/Types/ToggleCommand.h"
-
 // Available Commands for ControllerMap
-#include "Commands/PreciseArcadeDriveCommand.h"
+#include "Commands/PreciseDriveCommand.h"
 #include "Commands/ResetCommand.h"
 
 OI::OI()
@@ -25,6 +23,7 @@ OI::OI()
 	}
 
 	Command* lastCommand;
+	int buttonIntValue;
 
 	#include "ControllerMap.h"
 }

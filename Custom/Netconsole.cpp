@@ -1,10 +1,14 @@
 #include "Netconsole.h"
-#include <iostream>
-#include <string>
 
-//template<typename output>
-void Netconsole::print(std::string label, float value)
+#include <iostream>
+
+void Netconsole::sendToConsole(std::string label, std::string value)
 {
+	if (storage.count(label) == 0)
+	{
+		writeOut(label, value);
+	}
+
 	storage[label] = value;
 	ticks++;
 
@@ -12,10 +16,20 @@ void Netconsole::print(std::string label, float value)
 	{
 		for (auto element : storage)
 		{
-			std::cout << element.first << ": " << element.second << "\n";
+			writeOut(element.first, element.second);
 		}
 	}
 }
 
+void Netconsole::writeOut(std::string label, std::string value)
+{
+	std::cout << label << ": " << value << std::endl;
+}
+
+void Netconsole::reset()
+{
+	storage.clear();
+}
+
 unsigned int Netconsole::ticks = 0;
-std::unordered_map<std::string, float> Netconsole::storage;
+std::unordered_map<std::string, std::string> Netconsole::storage;

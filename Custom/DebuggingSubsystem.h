@@ -2,9 +2,9 @@
 #define DEBUGGING_SUBSYSTEM
 
 #include <Commands/Subsystem.h>
-#include "../RobotMap.h"
+#include "../Config.h"
 
-#ifdef DEBUG
+#if defined(DEBUG)
 #include <LiveWindow/LiveWindow.h>
 
 #define DEBUG_SENSOR(sensor)\

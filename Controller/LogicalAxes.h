@@ -3,7 +3,7 @@
 // value outside of OI) must be defined in here.
 
 namespace logicalAxes {
-	enum Axes{
+	enum Axes {
 		DriveY,
 		DriveX,
 		DriveRotate,

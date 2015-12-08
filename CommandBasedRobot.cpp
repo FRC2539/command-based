@@ -7,32 +7,50 @@
 
 class CommandBasedRobot : public IterativeRobot {
 private:
+	SendableChooser* autonomousProgram;
 	Command* autonomousCommand;
 	Command* resetCommand;
-#ifdef DEBUG
+#if defined(DEBUG)
 	LiveWindow* lw;
 #endif
 	
-	virtual void RobotInit() {
+	virtual void RobotInit()
+	{
 		CommandBase::init();
 
 		autonomousCommand = new AutonomousCommandGroup();
+
+		autonomousProgram = new SendableChooser();
+		autonomousProgram->AddDefault(
+			"Default",
+			autonomousCommand
+		);
+		autonomousProgram->AddObject(
+			"Additional Command",
+			autonomousCommand
+		);
+		SmartDashboard::PutData("Autonomous Program", autonomousProgram);
+
 		resetCommand = new ResetCommand();
 
-#ifdef DEBUG
+#if defined(DEBUG)
 		lw = LiveWindow::GetInstance();
 #endif
 	}
 	
-	virtual void AutonomousInit() {
+	virtual void AutonomousInit()
+	{
+		autonomousCommand = (Command *) autonomousProgram->GetSelected();
 		autonomousCommand->Start();
 	}
 	
-	virtual void AutonomousPeriodic() {
+	virtual void AutonomousPeriodic()
+	{
 		Scheduler::GetInstance()->Run();
 	}
 	
-	virtual void TeleopInit() {
+	virtual void TeleopInit()
+	{
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
@@ -41,30 +59,31 @@ private:
 
 		resetCommand->Start();
 
-#ifdef DEBUG
+#if defined(DEBUG)
 		lw->SetEnabled(true);
 #endif
 	}
 	
-	virtual void TeleopPeriodic() {
+	virtual void TeleopPeriodic()
+	{
 		Scheduler::GetInstance()->Run();
 
-#ifdef DEBUG
+#if defined(DEBUG)
 		lw->Run();
 #endif
 	}
 
-#ifdef DEBUG
-	virtual void TestInit() {
+#if defined(DEBUG)
+	virtual void TestInit()
+	{
 		lw->SetEnabled(true);
 	}
-#endif
-	
-	virtual void TestPeriodic() {
-#ifdef DEBUG
+
+	virtual void TestPeriodic()
+	{
 		lw->Run();
-#endif
 	}
+#endif
 };
 
 START_ROBOT_CLASS(CommandBasedRobot);

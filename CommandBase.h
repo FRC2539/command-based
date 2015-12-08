@@ -3,9 +3,11 @@
 
 #include <Commands/Command.h>
 
+// These should not be converted to forward declaration, as the full subsystem
+// definitions are required by the Commands.
+#include "Config.h"
 #include "Subsystems/DriveTrain.h"
 #include "OI.h"
-#include "Subsystems/AirCompressor.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -24,7 +26,7 @@ public:
 	// Create a single static instance of each of your subsystems
 	static DriveTrain *drivetrain;
 	static OI *oi;
-	static AirCompressor* aircompressor;
 };
 
 #endif
+
