@@ -22,6 +22,9 @@ PIDCommand::PIDCommand(double target, double p, double i, double d, double f, do
 void PIDCommand::Setup(double target, double p, double i, double d, double f, double period)
 {
 	m_target = target;
+	m_fixedRange = false;
+	m_rangeMin = target;
+	m_rangeMax = target;
 
 	m_controller = new PIDController(p, i, d, f, this, this, period);
 	m_controller->SetTolerance(0.5);
@@ -82,6 +85,17 @@ void PIDCommand::setMaxOutput(double output)
 	m_controller->SetOutputRange(-output, output);
 }
 
+void PIDCommand::setOutputRange(double min, double max)
+{
+	m_controller->SetOutputRange(min, max);
+}
+
+void PIDCommand::setInputRange(double min, double max)
+{
+	m_controller->SetInputRange(min, max);
+	m_fixedRange = true;
+}
+
 void PIDCommand::PIDWrite(float output)
 {
 	UsePIDOutput(output);
@@ -101,13 +115,9 @@ void PIDCommand::SetSetpoint(double setpoint)
 {
 	double current = GetSetpoint();
 
-	if (current < setpoint)
+	if ( ! m_fixedRange)
 	{
-		m_controller->SetInputRange(current, setpoint);
-	}
-	else
-	{
-		m_controller->SetInputRange(setpoint, current);
+		modifyRange(current, setpoint);
 	}
 	m_controller->SetSetpoint(setpoint);
 }
@@ -120,6 +130,33 @@ double PIDCommand::GetSetpoint()
 double PIDCommand::GetPosition()
 {
 	return ReturnPIDInput();
+}
+
+void PIDCommand::modifyRange(double current, double next)
+{
+	if (current < next)
+	{
+		if (current < m_rangeMin)
+		{
+			m_rangeMin = current;
+		}
+		if (next > m_rangeMax)
+		{
+			m_rangeMax = next;
+		}
+	}
+	else
+	{
+		if (next < m_rangeMin)
+		{
+			m_rangeMin = next;
+		}
+		if (current > m_rangeMax)
+		{
+			m_rangeMax = current;
+		}
+	}
+	m_controller->SetInputRange(m_rangeMin, m_rangeMax);
 }
 
 std::string PIDCommand::GetSmartDashboardType(){

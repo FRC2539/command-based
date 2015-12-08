@@ -44,6 +44,8 @@ public:
 	void setPercentError(double error);
 	void setAbsoluteError(double error);
 	void setMaxOutput(double output);
+	void setOutputRange(double min, double max);
+	void setInputRange(double min, double max);
 
 	virtual void Initialize();
 	virtual bool IsFinished();
@@ -66,7 +68,12 @@ protected:
 	double GetSetpoint();
 	double GetPosition();
 
+	void modifyRange(double current, double next);
+
 	double m_target;
+	bool m_fixedRange;
+	double m_rangeMin;
+	double m_rangeMax;
 
 	virtual double ReturnPIDInput() const = 0;
 	virtual void UsePIDOutput(double output) = 0;

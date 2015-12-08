@@ -8,15 +8,7 @@ TineWidthCommand::TineWidthCommand(float width)
 {
 	Requires(tines);
 
-	if (m_target < Config::Tines::minWidth)
-	{
-		m_target = Config::Tines::minWidth;
-	}
-	else if (m_target > Config::Tines::maxWidth)
-	{
-		m_target = Config::Tines::maxWidth;
-	}
-
+	setInputRange(Config::Tines::minWidth, Config::Tines::maxWidth);
 	setAbsoluteError(0.1);
 }
 
@@ -49,6 +41,7 @@ void TineWidthCommand::Execute()
 		if (m_stalledCount >= 15)
 		{
 			this->Cancel();
+			return;
 		}
 
 		m_stalledCount++;
