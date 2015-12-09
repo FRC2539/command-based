@@ -23,8 +23,8 @@ namespace Config {
 		#define ARCADE_DRIVE
 
 		CanID frontLeftMotorID = 1;
-		CanID frontRightMotorID = 5;
-		CanID backLeftMotorID = 3;
+		CanID frontRightMotorID = 3 ;
+		CanID backLeftMotorID = 2;
 		CanID backRightMotorID = 4;
 
 		AnalogPort gyroPort = 0;
