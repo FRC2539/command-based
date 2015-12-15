@@ -4,7 +4,7 @@
 #include <cmath>
 
 TineWidthCommand::TineWidthCommand(float width)
-	: PIDCommand("TineWidth", width, 1, 0, 0)
+	: PIDCommand("TineWidth", width, 2, 0, 0)
 {
 	Requires(tines);
 
