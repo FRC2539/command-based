@@ -83,7 +83,7 @@ private:
 	PIDController *m_controller;
 
 public:
-	virtual void InitTable(ITable* table);
+	virtual void InitTable(std::shared_ptr< ITable > table);
 	virtual std::string GetSmartDashboardType();
 };
 

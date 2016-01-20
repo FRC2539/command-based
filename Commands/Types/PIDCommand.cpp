@@ -162,7 +162,7 @@ void PIDCommand::modifyRange(double current, double next)
 std::string PIDCommand::GetSmartDashboardType(){
 	return "PIDCommand";
 }
-void PIDCommand::InitTable(ITable* table){
+void PIDCommand::InitTable(std::shared_ptr<ITable> table){
 	m_controller->InitTable(table);
 	Command::InitTable(table);
 }

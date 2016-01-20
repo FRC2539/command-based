@@ -1,6 +1,6 @@
 #include "DriveTrain.h"
 
-#include <Gyro.h>
+#include <AnalogGyro.h>
 #include <RobotDrive.h>
 
 #include <cmath>
@@ -44,7 +44,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 
 	m_speeds.resize(m_motors.size());
 
-	m_gyro = new Gyro(Config::DriveTrain::gyroPort);
+	m_gyro = new AnalogGyro(Config::DriveTrain::gyroPort);
 	m_gyro->SetSensitivity(Config::DriveTrain::gyroSensitivity);
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;

@@ -6,7 +6,7 @@
 
 #include "../Custom/DebuggingSubsystem.h"
 
-class Gyro;
+class AnalogGyro;
 
 class DriveTrain: public Subsystem {
 public:
@@ -40,7 +40,7 @@ protected:
 	bool m_fieldOrientation;
 	bool m_readEncoders;
 
-	Gyro* m_gyro;
+	AnalogGyro* m_gyro;
 	std::vector<CANTalon*> m_motors;
 	std::vector<float> m_speeds;
 
