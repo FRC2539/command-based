@@ -1,6 +1,5 @@
 #include "DriveTrain.h"
 
-#include <AnalogGyro.h>
 #include <RobotDrive.h>
 
 #include <cmath>
@@ -10,22 +9,28 @@
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 {
-	m_motors = {
-		new CANTalon(Config::DriveTrain::frontLeftMotorID),
-		new CANTalon(Config::DriveTrain::frontRightMotorID),
-		new CANTalon(Config::DriveTrain::backLeftMotorID),
-		new CANTalon(Config::DriveTrain::backRightMotorID)
-	};
+	m_motors.push_back(
+		std::make_unique<CANTalon>(Config::DriveTrain::frontLeftMotorID)
+	);
+	m_motors.push_back(
+		std::make_unique<CANTalon>(Config::DriveTrain::frontRightMotorID)
+	);
+	m_motors.push_back(
+		std::make_unique<CANTalon>(Config::DriveTrain::backLeftMotorID)
+	);
+	m_motors.push_back(
+		std::make_unique<CANTalon>(Config::DriveTrain::backRightMotorID)
+	);
 
 	setMode(CANTalon::kSpeed, true);
-	for (auto motor : m_motors)
+	for (auto &motor : m_motors)
 	{
 		motor->SetVoltageRampRate(0.5);
 		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 		motor->SetSafetyEnabled(false);
 	}
 
-#if defined(ARCADE_DRIVE)
+#if DRIVE_TYPE == SKID
 	// Only control the front motors and have the back motors follow because
 	// there is only one encoder per side in an arcade drive setup.
 	m_motors[RobotDrive::kRearLeftMotor]->SetControlMode(
@@ -44,7 +49,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 
 	m_speeds.resize(m_motors.size());
 
-	m_gyro = new AnalogGyro(Config::DriveTrain::gyroPort);
+	m_gyro = std::make_unique<AnalogGyro>(Config::DriveTrain::gyroPort);
 	m_gyro->SetSensitivity(Config::DriveTrain::gyroSensitivity);
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;
@@ -52,19 +57,9 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 	m_readEncoders = true;
 }
 
-DriveTrain::~DriveTrain()
-{
-	for (auto motor: m_motors)
-	{
-		delete motor;
-	}
-
-	delete m_gyro;
-}
-
 void DriveTrain::move(float x, float y, float rotate)
 {
-#if defined(ARCADE_DRIVE)
+#if DRIVE_TYPE == SKID
 	x = 0;
 #endif
 
@@ -128,7 +123,7 @@ void DriveTrain::equalizeMotors()
 	// If one motor is pegged, don't let the others pass it
 	// NOTE: Are there cases where motors could be pegged at different values?
 	unsigned int index = 0;
-	for (auto motor : m_motors)
+	for (auto &motor : m_motors)
 	{
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
 		if (currentVoltage > maxVoltage)
@@ -161,7 +156,7 @@ void DriveTrain::equalizeMotors()
 void DriveTrain::setOutputs(float maxValue)
 {
 	unsigned int index = 0;
-	for (auto motor : m_motors)
+	for (auto &motor : m_motors)
 	{
 		if (motor->GetControlMode() != CANTalon::kFollower)
 		{
@@ -218,7 +213,8 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 
 	setMode(CANTalon::kPosition);
 
-#if defined(MECANUM_DRIVE)
+#if DRIVE_TYPE == MECANUM
+	#error Why are we compiling mecanum code?
 	if (direction == DriveX)
 	{
 
@@ -257,7 +253,7 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 bool DriveTrain::doneMoving()
 {
 	float maxError = 10;
-	for (auto motor : m_motors)
+	for (auto &motor : m_motors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)
 		{
@@ -277,7 +273,7 @@ void DriveTrain::setMaxSpeed(float speed)
 {
 	// Rescale acceleration to match speed
 	float rescaleFactor = speed / m_maxSpeed;
-	for (auto motor : m_motors)
+	for (auto &motor : m_motors)
 	{
 		motor->SetI(motor->GetI() * rescaleFactor);
 	}
@@ -287,7 +283,7 @@ void DriveTrain::setMaxSpeed(float speed)
 
 void DriveTrain::setMode(CANSpeedController::ControlMode mode, bool resetAll)
 {
-	for (auto motor : m_motors)
+	for (auto &motor : m_motors)
 	{
 		if ( ! resetAll && motor->GetControlMode() == CANTalon::kFollower)
 		{

@@ -2,16 +2,16 @@
 #define DRIVE_TRAIN_H
 
 #include <CANTalon.h>
+#include <AnalogGyro.h>
 #include <vector>
+#include <memory>
 
 #include "../Custom/DebuggingSubsystem.h"
-
-class AnalogGyro;
 
 class DriveTrain: public Subsystem {
 public:
 	DriveTrain();
-	virtual ~DriveTrain();
+	virtual ~DriveTrain() = default;
 	virtual void InitDefaultCommand();
 
 	void setMaxSpeed(float speed);
@@ -40,8 +40,8 @@ protected:
 	bool m_fieldOrientation;
 	bool m_readEncoders;
 
-	AnalogGyro* m_gyro;
-	std::vector<CANTalon*> m_motors;
+	std::unique_ptr<AnalogGyro> m_gyro;
+	std::vector<std::unique_ptr<CANTalon>> m_motors;
 	std::vector<float> m_speeds;
 
 	void equalizeMotors();

@@ -8,6 +8,8 @@
  */
 
 //#define DEBUG
+#define SKID 1
+#define MECANUM 2
 
 namespace Config {
 
@@ -19,8 +21,7 @@ namespace Config {
 	typedef const unsigned int CanID;
 
 	namespace DriveTrain {
-		//#define MECANUM_DRIVE
-		#define ARCADE_DRIVE
+		#define DRIVE_TYPE SKID
 
 		CanID frontLeftMotorID = 1;
 		CanID frontRightMotorID = 3 ;
@@ -38,9 +39,7 @@ namespace Config {
 	}
 }
 
-#if defined(MECANUM_DRIVE) && defined(ARCADE_DRIVE)
-	#error Multiple drive types specified
-#elif ! (defined(MECANUM_DRIVE) || defined(ARCADE_DRIVE))
+#if ! DRIVE_TYPE
 	#error No drive type specified
 #endif
 
