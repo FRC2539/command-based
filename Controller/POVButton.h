@@ -1,5 +1,4 @@
-#ifndef POV_BUTTON_H
-#define POV_BUTTON_H
+#pragma once
 
 #include <GenericHID.h>
 #include <Buttons/Button.h>
@@ -19,5 +18,3 @@ private:
 	int m_angle_more;
 	bool m_mutuallyExclusive;
 };
-
-#endif

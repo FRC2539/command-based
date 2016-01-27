@@ -1,5 +1,4 @@
-#ifndef OI_H
-#define OI_H
+#pragma once
 
 #include <vector>
 
@@ -22,5 +21,3 @@ protected:
 	std::vector<Button*> buttons;
 	ControllerAxis* axes[logicalAxes::NumOfAxes];
 };
-
-#endif

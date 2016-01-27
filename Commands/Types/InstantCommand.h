@@ -1,5 +1,4 @@
-#ifndef INSTANT_COMMAND_H
-#define INSTANT_COMMAND_H
+#pragma once
 
 #include "DefaultCommand.h"
 
@@ -17,5 +16,3 @@ public:
 	InstantCommand();
 	bool IsFinished();
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef DRIVE_TRAIN_H
-#define DRIVE_TRAIN_H
+#pragma once
 
 #include <CANTalon.h>
 #include <AnalogGyro.h>
@@ -49,5 +48,3 @@ protected:
 
 	void setMode(CANTalon::ControlMode mode, bool resetAll=false);
 };
-
-#endif

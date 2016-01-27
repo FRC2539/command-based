@@ -1,5 +1,4 @@
-#ifndef DRIVE_COMMAND_H
-#define DRIVE_COMMAND_H
+#pragma once
 
 #include "Types/DefaultCommand.h"
 
@@ -13,5 +12,3 @@ public:
 protected:
 	double m_speed;
 };
-
-#endif

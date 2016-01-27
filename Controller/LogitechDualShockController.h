@@ -1,6 +1,4 @@
- 
-#ifndef LOGITECH_DUAL_SHOCK_CONTROLLER
-#define LOGITECH_DUAL_SHOCK_CONTROLLER
+#pragma once
 
 #include "GenericController.h"
 
@@ -50,5 +48,3 @@ protected:
 	virtual void init();
 	
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef COMMAND_BASE_H
-#define COMMAND_BASE_H
+#pragma once
 
 #include <Commands/Command.h>
 
@@ -27,6 +26,3 @@ public:
 	static DriveTrain *drivetrain;
 	static OI *oi;
 };
-
-#endif
-

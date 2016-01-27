@@ -1,5 +1,4 @@
-#ifndef CONTROLLER_AXIS_H
-#define CONTROLLER_AXIS_H
+#pragma once
 
 class GenericController;
 #include <cstdint>
@@ -22,5 +21,3 @@ protected:
 	float modifier;
 	bool throttle;
 };
-
-#endif

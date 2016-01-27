@@ -1,5 +1,4 @@
-#ifndef DEFAULT_COMMAND_H
-#define DEFAULT_COMMAND_H
+#pragma once
 
 #include "../../CommandBase.h"
 
@@ -29,5 +28,3 @@ public:
 	void End();
 	void Interrupted();
 };
-
-#endif

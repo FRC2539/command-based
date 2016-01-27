@@ -1,5 +1,4 @@
-#ifndef DEBUGGING_SUBSYSTEM
-#define DEBUGGING_SUBSYSTEM
+#pragma once
 
 #include <Commands/Subsystem.h>
 #include "../Config.h"
@@ -17,7 +16,5 @@
 
 #define DEBUG_SENSOR(sensor)
 #define DEBUG_MOTOR(motor)
-
-#endif
 
 #endif

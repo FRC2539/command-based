@@ -1,5 +1,4 @@
-#ifndef GENERIC_CONTROLLER_H
-#define GENERIC_CONTROLLER_H
+#pragma once
 
 #include "Joystick.h"
 #include <unordered_set>
@@ -42,5 +41,3 @@ protected:
 		numAxisTypes,\
 		numButtonTypes\
 	){ init(); }
-
-#endif

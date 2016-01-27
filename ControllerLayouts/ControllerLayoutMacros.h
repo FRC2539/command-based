@@ -1,3 +1,5 @@
+#pragma once
+
 // Macros to make defining inputs simpler
 
 #define ADD_CONTROLLER(type, port)\

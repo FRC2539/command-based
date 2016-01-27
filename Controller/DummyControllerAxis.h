@@ -1,5 +1,4 @@
-#ifndef DUMMY_CONTROLLER_AXIS_H
-#define DUMMY_CONTROLLER_AXIS_H
+#pragma once
 
 /* This class exists as a placeholder for logical axes that are not hooked to
  * real axes on a controller. It will always have a value of 0.
@@ -14,5 +13,3 @@ public:
 
 	virtual float getValue();
 };
-
-#endif

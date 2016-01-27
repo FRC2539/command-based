@@ -1,5 +1,4 @@
-#ifndef NETCONSOLE_H
-#define NETCONSOLE_H
+#pragma once
 
 #include <unordered_map>
 #include <string>
@@ -28,6 +27,3 @@ protected:
 	static std::unordered_map<std::string, std::string> storage;
 	static unsigned int ticks;
 };
-
-#endif
-

@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 /**
  * The Config is where we store constants, the most common of which are port
@@ -41,6 +40,4 @@ namespace Config {
 
 #if ! DRIVE_TYPE
 	#error No drive type specified
-#endif
-
 #endif

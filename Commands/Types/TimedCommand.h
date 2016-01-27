@@ -1,5 +1,4 @@
-#ifndef TIMED_COMMAND_H
-#define TIMED_COMMAND_H
+#pragma once
 
 #include "DefaultCommand.h"
 
@@ -18,5 +17,3 @@ public:
 	TimedCommand(double timeout);
 	bool IsFinished();
 };
-
-#endif

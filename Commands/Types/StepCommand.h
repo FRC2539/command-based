@@ -1,5 +1,4 @@
-#ifndef STEP_COMMAND_H
-#define STEP_COMMAND_H
+#pragma once
 
 #include "DefaultCommand.h"
 #include <vector>
@@ -37,5 +36,3 @@ protected:
 	std::vector<Command*> m_commands;
 	unsigned int m_index;
 };
-
-#endif

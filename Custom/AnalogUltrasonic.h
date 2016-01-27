@@ -1,5 +1,4 @@
-#ifndef ANALOG_ULTRASONIC_H
-#define ANALOG_ULTRASONIC_H
+#pragma once
 
 #include <AnalogInput.h>
 
@@ -13,5 +12,3 @@ public:
 	float getDistance();
 
 };
-
-#endif

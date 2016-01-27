@@ -1,5 +1,4 @@
-#ifndef PID_COMMAND_H
-#define PID_COMMAND_H
+#pragma once
 
 // This is based on the PIDCommand provided by WPILib, to make it
 // inherit from DefaultCommand and add some nice defaults
@@ -86,5 +85,3 @@ public:
 	virtual void InitTable(std::shared_ptr< ITable > table);
 	virtual std::string GetSmartDashboardType();
 };
-
-#endif

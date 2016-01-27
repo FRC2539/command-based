@@ -1,5 +1,4 @@
-#ifndef LOGITECH_ATTACK3_JOYSTICK
-#define LOGITECH_ATTACK3_JOYSTICK
+#pragma once
 
 #include "GenericController.h"
 
@@ -39,5 +38,3 @@ public:
 protected:
 	virtual void init();
 };
-
-#endif

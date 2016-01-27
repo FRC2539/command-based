@@ -1,5 +1,4 @@
-#ifndef LOGITECH_CROSSFIRE_CONTROLLER
-#define LOGITECH_CROSSFIRE_CONTROLLER
+#pragma once
 
 #include "GenericController.h"
 
@@ -52,6 +51,3 @@ public:
 protected:
 	virtual void init();
 };
-
-#endif
-

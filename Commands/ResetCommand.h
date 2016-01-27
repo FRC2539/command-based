@@ -1,5 +1,4 @@
-#ifndef RESET_COMMAND_H
-#define RESET_COMMAND_H
+#pragma once
 
 #include "Types/InstantCommand.h"
 
@@ -9,5 +8,3 @@ public:
 	ResetCommand();
 	void Initialize();
 };
-
-#endif

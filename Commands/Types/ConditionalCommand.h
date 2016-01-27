@@ -1,5 +1,4 @@
-#ifndef CONDITIONAL_COMMAND_H
-#define CONDITIONAL_COMMAND_H
+#pragma once
 
 #include "DefaultCommand.h"
 
@@ -28,5 +27,3 @@ protected:
 	virtual bool shouldRun() = 0;
 	Command* m_command;
 };
-
-#endif
