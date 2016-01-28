@@ -4,22 +4,22 @@
 /* must be accompanied by the FIRST BSD license file in $(WIND_BASE)/WPILib.  */
 /*----------------------------------------------------------------------------*/
 
-#include "PIDCommand.h"
+#include "SensorCommand.h"
 
 #include <PIDController.h>
 
-PIDCommand::PIDCommand(const char *name, double target, double p, double i, double d, double f, double period) :
+SensorCommand::SensorCommand(const char *name, double target, double p, double i, double d, double f, double period) :
 DefaultCommand(name)
 {
 	Setup(target, p, i, d, f, period);
 }
 
-PIDCommand::PIDCommand(double target, double p, double i, double d, double f, double period)
+SensorCommand::SensorCommand(double target, double p, double i, double d, double f, double period)
 {
 	Setup(target, p, i, d, f, period);
 }
 
-void PIDCommand::Setup(double target, double p, double i, double d, double f, double period)
+void SensorCommand::Setup(double target, double p, double i, double d, double f, double period)
 {
 	m_target = target;
 	m_fixedRange = false;
@@ -30,88 +30,88 @@ void PIDCommand::Setup(double target, double p, double i, double d, double f, do
 	m_controller->SetTolerance(0.5);
 }
 
-PIDCommand::~PIDCommand()
+SensorCommand::~SensorCommand()
 {
 	delete m_controller;
 }
 
-void PIDCommand::_Initialize()
+void SensorCommand::_Initialize()
 {
 	m_controller->Enable();
 }
 
-void PIDCommand::Initialize()
+void SensorCommand::Initialize()
 {
     SetSetpoint(m_target);
 }
 
-bool PIDCommand::IsFinished()
+bool SensorCommand::IsFinished()
 {
 	return m_controller->OnTarget();
 }
 
-void PIDCommand::End()
+void SensorCommand::End()
 {
     UsePIDOutput(0);
 }
 
-void PIDCommand::_End()
+void SensorCommand::_End()
 {
 	m_controller->Disable();
 }
 
-void PIDCommand::_Interrupted()
+void SensorCommand::_Interrupted()
 {
 	_End();
 }
 
-void PIDCommand::SetSetpointRelative(double deltaSetpoint)
+void SensorCommand::SetSetpointRelative(double deltaSetpoint)
 {
 	SetSetpoint(GetSetpoint() + deltaSetpoint);
 }
 
-void PIDCommand::setAbsoluteError(double error)
+void SensorCommand::setAbsoluteError(double error)
 {
 	m_controller->SetAbsoluteTolerance(error);
 }
 
-void PIDCommand::setPercentError(double error)
+void SensorCommand::setPercentError(double error)
 {
 	m_controller->SetPercentTolerance(error);
 }
 
-void PIDCommand::setMaxOutput(double output)
+void SensorCommand::setMaxOutput(double output)
 {
 	m_controller->SetOutputRange(-output, output);
 }
 
-void PIDCommand::setOutputRange(double min, double max)
+void SensorCommand::setOutputRange(double min, double max)
 {
 	m_controller->SetOutputRange(min, max);
 }
 
-void PIDCommand::setInputRange(double min, double max)
+void SensorCommand::setInputRange(double min, double max)
 {
 	m_controller->SetInputRange(min, max);
 	m_fixedRange = true;
 }
 
-void PIDCommand::PIDWrite(float output)
+void SensorCommand::PIDWrite(float output)
 {
 	UsePIDOutput(output);
 }
 
-double PIDCommand::PIDGet() const
+double SensorCommand::PIDGet() const
 {
 	return ReturnPIDInput();
 }
 
-PIDController *PIDCommand::GetPIDController()
+PIDController *SensorCommand::GetPIDController()
 {
 	return m_controller;
 }
 
-void PIDCommand::SetSetpoint(double setpoint)
+void SensorCommand::SetSetpoint(double setpoint)
 {
 	double current = GetSetpoint();
 
@@ -122,17 +122,17 @@ void PIDCommand::SetSetpoint(double setpoint)
 	m_controller->SetSetpoint(setpoint);
 }
 
-double PIDCommand::GetSetpoint()
+double SensorCommand::GetSetpoint()
 {
 	return m_controller->GetSetpoint();
 }
 
-double PIDCommand::GetPosition()
+double SensorCommand::GetPosition()
 {
 	return ReturnPIDInput();
 }
 
-void PIDCommand::modifyRange(double current, double next)
+void SensorCommand::modifyRange(double current, double next)
 {
 	if (current < next)
 	{
@@ -159,10 +159,10 @@ void PIDCommand::modifyRange(double current, double next)
 	m_controller->SetInputRange(m_rangeMin, m_rangeMax);
 }
 
-std::string PIDCommand::GetSmartDashboardType(){
-	return "PIDCommand";
+std::string SensorCommand::GetSmartDashboardType(){
+	return "SensorCommand";
 }
-void PIDCommand::InitTable(std::shared_ptr<ITable> table){
+void SensorCommand::InitTable(std::shared_ptr<ITable> table){
 	m_controller->InitTable(table);
 	Command::InitTable(table);
 }

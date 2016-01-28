@@ -10,10 +10,10 @@
 
 class PIDController;
 
-class PIDCommand : public DefaultCommand, public PIDOutput, public PIDSource
+class SensorCommand : public DefaultCommand, public PIDOutput, public PIDSource
 {
 public:
-	PIDCommand(
+	SensorCommand(
 		const char *name,
 		double target,
 		double p,
@@ -22,7 +22,7 @@ public:
 		double f=0,
 		double period=0.05
 	);
-	PIDCommand(
+	SensorCommand(
 		double target,
 		double p,
 		double i,
@@ -30,7 +30,7 @@ public:
 		double f=0,
 		double period=0.05
 	);
-	virtual ~PIDCommand();
+	virtual ~SensorCommand();
 
 	void SetSetpointRelative(double deltaSetpoint);
 
