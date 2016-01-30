@@ -15,10 +15,11 @@ add_executable(cmd-based ${SOURCE_CODE})
 target_link_libraries(cmd-based ${WPILib_LIBRARY})
 
 set(TEAM 2539)
+set(ADDR lvuser@roborio-${TEAM}-FRC.local)
 add_custom_command(OUTPUT deploy_stamp
-	COMMAND ssh -q lvuser@roborio-${TEAM}.local "rm /home/lvuser/FRCUserProgram || true"
-	COMMAND scp cmd-based lvuser@roborio-${TEAM}.local:FRCUserProgram
-	COMMAND ssh -q lvuser@roborio-${TEAM}.local ". /etc/profile.d/natinst-path.sh; chmod a+x /home/lvuser/FRCUserProgram; /usr/local/frc/bin/frcKillRobot.sh -t -r"
+	COMMAND ssh -q ${ADDR} "rm /home/lvuser/FRCUserProgram || true"
+	COMMAND scp cmd-based ${ADDR}:FRCUserProgram
+	COMMAND ssh -q ${ADDR} ". /etc/profile.d/natinst-path.sh; chmod a+x /home/lvuser/FRCUserProgram; /usr/local/frc/bin/frcKillRobot.sh -t -r"
 	DEPENDS cmd-based
 VERBATIM)
 set_source_files_properties(deploy_stamp PROPERTIES SYMBOLIC true)
