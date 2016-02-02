@@ -21,12 +21,12 @@ public:
 	LogitechDualShockController(uint32_t port, uint32_t numAxisTypes, uint32_t numButtonTypes);
 
 	enum Axis{
-		LeftX = 1,
-		LeftY = 2,
-		RightX = 3,
-		RightY = 4,
-		DPadX = 5,
-		DPadY = 6
+		LeftX = 0,
+		LeftY = 1,
+		RightX = 2,
+		RightY = 3,
+		DPadX = 4,
+		DPadY = 5
 	};
 
 	enum Buttons{
@@ -41,7 +41,11 @@ public:
 		Back = 9,
 		Start = 10,
 		LeftJoystick = 11,
-		RightJoystick = 12
+		RightJoystick = 12,
+		DPadUp = 20,
+		DPadRight = 21,
+		DPadDown = 22,
+		DPadLeft = 23
 	};
 
 protected:

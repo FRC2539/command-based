@@ -7,7 +7,7 @@ class ControllerAxis
 {
 public:
 	ControllerAxis(GenericController* control, uint32_t axisEnum);
-	virtual ~ControllerAxis();
+	virtual ~ControllerAxis() = default;
 	
 	virtual void setModifier(float mod);
 	virtual void invertAxis();
