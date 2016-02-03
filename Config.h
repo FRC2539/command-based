@@ -23,7 +23,7 @@ namespace Config {
 		#define DRIVE_TYPE SKID
 
 		CanID frontLeftMotorID = 1;
-		CanID frontRightMotorID = 3 ;
+		CanID frontRightMotorID = 3;
 		CanID backLeftMotorID = 2;
 		CanID backRightMotorID = 4;
 

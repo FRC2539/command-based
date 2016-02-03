@@ -1,11 +1,12 @@
 #pragma once
 
 #include <CANTalon.h>
-#include <AnalogGyro.h>
+#include <AHRS.h>
 #include <vector>
 #include <memory>
 
 #include "../Custom/DebuggingSubsystem.h"
+
 
 class DriveTrain: public Subsystem {
 public:
@@ -42,6 +43,7 @@ protected:
 	std::unique_ptr<AnalogGyro> m_gyro;
 	std::vector<std::unique_ptr<CANTalon>> m_motors;
 	std::vector<float> m_speeds;
+	AHRS m_navX;
 
 	void equalizeMotors();
 	void setOutputs(float maxValue);

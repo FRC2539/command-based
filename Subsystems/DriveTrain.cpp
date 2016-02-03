@@ -7,7 +7,7 @@
 #include "../Commands/DriveCommand.h"
 #include "../Config.h"
 
-DriveTrain::DriveTrain() : Subsystem("DriveTrain")
+DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 {
 	m_motors.push_back(
 		std::make_unique<CANTalon>(Config::DriveTrain::frontLeftMotorID)
@@ -49,8 +49,6 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain")
 
 	m_speeds.resize(m_motors.size());
 
-	m_gyro = std::make_unique<AnalogGyro>(Config::DriveTrain::gyroPort);
-	m_gyro->SetSensitivity(Config::DriveTrain::gyroSensitivity);
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;
 	m_fieldOrientation = false;
@@ -110,8 +108,12 @@ void DriveTrain::move(float x, float y, float rotate)
 
 void DriveTrain::stop()
 {
-	setMode(CANTalon::kSpeed);
-	m_maxSpeed = Config::DriveTrain::maxSpeed;
+	if (m_readEncoders)
+	{
+		setMode(CANTalon::kSpeed);
+		m_maxSpeed = Config::DriveTrain::maxSpeed;
+	}
+
 	move(0, 0, 0);
 }
 
@@ -178,12 +180,12 @@ void DriveTrain::disableFieldOrientation()
 
 void DriveTrain::resetGyro()
 {
-	m_gyro->Reset();
+	m_navX.Reset();
 }
 
 float DriveTrain::getAngle()
 {
-	return m_gyro->GetAngle();
+	return m_navX.GetAngle();
 }
 
 void DriveTrain::useEncoders()
@@ -214,7 +216,6 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	setMode(CANTalon::kPosition);
 
 #if DRIVE_TYPE == MECANUM
-	#error Why are we compiling mecanum code?
 	if (direction == DriveX)
 	{
 
