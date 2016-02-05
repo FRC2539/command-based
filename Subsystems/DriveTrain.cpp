@@ -57,6 +57,9 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 
 void DriveTrain::move(float x, float y, float rotate)
 {
+	SmartDashboard::PutNumber("Angle", getAngle());
+	SmartDashboard::PutBoolean("Ramp?", isSlanted());
+	SmartDashboard::PutNumber("Pitch", m_navX.GetPitch());
 #if DRIVE_TYPE == SKID
 	x = 0;
 #endif
@@ -105,6 +108,44 @@ void DriveTrain::move(float x, float y, float rotate)
 	equalizeMotors();
 	setOutputs(m_maxSpeed);
 }
+
+bool DriveTrain::isSlanted()
+{
+	double speed;
+	speed = m_speeds[RobotDrive::kFrontLeftMotor] - m_speeds[RobotDrive::kFrontRightMotor] + m_speeds[RobotDrive::kRearLeftMotor] - m_speeds[RobotDrive::kRearRightMotor];
+	if (speed > 0)
+	{
+		if (m_navX.GetPitch() > 9)
+		{
+			return true;
+		}
+		else if  (m_navX.GetPitch() < -5)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	if (speed < 0)
+	{
+		if (m_navX.GetPitch() > -9)
+		{
+			return true;
+		}
+		else if (m_navX.GetPitch() < 5)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return false;
+}
+
 
 void DriveTrain::stop()
 {

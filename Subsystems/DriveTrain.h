@@ -25,6 +25,7 @@ public:
 
 	void useEncoders();
 	void ignoreEncoders();
+	bool isSlanted();
 
 	enum SensorMoveDirection {
 		DriveX,
@@ -40,7 +41,6 @@ protected:
 	bool m_fieldOrientation;
 	bool m_readEncoders;
 
-	std::unique_ptr<AnalogGyro> m_gyro;
 	std::vector<std::unique_ptr<CANTalon>> m_motors;
 	std::vector<float> m_speeds;
 	AHRS m_navX;
