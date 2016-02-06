@@ -101,7 +101,7 @@ void SensorCommand::PIDWrite(float output)
 	UsePIDOutput(output);
 }
 
-double SensorCommand::PIDGet() const
+double SensorCommand::PIDGet()
 {
 	return ReturnPIDInput();
 }

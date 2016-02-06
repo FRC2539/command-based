@@ -38,7 +38,7 @@ public:
 	virtual void PIDWrite(float output);
 
 	// PIDSource interface
-	virtual double PIDGet() const;
+	virtual double PIDGet();
 
 	void setPercentError(double error);
 	void setAbsoluteError(double error);
