@@ -5,28 +5,26 @@
 #include <cmath>
 
 #include "../Commands/DriveCommand.h"
-#include "../Config.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 {
 	m_motors.push_back(
-		std::make_unique<CANTalon>(Config::DriveTrain::frontLeftMotorID)
+		std::make_shared<CANTalon>(Config::DriveTrain::frontLeftMotorID)
 	);
 	m_motors.push_back(
-		std::make_unique<CANTalon>(Config::DriveTrain::frontRightMotorID)
+		std::make_shared<CANTalon>(Config::DriveTrain::frontRightMotorID)
 	);
 	m_motors.push_back(
-		std::make_unique<CANTalon>(Config::DriveTrain::backLeftMotorID)
+		std::make_shared<CANTalon>(Config::DriveTrain::backLeftMotorID)
 	);
 	m_motors.push_back(
-		std::make_unique<CANTalon>(Config::DriveTrain::backRightMotorID)
+		std::make_shared<CANTalon>(Config::DriveTrain::backRightMotorID)
 	);
 
 	setMode(CANTalon::kSpeed, true);
-	for (auto &motor : m_motors)
+	for (auto motor : m_motors)
 	{
-		motor->SetVoltageRampRate(0.5);
-		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
+		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
 		motor->SetSafetyEnabled(false);
 	}
 
@@ -48,11 +46,39 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 #endif
 
 	m_speeds.resize(m_motors.size());
-
+	m_stopped.resize(m_motors.size());
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;
-	m_fieldOrientation = false;
 	m_readEncoders = true;
+
+#if DRIVE_TYPE == MECANUM
+	m_fieldOrientation = false;
+#endif
+
+#ifdef DEBUG
+	DEBUG_SENSOR(m_navX);
+	LiveWindow* lw = LiveWindow::GetInstance();
+	lw->AddActuator(
+		GetName(),
+		"FrontLeftMotor",
+		m_motors[RobotDrive::kFrontLeftMotor]
+	);
+	lw->AddActuator(
+		GetName(),
+		"FrontRightMotor",
+		m_motors[RobotDrive::kFrontRightMotor]
+	);
+	lw->AddActuator(
+		GetName(),
+		"RearLeftMotor",
+		m_motors[RobotDrive::kRearLeftMotor]
+	);
+	lw->AddActuator(
+		GetName(),
+		"RearRightMotor",
+		m_motors[RobotDrive::kRearRightMotor]
+	);
+#endif
 }
 
 void DriveTrain::move(float x, float y, float rotate)
@@ -60,10 +86,12 @@ void DriveTrain::move(float x, float y, float rotate)
 	SmartDashboard::PutNumber("Angle", getAngle());
 	SmartDashboard::PutBoolean("Ramp?", isSlanted());
 	SmartDashboard::PutNumber("Pitch", m_navX.GetPitch());
+
 #if DRIVE_TYPE == SKID
 	x = 0;
 #endif
 
+#if DRIVE_TYPE == MECANUM
 	if (m_fieldOrientation)
 	{
 		float angle = getAngle();
@@ -75,6 +103,7 @@ void DriveTrain::move(float x, float y, float rotate)
 		x = xOut;
 		y = yOut;
 	}
+#endif
 
 	m_speeds[RobotDrive::kFrontLeftMotor] = x + y + rotate;
 	m_speeds[RobotDrive::kFrontRightMotor] = x - y + rotate;
@@ -106,6 +135,7 @@ void DriveTrain::move(float x, float y, float rotate)
 	}
 
 	equalizeMotors();
+	handleStop();
 	setOutputs(m_maxSpeed);
 }
 
@@ -166,7 +196,7 @@ void DriveTrain::equalizeMotors()
 	// If one motor is pegged, don't let the others pass it
 	// NOTE: Are there cases where motors could be pegged at different values?
 	unsigned int index = 0;
-	for (auto &motor : m_motors)
+	for (auto motor : m_motors)
 	{
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
 		if (currentVoltage > maxVoltage)
@@ -196,10 +226,34 @@ void DriveTrain::equalizeMotors()
 	}
 }
 
+void DriveTrain::handleStop()
+{
+	static float threshhold = Config::DriveTrain::maxSpeed / 100;
+
+	unsigned int index = 0;
+	for (auto &speed : m_speeds)
+	{
+		if (std::abs(speed) < threshhold)
+		{
+			if ( ! m_stopped[index])
+			{
+				m_motors[index]->SetControlMode(CANTalon::kPercentVbus);
+				speed = 0;
+				m_stopped[index] = true;
+			}
+		}
+		else if (m_stopped[index])
+		{
+			m_motors[index]->SetControlMode(CANTalon::kSpeed);
+			m_stopped[index] = false;
+		}
+	}
+}
+
 void DriveTrain::setOutputs(float maxValue)
 {
 	unsigned int index = 0;
-	for (auto &motor : m_motors)
+	for (auto motor : m_motors)
 	{
 		if (motor->GetControlMode() != CANTalon::kFollower)
 		{
@@ -209,6 +263,7 @@ void DriveTrain::setOutputs(float maxValue)
 	}
 }
 
+#if DRIVE_TYPE == MECANUM
 void DriveTrain::enableFieldOrientation(bool isActive)
 {
 	m_fieldOrientation = isActive;
@@ -218,6 +273,7 @@ void DriveTrain::disableFieldOrientation()
 {
 	enableFieldOrientation(false);
 }
+#endif
 
 void DriveTrain::resetGyro()
 {
@@ -295,7 +351,7 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 bool DriveTrain::doneMoving()
 {
 	float maxError = 10;
-	for (auto &motor : m_motors)
+	for (auto motor : m_motors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)
 		{
@@ -315,7 +371,7 @@ void DriveTrain::setMaxSpeed(float speed)
 {
 	// Rescale acceleration to match speed
 	float rescaleFactor = speed / m_maxSpeed;
-	for (auto &motor : m_motors)
+	for (auto motor : m_motors)
 	{
 		motor->SetI(motor->GetI() * rescaleFactor);
 	}

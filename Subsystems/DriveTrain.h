@@ -6,20 +6,22 @@
 #include <memory>
 
 #include "../Custom/DebuggingSubsystem.h"
-
+#include "../Config.h"
 
 class DriveTrain: public Subsystem {
 public:
 	DriveTrain();
-	virtual ~DriveTrain() = default;
 	virtual void InitDefaultCommand();
 
 	void setMaxSpeed(float speed);
 	void move(float x, float y, float rotate);
 	void stop();
 
+#if DRIVE_TYPE == MECANUM
 	void enableFieldOrientation(bool isActive=true);
 	void disableFieldOrientation();
+#endif
+
 	float getAngle();
 	void resetGyro();
 
@@ -38,14 +40,19 @@ public:
 
 protected:
 	float m_maxSpeed;
-	bool m_fieldOrientation;
 	bool m_readEncoders;
 
-	std::vector<std::unique_ptr<CANTalon>> m_motors;
+#if DRIVE_TYPE == MECANUM
+	bool m_fieldOrientation;
+#endif
+
+	std::vector<std::shared_ptr<CANTalon>> m_motors;
 	std::vector<float> m_speeds;
+	std::vector<bool> m_stopped;
 	AHRS m_navX;
 
 	void equalizeMotors();
+	void handleStop();
 	void setOutputs(float maxValue);
 
 	void setMode(CANTalon::ControlMode mode, bool resetAll=false);
