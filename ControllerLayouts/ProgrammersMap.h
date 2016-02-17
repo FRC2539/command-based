@@ -19,4 +19,3 @@ ADD_BUTTON(0, DPadUp, WhenPressed, new AlignmentTurnCommand(0));
 ADD_BUTTON(0, DPadRight, WhenPressed, new AlignmentTurnCommand(90));
 ADD_BUTTON(0, DPadLeft, WhenPressed, new AlignmentTurnCommand(270));
 ADD_BUTTON(0, DPadDown, WhenPressed, new AlignmentTurnCommand(180));
-

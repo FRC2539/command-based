@@ -27,7 +27,13 @@ public:
 
 	void useEncoders();
 	void ignoreEncoders();
-	bool isSlanted();
+	 
+	enum DefenseState {
+		Up,
+		Down, 
+		Floor,
+		Defense
+	};
 
 	enum SensorMoveDirection {
 		DriveX,
@@ -35,6 +41,8 @@ public:
 		Rotate
 	};
 
+	DefenseState getDefenseState();
+	
 	void moveDistance(double distance, SensorMoveDirection direction=DriveY);
 	bool doneMoving();
 
@@ -47,6 +55,8 @@ protected:
 #endif
 
 	std::vector<std::shared_ptr<CANTalon>> m_motors;
+	
+	DefenseState m_DefenseLastState;
 	std::vector<float> m_speeds;
 	std::vector<bool> m_stopped;
 	AHRS m_navX;

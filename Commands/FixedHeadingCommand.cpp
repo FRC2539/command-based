@@ -33,4 +33,3 @@ double FixedHeadingCommand::ReturnPIDInput() const
 	return drivetrain->getAngle();
 }
 
-

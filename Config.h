@@ -6,7 +6,7 @@
  * significantly reduces the number of magic numbers floating around.
  */
 
-//#define DEBUG
+#define DEBUG
 #define SKID 1
 #define MECANUM 2
 
@@ -27,16 +27,23 @@ namespace Config {
 		CanID backLeftMotorID = 2;
 		CanID backRightMotorID = 4;
 
-		AnalogPort gyroPort = 0;
-		const double gyroSensitivity = 0.007;
-
 		const double encoderSensitivity = 0.02;
 
-		const double maxSpeed = 150;
-		const double preciseModeMaxSpeed = 50;
+		const double maxSpeed = 300;
+		const double preciseModeMaxSpeed = 75;
 		const double accelerationRate = 0.01;
 	}
+	namespace PickupArms {
+		CanID Forward = 5;
+		CanID BackLeft = 6;
+		CanID BackRight = 7;
+		const double p = .11;
+		const double max = 5;
+		const double min = 4.927;
+	}
 }
+
+	
 
 #if ! DRIVE_TYPE
 	#error No drive type specified

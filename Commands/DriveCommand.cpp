@@ -1,4 +1,5 @@
 #include "DriveCommand.h"
+#include "../Config.h"
 
 DriveCommand::DriveCommand(const double speed) :
 	DefaultCommand("Drive"), m_speed(speed)
@@ -9,6 +10,7 @@ DriveCommand::DriveCommand(const double speed) :
 void DriveCommand::Initialize()
 {
 	drivetrain->setMaxSpeed(m_speed);
+	SmartDashboard::PutBoolean("Precise Mode On", m_speed == Config::DriveTrain::preciseModeMaxSpeed);
 }
 
 void DriveCommand::Execute()

@@ -14,12 +14,13 @@ CommandBase::CommandBase() : Command() {}
 CommandBase::~CommandBase() {
 	delete drivetrain;
 	delete oi;
+	delete pickuparms;
 }
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
-	drivetrain->ignoreEncoders();
 	oi = new OI();
+	pickuparms = new PickupArms();
 }
 
 
@@ -28,4 +29,5 @@ void CommandBase::init() {
  */
 DriveTrain* CommandBase::drivetrain = NULL;
 OI* CommandBase::oi = NULL;
+PickupArms* CommandBase::pickuparms = NULL;
 

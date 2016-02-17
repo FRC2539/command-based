@@ -24,8 +24,9 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	setMode(CANTalon::kSpeed, true);
 	for (auto motor : m_motors)
 	{
-		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Brake);
+		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 		motor->SetSafetyEnabled(false);
+		motor->SetSensorDirection(true);
 	}
 
 #if DRIVE_TYPE == SKID
@@ -50,7 +51,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;
 	m_readEncoders = true;
-
+	m_DefenseLastState = Floor;
+	
 #if DRIVE_TYPE == MECANUM
 	m_fieldOrientation = false;
 #endif
@@ -84,12 +86,14 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 void DriveTrain::move(float x, float y, float rotate)
 {
 	SmartDashboard::PutNumber("Angle", getAngle());
-	SmartDashboard::PutBoolean("Ramp?", isSlanted());
-	SmartDashboard::PutNumber("Pitch", m_navX.GetPitch());
+	SmartDashboard::PutNumber("Pitch", m_navX.GetRoll());
+	SmartDashboard::PutNumber("Roll", m_navX.GetPitch());
+	SmartDashboard::PutBoolean("On Defense?", getDefenseState());
 
 #if DRIVE_TYPE == SKID
 	x = 0;
 #endif
+	y *= 0.6;
 
 #if DRIVE_TYPE == MECANUM
 	if (m_fieldOrientation)
@@ -139,43 +143,58 @@ void DriveTrain::move(float x, float y, float rotate)
 	setOutputs(m_maxSpeed);
 }
 
-bool DriveTrain::isSlanted()
+DriveTrain::DefenseState DriveTrain::getDefenseState()
 {
 	double speed;
 	speed = m_speeds[RobotDrive::kFrontLeftMotor] - m_speeds[RobotDrive::kFrontRightMotor] + m_speeds[RobotDrive::kRearLeftMotor] - m_speeds[RobotDrive::kRearRightMotor];
+	double pitch = m_navX.GetRoll();
+	
 	if (speed > 0)
 	{
-		if (m_navX.GetPitch() > 9)
+		if (pitch > 5)
 		{
-			return true;
+			m_DefenseLastState = Up;
 		}
-		else if  (m_navX.GetPitch() < -5)
+		else if (pitch < -5) 
 		{
-			return true;
+			m_DefenseLastState = Down;
 		}
 		else
 		{
-			return false;
+			if (m_DefenseLastState == Up)
+			{
+				m_DefenseLastState = Defense;
+			}
+			else if (m_DefenseLastState == Down)
+			{
+				m_DefenseLastState = Floor;
+			}
 		}
 	}
 	if (speed < 0)
 	{
-		if (m_navX.GetPitch() > -9)
+		if (pitch > 5)
 		{
-			return true;
+			m_DefenseLastState = Down;
 		}
-		else if (m_navX.GetPitch() < 5)
+		else if (pitch < -5) 
 		{
-			return true;
+			m_DefenseLastState = Up;
 		}
-		else
+		else 
 		{
-			return false;
+			if (m_DefenseLastState == Up)
+			{
+				m_DefenseLastState = Defense;
+			}
+			else if (m_DefenseLastState == Down)
+			{
+				m_DefenseLastState = Floor;
+			}
 		}
 	}
-	return false;
+	return m_DefenseLastState;
 }
-
 
 void DriveTrain::stop()
 {
@@ -277,7 +296,7 @@ void DriveTrain::disableFieldOrientation()
 
 void DriveTrain::resetGyro()
 {
-	m_navX.Reset();
+	m_navX.ZeroYaw();
 }
 
 float DriveTrain::getAngle()
@@ -373,7 +392,7 @@ void DriveTrain::setMaxSpeed(float speed)
 	float rescaleFactor = speed / m_maxSpeed;
 	for (auto motor : m_motors)
 	{
-		motor->SetI(motor->GetI() * rescaleFactor);
+		motor->SetI(motor->GetI());
 	}
 
 	m_maxSpeed = speed;

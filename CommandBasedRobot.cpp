@@ -29,9 +29,12 @@ private:
 			"Additional Command",
 			autonomousCommand
 		);
+		
 		SmartDashboard::PutData("Autonomous Program", autonomousProgram);
 
 		resetCommand = new ResetCommand();
+		
+		CommandBase::drivetrain->resetGyro(); 
 
 #if defined(DEBUG)
 		lw = LiveWindow::GetInstance();
