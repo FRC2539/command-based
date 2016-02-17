@@ -41,6 +41,7 @@ public:
 		Rotate
 	};
 
+	void calculateDefenseState();
 	DefenseState getDefenseState();
 	
 	void moveDistance(double distance, SensorMoveDirection direction=DriveY);
@@ -56,7 +57,7 @@ protected:
 
 	std::vector<std::shared_ptr<CANTalon>> m_motors;
 	
-	DefenseState m_DefenseLastState;
+	DefenseState m_defenseLastState;
 	std::vector<float> m_speeds;
 	std::vector<bool> m_stopped;
 	AHRS m_navX;

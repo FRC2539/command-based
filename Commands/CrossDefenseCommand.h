@@ -2,10 +2,10 @@
 
 #include "Types/SensorCommand.h"
 
-class DriveToFloor : public SensorCommand {
+class CrossDefenseCommand : public SensorCommand {
 
 public:
-	explicit DriveToFloor();
+	CrossDefenseCommand();
 	void Initialize() override;
 	bool IsFinished() override;
 	

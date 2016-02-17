@@ -3,6 +3,7 @@
 #include <Commands/Command.h>
 #include "Commands/Autonomous/AutonomousCommandGroup.h"
 #include "Commands/ResetCommand.h"
+#include "Commands/MonitorCommandGroup.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
@@ -10,11 +11,12 @@ private:
 	SendableChooser* autonomousProgram;
 	Command* autonomousCommand;
 	Command* resetCommand;
+	Command* monitorCommand;
 #if defined(DEBUG)
 	LiveWindow* lw;
 #endif
 	
-	virtual void RobotInit()
+	void RobotInit() override
 	{
 		CommandBase::init();
 
@@ -33,26 +35,28 @@ private:
 		SmartDashboard::PutData("Autonomous Program", autonomousProgram);
 
 		resetCommand = new ResetCommand();
-		
-		CommandBase::drivetrain->resetGyro(); 
+		monitorCommand = new MonitorCommandGroup();
+		monitorCommand->Start();
 
 #if defined(DEBUG)
 		lw = LiveWindow::GetInstance();
 #endif
 	}
 	
-	virtual void AutonomousInit()
+	void AutonomousInit() override
 	{
 		autonomousCommand = (Command *) autonomousProgram->GetSelected();
 		autonomousCommand->Start();
+
+		DefaultInit();
 	}
 	
-	virtual void AutonomousPeriodic()
+	void AutonomousPeriodic() override
 	{
-		Scheduler::GetInstance()->Run();
+		DefaultPeriodic();
 	}
 	
-	virtual void TeleopInit()
+	void TeleopInit() override
 	{
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to 
@@ -62,12 +66,38 @@ private:
 
 		resetCommand->Start();
 
+		DefaultInit();
+	}
+	
+	void TeleopPeriodic() override
+	{
+		DefaultPeriodic();
+	}
+
+	void DisabledPeriodic() override
+	{
+		DefaultPeriodic();
+	}
+
+	void TestInit() override
+	{
+		DefaultInit();
+	}
+
+	void TestPeriodic() override
+	{
+		DefaultPeriodic();
+	}
+
+protected:
+	void DefaultInit()
+	{
 #if defined(DEBUG)
 		lw->SetEnabled(true);
 #endif
 	}
-	
-	virtual void TeleopPeriodic()
+
+	void DefaultPeriodic()
 	{
 		Scheduler::GetInstance()->Run();
 
@@ -75,18 +105,6 @@ private:
 		lw->Run();
 #endif
 	}
-
-#if defined(DEBUG)
-	virtual void TestInit()
-	{
-		lw->SetEnabled(true);
-	}
-
-	virtual void TestPeriodic()
-	{
-		lw->Run();
-	}
-#endif
 };
 
 START_ROBOT_CLASS(CommandBasedRobot);

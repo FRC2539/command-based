@@ -32,18 +32,20 @@ namespace Config {
 		const double maxSpeed = 300;
 		const double preciseModeMaxSpeed = 75;
 		const double accelerationRate = 0.01;
+
+		// Ratio of y speed to rotation speed, between 0 and 1
+		const double rotationGain = 0.6;
 	}
+
 	namespace PickupArms {
-		CanID Forward = 5;
-		CanID BackLeft = 6;
-		CanID BackRight = 7;
-		const double p = .11;
-		const double max = 5;
-		const double min = 4.927;
+		CanID rollerMotorID = 5;
+		CanID leftPivotMotorID = 6;
+		CanID rightPivotMotorID = 7;
+		const double P = .11;
+		const double maxHeight = 5;
+		const double minHeight = 4.927;
 	}
 }
-
-	
 
 #if ! DRIVE_TYPE
 	#error No drive type specified

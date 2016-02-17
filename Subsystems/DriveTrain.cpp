@@ -51,7 +51,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;
 	m_readEncoders = true;
-	m_DefenseLastState = Floor;
+	m_defenseLastState = Floor;
 	
 #if DRIVE_TYPE == MECANUM
 	m_fieldOrientation = false;
@@ -88,12 +88,12 @@ void DriveTrain::move(float x, float y, float rotate)
 	SmartDashboard::PutNumber("Angle", getAngle());
 	SmartDashboard::PutNumber("Pitch", m_navX.GetRoll());
 	SmartDashboard::PutNumber("Roll", m_navX.GetPitch());
-	SmartDashboard::PutBoolean("On Defense?", getDefenseState());
+	SmartDashboard::PutNumber("Defense State", getDefenseState());
 
 #if DRIVE_TYPE == SKID
 	x = 0;
 #endif
-	y *= 0.6;
+	y *= Config::DriveTrain::rotationGain;
 
 #if DRIVE_TYPE == MECANUM
 	if (m_fieldOrientation)
@@ -145,29 +145,37 @@ void DriveTrain::move(float x, float y, float rotate)
 
 DriveTrain::DefenseState DriveTrain::getDefenseState()
 {
-	double speed;
-	speed = m_speeds[RobotDrive::kFrontLeftMotor] - m_speeds[RobotDrive::kFrontRightMotor] + m_speeds[RobotDrive::kRearLeftMotor] - m_speeds[RobotDrive::kRearRightMotor];
+	return m_defenseLastState;
+}
+
+void DriveTrain::calculateDefenseState()
+{
+	double speed = m_speeds[RobotDrive::kFrontLeftMotor];
+	speed -= m_speeds[RobotDrive::kFrontRightMotor];
+	speed += m_speeds[RobotDrive::kRearLeftMotor];
+	speed -= m_speeds[RobotDrive::kRearRightMotor];
+
 	double pitch = m_navX.GetRoll();
 	
 	if (speed > 0)
 	{
 		if (pitch > 5)
 		{
-			m_DefenseLastState = Up;
+			m_defenseLastState = Up;
 		}
 		else if (pitch < -5) 
 		{
-			m_DefenseLastState = Down;
+			m_defenseLastState = Down;
 		}
 		else
 		{
-			if (m_DefenseLastState == Up)
+			if (m_defenseLastState == Up)
 			{
-				m_DefenseLastState = Defense;
+				m_defenseLastState = Defense;
 			}
-			else if (m_DefenseLastState == Down)
+			else if (m_defenseLastState == Down)
 			{
-				m_DefenseLastState = Floor;
+				m_defenseLastState = Floor;
 			}
 		}
 	}
@@ -175,25 +183,24 @@ DriveTrain::DefenseState DriveTrain::getDefenseState()
 	{
 		if (pitch > 5)
 		{
-			m_DefenseLastState = Down;
+			m_defenseLastState = Down;
 		}
 		else if (pitch < -5) 
 		{
-			m_DefenseLastState = Up;
+			m_defenseLastState = Up;
 		}
 		else 
 		{
-			if (m_DefenseLastState == Up)
+			if (m_defenseLastState == Up)
 			{
-				m_DefenseLastState = Defense;
+				m_defenseLastState = Defense;
 			}
-			else if (m_DefenseLastState == Down)
+			else if (m_defenseLastState == Down)
 			{
-				m_DefenseLastState = Floor;
+				m_defenseLastState = Floor;
 			}
 		}
 	}
-	return m_DefenseLastState;
 }
 
 void DriveTrain::stop()
