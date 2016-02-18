@@ -1,19 +1,27 @@
 #pragma once
 
 #include <CANTalon.h>
-#include <vector>
-#include <memory>
 #include <DigitalInput.h>
+#include <memory>
+
+class NetworkTable;
 
 #include "../Custom/DebuggingSubsystem.h"
-
 
 class Shooter: public Subsystem {
 public:
 	Shooter();
 
-	void setMaxSpeed(float speed);
-	void getTarget();
+	struct Target
+	{
+		bool found = false;
+		double distance = 0;
+		double position = 0;
+	};
+
+	void calculateTargetPosition();
+	Target getTarget();
+
 	void pivotToHeight(double position);
 	void setPickerUpperRotateSpeed(float speed);
 	void setShooterSpeed(float speed);
@@ -23,8 +31,7 @@ protected:
 	float m_maxSpeed;
 	float m_maxTall;
 	float m_minTall;
-	DigitalInput m_maxTallLS;
-	DigitalInput m_minTallLS;
+
 	DigitalInput m_ballDetector;
 
 	CANTalon m_tallMotorLeft;
@@ -32,6 +39,7 @@ protected:
 	CANTalon m_indexWheel;
 	CANTalon m_shooterWheel;
 
-private:
-	int CameraWidth;
+	std::shared_ptr<NetworkTable> m_gripOutput;
+	std::shared_ptr<NetworkTable> m_targetInfo;
+	int m_cameraWidth;
 };

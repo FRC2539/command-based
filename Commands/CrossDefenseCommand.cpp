@@ -23,9 +23,9 @@ bool CrossDefenseCommand::IsFinished()
 {
     if (crossedDefense == true)
 	{
-		return drivetrain->getDefenseState() == DriveTrain::Floor;
+		return drivetrain->getDefenseState() == DriveTrain::DefenseState::Floor;
 	}
-    else if (drivetrain->getDefenseState() == DriveTrain::Defense)
+	else if (drivetrain->getDefenseState() == DriveTrain::DefenseState::Defense)
 	{
 		crossedDefense = true;
 		return false;
@@ -34,7 +34,9 @@ bool CrossDefenseCommand::IsFinished()
 
 void CrossDefenseCommand::UsePIDOutput(double output)
 {
-	drivetrain->move(0, 1, output);
+	double y = std::max(1 - std::abs(output), 0.0);
+
+	drivetrain->move(0, y, output);
 }
 
 double CrossDefenseCommand::ReturnPIDInput() const

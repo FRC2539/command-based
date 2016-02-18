@@ -6,5 +6,5 @@ class DefenseStateMonitorCommand : public DefaultCommand {
 
 public:
 	explicit DefenseStateMonitorCommand();
-	void Execute();
+	void Execute() override;
 };

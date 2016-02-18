@@ -38,3 +38,8 @@ void PickupArms::setRollerSpeed(float speed)
 	m_rollerMotor.Set(speed);
 }
 
+void PickupArms::manualRun(float power)
+{
+	m_leftPivotMotor.SetControlMode(CANTalon::kPercentVbus);
+	m_leftPivotMotor.Set(power);
+}

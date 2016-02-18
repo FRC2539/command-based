@@ -28,14 +28,14 @@ public:
 	void useEncoders();
 	void ignoreEncoders();
 	 
-	enum DefenseState {
+	enum class DefenseState {
 		Up,
 		Down, 
 		Floor,
 		Defense
 	};
 
-	enum SensorMoveDirection {
+	enum class SensorMoveDirection {
 		DriveX,
 		DriveY,
 		Rotate
@@ -44,7 +44,10 @@ public:
 	void calculateDefenseState();
 	DefenseState getDefenseState();
 	
-	void moveDistance(double distance, SensorMoveDirection direction=DriveY);
+	void moveDistance(
+		double distance,
+		SensorMoveDirection direction=SensorMoveDirection::DriveY
+	);
 	bool doneMoving();
 
 protected:

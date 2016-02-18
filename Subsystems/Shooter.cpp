@@ -1,18 +1,17 @@
 #include "Shooter.h"
-#include "../Config.h"
-#include <DigitalInput.h>
 
+#include "../Config.h"
+
+#include <networktables/NetworkTable.h>
+#include <vector>
 
 Shooter::Shooter() : Subsystem("Shooter"),
-	m_maxTallLS(Config::Shooter::maxTallLSID),
-	m_minTallLS(Config::Shooter::minTallLSID),
-
 	m_ballDetector(Config::Shooter::ballDetectorID),
-
 	m_tallMotorLeft(Config::Shooter::tallMotorLeftID),
 	m_tallMotorRight(Config::Shooter::tallMotorRightID),
 	m_indexWheel(Config::Shooter::indexWheelID),
-	m_shooterWheel(Config::Shooter::shooterWheelID)
+	m_shooterWheel(Config::Shooter::shooterWheelID),
+	m_cameraWidth(640)
 {
 	m_indexWheel.SetControlMode(CANTalon::kPercentVbus);
 
@@ -33,10 +32,15 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	);
 	m_tallMotorRight.SetP(Config::PickupArms::P);
 
+	m_gripOutput = NetworkTable::GetTable("GRIP/myContoursReport");
+	m_targetInfo = NetworkTable::GetTable("cameraTarget");
+
 	DEBUG_MOTOR(m_tallMotorLeft);
 	DEBUG_MOTOR(m_tallMotorRight);
 	DEBUG_MOTOR(m_indexWheel);
 	DEBUG_MOTOR(m_shooterWheel);
+
+	DEBUG_SENSOR(m_ballDetector);
 }
 
 void Shooter::pivotToHeight(double position)
@@ -60,29 +64,43 @@ bool Shooter::hasBall()
 	return m_ballDetector.Get();
 }
 
-void Shooter::getTarget(){
-	std::shared_ptr<NetworkTable> table;
-	table = NetworkTable::GetTable("GRIP/myContoursReport");
-	std::vector<double> heights = table->GetNumberArray("height", llvm::ArrayRef<double>());
-	std::vector<double> width = table->GetNumberArray("width", llvm::ArrayRef<double>());
-	std::vector<double> centerX = table->GetNumberArray("centerX", llvm::ArrayRef<double>());
+void Shooter::calculateTargetPosition(){
+	std::vector<double> heights = m_gripOutput->GetNumberArray(
+		"height",
+		llvm::ArrayRef<double>()
+	);
+	std::vector<double> widths = m_gripOutput->GetNumberArray(
+		"width",
+		llvm::ArrayRef<double>()
+	);
+	std::vector<double> centerX = m_gripOutput->GetNumberArray(
+		"centerX",
+		llvm::ArrayRef<double>()
+	);
+
+	if (heights.size() == 0)
+	{
+		m_targetInfo->PutBoolean("hasTarget", false);
+	}
 
 	std::vector<double> scores;
 
 	int i = 0;
 	double aspect = 12/20;
-	CameraWidth = 640;
+	m_cameraWidth = 640;
 
-	for (double height : heights){
-		double aspectError = std::abs((height/width[i])-aspect);
-		double positionError = std::abs(centerX[i] - CameraWidth / 2);
-		positionError = positionError / CameraWidth;
+	for (double height : heights)
+	{
+		double aspectError = std::abs(height / widths[i] - aspect);
+		double positionError = std::abs(centerX[i] - m_cameraWidth / 2);
+		positionError = positionError / m_cameraWidth;
 
 		scores.push_back(aspectError + positionError);
 		i++;
 	}
 
 	int best = 0;
+	i = 0;
 	double leastError = 10000;
 	for (double score : scores)
 	{
@@ -93,7 +111,24 @@ void Shooter::getTarget(){
 		}
 		i++;
 	}
-		table->PutNumber("Distance", -0.332564 * width[best] + 29.847575);
-		table->PutNumber("targetCenterX", centerX[best] - CameraWidth /2);
+
+	m_targetInfo->PutBoolean("hasTarget", true);
+	m_targetInfo->PutNumber("distance", 29.847575 - 0.332564 * widths[best]);
+	m_targetInfo->PutNumber("centerX", centerX[best] - m_cameraWidth / 2);
 }
 
+Shooter::Target Shooter::getTarget()
+{
+	Target target;
+
+	if (m_targetInfo->GetBoolean("hasTarget", false) == false)
+	{
+		return target;
+	}
+
+	target.found = true;
+	target.position = m_targetInfo->GetNumber("centerX", 0);
+	target.distance = m_targetInfo->GetNumber("distance", 0);
+
+	return target;
+}

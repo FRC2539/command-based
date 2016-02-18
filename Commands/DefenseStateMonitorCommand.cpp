@@ -7,4 +7,3 @@ void DefenseStateMonitorCommand::Execute()
 {
 	drivetrain->calculateDefenseState();
 }
-

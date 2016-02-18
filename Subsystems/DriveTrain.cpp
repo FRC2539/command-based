@@ -51,7 +51,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;
 	m_readEncoders = true;
-	m_defenseLastState = Floor;
+	m_defenseLastState = DefenseState::Floor;
 	
 #if DRIVE_TYPE == MECANUM
 	m_fieldOrientation = false;
@@ -88,7 +88,10 @@ void DriveTrain::move(float x, float y, float rotate)
 	SmartDashboard::PutNumber("Angle", getAngle());
 	SmartDashboard::PutNumber("Pitch", m_navX.GetRoll());
 	SmartDashboard::PutNumber("Roll", m_navX.GetPitch());
-	SmartDashboard::PutNumber("Defense State", getDefenseState());
+	SmartDashboard::PutNumber(
+		"Defense State",
+		static_cast<int>(getDefenseState())
+	);
 
 #if DRIVE_TYPE == SKID
 	x = 0;
@@ -161,21 +164,21 @@ void DriveTrain::calculateDefenseState()
 	{
 		if (pitch > 5)
 		{
-			m_defenseLastState = Up;
+			m_defenseLastState = DefenseState::Up;
 		}
 		else if (pitch < -5) 
 		{
-			m_defenseLastState = Down;
+			m_defenseLastState = DefenseState::Down;
 		}
 		else
 		{
-			if (m_defenseLastState == Up)
+			if (m_defenseLastState == DefenseState::Up)
 			{
-				m_defenseLastState = Defense;
+				m_defenseLastState = DefenseState::Defense;
 			}
-			else if (m_defenseLastState == Down)
+			else if (m_defenseLastState == DefenseState::Down)
 			{
-				m_defenseLastState = Floor;
+				m_defenseLastState = DefenseState::Floor;
 			}
 		}
 	}
@@ -183,21 +186,21 @@ void DriveTrain::calculateDefenseState()
 	{
 		if (pitch > 5)
 		{
-			m_defenseLastState = Down;
+			m_defenseLastState = DefenseState::Down;
 		}
 		else if (pitch < -5) 
 		{
-			m_defenseLastState = Up;
+			m_defenseLastState = DefenseState::Up;
 		}
 		else 
 		{
-			if (m_defenseLastState == Up)
+			if (m_defenseLastState == DefenseState::Up)
 			{
-				m_defenseLastState = Defense;
+				m_defenseLastState = DefenseState::Defense;
 			}
-			else if (m_defenseLastState == Down)
+			else if (m_defenseLastState == DefenseState::Down)
 			{
-				m_defenseLastState = Floor;
+				m_defenseLastState = DefenseState::Floor;
 			}
 		}
 	}
@@ -339,7 +342,7 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	setMode(CANTalon::kPosition);
 
 #if DRIVE_TYPE == MECANUM
-	if (direction == DriveX)
+	if (direction == SensorMoveDirection::DriveX)
 	{
 
 		m_motors[RobotDrive::kFrontLeftMotor]->Set(

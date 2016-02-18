@@ -9,6 +9,8 @@ public:
 	PickupArms();
 	void pivotToHeight(double position);
 	void setRollerSpeed(float speed);
+
+	void manualRun(float power);
 	
 protected:
 	CANTalon m_leftPivotMotor;

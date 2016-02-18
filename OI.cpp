@@ -16,6 +16,7 @@
 #include "Commands/ResetCommand.h"
 #include "Commands/FixedHeadingCommand.h"
 #include "Commands/AlignmentTurnCommand.h"
+#include "Commands/MotorTestCommand.h"
 
 OI::OI()
 {
