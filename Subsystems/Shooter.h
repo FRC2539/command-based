@@ -17,13 +17,15 @@ public:
 	void pivotToHeight(double position);
 	void setPickerUpperRotateSpeed(float speed);
 	void setShooterSpeed(float speed);
+	bool hasBall();
 
 protected:
 	float m_maxSpeed;
 	float m_maxTall;
 	float m_minTall;
-	DigitalInput maxTallLS;
-	DigitalInput minTallLS;
+	DigitalInput m_maxTallLS;
+	DigitalInput m_minTallLS;
+	DigitalInput m_ballDetector;
 
 	CANTalon m_tallMotorLeft;
 	CANTalon m_tallMotorRight;

@@ -4,8 +4,10 @@
 
 
 Shooter::Shooter() : Subsystem("Shooter"),
-	maxTallLS(Config::Shooter::maxTallLSID),
-	minTallLS(Config::Shooter::minTallLSID),
+	m_maxTallLS(Config::Shooter::maxTallLSID),
+	m_minTallLS(Config::Shooter::minTallLSID),
+
+	m_ballDetector(Config::Shooter::ballDetectorID),
 
 	m_tallMotorLeft(Config::Shooter::tallMotorLeftID),
 	m_tallMotorRight(Config::Shooter::tallMotorRightID),
@@ -53,6 +55,10 @@ void Shooter::setShooterSpeed(float speed)
 	m_shooterWheel.Set(speed);
 }
 
+bool Shooter::hasBall()
+{
+	return m_ballDetector.Get();
+}
 
 void Shooter::getTarget(){
 	std::shared_ptr<NetworkTable> table;

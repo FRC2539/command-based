@@ -59,6 +59,8 @@ namespace Config {
 
 		DIOPort maxTallLSID = 0;
 		DIOPort minTallLSID = 1;
+
+		DIOPort ballDetectorID = 2;
 	}
 }
 
