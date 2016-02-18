@@ -15,12 +15,14 @@ CommandBase::~CommandBase() {
 	delete drivetrain;
 	delete oi;
 	delete pickuparms;
+	delete shooter;
 }
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
 	oi = new OI();
 	pickuparms = new PickupArms();
+	shooter = new Shooter();
 }
 
 
@@ -30,4 +32,5 @@ void CommandBase::init() {
 DriveTrain* CommandBase::drivetrain = NULL;
 OI* CommandBase::oi = NULL;
 PickupArms* CommandBase::pickuparms = NULL;
+Shooter* CommandBase::shooter = NULL;
 

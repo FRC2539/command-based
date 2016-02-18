@@ -45,6 +45,21 @@ namespace Config {
 		const double maxHeight = 5;
 		const double minHeight = 4.927;
 	}
+
+	namespace Shooter {
+		CanID tallMotorRightID = 8;
+		CanID tallMotorLeftID = 9;
+		CanID indexWheelID = 10;
+		CanID shooterWheelID = 11;
+		const double maxTall = .1;
+		const double minTall = .01;
+
+		const double P = .11;
+		const double I = 42;
+
+		DIOPort maxTallLSID = 0;
+		DIOPort minTallLSID = 1;
+	}
 }
 
 #if ! DRIVE_TYPE
