@@ -20,3 +20,4 @@ ADD_BUTTON(0, DPadRight, WhenPressed, new AlignmentTurnCommand(90));
 ADD_BUTTON(0, DPadLeft, WhenPressed, new AlignmentTurnCommand(270));
 ADD_BUTTON(0, DPadDown, WhenPressed, new AlignmentTurnCommand(180));
 ADD_BUTTON(0, X, WhileHeld, new MotorTestCommand(0.3));
+ADD_SIMPLE_BUTTON(0, Y, CrossDefenseCommandGroup);

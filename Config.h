@@ -41,6 +41,7 @@ namespace Config {
 		CanID rollerMotorID = 5;
 		CanID leftPivotMotorID = 6;
 		CanID rightPivotMotorID = 7;
+
 		const double P = .11;
 		const double maxHeight = 5;
 		const double minHeight = 4.927;
@@ -51,16 +52,14 @@ namespace Config {
 		CanID tallMotorLeftID = 9;
 		CanID indexWheelID = 10;
 		CanID shooterWheelID = 11;
+
 		const double maxTall = .1;
 		const double minTall = .01;
 
 		const double P = .11;
 		const double I = 42;
 
-		DIOPort maxTallLSID = 0;
-		DIOPort minTallLSID = 1;
-
-		DIOPort ballDetectorID = 2;
+		DIOPort ballDetectorID = 0;
 	}
 }
 
