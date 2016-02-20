@@ -7,8 +7,8 @@
 
 Shooter::Shooter() : Subsystem("Shooter"),
 	m_ballDetector(Config::Shooter::ballDetectorID),
-	m_tallMotorLeft(Config::Shooter::tallMotorLeftID),
-	m_tallMotorRight(Config::Shooter::tallMotorRightID),
+	m_leftPivotMotor(Config::Shooter::leftPivotMotorID),
+	m_rightPivotMotor(Config::Shooter::rightPivotMotorID),
 	m_indexWheel(Config::Shooter::indexWheelID),
 	m_shooterWheel(Config::Shooter::shooterWheelID),
 	m_cameraWidth(640)
@@ -18,25 +18,25 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel.SetI(Config::Shooter::I);
 
-	m_tallMotorLeft.SetControlMode(CANTalon::kPosition);
-	m_tallMotorLeft.ConfigSoftPositionLimits(
-		Config::Shooter::maxTall,
-		Config::Shooter::minTall
+	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
+	m_leftPivotMotor.ConfigSoftPositionLimits(
+		Config::Shooter::maxHeight,
+		Config::Shooter::minHeight
 	);
-	m_tallMotorLeft.SetP(Config::Shooter::P);
+	m_leftPivotMotor.SetP(Config::Shooter::P);
 
-	m_tallMotorRight.SetControlMode(CANTalon::kPosition);
-	m_tallMotorRight.ConfigSoftPositionLimits(
-		Config::Shooter::maxTall,
-		Config::Shooter::minTall
+	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
+	m_rightPivotMotor.ConfigSoftPositionLimits(
+		Config::Shooter::maxHeight,
+		Config::Shooter::minHeight
 	);
-	m_tallMotorRight.SetP(Config::PickupArms::P);
+	m_rightPivotMotor.SetP(Config::PickupArms::P);
 
 	m_gripOutput = NetworkTable::GetTable("GRIP/myContoursReport");
 	m_targetInfo = NetworkTable::GetTable("cameraTarget");
 
-	DEBUG_MOTOR(m_tallMotorLeft);
-	DEBUG_MOTOR(m_tallMotorRight);
+	DEBUG_MOTOR(m_leftPivotMotor);
+	DEBUG_MOTOR(m_rightPivotMotor);
 	DEBUG_MOTOR(m_indexWheel);
 	DEBUG_MOTOR(m_shooterWheel);
 
@@ -45,8 +45,8 @@ Shooter::Shooter() : Subsystem("Shooter"),
 
 void Shooter::pivotToHeight(double position)
 {
-	m_tallMotorLeft.SetPosition(position);
-	m_tallMotorRight.SetPosition(position);
+	m_leftPivotMotor.SetPosition(position);
+	m_rightPivotMotor.SetPosition(position);
 }
 
 void Shooter::setPickerUpperRotateSpeed(float speed)

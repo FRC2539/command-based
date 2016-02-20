@@ -28,14 +28,10 @@ public:
 	bool hasBall();
 
 protected:
-	float m_maxSpeed;
-	float m_maxTall;
-	float m_minTall;
-
 	DigitalInput m_ballDetector;
 
-	CANTalon m_tallMotorLeft;
-	CANTalon m_tallMotorRight;
+	CANTalon m_leftPivotMotor;
+	CANTalon m_rightPivotMotor;
 	CANTalon m_indexWheel;
 	CANTalon m_shooterWheel;
 

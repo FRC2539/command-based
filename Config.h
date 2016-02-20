@@ -48,13 +48,13 @@ namespace Config {
 	}
 
 	namespace Shooter {
-		CanID tallMotorRightID = 8;
-		CanID tallMotorLeftID = 9;
+		CanID rightPivotMotorID = 8;
+		CanID leftPivotMotorID = 9;
 		CanID indexWheelID = 10;
 		CanID shooterWheelID = 11;
 
-		const double maxTall = .1;
-		const double minTall = .01;
+		const double maxHeight = .1;
+		const double minHeight = .01;
 
 		const double P = .11;
 		const double I = 42;
