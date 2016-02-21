@@ -3,8 +3,8 @@
 #include <Commands/WaitCommand.h>
 //#include "FaceGoalCommand.h"
 //#include "MoveToRangeCommand.h"
-//#include "PrepareToLaunchCommandGroup.h"
-//#include "LaunchBoulderCommand.h"
+#include "PrepareToLaunchCommandGroup.h"
+#include "LaunchBoulderCommand.h"
 
 FireCommandGroup::FireCommandGroup() : CommandGroup("Fire")
 {
@@ -13,7 +13,7 @@ FireCommandGroup::FireCommandGroup() : CommandGroup("Fire")
 	//AddSequential(new MoveToRangeCommand());
 	AddSequential(new WaitCommand(0.25));
 	//AddSequential(new FaceGoalCommand());
-	//AddSequential(new PrepareToLaunchCommandGroup());
-	//AddSequential(new LaunchBoulderCommand());
+	AddSequential(new PrepareToLaunchCommandGroup());
+	AddSequential(new LaunchBoulderCommand());
 }
 

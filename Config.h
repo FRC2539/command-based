@@ -56,6 +56,8 @@ namespace Config {
 		const double maxHeight = .1;
 		const double minHeight = .01;
 
+		const double firingSpeed = 5000;
+
 		const double P = .11;
 		const double I = 42;
 

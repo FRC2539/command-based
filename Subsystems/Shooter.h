@@ -23,8 +23,10 @@ public:
 	Target getTarget();
 
 	void pivotToHeight(double position);
-	void setPickerUpperRotateSpeed(float speed);
+	void setIndexerSpeed(float speed);
 	void setShooterSpeed(float speed);
+	void stopShooter();
+	bool readyToFire();
 	bool hasBall();
 
 protected:

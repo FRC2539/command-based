@@ -14,8 +14,10 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_cameraWidth(640)
 {
 	m_indexWheel.SetControlMode(CANTalon::kPercentVbus);
+	m_indexWheel.ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 
 	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
+	m_shooterWheel.ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 	m_shooterWheel.SetI(Config::Shooter::I);
 
 	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
@@ -49,14 +51,30 @@ void Shooter::pivotToHeight(double position)
 	m_rightPivotMotor.SetPosition(position);
 }
 
-void Shooter::setPickerUpperRotateSpeed(float speed)
+void Shooter::setIndexerSpeed(float speed)
 {
 	m_indexWheel.Set(speed);
 }
 
 void Shooter::setShooterSpeed(float speed)
 {
+	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel.Set(speed);
+}
+
+void Shooter::stopShooter()
+{
+	m_shooterWheel.SetControlMode(CANTalon::kPercentVbus);
+	m_shooterWheel.Set(0);
+}
+
+bool Shooter::readyToFire()
+{
+	if (m_shooterWheel.GetSetpoint() != Config::Shooter::firingSpeed)
+	{
+		return false;
+	}
+	return std::abs(m_shooterWheel.GetClosedLoopError()) < 100;
 }
 
 bool Shooter::hasBall()
