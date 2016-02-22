@@ -17,7 +17,7 @@
 #include "Commands/FixedHeadingCommand.h"
 #include "Commands/AlignmentTurnCommand.h"
 #include "Commands/MotorTestCommand.h"
-#include "Commands/CrossDefenseCommandGroup.h"
+#include "Commands/GyroCrossDefenseCommand.h"
 
 OI::OI()
 {

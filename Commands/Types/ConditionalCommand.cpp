@@ -14,6 +14,7 @@ void ConditionalCommand::Initialize()
 	if (shouldRun())
 	{
 		m_command->Start();
+		m_isStarted = false;
 	}
 
 	DefaultCommand::Initialize();
@@ -21,7 +22,15 @@ void ConditionalCommand::Initialize()
 
 bool ConditionalCommand::IsFinished()
 {
-	return !m_command->IsRunning();
+	if (m_isStarted)
+	{
+		return !m_command->IsRunning();
+	}
+	if (m_command->IsRunning())
+	{
+		m_isStarted = true;
+		return false;
+	}
 }
 
 void ConditionalCommand::Interrupted()

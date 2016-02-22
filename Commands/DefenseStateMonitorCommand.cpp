@@ -1,7 +1,10 @@
 #include "DefenseStateMonitorCommand.h"
 
 DefenseStateMonitorCommand::DefenseStateMonitorCommand() :
-	DefaultCommand("DefenseStateMonitor") {}
+	DefaultCommand("DefenseStateMonitor")
+{
+	SetRunWhenDisabled(true);
+}
 
 void DefenseStateMonitorCommand::Execute()
 {

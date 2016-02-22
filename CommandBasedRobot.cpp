@@ -11,7 +11,9 @@ private:
 	SendableChooser* autonomousProgram;
 	Command* autonomousCommand;
 	Command* resetCommand;
-	Command* monitorCommand;
+
+	bool m_firstRun = true;
+
 #if defined(DEBUG)
 	LiveWindow* lw;
 #endif
@@ -35,8 +37,6 @@ private:
 		SmartDashboard::PutData("Autonomous Program", autonomousProgram);
 
 		resetCommand = new ResetCommand();
-		monitorCommand = new MonitorCommandGroup();
-		monitorCommand->Start();
 
 #if defined(DEBUG)
 		lw = LiveWindow::GetInstance();
@@ -45,10 +45,10 @@ private:
 	
 	void AutonomousInit() override
 	{
+		DefaultInit();
+
 		autonomousCommand = (Command *) autonomousProgram->GetSelected();
 		autonomousCommand->Start();
-
-		DefaultInit();
 	}
 	
 	void AutonomousPeriodic() override
@@ -58,6 +58,8 @@ private:
 	
 	void TeleopInit() override
 	{
+		DefaultInit();
+
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
@@ -65,8 +67,6 @@ private:
 		autonomousCommand->Cancel();
 
 		resetCommand->Start();
-
-		DefaultInit();
 	}
 	
 	void TeleopPeriodic() override
@@ -92,6 +92,12 @@ private:
 protected:
 	void DefaultInit()
 	{
+		if (m_firstRun == true)
+		{
+			m_firstRun = false;
+			Command* monitorCommand = new MonitorCommandGroup();
+			monitorCommand->Start();
+		}
 #if defined(DEBUG)
 		lw->SetEnabled(true);
 #endif

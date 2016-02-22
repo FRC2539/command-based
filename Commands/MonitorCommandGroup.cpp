@@ -6,6 +6,8 @@
 
 MonitorCommandGroup::MonitorCommandGroup() : CommandGroup("Monitor")
 {
+	SetRunWhenDisabled(true);
+
 	AddParallel(new ZeroGyroCommand());
 	AddParallel(new DefenseStateMonitorCommand());
 	AddParallel(new CameraMonitorCommand());

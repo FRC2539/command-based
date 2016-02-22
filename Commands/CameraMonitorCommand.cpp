@@ -1,7 +1,10 @@
 #include "CameraMonitorCommand.h"
 
 CameraMonitorCommand::CameraMonitorCommand() :
-	DefaultCommand("CameraMonitor") {}
+	DefaultCommand("CameraMonitor")
+{
+	SetRunWhenDisabled(true);
+}
 
 void CameraMonitorCommand::Execute()
 {

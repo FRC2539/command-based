@@ -26,4 +26,5 @@ public:
 protected:
 	virtual bool shouldRun() = 0;
 	Command* m_command;
+	bool m_isStarted;
 };

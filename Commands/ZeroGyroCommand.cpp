@@ -2,7 +2,7 @@
 
 ZeroGyroCommand::ZeroGyroCommand() : InstantCommand("ZeroGyro")
 {
-	Requires(drivetrain);
+	SetRunWhenDisabled(true);
 }
 
 void ZeroGyroCommand::Initialize()
