@@ -20,7 +20,7 @@ void GyroCrossDefenseCommand::Initialize()
 {
 	double angle = drivetrain->getAngle();
 
-	if (angle >= 90 && angle < 270)
+	if (90 <= angle && angle < 270)
 	{
 		m_currentCommand = m_toNeutralZone;
 	}

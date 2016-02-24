@@ -1,5 +1,6 @@
 #include "PickupArms.h"
 #include "../Config.h"
+#include "../Custom/Netconsole.h"
 
 PickupArms::PickupArms() : Subsystem("PickupArms"),
 	m_leftPivotMotor(Config::PickupArms::leftPivotMotorID),
@@ -7,6 +8,7 @@ PickupArms::PickupArms() : Subsystem("PickupArms"),
 	m_rollerMotor(Config::PickupArms::rollerMotorID)
 {
 	m_rollerMotor.SetControlMode(CANTalon::kPercentVbus);
+	m_rollerMotor.SetInverted(true);
 
 	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
 	m_leftPivotMotor.ConfigSoftPositionLimits(
@@ -33,6 +35,12 @@ void PickupArms::pivotToHeight(double position)
 	m_rightPivotMotor.SetPosition(position);
 }
 
+void PickupArms::resetEncoder()
+{
+	m_leftPivotMotor.SetPosition(0);
+	m_rightPivotMotor.SetPosition(0);
+}
+
 void PickupArms::setRollerSpeed(float speed)
 {
 	m_rollerMotor.Set(speed);
@@ -40,6 +48,7 @@ void PickupArms::setRollerSpeed(float speed)
 
 void PickupArms::manualRun(float power)
 {
-	m_leftPivotMotor.SetControlMode(CANTalon::kPercentVbus);
-	m_leftPivotMotor.Set(power);
+	Netconsole::instant("Running", 1);
+	m_rollerMotor.SetControlMode(CANTalon::kPercentVbus);
+	m_rollerMotor.Set(power);
 }

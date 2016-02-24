@@ -33,21 +33,15 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	// Only control the front motors and have the back motors follow because
 	// there is only one encoder per side in an arcade drive setup.
 	m_motors[RobotDrive::kRearLeftMotor]->SetControlMode(
-		CANTalon::kFollower
-	);
-	m_motors[RobotDrive::kRearLeftMotor]->Set(
-		Config::DriveTrain::frontLeftMotorID
+		CANTalon::kPercentVbus
 	);
 	m_motors[RobotDrive::kRearRightMotor]->SetControlMode(
-		CANTalon::kFollower
-	);
-	m_motors[RobotDrive::kRearRightMotor]->Set(
-		Config::DriveTrain::frontRightMotorID
+		CANTalon::kPercentVbus
 	);
 #endif
 
 	m_speeds.resize(m_motors.size());
-	m_stopped.resize(m_motors.size());
+	m_stopped = false;
 
 	m_maxSpeed = Config::DriveTrain::maxSpeed;
 	m_readEncoders = true;
@@ -142,7 +136,7 @@ void DriveTrain::move(float x, float y, float rotate)
 	}
 
 	equalizeMotors();
-	handleStop();
+	//handleStop();
 	setOutputs(m_maxSpeed);
 }
 
@@ -230,6 +224,11 @@ void DriveTrain::equalizeMotors()
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
 		if (currentVoltage > maxVoltage)
 		{
+			if (motor->GetControlMode() == CANTalon::kPercentVbus)
+			{
+				index++;
+				continue;
+			}
 			float sensorValue = std::abs(motor->Get());
 			if (sensorValue < m_maxSpeed)
 			{
@@ -257,24 +256,28 @@ void DriveTrain::equalizeMotors()
 
 void DriveTrain::handleStop()
 {
-	static float threshhold = Config::DriveTrain::maxSpeed / 100;
-
-	unsigned int index = 0;
+	bool isStopped = true;
 	for (auto &speed : m_speeds)
 	{
-		if (std::abs(speed) < threshhold)
+		if (std::abs(speed) > 0.05)
 		{
-			if ( ! m_stopped[index])
-			{
-				m_motors[index]->SetControlMode(CANTalon::kPercentVbus);
-				speed = 0;
-				m_stopped[index] = true;
-			}
+			isStopped = false;
 		}
-		else if (m_stopped[index])
+	}
+	if (isStopped)
+	{
+		m_stopped = true;
+		for (auto &motor : m_motors)
 		{
-			m_motors[index]->SetControlMode(CANTalon::kSpeed);
-			m_stopped[index] = false;
+			motor->SetControlMode(CANTalon::kPercentVbus);
+		}
+	}
+	else if (m_stopped)
+	{
+		m_stopped = false;
+		for (auto &motor : m_motors)
+		{
+			motor->SetControlMode(CANTalon::kSpeed);
 		}
 	}
 }
@@ -284,10 +287,21 @@ void DriveTrain::setOutputs(float maxValue)
 	unsigned int index = 0;
 	for (auto motor : m_motors)
 	{
-		if (motor->GetControlMode() != CANTalon::kFollower)
+#if DRIVE_TYPE == SKID
+		if (m_readEncoders && motor->GetControlMode() == CANTalon::kPercentVbus)
 		{
-			motor->Set(m_speeds[index] * maxValue);
+			motor->Set(
+				m_motors[index - 2]->GetOutputVoltage() /
+				m_motors[index - 2]->GetBusVoltage()
+			);
 		}
+		else
+		{
+#endif
+			motor->Set(m_speeds[index] * maxValue);
+#if DRIVE_TYPE == SKID
+		}
+#endif
 		index++;
 	}
 }
@@ -412,7 +426,7 @@ void DriveTrain::setMode(CANSpeedController::ControlMode mode, bool resetAll)
 {
 	for (auto &motor : m_motors)
 	{
-		if ( ! resetAll && motor->GetControlMode() == CANTalon::kFollower)
+		if ( ! resetAll && motor->GetControlMode() == CANTalon::kPercentVbus)
 		{
 			continue;
 		}

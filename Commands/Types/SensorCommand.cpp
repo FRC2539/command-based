@@ -7,6 +7,7 @@
 #include "SensorCommand.h"
 
 #include <PIDController.h>
+#include "../../Custom/Netconsole.h"
 
 SensorCommand::SensorCommand(const char *name, double target, double p, double i, double d, double f, double period) :
 DefaultCommand(name)
@@ -28,6 +29,7 @@ void SensorCommand::Setup(double target, double p, double i, double d, double f,
 
 	m_controller = new PIDController(p, i, d, f, this, this, period);
 	m_controller->SetTolerance(0.5);
+	m_controller->SetToleranceBuffer(1);
 }
 
 SensorCommand::~SensorCommand()
@@ -37,6 +39,7 @@ SensorCommand::~SensorCommand()
 
 void SensorCommand::_Initialize()
 {
+	m_controller->Reset();
 	m_controller->Enable();
 }
 
@@ -50,14 +53,11 @@ bool SensorCommand::IsFinished()
 	return m_controller->OnTarget();
 }
 
-void SensorCommand::End()
-{
-    UsePIDOutput(0);
-}
-
 void SensorCommand::_End()
 {
+	Netconsole::instant("Disable Controller", 0);
 	m_controller->Disable();
+	Netconsole::instant("Controller", m_controller->IsEnabled());
 }
 
 void SensorCommand::_Interrupted()
@@ -98,7 +98,10 @@ void SensorCommand::setInputRange(double min, double max)
 
 void SensorCommand::PIDWrite(float output)
 {
-	UsePIDOutput(output);
+	if (IsRunning())
+	{
+		UsePIDOutput(output);
+	}
 }
 
 double SensorCommand::PIDGet()

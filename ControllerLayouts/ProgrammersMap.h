@@ -19,5 +19,6 @@ ADD_BUTTON(0, DPadUp, WhenPressed, new AlignmentTurnCommand(0));
 ADD_BUTTON(0, DPadRight, WhenPressed, new AlignmentTurnCommand(90));
 ADD_BUTTON(0, DPadLeft, WhenPressed, new AlignmentTurnCommand(270));
 ADD_BUTTON(0, DPadDown, WhenPressed, new AlignmentTurnCommand(180));
-ADD_BUTTON(0, X, WhileHeld, new MotorTestCommand(0.3));
+ADD_BUTTON(0, X, WhileHeld, new MotorTestCommand(1));
 ADD_SIMPLE_BUTTON(0, Y, GyroCrossDefenseCommand);
+ADD_SIMPLE_BUTTON(0, Start, MoveToPosition);

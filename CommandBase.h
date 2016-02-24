@@ -26,7 +26,7 @@ public:
 
 	// Create a single static instance of each of your subsystems
 	static DriveTrain *drivetrain;
-	static OI *oi;
 	static PickupArms *pickuparms;
 	static Shooter *shooter;
+	static OI *oi;
 };

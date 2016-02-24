@@ -15,24 +15,27 @@ Shooter::Shooter() : Subsystem("Shooter"),
 {
 	m_indexWheel.SetControlMode(CANTalon::kPercentVbus);
 	m_indexWheel.ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
+	m_indexWheel.SetInverted(true);
 
 	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel.ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 	m_shooterWheel.SetI(Config::Shooter::I);
+	m_shooterWheel.SetInverted(true);
 
 	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
-	m_leftPivotMotor.ConfigSoftPositionLimits(
+	/*m_leftPivotMotor.ConfigSoftPositionLimits(
 		Config::Shooter::maxHeight,
 		Config::Shooter::minHeight
-	);
+	);*/
 	m_leftPivotMotor.SetP(Config::Shooter::P);
 
 	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
-	m_rightPivotMotor.ConfigSoftPositionLimits(
+	/*m_rightPivotMotor.ConfigSoftPositionLimits(
 		Config::Shooter::maxHeight,
 		Config::Shooter::minHeight
-	);
-	m_rightPivotMotor.SetP(Config::PickupArms::P);
+	);*/
+	m_rightPivotMotor.SetP(Config::Shooter::P);
+	//m_rightPivotMotor.SetInverted(true);
 
 	m_gripOutput = NetworkTable::GetTable("GRIP/myContoursReport");
 	m_targetInfo = NetworkTable::GetTable("cameraTarget");
@@ -68,6 +71,12 @@ void Shooter::stopShooter()
 	m_shooterWheel.Set(0);
 }
 
+void Shooter::manualRun(float power)
+{
+	m_rightPivotMotor.SetControlMode(CANTalon::kPercentVbus);
+	m_rightPivotMotor.Set(power);
+}
+
 bool Shooter::readyToFire()
 {
 	if (m_shooterWheel.GetSetpoint() != Config::Shooter::firingSpeed)
@@ -75,6 +84,12 @@ bool Shooter::readyToFire()
 		return false;
 	}
 	return std::abs(m_shooterWheel.GetClosedLoopError()) < 100;
+}
+
+void Shooter::resetEncoder()
+{
+	m_leftPivotMotor.SetPosition(0);
+	m_rightPivotMotor.SetPosition(0);
 }
 
 bool Shooter::hasBall()

@@ -3,15 +3,15 @@
 MotorTestCommand::MotorTestCommand(float speed) : DefaultCommand("MotorTest"),
 	m_speed(speed)
 {
-	Requires(pickuparms);
+	Requires(shooter);
 }
 
 void MotorTestCommand::Initialize()
 {
-    pickuparms->manualRun(m_speed);
+    shooter->manualRun(m_speed);
 }
 
 void MotorTestCommand::End()
 {
-    pickuparms->manualRun(0);
+    shooter->manualRun(0);
 }

@@ -48,7 +48,6 @@ public:
 
 	virtual void Initialize();
 	virtual bool IsFinished();
-	virtual void End();
 
 protected:
 	PIDController *GetPIDController();
@@ -77,7 +76,6 @@ protected:
 	virtual double ReturnPIDInput() const = 0;
 	virtual void UsePIDOutput(double output) = 0;
 
-private:
 	/** The internal {@link PIDController} */
 	PIDController *m_controller;
 

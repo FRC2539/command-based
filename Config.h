@@ -31,10 +31,10 @@ namespace Config {
 
 		const double maxSpeed = 300;
 		const double preciseModeMaxSpeed = 75;
-		const double accelerationRate = 0.01;
+		const double accelerationRate = 0.005;
 
 		// Ratio of y speed to rotation speed, between 0 and 1
-		const double rotationGain = 0.6;
+		const double rotationGain = 0.8;
 	}
 
 	namespace PickupArms {

@@ -11,6 +11,8 @@ public:
 	void setRollerSpeed(float speed);
 
 	void manualRun(float power);
+
+	void resetEncoder();
 	
 protected:
 	CANTalon m_leftPivotMotor;

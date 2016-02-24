@@ -28,6 +28,8 @@ public:
 	void stopShooter();
 	bool readyToFire();
 	bool hasBall();
+	void manualRun(float power);
+	void resetEncoder();
 
 protected:
 	DigitalInput m_ballDetector;

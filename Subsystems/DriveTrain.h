@@ -62,7 +62,7 @@ protected:
 	
 	DefenseState m_defenseLastState;
 	std::vector<float> m_speeds;
-	std::vector<bool> m_stopped;
+	bool m_stopped;
 	AHRS m_navX;
 
 	void equalizeMotors();

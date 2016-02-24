@@ -18,6 +18,8 @@
 #include "Commands/AlignmentTurnCommand.h"
 #include "Commands/MotorTestCommand.h"
 #include "Commands/GyroCrossDefenseCommand.h"
+#include "Commands/ResetEncoder.h"
+#include "Commands/MoveToPosition.h"
 
 OI::OI()
 {

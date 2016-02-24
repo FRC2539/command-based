@@ -20,9 +20,11 @@ CommandBase::~CommandBase() {
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
-	oi = new OI();
 	pickuparms = new PickupArms();
 	shooter = new Shooter();
+
+	// This subsystem must be instantiated last
+	oi = new OI();
 }
 
 
@@ -30,7 +32,7 @@ void CommandBase::init() {
  * to be available on the roboRIO
  */
 DriveTrain* CommandBase::drivetrain = NULL;
-OI* CommandBase::oi = NULL;
 PickupArms* CommandBase::pickuparms = NULL;
 Shooter* CommandBase::shooter = NULL;
+OI* CommandBase::oi = NULL;
 

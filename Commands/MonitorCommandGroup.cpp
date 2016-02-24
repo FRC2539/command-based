@@ -10,6 +10,6 @@ MonitorCommandGroup::MonitorCommandGroup() : CommandGroup("Monitor")
 
 	AddParallel(new ZeroGyroCommand());
 	AddParallel(new DefenseStateMonitorCommand());
-	AddParallel(new CameraMonitorCommand());
+	//AddParallel(new CameraMonitorCommand());
 }
 
