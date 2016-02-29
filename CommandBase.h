@@ -6,9 +6,10 @@
 // definitions are required by the Commands.
 #include "Config.h"
 #include "Subsystems/DriveTrain.h"
-#include "OI.h"
+#include "Subsystems/Monitor.h"
 #include "Subsystems/PickupArms.h"
 #include "Subsystems/Shooter.h"
+#include "OI.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -26,6 +27,7 @@ public:
 
 	// Create a single static instance of each of your subsystems
 	static DriveTrain *drivetrain;
+	static Monitor *monitor;
 	static PickupArms *pickuparms;
 	static Shooter *shooter;
 	static OI *oi;

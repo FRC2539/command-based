@@ -5,10 +5,10 @@
 
 #include <PIDSource.h>
 #include <PIDOutput.h>
+#include <PIDController.h>
+#include <memory>
 
 #include "DefaultCommand.h"
-
-class PIDController;
 
 class SensorCommand : public DefaultCommand, public PIDOutput, public PIDSource
 {
@@ -30,7 +30,6 @@ public:
 		double f=0,
 		double period=0.05
 	);
-	virtual ~SensorCommand();
 
 	void SetSetpointRelative(double deltaSetpoint);
 
@@ -50,7 +49,7 @@ public:
 	virtual bool IsFinished();
 
 protected:
-	PIDController *GetPIDController();
+	std::shared_ptr<PIDController> GetPIDController() const;
 	void Setup(
 		double target,
 		double p,
@@ -63,7 +62,7 @@ protected:
 	virtual void _Interrupted();
 	virtual void _End();
 	void SetSetpoint(double setpoint);
-	double GetSetpoint();
+	double GetSetpoint() const;
 	double GetPosition();
 
 	void modifyRange(double current, double next);
@@ -77,9 +76,9 @@ protected:
 	virtual void UsePIDOutput(double output) = 0;
 
 	/** The internal {@link PIDController} */
-	PIDController *m_controller;
+	std::shared_ptr<PIDController> m_controller;
 
 public:
 	virtual void InitTable(std::shared_ptr< ITable > table);
-	virtual std::string GetSmartDashboardType();
+	virtual std::string GetSmartDashboardType() const;
 };

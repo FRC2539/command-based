@@ -2,9 +2,9 @@
 
 #include "Types/DefaultCommand.h"
 
-class CameraMonitorCommand : public DefaultCommand {
+class MonitorCommand : public DefaultCommand {
 
 public:
-	explicit CameraMonitorCommand();
+	explicit MonitorCommand();
 	void Execute() override;
 };

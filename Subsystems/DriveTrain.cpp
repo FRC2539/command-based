@@ -33,10 +33,16 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	// Only control the front motors and have the back motors follow because
 	// there is only one encoder per side in an arcade drive setup.
 	m_motors[RobotDrive::kRearLeftMotor]->SetControlMode(
-		CANTalon::kPercentVbus
+		CANTalon::kFollower
+	);
+	m_motors[RobotDrive::kRearLeftMotor]->Set(
+		Config::DriveTrain::frontLeftMotorID
 	);
 	m_motors[RobotDrive::kRearRightMotor]->SetControlMode(
-		CANTalon::kPercentVbus
+		CANTalon::kFollower
+	);
+	m_motors[RobotDrive::kRearRightMotor]->Set(
+		Config::DriveTrain::frontRightMotorID
 	);
 #endif
 
@@ -79,14 +85,6 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 
 void DriveTrain::move(float x, float y, float rotate)
 {
-	SmartDashboard::PutNumber("Angle", getAngle());
-	SmartDashboard::PutNumber("Pitch", m_navX.GetRoll());
-	SmartDashboard::PutNumber("Roll", m_navX.GetPitch());
-	SmartDashboard::PutNumber(
-		"Defense State",
-		static_cast<int>(getDefenseState())
-	);
-
 #if DRIVE_TYPE == SKID
 	x = 0;
 #endif
@@ -221,14 +219,13 @@ void DriveTrain::equalizeMotors()
 	unsigned int index = 0;
 	for (auto motor : m_motors)
 	{
+		if (motor->GetControlMode() == CANTalon::kFollower)
+		{
+			continue;
+		}
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
 		if (currentVoltage > maxVoltage)
 		{
-			if (motor->GetControlMode() == CANTalon::kPercentVbus)
-			{
-				index++;
-				continue;
-			}
 			float sensorValue = std::abs(motor->Get());
 			if (sensorValue < m_maxSpeed)
 			{
@@ -267,18 +264,12 @@ void DriveTrain::handleStop()
 	if (isStopped)
 	{
 		m_stopped = true;
-		for (auto &motor : m_motors)
-		{
-			motor->SetControlMode(CANTalon::kPercentVbus);
-		}
+		setMode(CANTalon::kPercentVbus);
 	}
 	else if (m_stopped)
 	{
 		m_stopped = false;
-		for (auto &motor : m_motors)
-		{
-			motor->SetControlMode(CANTalon::kSpeed);
-		}
+		setMode(CANTalon::kSpeed);
 	}
 }
 
@@ -287,21 +278,10 @@ void DriveTrain::setOutputs(float maxValue)
 	unsigned int index = 0;
 	for (auto motor : m_motors)
 	{
-#if DRIVE_TYPE == SKID
-		if (m_readEncoders && motor->GetControlMode() == CANTalon::kPercentVbus)
+		if (motor->GetControlMode() != CANTalon::kFollower)
 		{
-			motor->Set(
-				m_motors[index - 2]->GetOutputVoltage() /
-				m_motors[index - 2]->GetBusVoltage()
-			);
-		}
-		else
-		{
-#endif
 			motor->Set(m_speeds[index] * maxValue);
-#if DRIVE_TYPE == SKID
 		}
-#endif
 		index++;
 	}
 }
@@ -426,7 +406,7 @@ void DriveTrain::setMode(CANSpeedController::ControlMode mode, bool resetAll)
 {
 	for (auto &motor : m_motors)
 	{
-		if ( ! resetAll && motor->GetControlMode() == CANTalon::kPercentVbus)
+		if ( ! resetAll && motor->GetControlMode() == CANTalon::kFollower)
 		{
 			continue;
 		}

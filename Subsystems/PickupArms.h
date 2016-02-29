@@ -7,15 +7,18 @@
 class PickupArms: public Subsystem {
 public:
 	PickupArms();
-	void pivotToHeight(double position);
+	void pivotToHeight(int position);
 	void setRollerSpeed(float speed);
 
 	void manualRun(float power);
 
-	void resetEncoder();
+	void setEncoderPosition(int position=0);
 	
 protected:
 	CANTalon m_leftPivotMotor;
 	CANTalon m_rightPivotMotor;
 	CANTalon m_rollerMotor;
+
+	bool atKnownPosition();
+	bool m_settingsLoaded;
 };

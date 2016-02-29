@@ -2,6 +2,16 @@
 
 #include <iostream>
 
+void Netconsole::print(std::string label, std::string value)
+{
+	sendToConsole(label, value);
+}
+
+void Netconsole::instant(std::string label, std::string value)
+{
+	writeOut(label, value);
+}
+
 void Netconsole::sendToConsole(std::string label, std::string value)
 {
 	if (storage.count(label) == 0)

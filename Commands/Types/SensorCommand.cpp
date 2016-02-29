@@ -6,7 +6,6 @@
 
 #include "SensorCommand.h"
 
-#include <PIDController.h>
 #include "../../Custom/Netconsole.h"
 
 SensorCommand::SensorCommand(const char *name, double target, double p, double i, double d, double f, double period) :
@@ -27,14 +26,9 @@ void SensorCommand::Setup(double target, double p, double i, double d, double f,
 	m_rangeMin = target;
 	m_rangeMax = target;
 
-	m_controller = new PIDController(p, i, d, f, this, this, period);
+	m_controller = std::make_shared<PIDController>(p, i, d, f, this, this, period);
 	m_controller->SetTolerance(0.5);
 	m_controller->SetToleranceBuffer(1);
-}
-
-SensorCommand::~SensorCommand()
-{
-	delete m_controller;
 }
 
 void SensorCommand::_Initialize()
@@ -109,7 +103,7 @@ double SensorCommand::PIDGet()
 	return ReturnPIDInput();
 }
 
-PIDController *SensorCommand::GetPIDController()
+std::shared_ptr<PIDController> SensorCommand::GetPIDController() const
 {
 	return m_controller;
 }
@@ -125,7 +119,7 @@ void SensorCommand::SetSetpoint(double setpoint)
 	m_controller->SetSetpoint(setpoint);
 }
 
-double SensorCommand::GetSetpoint()
+double SensorCommand::GetSetpoint() const
 {
 	return m_controller->GetSetpoint();
 }
@@ -162,7 +156,8 @@ void SensorCommand::modifyRange(double current, double next)
 	m_controller->SetInputRange(m_rangeMin, m_rangeMax);
 }
 
-std::string SensorCommand::GetSmartDashboardType(){
+std::string SensorCommand::GetSmartDashboardType() const
+{
 	return "SensorCommand";
 }
 void SensorCommand::InitTable(std::shared_ptr<ITable> table){

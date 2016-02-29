@@ -2,9 +2,9 @@
 
 #include "Types/InstantCommand.h"
 
-class ResetEncoder : public InstantCommand {
+class ShutdownJetsonCommand : public InstantCommand {
 
 public:
-	ResetEncoder();
+	ShutdownJetsonCommand();
 	void Initialize() override;
 };

@@ -18,6 +18,8 @@ public:
 	{
 		writeOut(label, std::to_string(value));
 	};
+	static void print(std::string label, std::string value);
+	static void instant(std::string label, std::string value);
 	static void reset();
 
 protected:

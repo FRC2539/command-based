@@ -3,6 +3,7 @@
 #include "../Config.h"
 
 #include <networktables/NetworkTable.h>
+#include <Preferences.h>
 #include <vector>
 
 Shooter::Shooter() : Subsystem("Shooter"),
@@ -11,7 +12,7 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_rightPivotMotor(Config::Shooter::rightPivotMotorID),
 	m_indexWheel(Config::Shooter::indexWheelID),
 	m_shooterWheel(Config::Shooter::shooterWheelID),
-	m_cameraWidth(640)
+	m_settingsLoaded(false)
 {
 	m_indexWheel.SetControlMode(CANTalon::kPercentVbus);
 	m_indexWheel.ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
@@ -28,16 +29,13 @@ Shooter::Shooter() : Subsystem("Shooter"),
 		Config::Shooter::minHeight
 	);*/
 	m_leftPivotMotor.SetP(Config::Shooter::P);
+	m_leftPivotMotor.ConfigMaxOutputVoltage(6);
+	m_leftPivotMotor.SetSensorDirection(true);
 
-	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
-	/*m_rightPivotMotor.ConfigSoftPositionLimits(
-		Config::Shooter::maxHeight,
-		Config::Shooter::minHeight
-	);*/
-	m_rightPivotMotor.SetP(Config::Shooter::P);
-	//m_rightPivotMotor.SetInverted(true);
+	m_rightPivotMotor.SetControlMode(CANTalon::kFollower);
+	m_rightPivotMotor.Set(Config::Shooter::leftPivotMotorID);
+	m_rightPivotMotor.SetClosedLoopOutputDirection(true);
 
-	m_gripOutput = NetworkTable::GetTable("GRIP/myContoursReport");
 	m_targetInfo = NetworkTable::GetTable("cameraTarget");
 
 	DEBUG_MOTOR(m_leftPivotMotor);
@@ -48,10 +46,16 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	DEBUG_SENSOR(m_ballDetector);
 }
 
-void Shooter::pivotToHeight(double position)
+void Shooter::pivotToHeight(int position)
 {
-	m_leftPivotMotor.SetPosition(position);
-	m_rightPivotMotor.SetPosition(position);
+	if (atKnownPosition() == false)
+	{
+		return;
+	}
+	m_leftPivotMotor.Set(position);
+
+	Preferences* preferences = Preferences::GetInstance();
+	preferences->PutInt("shooterPosition", position);
 }
 
 void Shooter::setIndexerSpeed(float speed)
@@ -86,68 +90,16 @@ bool Shooter::readyToFire()
 	return std::abs(m_shooterWheel.GetClosedLoopError()) < 100;
 }
 
-void Shooter::resetEncoder()
+void Shooter::setEncoderPosition(int position)
 {
-	m_leftPivotMotor.SetPosition(0);
-	m_rightPivotMotor.SetPosition(0);
+	m_leftPivotMotor.SetPosition(position);
+
+	m_settingsLoaded = true;
 }
 
 bool Shooter::hasBall()
 {
 	return m_ballDetector.Get();
-}
-
-void Shooter::calculateTargetPosition(){
-	std::vector<double> heights = m_gripOutput->GetNumberArray(
-		"height",
-		llvm::ArrayRef<double>()
-	);
-	std::vector<double> widths = m_gripOutput->GetNumberArray(
-		"width",
-		llvm::ArrayRef<double>()
-	);
-	std::vector<double> centerX = m_gripOutput->GetNumberArray(
-		"centerX",
-		llvm::ArrayRef<double>()
-	);
-
-	if (heights.size() == 0)
-	{
-		m_targetInfo->PutBoolean("hasTarget", false);
-	}
-
-	std::vector<double> scores;
-
-	int i = 0;
-	double aspect = 12/20;
-	m_cameraWidth = 640;
-
-	for (double height : heights)
-	{
-		double aspectError = std::abs(height / widths[i] - aspect);
-		double positionError = std::abs(centerX[i] - m_cameraWidth / 2);
-		positionError = positionError / m_cameraWidth;
-
-		scores.push_back(aspectError + positionError);
-		i++;
-	}
-
-	int best = 0;
-	i = 0;
-	double leastError = 10000;
-	for (double score : scores)
-	{
-		if (score < leastError)
-		{
-			leastError = score;
-			best = i;
-		}
-		i++;
-	}
-
-	m_targetInfo->PutBoolean("hasTarget", true);
-	m_targetInfo->PutNumber("distance", 29.847575 - 0.332564 * widths[best]);
-	m_targetInfo->PutNumber("centerX", centerX[best] - m_cameraWidth / 2);
 }
 
 Shooter::Target Shooter::getTarget()
@@ -164,4 +116,19 @@ Shooter::Target Shooter::getTarget()
 	target.distance = m_targetInfo->GetNumber("distance", 0);
 
 	return target;
+}
+
+bool Shooter::atKnownPosition()
+{
+	if ( ! m_settingsLoaded)
+	{
+		Preferences* preferences = Preferences::GetInstance();
+		if (preferences->ContainsKey("shooterPosition"))
+		{
+			m_leftPivotMotor.SetPosition(preferences->GetInt("shooterPosition"));
+			m_settingsLoaded = true;
+		}
+	}
+
+	return m_settingsLoaded;
 }

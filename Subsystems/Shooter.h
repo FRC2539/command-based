@@ -19,17 +19,16 @@ public:
 		double position = 0;
 	};
 
-	void calculateTargetPosition();
 	Target getTarget();
 
-	void pivotToHeight(double position);
+	void pivotToHeight(int position);
 	void setIndexerSpeed(float speed);
 	void setShooterSpeed(float speed);
 	void stopShooter();
 	bool readyToFire();
 	bool hasBall();
 	void manualRun(float power);
-	void resetEncoder();
+	void setEncoderPosition(int position=0);
 
 protected:
 	DigitalInput m_ballDetector;
@@ -39,7 +38,8 @@ protected:
 	CANTalon m_indexWheel;
 	CANTalon m_shooterWheel;
 
-	std::shared_ptr<NetworkTable> m_gripOutput;
 	std::shared_ptr<NetworkTable> m_targetInfo;
-	int m_cameraWidth;
+
+	bool atKnownPosition();
+	bool m_settingsLoaded;
 };

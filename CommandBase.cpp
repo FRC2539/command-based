@@ -13,13 +13,15 @@ CommandBase::CommandBase() : Command() {}
 
 CommandBase::~CommandBase() {
 	delete drivetrain;
-	delete oi;
+	delete monitor;
 	delete pickuparms;
 	delete shooter;
+	delete oi;
 }
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
+	monitor = new Monitor();
 	pickuparms = new PickupArms();
 	shooter = new Shooter();
 
@@ -32,6 +34,7 @@ void CommandBase::init() {
  * to be available on the roboRIO
  */
 DriveTrain* CommandBase::drivetrain = NULL;
+Monitor* CommandBase::monitor = NULL;
 PickupArms* CommandBase::pickuparms = NULL;
 Shooter* CommandBase::shooter = NULL;
 OI* CommandBase::oi = NULL;

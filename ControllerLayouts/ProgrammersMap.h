@@ -21,4 +21,4 @@ ADD_BUTTON(0, DPadLeft, WhenPressed, new AlignmentTurnCommand(270));
 ADD_BUTTON(0, DPadDown, WhenPressed, new AlignmentTurnCommand(180));
 ADD_BUTTON(0, X, WhileHeld, new MotorTestCommand(1));
 ADD_SIMPLE_BUTTON(0, Y, GyroCrossDefenseCommand);
-ADD_SIMPLE_BUTTON(0, Start, MoveToPosition);
+ADD_BUTTON(0, Start, WhenPressed, new SetShooterHeightCommand(Config::Shooter::minHeight));

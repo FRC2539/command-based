@@ -1,18 +1,14 @@
 #include <WPILib.h>
 #include <LiveWindow/LiveWindow.h>
 #include <Commands/Command.h>
-#include "Commands/Autonomous/AutonomousCommandGroup.h"
+
+#include "Custom/DriverHUD.h"
 #include "Commands/ResetCommand.h"
-#include "Commands/MonitorCommandGroup.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
-	SendableChooser* autonomousProgram;
-	Command* autonomousCommand;
 	Command* resetCommand;
-
-	bool m_firstRun = true;
 
 #if defined(DEBUG)
 	LiveWindow* lw;
@@ -21,20 +17,7 @@ private:
 	void RobotInit() override
 	{
 		CommandBase::init();
-
-		autonomousCommand = new AutonomousCommandGroup();
-
-		autonomousProgram = new SendableChooser();
-		autonomousProgram->AddDefault(
-			"Default",
-			autonomousCommand
-		);
-		autonomousProgram->AddObject(
-			"Additional Command",
-			autonomousCommand
-		);
-		
-		SmartDashboard::PutData("Autonomous Program", autonomousProgram);
+		DriverHUD::prepare();
 
 		resetCommand = new ResetCommand();
 
@@ -46,9 +29,7 @@ private:
 	void AutonomousInit() override
 	{
 		DefaultInit();
-
-		autonomousCommand = (Command *) autonomousProgram->GetSelected();
-		autonomousCommand->Start();
+		DriverHUD::startAutonomous();
 	}
 	
 	void AutonomousPeriodic() override
@@ -64,7 +45,7 @@ private:
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		autonomousCommand->Cancel();
+		DriverHUD::stopAutonomous();
 
 		resetCommand->Start();
 	}
@@ -82,34 +63,27 @@ private:
 	void TestInit() override
 	{
 		DefaultInit();
-	}
-
-	void TestPeriodic() override
-	{
-		DefaultPeriodic();
-	}
-
-protected:
-	void DefaultInit()
-	{
-		if (m_firstRun == true)
-		{
-			m_firstRun = false;
-			Command* monitorCommand = new MonitorCommandGroup();
-			monitorCommand->Start();
-		}
 #if defined(DEBUG)
 		lw->SetEnabled(true);
 #endif
 	}
 
-	void DefaultPeriodic()
+	void TestPeriodic() override
 	{
-		Scheduler::GetInstance()->Run();
-
+		DefaultPeriodic();
 #if defined(DEBUG)
 		lw->Run();
 #endif
+	}
+
+protected:
+	void DefaultInit()
+	{
+	}
+
+	void DefaultPeriodic()
+	{
+		Scheduler::GetInstance()->Run();
 	}
 };
 
