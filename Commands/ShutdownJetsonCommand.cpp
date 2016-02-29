@@ -2,8 +2,6 @@
 
 #include <networktables/NetworkTable.h>
 
-#include "../Custom/DriverHUD.h"
-
 ShutdownJetsonCommand::ShutdownJetsonCommand()
 	: InstantCommand("ShutdownJetson")
 {

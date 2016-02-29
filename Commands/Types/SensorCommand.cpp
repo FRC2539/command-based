@@ -6,8 +6,6 @@
 
 #include "SensorCommand.h"
 
-#include "../../Custom/Netconsole.h"
-
 SensorCommand::SensorCommand(const char *name, double target, double p, double i, double d, double f, double period) :
 DefaultCommand(name)
 {
@@ -49,9 +47,7 @@ bool SensorCommand::IsFinished()
 
 void SensorCommand::_End()
 {
-	Netconsole::instant("Disable Controller", 0);
 	m_controller->Disable();
-	Netconsole::instant("Controller", m_controller->IsEnabled());
 }
 
 void SensorCommand::_Interrupted()

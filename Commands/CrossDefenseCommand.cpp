@@ -1,7 +1,6 @@
 #include "CrossDefenseCommand.h"
 
 #include "../Config.h"
-#include "../Custom/Netconsole.h"
 
 CrossDefenseCommand::CrossDefenseCommand() :
 	SensorCommand("CrossDefense", 0, 0, 0.002, 0)
@@ -13,7 +12,6 @@ CrossDefenseCommand::CrossDefenseCommand() :
 
 void CrossDefenseCommand::Initialize()
 {
-	Netconsole::instant("CrossDefense", 1);
 	drivetrain->setMaxSpeed(Config::DriveTrain::preciseModeMaxSpeed);
 	m_target = drivetrain->getAngle();
 	SensorCommand::Initialize();
@@ -28,13 +26,11 @@ bool CrossDefenseCommand::IsFinished()
 		if (drivetrain->getDefenseState() == DriveTrain::DefenseState::Floor)
 		{
 			counter++;
-			Netconsole::instant("Counter", counter);
 		}
 		return counter >= 10;
 	}
 	else if (drivetrain->getDefenseState() == DriveTrain::DefenseState::Defense)
 	{
-		Netconsole::instant("Reached Defense", 1);
 		crossedDefense = true;
 		return false;
 	}
@@ -42,7 +38,6 @@ bool CrossDefenseCommand::IsFinished()
 
 void CrossDefenseCommand::Interrupted()
 {
-	Netconsole::instant("Something stopped me", 1);
 	DefaultCommand::Interrupted();
 }
 
@@ -51,8 +46,6 @@ void CrossDefenseCommand::UsePIDOutput(double output)
 	double y = std::max(1 - std::abs(output), 0.0);
 
 	drivetrain->move(0, y, output);
-	Netconsole::print("Y", y);
-	Netconsole::print("Rotate", output);
 }
 
 double CrossDefenseCommand::ReturnPIDInput() const

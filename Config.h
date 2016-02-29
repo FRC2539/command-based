@@ -45,6 +45,9 @@ namespace Config {
 		const double P = .11;
 		const int maxHeight = 500;
 		const int minHeight = 0;
+
+		const int ballRollerHeight = 100;
+		const int liftedPortcullisHeight = 300;
 	}
 
 	namespace Shooter {
@@ -55,6 +58,8 @@ namespace Config {
 
 		const int maxHeight = 300;
 		const int minHeight = 0;
+
+		const int shootingHeight = 150;
 
 		const double firingSpeed = 5000;
 
