@@ -42,12 +42,12 @@ namespace Config {
 		CanID leftPivotMotorID = 6;
 		CanID rightPivotMotorID = 7;
 
-		const double P = .31;
+		const double P = 1;
 		const int maxHeight = 500;
 		const int minHeight = 0;
 
 		const int ballRollerHeight = 100;
-		const int liftedPortcullisHeight = 300;
+		const int liftedPortcullisHeight = 400;
 	}
 
 	namespace Shooter {
@@ -63,7 +63,7 @@ namespace Config {
 
 		const double firingSpeed = 5000;
 
-		const double P = .31;
+		const double P = 1;
 		const double I = 0.1;
 
 		DIOPort ballDetectorID = 0;

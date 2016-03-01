@@ -12,14 +12,14 @@ PickupArms::PickupArms() : Subsystem("PickupArms"),
 	m_rollerMotor.SetControlMode(CANTalon::kPercentVbus);
 	m_rollerMotor.SetInverted(true);
 
-	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
+	/*m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
 	m_leftPivotMotor.ConfigSoftPositionLimits(
 		Config::PickupArms::maxHeight,
 		Config::PickupArms::minHeight
 	);
 	m_leftPivotMotor.SetP(Config::PickupArms::P);
 	m_leftPivotMotor.ConfigMaxOutputVoltage(6);
-	m_leftPivotMotor.SetClosedLoopOutputDirection(true);
+	m_leftPivotMotor.SetClosedLoopOutputDirection(true);*/
 
 	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
 	m_rightPivotMotor.ConfigSoftPositionLimits(
@@ -28,6 +28,11 @@ PickupArms::PickupArms() : Subsystem("PickupArms"),
 	);
 	m_rightPivotMotor.SetP(Config::PickupArms::P);
 	m_rightPivotMotor.ConfigMaxOutputVoltage(6);
+
+	// Compensate for broken encoder on left side
+	m_leftPivotMotor.SetControlMode(CANTalon::kFollower);
+	m_leftPivotMotor.Set(Config::PickupArms::rightPivotMotorID);
+	m_leftPivotMotor.SetClosedLoopOutputDirection(true);
 
 	DEBUG_MOTOR(m_leftPivotMotor);
 	DEBUG_MOTOR(m_rightPivotMotor);
@@ -41,7 +46,7 @@ void PickupArms::pivotToHeight(int position)
 		return;
 	}
 
-	m_leftPivotMotor.Set(position);
+	//m_leftPivotMotor.Set(position);
 	m_rightPivotMotor.Set(position);
 
 	Preferences* preferences = Preferences::GetInstance();
@@ -50,7 +55,7 @@ void PickupArms::pivotToHeight(int position)
 
 void PickupArms::setEncoderPosition(int position)
 {
-	m_leftPivotMotor.SetPosition(position);
+	//m_leftPivotMotor.SetPosition(position);
 	m_rightPivotMotor.SetPosition(position);
 }
 
