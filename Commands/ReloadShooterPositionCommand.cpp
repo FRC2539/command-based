@@ -13,12 +13,12 @@ ReloadShooterPositionCommand::ReloadShooterPositionCommand()
 void ReloadShooterPositionCommand::Initialize()
 {
 	Preferences* preferences = Preferences::GetInstance();
-	if (preferences->ContainsKey("pickupPosition"))
+	if (preferences->ContainsKey("shooterPosition"))
 	{
-		pickuparms->setEncoderPosition(preferences->GetInt("pickupPosition"));
+		shooter->setEncoderPosition(preferences->GetInt("shooterPosition"));
 	}
 	else
 	{
-		DriverHUD::sendMessage("No Preference named \"pickupPosition\"");
+		DriverHUD::sendMessage("No Preference named \"shooterPosition\"");
 	}
 }

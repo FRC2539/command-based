@@ -19,6 +19,7 @@
 #include "Commands/MotorTestCommand.h"
 #include "Commands/GyroCrossDefenseCommand.h"
 #include "Commands/SetShooterHeightCommand.h"
+#include "Commands/SetPickupArmsHeightCommand.h"
 
 OI::OI()
 {

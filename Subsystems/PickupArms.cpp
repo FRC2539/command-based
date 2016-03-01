@@ -19,11 +19,12 @@ PickupArms::PickupArms() : Subsystem("PickupArms"),
 	);
 	m_leftPivotMotor.SetP(Config::PickupArms::P);
 	m_leftPivotMotor.ConfigMaxOutputVoltage(6);
+	m_leftPivotMotor.SetClosedLoopOutputDirection(true);
 
 	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
 	m_rightPivotMotor.ConfigSoftPositionLimits(
-		Config::PickupArms::minHeight,
-		Config::PickupArms::maxHeight
+		Config::PickupArms::maxHeight,
+		Config::PickupArms::minHeight
 	);
 	m_rightPivotMotor.SetP(Config::PickupArms::P);
 	m_rightPivotMotor.ConfigMaxOutputVoltage(6);
