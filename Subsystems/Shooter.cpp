@@ -53,9 +53,6 @@ void Shooter::pivotToHeight(int position)
 		return;
 	}
 	m_leftPivotMotor.Set(position);
-
-	Preferences* preferences = Preferences::GetInstance();
-	preferences->PutInt("shooterPosition", position);
 }
 
 void Shooter::setIndexerSpeed(float speed)
@@ -90,11 +87,27 @@ bool Shooter::readyToFire()
 	return std::abs(m_shooterWheel.GetClosedLoopError()) < 100;
 }
 
+int Shooter::getHeight()
+{
+	return m_leftPivotMotor.GetPosition();
+}
+
 void Shooter::setEncoderPosition(int position)
 {
 	m_leftPivotMotor.SetPosition(position);
 
+	Preferences* preferences = Preferences::GetInstance();
+	preferences->PutInt("shooterPosition", position);
+
 	m_settingsLoaded = true;
+}
+
+void Shooter::storeEncoderPosition()
+{
+	if (atKnownPosition())
+	{
+		setEncoderPosition(getHeight());
+	}
 }
 
 bool Shooter::hasBall()

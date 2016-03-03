@@ -4,11 +4,13 @@
 
 #include "Custom/DriverHUD.h"
 #include "Commands/ResetCommand.h"
+#include "Commands/StorePositionsCommandGroup.h"
 #include "CommandBase.h"
 
 class CommandBasedRobot : public IterativeRobot {
 private:
 	Command* resetCommand;
+	Command* storePositionsCommandGroup;
 
 #if defined(DEBUG)
 	LiveWindow* lw;
@@ -20,6 +22,7 @@ private:
 		DriverHUD::prepare();
 
 		resetCommand = new ResetCommand();
+		storePositionsCommandGroup = new StorePositionsCommandGroup();
 
 #if defined(DEBUG)
 		lw = LiveWindow::GetInstance();
@@ -53,6 +56,11 @@ private:
 	void TeleopPeriodic() override
 	{
 		DefaultPeriodic();
+	}
+
+	void DisabledInit() override
+	{
+		storePositionsCommandGroup->Start();
 	}
 
 	void DisabledPeriodic() override

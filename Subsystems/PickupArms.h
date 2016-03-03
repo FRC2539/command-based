@@ -8,11 +8,13 @@ class PickupArms: public Subsystem {
 public:
 	PickupArms();
 	void pivotToHeight(int position);
+	int getHeight();
 	void setRollerSpeed(float speed);
 
 	void manualRun(float power);
 
 	void setEncoderPosition(int position=0);
+	void storeEncoderPosition();
 	
 protected:
 	CANTalon m_leftPivotMotor;

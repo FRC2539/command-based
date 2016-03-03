@@ -1,10 +1,13 @@
 #include "FireCommandGroup.h"
 
+#include "../Config.h"
+
 #include <Commands/WaitCommand.h>
 //#include "FaceGoalCommand.h"
 //#include "MoveToRangeCommand.h"
 #include "PrepareToLaunchCommandGroup.h"
 #include "LaunchBoulderCommand.h"
+#include "SetShooterHeightCommand.h"
 
 FireCommandGroup::FireCommandGroup() : CommandGroup("Fire")
 {
@@ -15,5 +18,6 @@ FireCommandGroup::FireCommandGroup() : CommandGroup("Fire")
 	//AddSequential(new FaceGoalCommand());
 	AddSequential(new PrepareToLaunchCommandGroup());
 	AddSequential(new LaunchBoulderCommand());
+	AddSequential(new SetShooterHeightCommand(Config::Shooter::minHeight));
 }
 

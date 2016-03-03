@@ -28,7 +28,9 @@ public:
 	bool readyToFire();
 	bool hasBall();
 	void manualRun(float power);
+	int getHeight();
 	void setEncoderPosition(int position=0);
+	void storeEncoderPosition();
 
 protected:
 	DigitalInput m_ballDetector;

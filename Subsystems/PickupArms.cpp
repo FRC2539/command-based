@@ -7,7 +7,8 @@
 PickupArms::PickupArms() : Subsystem("PickupArms"),
 	m_leftPivotMotor(Config::PickupArms::leftPivotMotorID),
 	m_rightPivotMotor(Config::PickupArms::rightPivotMotorID),
-	m_rollerMotor(Config::PickupArms::rollerMotorID)
+	m_rollerMotor(Config::PickupArms::rollerMotorID),
+	m_settingsLoaded(false)
 {
 	m_rollerMotor.SetControlMode(CANTalon::kPercentVbus);
 	m_rollerMotor.SetInverted(true);
@@ -48,15 +49,30 @@ void PickupArms::pivotToHeight(int position)
 
 	//m_leftPivotMotor.Set(position);
 	m_rightPivotMotor.Set(position);
+}
 
-	Preferences* preferences = Preferences::GetInstance();
-	preferences->PutInt("pickupPosition", position);
+int PickupArms::getHeight()
+{
+	return m_rightPivotMotor.GetPosition();
 }
 
 void PickupArms::setEncoderPosition(int position)
 {
 	//m_leftPivotMotor.SetPosition(position);
 	m_rightPivotMotor.SetPosition(position);
+
+	Preferences* preferences = Preferences::GetInstance();
+	preferences->PutInt("pickupPosition", position);
+
+	m_settingsLoaded = true;
+}
+
+void PickupArms::storeEncoderPosition()
+{
+	if (atKnownPosition())
+	{
+		setEncoderPosition(getHeight());
+	}
 }
 
 void PickupArms::setRollerSpeed(float speed)
