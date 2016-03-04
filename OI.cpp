@@ -20,6 +20,8 @@
 #include "Commands/GyroCrossDefenseCommand.h"
 #include "Commands/SetShooterHeightCommand.h"
 #include "Commands/SetPickupArmsHeightCommand.h"
+#include "Commands/LowGoalCommand.h"
+#include "Commands/PickupCommand.h"
 
 OI::OI()
 {

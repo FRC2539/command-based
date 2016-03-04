@@ -29,7 +29,7 @@ Shooter::Shooter() : Subsystem("Shooter"),
 		Config::Shooter::minHeight
 	);*/
 	m_leftPivotMotor.SetP(Config::Shooter::P);
-	m_leftPivotMotor.ConfigMaxOutputVoltage(6);
+	m_leftPivotMotor.ConfigMaxOutputVoltage(4);
 	m_leftPivotMotor.SetSensorDirection(true);
 
 	m_rightPivotMotor.SetControlMode(CANTalon::kFollower);
