@@ -22,6 +22,8 @@
 #include "Commands/SetPickupArmsHeightCommand.h"
 #include "Commands/LowGoalCommand.h"
 #include "Commands/PickupCommand.h"
+#include "Commands/CollectBoulderCommand.h"
+
 
 OI::OI()
 {

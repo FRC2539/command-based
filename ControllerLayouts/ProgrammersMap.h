@@ -21,8 +21,10 @@ ADD_BUTTON(0, DPadLeft, WhenPressed, new AlignmentTurnCommand(270));
 ADD_BUTTON(0, DPadDown, WhenPressed, new AlignmentTurnCommand(180));
 ADD_SIMPLE_BUTTON(0, Y, GyroCrossDefenseCommand);
 ADD_BUTTON(0, Start, WhenPressed, new SetShooterHeightCommand(Config::Shooter::maxHeight));
-ADD_SIMPLE_BUTTON(0, RightTrigger, LowGoalCommand);
 ADD_SIMPLE_BUTTON(0, X, PickupCommand);
 ADD_BUTTON(0, RightBumper, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::liftedPortcullisHeight));
-ADD_BUTTON(0, LeftBumper, WhenPressed, new SetPickupArmsHeightCommand(Config::Shooter:maxHeight));
-ADD_BUTTON(0, LeftTrigger, WhenPressed, new SetPickupArmsHeightCommand(0));
+ADD_BUTTON(0, LeftBumper, WhenPressed, new SetPickupArmsHeightCommand(Config::Shooter::maxHeight));
+ADD_BUTTON(0, LeftTrigger, WhenPressed, new SetPickupArmsHeightCommand(Config::Shooter::minHeight));
+
+ADD_BUTTON(0, B, WhenPressed, new CollectBoulderCommand());
+ADD_SIMPLE_BUTTON(0, RightTrigger, LowGoalCommand);
