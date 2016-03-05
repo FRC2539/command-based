@@ -20,10 +20,3 @@ bool CollectBoulderCommand::IsFinished()
 {
     return shooter->hasBall();
 }
-
-void CollectBoulderCommand::End()
-{
-    pickuparms->setRollerSpeed(0);
-	shooter->stopShooter();
-	shooter->setIndexerSpeed(0);
-}

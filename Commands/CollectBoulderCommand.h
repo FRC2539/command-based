@@ -8,5 +8,4 @@ public:
 	explicit CollectBoulderCommand();
 	void Initialize() override;
 	bool IsFinished() override;
-	void End() override;
 };
