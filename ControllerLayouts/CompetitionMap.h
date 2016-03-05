@@ -16,11 +16,22 @@ ADD_AXIS(0, LeftX, logicalAxes::DriveX);
 ADD_AXIS(0, RightX, logicalAxes::DriveRotate);
 
 ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
-ADD_TOGGLE_BUTTON(0, A, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
-
+ADD_TOGGLE_BUTTON(0, LeftJoystick, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
+ADD_TOGGLE_BUTTON(0, RightJoystick, new FixedHeadingCommand());
+ADD_BUTTON(0, DPadUp, WhenPressed, new AlignmentTurnCommand(0));
+ADD_BUTTON(0, DPadRight, WhenPressed, new AlignmentTurnCommand(90));
+ADD_BUTTON(0, DPadLeft, WhenPressed, new AlignmentTurnCommand(270));
+ADD_BUTTON(0, DPadDown, WhenPressed, new AlignmentTurnCommand(180));
+ADD_SIMPLE_BUTTON(0, Y, GyroCrossDefenseCommand);
 /*
  * Other Controller
  */
 
-ADD_SIMPLE_BUTTON(1, Back, ResetCommand);
+ADD_BUTTON(1, RightBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::maxHeight));
+ADD_BUTTON(1, Y, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::liftedPortcullisHeight));
+ADD_BUTTON(1, LeftBumper, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::maxHeight));
+ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::minHeight));
+ADD_SIMPLE_BUTTON(1, X, PickupCommand);
+
+ADD_SIMPLE_BUTTON(1, RightTrigger, LowGoalCommand);
 
