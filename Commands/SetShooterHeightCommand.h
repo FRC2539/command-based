@@ -5,10 +5,8 @@
 class SetShooterHeightCommand : public DefaultCommand {
 
 public:
-	SetShooterHeightCommand(int height);
+	SetShooterHeightCommand(int i);
 	void Initialize() override;
-	bool IsFinished() override;
-	void End() override;
 
 protected:
 	int m_height;

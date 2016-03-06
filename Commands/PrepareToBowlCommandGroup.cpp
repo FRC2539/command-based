@@ -8,5 +8,6 @@
 
 PrepareToBowlCommandGroup::PrepareToBowlCommandGroup() : CommandGroup("PrepareToBowl")
 {
+	//AddParallel(new SetPickupArmsHeightCommand(Config::PickupArms::maxHeight));
 	AddParallel(new SpinShooterCommand());
 }

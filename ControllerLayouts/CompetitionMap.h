@@ -15,6 +15,7 @@ ADD_AXIS(0, LeftY, logicalAxes::DriveY);
 ADD_AXIS(0, LeftX, logicalAxes::DriveX);
 ADD_AXIS(0, RightX, logicalAxes::DriveRotate);
 
+
 ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
 ADD_TOGGLE_BUTTON(0, LeftJoystick, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
 ADD_TOGGLE_BUTTON(0, RightJoystick, new FixedHeadingCommand());
@@ -27,11 +28,13 @@ ADD_SIMPLE_BUTTON(0, Y, GyroCrossDefenseCommand);
  * Other Controller
  */
 
-ADD_BUTTON(1, RightTrigger, WhenPressed, new SetShooterHeightCommand(0));
-ADD_BUTTON(1, RightBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::maxHeight));
-ADD_BUTTON(1, LeftBumper, WhenPressed, new SetPickupArmsHeightCommand(520));
-ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::minHeight));
+ADD_BUTTON(1, RightTrigger, WhenPressed, new SetShooterHeightDownCommandGroup());
+ADD_BUTTON(1, RightBumper, WhenPressed, new SetShooterHeightUpCommandGroup());
+//ADD_BUTTON(1, LeftBumper, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::maxHeight));
+//ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::minHeight));
 ADD_BUTTON(1, Start, WhenPressed, new LaunchBoulderCommand());
-ADD_SIMPLE_BUTTON(1, X, PickupCommand);
-ADD_SIMPLE_BUTTON(1, B, LowGoalCommand);
-
+ADD_BUTTON(1, X, WhenPressed, new CollectBoulderCommand());
+//ADD_BUTTON(1, X, WhenPressed, new PickupCommand());
+//ADD_BUTTON(1, A, WhenPressed, new LowGoalCommand());
+ADD_BUTTON(1, Y, WhenPressed, new StopPickupCommand());
+ADD_BUTTON(1, A, WhenPressed, new LaunchBoulderCommand());

@@ -21,7 +21,7 @@ public:
 
 	Target getTarget();
 
-	void pivotToHeight(int position);
+	void pivotToHeight(float speed);
 	void setIndexerSpeed(float speed);
 	void setShooterSpeed(float speed);
 	void stopShooter();

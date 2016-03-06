@@ -10,6 +10,7 @@
 #include "../Commands/ShutdownJetsonCommand.h"
 #include "../Commands/Autonomous/DriveToFloorCommandGroup.h"
 #include "../Commands/Autonomous/DriveToDefenseCommand.h"
+#include "../Commands/Autonomous/LowBarCrossCommandGroup.h"
 
 void DriverHUD::prepare()
 {
@@ -23,7 +24,7 @@ void DriverHUD::prepare()
 	// Set up radio-boxes to choose autonomous mode
 	m_autonomousCommand = new AutonomousCommandGroup();
 	m_autonomousChooser = new SendableChooser();
-	m_autonomousChooser->AddDefault(
+	m_autonomousChooser->AddObject(
 		"Stand Still",
 		m_autonomousCommand
 	);
@@ -31,9 +32,13 @@ void DriverHUD::prepare()
 		"Floor Command",
 		new DriveToFloorCommandGroup()
 	);
-	m_autonomousChooser->AddObject(
+	m_autonomousChooser->AddDefault(
 		"Defense Command",
 		new DriveToDefenseCommand()
+	);
+	m_autonomousChooser->AddObject(
+		"Low Bar Command",
+		new LowBarCrossCommandGroup()
 	);
 	SmartDashboard::PutData("Autonomous Program", m_autonomousChooser);
 

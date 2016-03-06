@@ -1,0 +1,130 @@
+[33mcommit edf950e27e73090c0adedb96d383f702e6100265[m
+Author: Krypton Cougars <latitude1@kryptoncougars.pasd.us>
+Date:   Thu Mar 3 20:22:17 2016 -0500
+
+    Changed values with pickup pid and pos
+
+[33mcommit 2ae30d904ed837d7c79c0c949c0f13e18d4ec008[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Thu Mar 3 16:26:04 2016 -0500
+
+    Moving arms
+
+[33mcommit 1f891c9deb0dc693adb241d55a9d0ef0b7340de0[m
+Author: Krypton Cougars <latitude1@kryptoncougars.pasd.us>
+Date:   Tue Mar 1 20:56:52 2016 -0500
+
+    Changes for the arms
+
+[33mcommit 8572896fb4d6c349e363d523181fb72cae58122c[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Tue Mar 1 16:39:31 2016 -0500
+
+    Broken encoder
+
+[33mcommit c67026bb6b9347d620f0e5841c750378829f25cb[m
+Author: Krypton Cougars <latitude1@kryptoncougars.pasd.us>
+Date:   Mon Feb 29 21:03:08 2016 -0500
+
+    Testing pickup arms
+
+[33mcommit 362b8b2fcc6e8e987c6f8f50c588ee699efd8e5a[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Mon Feb 29 16:57:50 2016 -0500
+
+    Removing Netconsole output
+
+[33mcommit cde5cf0fd7ed14841bc29c6c7aa22cb39502d39d[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Mon Feb 29 16:06:36 2016 -0500
+
+    SmartDashboard improvements
+
+[33mcommit 75607c1db7ba92ba07ba5099230c6f7aa16e1c9e[m
+Author: Krypton Cougars <agent@kryptoncougars.pasd.us>
+Date:   Wed Feb 24 00:03:02 2016 -0500
+
+    Last day of the build
+
+[33mcommit 83333105954aa1882aa48d56642f3060a3b95fd8[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Mon Feb 22 16:33:33 2016 -0500
+
+    Fixes CommandGroup cancelling itself
+
+[33mcommit bf296e1fc6f32b12522734ff6ad9565a84ac4798[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Sun Feb 21 11:54:56 2016 -0500
+
+    Further stubbing
+    
+    In the vain hope that one day we might actually get a robot to run
+    our code on.
+
+[33mcommit 5c99658cc1c6e8ab781f55ec81ed3c0824f9b8e4[m
+Author: Krypton Cougars <latitude1@kryptoncougars.pasd.us>
+Date:   Sat Feb 20 15:18:35 2016 -0500
+
+    Fixing Henry's naming
+
+[33mcommit 1c7781efdc9a89b1f6a6ca6067576d32d23d3335[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Fri Feb 19 21:22:56 2016 -0500
+
+    Stubbing complex commands
+
+[33mcommit 2a3573d25dced04098589ec37696b385cc782c35[m
+Author: Krypton Cougars <agent@kryptoncougars.pasd.us>
+Date:   Thu Feb 18 20:57:58 2016 -0500
+
+    Adding buttons for commands
+
+[33mcommit d4323bb3fee6b65755fa7cbb9dceaeafa41b5386[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Thu Feb 18 14:42:38 2016 -0500
+
+    Monitor camera and manual motor testing
+
+[33mcommit 687afccd003e672ed9b9469bd181929b522feae8[m
+Author: Krypton Cougars <latitude1@kryptoncougars.pasd.us>
+Date:   Wed Feb 17 21:00:20 2016 -0500
+
+    Added hasBall method
+
+[33mcommit eb5f3554bf22e83590ec497d00f54c5c4e3a81ef[m
+Author: Krypton Cougars <latitude1@kryptoncougars.pasd.us>
+Date:   Wed Feb 17 20:36:54 2016 -0500
+
+    Added Shooter calibration and motor speeds, and cross defense group
+    commands
+
+[33mcommit 8eda9e42c2e1d773f18be85c8ba2231abb7367ad[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Wed Feb 17 13:11:35 2016 -0500
+
+    Code cleanup
+
+[33mcommit 20f0cdf33fb33a53f8a4fa9ec068b004bd077791[m
+Author: Krypton Cougars <agent@kryptoncougars.pasd.us>
+Date:   Tue Feb 16 20:34:01 2016 -0500
+
+    Added Autodefensetraverse Commandgroup, 180, and 90. Added Drive to
+    floor command, fixedheadingcommand, and 1 subsystem: pickuparms.
+
+[33mcommit abf09f61e3427229f7b43b6824528fc9b5c09ab2[m
+Author: Bob Stouffer <restouffer@gmail.com>
+Date:   Sat Feb 13 08:26:25 2016 -0500
+
+    Stop motors by braking instead of PID
+
+[33mcommit 08f4e872fa1e7f574aa5631960023f7cf4abb628[m
+Author: Krypton Cougars <agent@kryptoncougars.pasd.us>
+Date:   Sat Feb 6 15:20:22 2016 -0500
+
+    Adding more sensor commands
+
+[33mcommit 2057f2f60deb0b0189d21821df3f4b206c5733a5[m
+Author: Krypton Cougars <agent@kryptoncougars.pasd.us>
+Date:   Thu Feb 4 20:25:43 2016 -0500
+
+    Added isSlanted function, SmartDashboard commands.
