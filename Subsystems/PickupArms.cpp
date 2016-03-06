@@ -28,7 +28,7 @@ PickupArms::PickupArms() : Subsystem("PickupArms"),
 		Config::PickupArms::minHeight
 	);
 	m_rightPivotMotor.SetP(Config::PickupArms::P);
-	m_rightPivotMotor.ConfigMaxOutputVoltage(3);
+	m_rightPivotMotor.ConfigMaxOutputVoltage(4);
 
 	// Compensate for broken encoder on left side
 	m_leftPivotMotor.SetControlMode(CANTalon::kFollower);

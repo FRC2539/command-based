@@ -6,6 +6,6 @@
 AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
 	AddParallel(new ZeroGyroCommand());
-	AddSequential(new UnfoldCommandGroup());
+	//AddSequential(new UnfoldCommandGroup());
 }
 

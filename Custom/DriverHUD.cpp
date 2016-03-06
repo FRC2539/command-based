@@ -8,6 +8,8 @@
 #include "../Commands/ReloadPickupPositionCommand.h"
 #include "../Commands/ReloadShooterPositionCommand.h"
 #include "../Commands/ShutdownJetsonCommand.h"
+#include "../Commands/Autonomous/DriveToFloorCommandGroup.h"
+#include "../Commands/Autonomous/DriveToDefenseCommand.h"
 
 void DriverHUD::prepare()
 {
@@ -20,17 +22,19 @@ void DriverHUD::prepare()
 
 	// Set up radio-boxes to choose autonomous mode
 	m_autonomousCommand = new AutonomousCommandGroup();
-
 	m_autonomousChooser = new SendableChooser();
 	m_autonomousChooser->AddDefault(
-		"Default",
+		"Stand Still",
 		m_autonomousCommand
 	);
 	m_autonomousChooser->AddObject(
-		"Additional Command",
-		m_autonomousCommand
+		"Floor Command",
+		new DriveToFloorCommandGroup()
 	);
-
+	m_autonomousChooser->AddObject(
+		"Defense Command",
+		new DriveToDefenseCommand()
+	);
 	SmartDashboard::PutData("Autonomous Program", m_autonomousChooser);
 
 	SmartDashboard::PutData("Currently Running", Scheduler::GetInstance());
@@ -54,11 +58,13 @@ void DriverHUD::startAutonomous()
 {
 	m_autonomousCommand = (Command *) m_autonomousChooser->GetSelected();
 	m_autonomousCommand->Start();
+
 }
 
 void DriverHUD::stopAutonomous()
 {
 	m_autonomousCommand->Cancel();
+
 }
 
 void DriverHUD::sendMessage(std::string msg)

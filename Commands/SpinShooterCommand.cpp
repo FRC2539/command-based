@@ -10,7 +10,7 @@ SpinShooterCommand::SpinShooterCommand() :
 
 void SpinShooterCommand::Initialize()
 {
-	shooter->setShooterSpeed(Config::Shooter::firingSpeed);
+	shooter->setShooterSpeed(.3);
 }
 
 bool SpinShooterCommand::IsFinished()
