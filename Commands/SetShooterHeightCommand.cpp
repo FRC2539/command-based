@@ -1,20 +1,24 @@
 #include "SetShooterHeightCommand.h"
 
-SetShooterHeightCommand::SetShooterHeightCommand(int i) :
+SetShooterHeightCommand::SetShooterHeightCommand(int height) :
 	DefaultCommand("SetShooterHeight"),
-	m_height(i)
+	m_height(height)
 {
 	Requires(shooter);
 }
 
 void SetShooterHeightCommand::Initialize()
 {
-	if (m_height == 1)
-	{
-		shooter->pivotToHeight(-.5);
-	}
-	else if (m_height != 1)
-	{
-		shooter->pivotToHeight(.5);
-	}
+	shooter->pivotToHeight(m_height);
 }
+
+bool SetShooterHeightCommand::IsFinished()
+{
+	return std::abs(shooter->getHeight() - m_height) < 10;
+}
+
+void SetShooterHeightCommand::End()
+{
+	shooter->storeEncoderPosition();
+}
+

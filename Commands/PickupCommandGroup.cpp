@@ -7,16 +7,13 @@
 #include "CollectBoulderCommand.h"
 #include <Commands/WaitCommand.h>
 #include "StopPickupCommand.h"
-#include "SetShooterHeightDownCommandGroup.h"
 
 PickupCommandGroup::PickupCommandGroup() : CommandGroup("Pickup")
 {
-	//AddParallel(new SetPickupArmsHeightCommand(Config::PickupArms::minHeight));
-	//AddSequential(new WaitCommand(.7));
-	AddParallel(new SetShooterHeightDownCommandGroup());
-	//AddParallel(new SetPickupArmsHeightCommand(Config::PickupArms::maxHeight));
+	AddParallel(new SetPickupArmsHeightCommand(Config::PickupArms::ballRollerHeight));
 	AddSequential(new CollectBoulderCommand());
 	AddSequential(new WaitCommand(0.5));
 	AddSequential(new StopPickupCommand());
+	AddSequential(new SetPickupArmsHeightCommand(Config::PickupArms::maxHeight));
 }
 

@@ -23,7 +23,7 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_shooterWheel.SetI(Config::Shooter::I);
 	m_shooterWheel.SetInverted(true);
 
-	m_leftPivotMotor.SetControlMode(CANTalon::kPercentVbus);
+	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
 	/*m_leftPivotMotor.ConfigSoftPositionLimits(
 		Config::Shooter::maxHeight,
 		Config::Shooter::minHeight
@@ -46,9 +46,13 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	DEBUG_SENSOR(m_ballDetector);
 }
 
-void Shooter::pivotToHeight(float speed)
+void Shooter::pivotToHeight(int position)
 {
-	m_leftPivotMotor.Set(speed);
+	if (atKnownPosition() == false)
+	{
+		return;
+	}
+	m_leftPivotMotor.Set(position);
 }
 
 void Shooter::setIndexerSpeed(float speed)

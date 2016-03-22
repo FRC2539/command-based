@@ -18,15 +18,14 @@
 #include "Commands/AlignmentTurnCommand.h"
 #include "Commands/MotorTestCommand.h"
 #include "Commands/GyroCrossDefenseCommand.h"
-#include "Commands/SetShooterHeightUpCommandGroup.h"
+#include "Commands/SetShooterHeightCommand.h"
 #include "Commands/SetPickupArmsHeightCommand.h"
 #include "Commands/LowGoalCommand.h"
 #include "Commands/PickupCommand.h"
 #include "Commands/CollectBoulderCommand.h"
 #include "Commands/LaunchBoulderCommand.h"
 #include "Commands/PickupCommandGroup.h"
-#include "Commands/SetShooterHeightDownCommandGroup.h"
-#include "Commands/StopPickupCommand.h"
+
 
 OI::OI()
 {
