@@ -42,7 +42,7 @@ namespace Config {
 		CanID leftPivotMotorID = 6;
 		CanID rightPivotMotorID = 7;
 
-		const double P = 3;
+		const double P = 2;
 		const int maxHeight = 540;
 		const int minHeight = 0;
 
