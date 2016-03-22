@@ -12,7 +12,7 @@ CrossDefenseCommand::CrossDefenseCommand() :
 
 void CrossDefenseCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(150);
+	drivetrain->setMaxSpeed(Config::DriveTrain::preciseModeMaxSpeed);
 	m_target = drivetrain->getAngle();
 	SensorCommand::Initialize();
 	counter = 0;
@@ -34,6 +34,11 @@ bool CrossDefenseCommand::IsFinished()
 		crossedDefense = true;
 		return false;
 	}
+}
+
+void CrossDefenseCommand::Interrupted()
+{
+	DefaultCommand::Interrupted();
 }
 
 void CrossDefenseCommand::UsePIDOutput(double output)

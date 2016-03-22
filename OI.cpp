@@ -23,8 +23,6 @@
 #include "Commands/LowGoalCommand.h"
 #include "Commands/PickupCommand.h"
 #include "Commands/CollectBoulderCommand.h"
-#include "Commands/LaunchBoulderCommand.h"
-#include "Commands/PickupCommandGroup.h"
 
 
 OI::OI()
@@ -37,8 +35,7 @@ OI::OI()
 	Command* lastCommand;
 	int buttonIntValue;
 
-	#include "ControllerMap.h" //THIS VERY IMPORTANT NO REMOVE
-
+	#include "ControllerMap.h"
 }
 
 OI::~OI()

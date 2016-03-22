@@ -14,7 +14,6 @@ public:
 
 protected:
 	static Command* m_autonomousCommand;
-	static Command* m_floorCommand;
 	static SendableChooser* m_autonomousChooser;
 	static bool m_isShown;
 };

@@ -11,9 +11,9 @@ CollectBoulderCommand::CollectBoulderCommand() :
 
 void CollectBoulderCommand::Initialize()
 {
-	pickuparms->setRollerSpeed(-0.4);
-	shooter->setShooterSpeed(-.4);
-	shooter->setIndexerSpeed(-0.15);
+	pickuparms->setRollerSpeed(-0.3);
+	shooter->setShooterSpeed(-200);
+	shooter->setIndexerSpeed(-0.3);
 }
 
 bool CollectBoulderCommand::IsFinished()

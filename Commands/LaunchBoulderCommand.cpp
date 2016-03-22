@@ -8,7 +8,7 @@ LaunchBoulderCommand::LaunchBoulderCommand() :
 
 void LaunchBoulderCommand::Initialize()
 {
-	shooter->setIndexerSpeed(.3);
+	shooter->setIndexerSpeed(1);
 }
 
 void LaunchBoulderCommand::End()

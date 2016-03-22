@@ -62,6 +62,7 @@ void Shooter::setIndexerSpeed(float speed)
 
 void Shooter::setShooterSpeed(float speed)
 {
+	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel.Set(speed);
 }
 

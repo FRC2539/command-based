@@ -8,6 +8,7 @@ public:
 	CrossDefenseCommand();
 	void Initialize() override;
 	bool IsFinished() override;
+	void Interrupted() override;
 
 protected:
 	double ReturnPIDInput() const override;

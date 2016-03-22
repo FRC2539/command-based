@@ -19,7 +19,6 @@ CommandBase::~CommandBase() {
 
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
-	drivetrain->ignoreEncoders();
 	monitor = new Monitor();
 	pickuparms = new PickupArms();
 	shooter = new Shooter();

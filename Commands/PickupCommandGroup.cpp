@@ -10,7 +10,8 @@
 
 PickupCommandGroup::PickupCommandGroup() : CommandGroup("Pickup")
 {
-	AddParallel(new SetPickupArmsHeightCommand(Config::PickupArms::ballRollerHeight));
+	AddSequential(new SetPickupArmsHeightCommand(Config::PickupArms::ballRollerHeight));
+	AddSequential(new SetShooterHeightCommand(Config::Shooter::minHeight));
 	AddSequential(new CollectBoulderCommand());
 	AddSequential(new WaitCommand(0.5));
 	AddSequential(new StopPickupCommand());

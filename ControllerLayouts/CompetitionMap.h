@@ -27,11 +27,11 @@ ADD_SIMPLE_BUTTON(0, Y, GyroCrossDefenseCommand);
  * Other Controller
  */
 
-ADD_BUTTON(1, RightTrigger, WhenPressed, new SetShooterHeightCommand(0));
 ADD_BUTTON(1, RightBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::maxHeight));
-ADD_BUTTON(1, LeftBumper, WhenPressed, new SetPickupArmsHeightCommand(520));
+ADD_BUTTON(1, Y, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::liftedPortcullisHeight));
+ADD_BUTTON(1, LeftBumper, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::maxHeight));
 ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetPickupArmsHeightCommand(Config::PickupArms::minHeight));
-ADD_BUTTON(1, Start, WhenPressed, new LaunchBoulderCommand());
 ADD_SIMPLE_BUTTON(1, X, PickupCommand);
-ADD_SIMPLE_BUTTON(1, B, LowGoalCommand);
+
+ADD_SIMPLE_BUTTON(1, RightTrigger, LowGoalCommand);
 
