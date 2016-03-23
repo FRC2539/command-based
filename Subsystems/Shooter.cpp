@@ -46,6 +46,34 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	DEBUG_SENSOR(m_ballDetector);
 }
 
+void Shooter::incrementDirection(Shooter::Direction direction)
+{
+	m_direction = direction;
+	if (atKnownPosition() == false)
+	{
+		return;
+	}
+
+	m_leftPivotMotor.ClearIaccum();
+	if (direction == HOLD)
+	{
+		m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
+		m_leftPivotMotor.Set(m_leftPivotMotor.GetPosition());
+
+		storeEncoderPosition();
+	}
+	else if (direction == UP)
+	{
+		m_leftPivotMotor.SetControlMode(CANTalon::kSpeed);
+		m_leftPivotMotor.Set(Config::Shooter::pivotSpeed);
+	}
+	else if (direction == DOWN)
+	{
+		m_leftPivotMotor.SetControlMode(CANTalon::kSpeed);
+		m_leftPivotMotor.Set(-Config::Shooter::pivotSpeed);
+	}
+}
+
 void Shooter::pivotToHeight(int position)
 {
 	if (atKnownPosition() == false)

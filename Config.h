@@ -37,19 +37,6 @@ namespace Config {
 		const double rotationGain = 0.8;
 	}
 
-	namespace PickupArms {
-		CanID rollerMotorID = 5;
-		CanID leftPivotMotorID = 6;
-		CanID rightPivotMotorID = 7;
-
-		const double P = 2;
-		const int maxHeight = 540;
-		const int minHeight = 0;
-
-		const int ballRollerHeight = 240;
-		const int liftedPortcullisHeight = 400;
-	}
-
 	namespace Shooter {
 		CanID rightPivotMotorID = 8;
 		CanID leftPivotMotorID = 9;
@@ -60,6 +47,7 @@ namespace Config {
 		const int minHeight = 0;
 
 		const int shootingHeight = 150;
+		const int pivotSpeed = 41;
 
 		const double firingSpeed = 5000;
 

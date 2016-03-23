@@ -12,7 +12,6 @@ CommandBase::CommandBase() : Command() {}
 CommandBase::~CommandBase() {
 	delete drivetrain;
 	delete monitor;
-	delete pickuparms;
 	delete shooter;
 	delete oi;
 }
@@ -20,7 +19,6 @@ CommandBase::~CommandBase() {
 void CommandBase::init() {
 	drivetrain = new DriveTrain();
 	monitor = new Monitor();
-	pickuparms = new PickupArms();
 	shooter = new Shooter();
 
 	// This subsystem must be instantiated last
@@ -33,7 +31,6 @@ void CommandBase::init() {
  */
 DriveTrain* CommandBase::drivetrain = NULL;
 Monitor* CommandBase::monitor = NULL;
-PickupArms* CommandBase::pickuparms = NULL;
 Shooter* CommandBase::shooter = NULL;
 OI* CommandBase::oi = NULL;
 

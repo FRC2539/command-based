@@ -4,10 +4,12 @@
 #include <Commands/Scheduler.h>
 
 #include "../Commands/Autonomous/AutonomousCommandGroup.h"
+#include "../Commands/Autonomous/DriveToDefenseCommand.h"
 #include "../Commands/ZeroGyroCommand.h"
-#include "../Commands/ReloadPickupPositionCommand.h"
 #include "../Commands/ReloadShooterPositionCommand.h"
 #include "../Commands/ShutdownJetsonCommand.h"
+#include "../Commands/CrossToCourtyardCommandGroup.h"
+#include "../Commands/Autonomous/LowBarCommandGroup.h"
 
 void DriverHUD::prepare()
 {
@@ -22,25 +24,28 @@ void DriverHUD::prepare()
 	m_autonomousCommand = new AutonomousCommandGroup();
 
 	m_autonomousChooser = new SendableChooser();
-	m_autonomousChooser->AddDefault(
-		"Default",
+	m_autonomousChooser->AddObject(
+		"Stand Still",
 		m_autonomousCommand
+	);
+	m_autonomousChooser->AddDefault(
+		"Drive To Defense",
+		new DriveToDefenseCommand()
 	);
 	m_autonomousChooser->AddObject(
-		"Additional Command",
-		m_autonomousCommand
+		"Cross To Courtyard",
+		new CrossToCourtyardCommandGroup()
 	);
+	m_autonomousChooser->AddObject(
+		"Lowbar Cross",
+		new LowBarCommandGroup()
+	);
+
 
 	SmartDashboard::PutData("Autonomous Program", m_autonomousChooser);
 
 	SmartDashboard::PutData("Currently Running", Scheduler::GetInstance());
 
-	// Commands to run from dashboard
-	SmartDashboard::PutData("Zero Gyro", new ZeroGyroCommand());
-	SmartDashboard::PutData(
-		"Reload Pickup Position",
-		new ReloadPickupPositionCommand()
-	);
 	SmartDashboard::PutData(
 		"Reload Shooter Position",
 		new ReloadShooterPositionCommand()

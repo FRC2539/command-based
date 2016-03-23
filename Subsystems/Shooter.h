@@ -32,6 +32,14 @@ public:
 	void setEncoderPosition(int position=0);
 	void storeEncoderPosition();
 
+	enum Direction {
+		UP,
+		DOWN,
+		HOLD
+	};
+
+	void incrementDirection(Direction direction);
+
 protected:
 	DigitalInput m_ballDetector;
 
@@ -42,6 +50,7 @@ protected:
 
 	std::shared_ptr<NetworkTable> m_targetInfo;
 
+	Direction m_direction;
 	bool atKnownPosition();
 	bool m_settingsLoaded;
 };

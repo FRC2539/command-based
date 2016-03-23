@@ -12,7 +12,7 @@ CrossDefenseCommand::CrossDefenseCommand() :
 
 void CrossDefenseCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(Config::DriveTrain::preciseModeMaxSpeed);
+	drivetrain->setMaxSpeed(Config::DriveTrain::maxSpeed);
 	m_target = drivetrain->getAngle();
 	SensorCommand::Initialize();
 	counter = 0;
@@ -45,7 +45,7 @@ void CrossDefenseCommand::UsePIDOutput(double output)
 {
 	double y = std::max(1 - std::abs(output), 0.0);
 
-	drivetrain->move(0, y, output);
+	drivetrain->move(0, -y, output);
 }
 
 double CrossDefenseCommand::ReturnPIDInput() const

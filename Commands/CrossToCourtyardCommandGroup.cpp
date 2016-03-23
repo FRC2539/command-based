@@ -6,6 +6,6 @@
 CrossToCourtyardCommandGroup::CrossToCourtyardCommandGroup()
 	: CommandGroup("CrossToCourtyard")
 {
-	AddSequential(new AlignmentTurnCommand(0));
+	AddSequential(new AlignmentTurnCommand(180));
 	AddSequential(new CrossDefenseCommand());
 }
