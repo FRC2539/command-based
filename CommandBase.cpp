@@ -26,11 +26,11 @@ void CommandBase::init() {
 }
 
 
-/* Each subsystem must be initially set to NULL in order for the static symbols
- * to be available on the roboRIO
+/* Each subsystem must be initially set to nullptr in order for the static
+ * symbols to be available on the roboRIO
  */
-DriveTrain* CommandBase::drivetrain = NULL;
-Monitor* CommandBase::monitor = NULL;
-Shooter* CommandBase::shooter = NULL;
-OI* CommandBase::oi = NULL;
+DriveTrain* CommandBase::drivetrain = nullptr;
+Monitor* CommandBase::monitor = nullptr;
+Shooter* CommandBase::shooter = nullptr;
+OI* CommandBase::oi = nullptr;
 

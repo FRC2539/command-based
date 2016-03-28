@@ -6,7 +6,6 @@
  * significantly reduces the number of magic numbers floating around.
  */
 
-#define DEBUG
 #define SKID 1
 #define MECANUM 2
 

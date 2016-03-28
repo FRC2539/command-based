@@ -1,11 +1,9 @@
 #include "AutonomousCommandGroup.h"
 
-#include "../ZeroGyroCommand.h"
-#include "UnfoldCommandGroup.h"
+#include "AssumeStartingConfigCommand.h"
 
 AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
-	AddParallel(new ZeroGyroCommand());
-	AddSequential(new UnfoldCommandGroup());
+	AddSequential(new AssumeStartingConfigCommand());
 }
 

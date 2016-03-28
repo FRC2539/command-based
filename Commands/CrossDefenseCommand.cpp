@@ -36,11 +36,6 @@ bool CrossDefenseCommand::IsFinished()
 	}
 }
 
-void CrossDefenseCommand::Interrupted()
-{
-	DefaultCommand::Interrupted();
-}
-
 void CrossDefenseCommand::UsePIDOutput(double output)
 {
 	double y = std::max(1 - std::abs(output), 0.0);

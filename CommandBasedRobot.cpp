@@ -11,10 +11,7 @@ class CommandBasedRobot : public IterativeRobot {
 private:
 	Command* resetCommand;
 	Command* storePositionsCommandGroup;
-
-#if defined(DEBUG)
 	LiveWindow* lw;
-#endif
 	
 	void RobotInit() override
 	{
@@ -24,9 +21,7 @@ private:
 		resetCommand = new ResetCommand();
 		storePositionsCommandGroup = new StorePositionsCommandGroup();
 
-#if defined(DEBUG)
 		lw = LiveWindow::GetInstance();
-#endif
 	}
 	
 	void AutonomousInit() override
@@ -45,7 +40,7 @@ private:
 		DefaultInit();
 
 		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to 
+		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		DriverHUD::stopAutonomous();
@@ -71,17 +66,16 @@ private:
 	void TestInit() override
 	{
 		DefaultInit();
-#if defined(DEBUG)
-		lw->SetEnabled(true);
-#endif
+
+		// Run normal commands while in Test Mode
+		Scheduler::GetInstance()->SetEnabled(true);
 	}
 
 	void TestPeriodic() override
 	{
 		DefaultPeriodic();
-#if defined(DEBUG)
+
 		lw->Run();
-#endif
 	}
 
 protected:

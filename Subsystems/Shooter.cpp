@@ -4,6 +4,7 @@
 
 #include <networktables/NetworkTable.h>
 #include <Preferences.h>
+#include <CameraServer.h>
 #include <vector>
 
 Shooter::Shooter() : Subsystem("Shooter"),
@@ -35,6 +36,9 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_rightPivotMotor.SetControlMode(CANTalon::kFollower);
 	m_rightPivotMotor.Set(Config::Shooter::leftPivotMotorID);
 	m_rightPivotMotor.SetClosedLoopOutputDirection(true);
+
+	CameraServer* cam = CameraServer::GetInstance();
+	cam->StartAutomaticCapture();
 
 	m_targetInfo = NetworkTable::GetTable("cameraTarget");
 

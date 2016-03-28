@@ -6,7 +6,6 @@
 #include <memory>
 
 #include "../Custom/DebuggingSubsystem.h"
-#include "../Config.h"
 
 class DriveTrain: public Subsystem {
 public:
@@ -17,13 +16,14 @@ public:
 	void move(float x, float y, float rotate);
 	void stop();
 
-#if DRIVE_TYPE == MECANUM
 	void enableFieldOrientation(bool isActive=true);
 	void disableFieldOrientation();
-#endif
 
 	float getAngle();
+	void setGyroAngle(double angle);
 	void resetGyro();
+
+	double getAcceleration();
 
 	void useEncoders();
 	void ignoreEncoders();
@@ -54,9 +54,8 @@ protected:
 	float m_maxSpeed;
 	bool m_readEncoders;
 
-#if DRIVE_TYPE == MECANUM
 	bool m_fieldOrientation;
-#endif
+	double m_gyroOffset;
 
 	std::vector<std::shared_ptr<CANTalon>> m_motors;
 	

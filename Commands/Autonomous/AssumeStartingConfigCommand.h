@@ -5,6 +5,9 @@
 class AssumeStartingConfigCommand : public InstantCommand {
 
 public:
-	AssumeStartingConfigCommand();
+	AssumeStartingConfigCommand(bool forward=false);
 	void Initialize() override;
+
+protected:
+	bool m_facingForward;
 };

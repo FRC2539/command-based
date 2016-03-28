@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Types/SensorCommand.h"
+#include "../Types/SensorCommand.h"
 
-class CrossDefenseCommand : public SensorCommand {
+class DriveToWallCommand : public SensorCommand {
 
 public:
-	CrossDefenseCommand();
+	DriveToWallCommand(bool forward=true);
 	void Initialize() override;
 	bool IsFinished() override;
 
 protected:
 	double ReturnPIDInput() const override;
 	void UsePIDOutput(double output);
-	bool crossedDefense;
-	int counter;
+
+	bool m_driveForward;
 };

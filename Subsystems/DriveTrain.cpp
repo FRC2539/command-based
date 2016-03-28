@@ -4,6 +4,7 @@
 
 #include <cmath>
 
+#include "../Config.h"
 #include "../Commands/DriveCommand.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
@@ -53,11 +54,10 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	m_readEncoders = true;
 	m_defenseLastState = DefenseState::Floor;
 	
-#if DRIVE_TYPE == MECANUM
 	m_fieldOrientation = false;
-#endif
+	resetGyro();
+	m_gyroOffset = 0;
 
-#ifdef DEBUG
 	DEBUG_SENSOR(m_navX);
 	LiveWindow* lw = LiveWindow::GetInstance();
 	lw->AddActuator(
@@ -80,7 +80,6 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 		"RearRightMotor",
 		m_motors[RobotDrive::kRearRightMotor]
 	);
-#endif
 }
 
 void DriveTrain::move(float x, float y, float rotate)
@@ -261,12 +260,12 @@ void DriveTrain::handleStop()
 			isStopped = false;
 		}
 	}
-	if (isStopped)
+	if (isStopped && ! m_stopped)
 	{
 		m_stopped = true;
 		setMode(CANTalon::kPercentVbus);
 	}
-	else if (m_stopped)
+	else if (! isStopped && m_stopped)
 	{
 		m_stopped = false;
 		setMode(CANTalon::kSpeed);
@@ -286,9 +285,15 @@ void DriveTrain::setOutputs(float maxValue)
 	}
 }
 
-#if DRIVE_TYPE == MECANUM
 void DriveTrain::enableFieldOrientation(bool isActive)
 {
+#if DRIVE_TYPE != MECANUM
+	wpi_setErrorWithContext(
+		129,
+		"Field orientation is only available for mecanum drive"
+	);
+	return;
+#endif
 	m_fieldOrientation = isActive;
 }
 
@@ -296,16 +301,30 @@ void DriveTrain::disableFieldOrientation()
 {
 	enableFieldOrientation(false);
 }
-#endif
 
 void DriveTrain::resetGyro()
 {
 	m_navX.ZeroYaw();
 }
 
+void DriveTrain::setGyroAngle(double angle)
+{
+	double systemAngle = m_navX.GetAngle();
+	m_gyroOffset = angle - systemAngle;
+	if (m_gyroOffset < 0)
+	{
+		m_gyroOffset += 360;
+	}
+}
+
 float DriveTrain::getAngle()
 {
-	return m_navX.GetAngle();
+	return std::fmod(m_navX.GetAngle() + m_gyroOffset, 360);
+}
+
+double DriveTrain::getAcceleration()
+{
+	return m_navX.GetWorldLinearAccelX();
 }
 
 void DriveTrain::useEncoders()
@@ -392,11 +411,10 @@ void DriveTrain::InitDefaultCommand()
 
 void DriveTrain::setMaxSpeed(float speed)
 {
-	// Rescale acceleration to match speed
-	float rescaleFactor = speed / m_maxSpeed;
-	for (auto motor : m_motors)
+	if (speed < 0)
 	{
-		motor->SetI(motor->GetI());
+		wpi_setWPIErrorWithContext(ParameterOutOfRange, "speed < 0.0");
+		return;
 	}
 
 	m_maxSpeed = speed;

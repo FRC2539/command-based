@@ -13,7 +13,7 @@ public:
 	static void sendMessage(std::string msg);
 
 protected:
-	static Command* m_autonomousCommand;
+	static Command* m_currentAuton;
 	static SendableChooser* m_autonomousChooser;
 	static bool m_isShown;
 };

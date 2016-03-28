@@ -1,7 +1,7 @@
 #include "LaunchBoulderCommand.h"
 
 LaunchBoulderCommand::LaunchBoulderCommand() :
-	TimedCommand("LaunchBoulder", 1)
+	TimedCommand("LaunchBoulder", 1s)
 {
 	Requires(shooter);
 }

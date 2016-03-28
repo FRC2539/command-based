@@ -13,7 +13,13 @@
 class TimedCommand : public DefaultCommand {
 
 public:
-	TimedCommand(const char* name, double timeout);
-	TimedCommand(double timeout);
-	bool IsFinished();
+	template<typename TimeUnit>
+	TimedCommand(const char* name, std::chrono::duration<TimeUnit> timeout)
+		: DefaultCommand(name, timeout) {};
+
+	template<typename TimeUnit>
+	TimedCommand(std::chrono::duration<TimeUnit> timeout)
+		: DefaultCommand(timeout) {};
+
+		bool IsFinished();
 };

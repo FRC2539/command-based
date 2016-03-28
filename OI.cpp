@@ -1,5 +1,7 @@
 #include "OI.h"
 
+#include "Config.h"
+
 #include "Controller/ControllerAxis.h"
 #include "Controller/DummyControllerAxis.h"
 #include "Controller/ControllerButton.h"
@@ -34,6 +36,11 @@ OI::OI()
 	Command* lastCommand;
 	int buttonIntValue;
 
+	/* This injects the current controller layout into the OI class. Due to
+	 * this, the controller layouts are not standalone, and will have parsing
+	 * errors because information they need is coming from this class, which
+	 * they know nothing about.
+	 */
 	#include "ControllerMap.h"
 }
 
