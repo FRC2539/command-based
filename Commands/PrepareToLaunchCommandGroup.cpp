@@ -1,11 +1,13 @@
 #include "PrepareToLaunchCommandGroup.h"
 
-//#include "AimShooterCommand.h"
+#include "../Config.h"
+
+#include "SetShooterHeightCommand.h"
 #include "SpinShooterCommand.h"
 
 PrepareToLaunchCommandGroup::PrepareToLaunchCommandGroup() : CommandGroup("PrepareToLaunch")
 {
-	//AddParallel(new AimShooterCommand());
 	AddParallel(new SpinShooterCommand());
+	AddSequential(new SetShooterHeightCommand(Config::Shooter::shootingHeight));
 }
 

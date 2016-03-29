@@ -50,7 +50,7 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	DEBUG_SENSOR(m_ballDetector);
 }
 
-void Shooter::incrementDirection(Shooter::Direction direction)
+void Shooter::move(Shooter::Direction direction)
 {
 	m_direction = direction;
 	if (atKnownPosition() == false)
@@ -59,31 +59,28 @@ void Shooter::incrementDirection(Shooter::Direction direction)
 	}
 
 	m_leftPivotMotor.ClearIaccum();
-	if (direction == HOLD)
-	{
-		m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
-		m_leftPivotMotor.Set(m_leftPivotMotor.GetPosition());
+	m_leftPivotMotor.SetControlMode(CANTalon::kSpeed);
+	m_leftPivotMotor.SetI(Config::Shooter::I);
 
-		storeEncoderPosition();
-	}
-	else if (direction == UP)
+	if (direction == UP)
 	{
-		m_leftPivotMotor.SetControlMode(CANTalon::kSpeed);
 		m_leftPivotMotor.Set(Config::Shooter::pivotSpeed);
 	}
 	else if (direction == DOWN)
 	{
-		m_leftPivotMotor.SetControlMode(CANTalon::kSpeed);
 		m_leftPivotMotor.Set(-Config::Shooter::pivotSpeed);
 	}
 }
 
-void Shooter::pivotToHeight(int position)
+void Shooter::holdAt(int position)
 {
 	if (atKnownPosition() == false)
 	{
 		return;
 	}
+
+	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
+	m_leftPivotMotor.SetP(Config::Shooter::P);
 	m_leftPivotMotor.Set(position);
 }
 
@@ -106,8 +103,8 @@ void Shooter::stopShooter()
 
 void Shooter::manualRun(float power)
 {
-	m_rightPivotMotor.SetControlMode(CANTalon::kPercentVbus);
-	m_rightPivotMotor.Set(power);
+	m_leftPivotMotor.SetControlMode(CANTalon::kPercentVbus);
+	m_leftPivotMotor.Set(power);
 }
 
 bool Shooter::readyToFire()
@@ -122,6 +119,16 @@ bool Shooter::readyToFire()
 int Shooter::getHeight()
 {
 	return m_leftPivotMotor.GetPosition();
+}
+
+bool Shooter::atTopLimit()
+{
+	return m_leftPivotMotor.IsFwdLimitSwitchClosed();
+}
+
+bool Shooter::atBottomLimit()
+{
+	return m_leftPivotMotor.IsRevLimitSwitchClosed();
 }
 
 void Shooter::setEncoderPosition(int position)

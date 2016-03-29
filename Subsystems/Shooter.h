@@ -21,24 +21,26 @@ public:
 
 	Target getTarget();
 
-	void pivotToHeight(int position);
 	void setIndexerSpeed(float speed);
 	void setShooterSpeed(float speed);
 	void stopShooter();
 	bool readyToFire();
 	bool hasBall();
 	void manualRun(float power);
+
 	int getHeight();
 	void setEncoderPosition(int position=0);
 	void storeEncoderPosition();
+	bool atTopLimit();
+	bool atBottomLimit();
 
 	enum Direction {
 		UP,
-		DOWN,
-		HOLD
+		DOWN
 	};
 
-	void incrementDirection(Direction direction);
+	void holdAt(int position);
+	void move(Direction direction);
 
 protected:
 	DigitalInput m_ballDetector;

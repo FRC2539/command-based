@@ -14,6 +14,7 @@ bool FireCommand::shouldRun()
 		return false;
 	}
 
+	return true;
 	auto target = shooter->getTarget();
 	return target.found;
 }

@@ -12,4 +12,5 @@ public:
 
 protected:
 	int m_height;
+	Shooter::Direction m_direction;
 };

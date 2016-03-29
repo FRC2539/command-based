@@ -18,12 +18,11 @@
 #include "Commands/ResetCommand.h"
 #include "Commands/FixedHeadingCommand.h"
 #include "Commands/AlignmentTurnCommand.h"
-#include "Commands/MotorTestCommand.h"
 #include "Commands/GyroCrossDefenseCommand.h"
 #include "Commands/SetShooterHeightCommand.h"
+#include "Commands/FireCommand.h"
 #include "Commands/LowGoalCommand.h"
 #include "Commands/PickupCommand.h"
-#include "Commands/CollectBoulderCommand.h"
 
 
 OI::OI()
