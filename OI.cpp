@@ -23,6 +23,8 @@
 #include "Commands/FireCommand.h"
 #include "Commands/LowGoalCommand.h"
 #include "Commands/PickupCommand.h"
+#include "Commands/ShooterMoveCommand.h"
+#include "Commands/ManualShooterCommand.h"
 
 
 OI::OI()

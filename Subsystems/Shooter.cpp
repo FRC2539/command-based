@@ -24,18 +24,19 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_shooterWheel.SetI(Config::Shooter::I);
 	m_shooterWheel.SetInverted(true);
 
-	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
+	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
 	/*m_leftPivotMotor.ConfigSoftPositionLimits(
 		Config::Shooter::maxHeight,
 		Config::Shooter::minHeight
 	);*/
-	m_leftPivotMotor.SetP(Config::Shooter::P);
-	m_leftPivotMotor.ConfigMaxOutputVoltage(4);
-	m_leftPivotMotor.SetSensorDirection(true);
+	m_rightPivotMotor.SetP(Config::Shooter::P);
+	m_rightPivotMotor.ConfigMaxOutputVoltage(4);
+	m_rightPivotMotor.SetSensorDirection(true);
+	m_rightPivotMotor.SetInverted(true);
 
-	m_rightPivotMotor.SetControlMode(CANTalon::kFollower);
-	m_rightPivotMotor.Set(Config::Shooter::leftPivotMotorID);
-	m_rightPivotMotor.SetClosedLoopOutputDirection(true);
+	m_leftPivotMotor.SetControlMode(CANTalon::kFollower);
+	m_leftPivotMotor.Set(Config::Shooter::rightPivotMotorID);
+	m_leftPivotMotor.SetClosedLoopOutputDirection(true);
 
 	CameraServer* cam = CameraServer::GetInstance();
 	cam->StartAutomaticCapture();
@@ -58,17 +59,18 @@ void Shooter::move(Shooter::Direction direction)
 		return;
 	}
 
-	m_leftPivotMotor.ClearIaccum();
-	m_leftPivotMotor.SetControlMode(CANTalon::kSpeed);
-	m_leftPivotMotor.SetI(Config::Shooter::I);
+	m_rightPivotMotor.ClearIaccum();
+	m_rightPivotMotor.SetControlMode(CANTalon::kSpeed);
+	m_rightPivotMotor.SetP(0);
+	m_rightPivotMotor.SetI(Config::Shooter::I);
 
 	if (direction == UP)
 	{
-		m_leftPivotMotor.Set(Config::Shooter::pivotSpeed);
+		m_rightPivotMotor.Set(Config::Shooter::pivotSpeed);
 	}
 	else if (direction == DOWN)
 	{
-		m_leftPivotMotor.Set(-Config::Shooter::pivotSpeed);
+		m_rightPivotMotor.Set(-Config::Shooter::pivotSpeed);
 	}
 }
 
@@ -79,9 +81,10 @@ void Shooter::holdAt(int position)
 		return;
 	}
 
-	m_leftPivotMotor.SetControlMode(CANTalon::kPosition);
-	m_leftPivotMotor.SetP(Config::Shooter::P);
-	m_leftPivotMotor.Set(position);
+	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
+	m_rightPivotMotor.SetP(Config::Shooter::P);
+	m_rightPivotMotor.SetI(0);
+	m_rightPivotMotor.Set(position);
 }
 
 void Shooter::setIndexerSpeed(float speed)
@@ -103,8 +106,8 @@ void Shooter::stopShooter()
 
 void Shooter::manualRun(float power)
 {
-	m_leftPivotMotor.SetControlMode(CANTalon::kPercentVbus);
-	m_leftPivotMotor.Set(power);
+	m_rightPivotMotor.SetControlMode(CANTalon::kPercentVbus);
+	m_rightPivotMotor.Set(power);
 }
 
 bool Shooter::readyToFire()
@@ -118,22 +121,22 @@ bool Shooter::readyToFire()
 
 int Shooter::getHeight()
 {
-	return m_leftPivotMotor.GetPosition();
+	return m_rightPivotMotor.GetPosition();
 }
 
 bool Shooter::atTopLimit()
 {
-	return m_leftPivotMotor.IsFwdLimitSwitchClosed();
+	return m_rightPivotMotor.IsFwdLimitSwitchClosed();
 }
 
 bool Shooter::atBottomLimit()
 {
-	return m_leftPivotMotor.IsRevLimitSwitchClosed();
+	return m_rightPivotMotor.IsRevLimitSwitchClosed();
 }
 
 void Shooter::setEncoderPosition(int position)
 {
-	m_leftPivotMotor.SetPosition(position);
+	m_rightPivotMotor.SetPosition(position);
 
 	Preferences* preferences = Preferences::GetInstance();
 	preferences->PutInt("shooterPosition", position);
@@ -177,7 +180,7 @@ bool Shooter::atKnownPosition()
 		Preferences* preferences = Preferences::GetInstance();
 		if (preferences->ContainsKey("shooterPosition"))
 		{
-			m_leftPivotMotor.SetPosition(preferences->GetInt("shooterPosition"));
+			m_rightPivotMotor.SetPosition(preferences->GetInt("shooterPosition"));
 			m_settingsLoaded = true;
 		}
 	}

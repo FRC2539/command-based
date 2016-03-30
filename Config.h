@@ -46,12 +46,12 @@ namespace Config {
 		const int minHeight = 0;
 
 		const int shootingHeight = 150;
-		const int pivotSpeed = 41;
+		const int pivotSpeed = 20000;
 
 		const double firingSpeed = 5000;
 
-		const double P = 3;
-		const double I = 0.1;
+		const double P = .003;
+		const double I = 0.001;
 
 		DIOPort ballDetectorID = 0;
 	}
