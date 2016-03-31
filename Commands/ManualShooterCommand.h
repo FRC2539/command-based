@@ -5,9 +5,10 @@
 class ManualShooterCommand : public DefaultCommand {
 
 public:
-	ManualShooterCommand(float power);
+	ManualShooterCommand(double power);
 	void Initialize();
-	//void Execute();
 	void End();
-	float voltage;
+
+protected:
+	double m_power;
 };

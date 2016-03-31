@@ -1,22 +1,17 @@
 #include "ManualShooterCommand.h"
 
-ManualShooterCommand::ManualShooterCommand(float power)
-	: DefaultCommand("manualRun"), voltage(power)
+ManualShooterCommand::ManualShooterCommand(double power)
+	: DefaultCommand("ManualShooter"), m_power(power)
 {
 	Requires(shooter);
 }
 
 void ManualShooterCommand::Initialize()
 {
-	shooter->manualRun(voltage);
+	shooter->manualPivot(m_power);
 }
-
-/*void ManualShooterCommand::Execute()
-{
-	elevator->updateDashboardHeight();
-}*/
 
 void ManualShooterCommand::End()
 {
-	shooter->manualRun(0);
+	shooter->manualPivot(0);
 }

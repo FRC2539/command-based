@@ -8,10 +8,10 @@ MotorTestCommand::MotorTestCommand(float speed) : DefaultCommand("MotorTest"),
 
 void MotorTestCommand::Initialize()
 {
-    shooter->manualRun(m_speed);
+    shooter->manualShooter(m_speed);
 }
 
 void MotorTestCommand::End()
 {
-    shooter->manualRun(0);
+    shooter->manualShooter(0);
 }

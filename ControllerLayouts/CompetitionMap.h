@@ -24,6 +24,15 @@ ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
 ADD_BUTTON(0, DPadUp, WhenPressed, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
 ADD_BUTTON(0, DPadDown, CancelWhenPressed, lastCommand);
 
+// Per Albert's request
+ADD_BUTTON(0, LeftTrigger, WhenPressed, new SetShooterHeightCommand(Config::Shooter::minHeight));
+ADD_BUTTON(0, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::liftingHeight));
+ADD_SIMPLE_BUTTON(0, X, PickupCommand);
+ADD_SIMPLE_BUTTON(0, A, FireCommand);
+ADD_SIMPLE_BUTTON(0, B, LowGoalCommand);
+ADD_BUTTON(0, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
+ADD_BUTTON(0, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
+
 
 /*
  * Backup Controller
@@ -31,10 +40,9 @@ ADD_BUTTON(0, DPadDown, CancelWhenPressed, lastCommand);
 
 //ADD_SIMPLE_BUTTON(1, All, SelfDestructCommand);
 ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetShooterHeightCommand(Config::Shooter::minHeight));
-ADD_BUTTON(1, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::maxHeight));
+ADD_BUTTON(1, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::liftingHeight));
 ADD_SIMPLE_BUTTON(1, X, PickupCommand);
 ADD_SIMPLE_BUTTON(1, A, FireCommand);
 ADD_SIMPLE_BUTTON(1, B, LowGoalCommand);
 ADD_BUTTON(1, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
 ADD_BUTTON(1, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
-ADD_BUTTON(1, Y, WhileHeld, new ManualShooterCommand(.6));

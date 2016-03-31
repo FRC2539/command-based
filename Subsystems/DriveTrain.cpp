@@ -431,12 +431,12 @@ void DriveTrain::setMode(CANSpeedController::ControlMode mode, bool resetAll)
 
 		if (mode == CANTalon::kPosition)
 		{
-			motor->SetPID(0.1, 0, 0);
+			motor->SetPID(Config::DriveTrain::distancePID);
 		}
 		else if (mode == CANTalon::kSpeed)
 		{
 			motor->ClearIaccum();
-			motor->SetPID(0, Config::DriveTrain::accelerationRate, 0);
+			motor->SetPID(Config::DriveTrain::movingPID);
 		}
 		motor->SetControlMode(mode);
 	}

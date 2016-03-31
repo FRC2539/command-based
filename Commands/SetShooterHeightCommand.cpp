@@ -39,7 +39,7 @@ bool SetShooterHeightCommand::IsFinished()
 		return true;
 	}
 
-	return std::abs(shooter->getHeight() - m_height) < 30;
+	return std::abs(shooter->getHeight() - m_height) < 1000;
 }
 
 void SetShooterHeightCommand::End()

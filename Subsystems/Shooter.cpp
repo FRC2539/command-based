@@ -21,7 +21,7 @@ Shooter::Shooter() : Subsystem("Shooter"),
 
 	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel.ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
-	m_shooterWheel.SetI(Config::Shooter::I);
+	m_shooterWheel.SetPID(Config::Shooter::shootingPID);
 	m_shooterWheel.SetInverted(true);
 
 	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
@@ -29,7 +29,7 @@ Shooter::Shooter() : Subsystem("Shooter"),
 		Config::Shooter::maxHeight,
 		Config::Shooter::minHeight
 	);*/
-	m_rightPivotMotor.SetP(Config::Shooter::P);
+	m_rightPivotMotor.SetPID(Config::Shooter::pivotHoldPID);
 	m_rightPivotMotor.ConfigMaxOutputVoltage(4);
 	m_rightPivotMotor.SetSensorDirection(true);
 	m_rightPivotMotor.SetInverted(true);
@@ -61,8 +61,7 @@ void Shooter::move(Shooter::Direction direction)
 
 	m_rightPivotMotor.ClearIaccum();
 	m_rightPivotMotor.SetControlMode(CANTalon::kSpeed);
-	m_rightPivotMotor.SetP(0);
-	m_rightPivotMotor.SetI(Config::Shooter::I);
+	m_rightPivotMotor.SetPID(Config::Shooter::pivotMovePID);
 
 	if (direction == UP)
 	{
@@ -82,17 +81,16 @@ void Shooter::holdAt(int position)
 	}
 
 	m_rightPivotMotor.SetControlMode(CANTalon::kPosition);
-	m_rightPivotMotor.SetP(Config::Shooter::P);
-	m_rightPivotMotor.SetI(0);
+	m_rightPivotMotor.SetPID(Config::Shooter::pivotHoldPID);
 	m_rightPivotMotor.Set(position);
 }
 
-void Shooter::setIndexerSpeed(float speed)
+void Shooter::setIndexerSpeed(double speed)
 {
 	m_indexWheel.Set(speed);
 }
 
-void Shooter::setShooterSpeed(float speed)
+void Shooter::setShooterSpeed(double speed)
 {
 	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel.Set(speed);
@@ -100,14 +98,19 @@ void Shooter::setShooterSpeed(float speed)
 
 void Shooter::stopShooter()
 {
-	m_shooterWheel.SetControlMode(CANTalon::kPercentVbus);
-	m_shooterWheel.Set(0);
+	manualShooter(0);
 }
 
-void Shooter::manualRun(float power)
+void Shooter::manualPivot(double power)
 {
 	m_rightPivotMotor.SetControlMode(CANTalon::kPercentVbus);
 	m_rightPivotMotor.Set(power);
+}
+
+void Shooter::manualShooter(double power)
+{
+	m_shooterWheel.SetControlMode(CANTalon::kPercentVbus);
+	m_shooterWheel.Set(power);
 }
 
 bool Shooter::readyToFire()

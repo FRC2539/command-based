@@ -21,12 +21,13 @@ public:
 
 	Target getTarget();
 
-	void setIndexerSpeed(float speed);
-	void setShooterSpeed(float speed);
+	void setIndexerSpeed(double speed);
+	void setShooterSpeed(double speed);
+	void manualShooter(double power);
 	void stopShooter();
 	bool readyToFire();
 	bool hasBall();
-	void manualRun(float power);
+	void manualPivot(double power);
 
 	int getHeight();
 	void setEncoderPosition(int position=0);
