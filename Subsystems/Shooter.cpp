@@ -31,7 +31,6 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	);*/
 	m_rightPivotMotor.SetPID(Config::Shooter::pivotHoldPID);
 	m_rightPivotMotor.ConfigMaxOutputVoltage(4);
-	m_rightPivotMotor.SetSensorDirection(true);
 	m_rightPivotMotor.SetInverted(true);
 
 	m_leftPivotMotor.SetControlMode(CANTalon::kFollower);
@@ -129,12 +128,12 @@ int Shooter::getHeight()
 
 bool Shooter::atTopLimit()
 {
-	return m_rightPivotMotor.IsFwdLimitSwitchClosed();
+	return m_rightPivotMotor.IsRevLimitSwitchClosed();
 }
 
 bool Shooter::atBottomLimit()
 {
-	return m_rightPivotMotor.IsRevLimitSwitchClosed();
+	return m_rightPivotMotor.IsFwdLimitSwitchClosed();
 }
 
 void Shooter::setEncoderPosition(int position)

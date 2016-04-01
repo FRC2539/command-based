@@ -43,6 +43,7 @@ ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetShooterHeightCommand(Config::Shoo
 ADD_BUTTON(1, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::liftingHeight));
 ADD_SIMPLE_BUTTON(1, X, PickupCommand);
 ADD_SIMPLE_BUTTON(1, A, FireCommand);
+ADD_SIMPLE_BUTTON(1, Start, FireCommand);
 ADD_SIMPLE_BUTTON(1, B, LowGoalCommand);
 ADD_BUTTON(1, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
 ADD_BUTTON(1, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));

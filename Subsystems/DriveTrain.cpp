@@ -133,7 +133,7 @@ void DriveTrain::move(float x, float y, float rotate)
 	}
 
 	equalizeMotors();
-	//handleStop();
+	handleStop();
 	setOutputs(m_maxSpeed);
 }
 

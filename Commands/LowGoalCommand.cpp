@@ -9,5 +9,6 @@ LowGoalCommand::LowGoalCommand() : ConditionalCommand("LowGoal")
 
 bool LowGoalCommand::shouldRun()
 {
-	return shooter->hasBall();
+	//return shooter->hasBall();
+	return true; 
 }

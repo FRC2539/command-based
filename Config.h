@@ -31,7 +31,7 @@ namespace Config {
 
 		const double maxSpeed = 300;
 		const double preciseModeMaxSpeed = 75;
-		PID movingPID = {0, 0.005, 0};
+		PID movingPID = {0, 0.01225, 0};
 		PID distancePID = {0.1, 0, 0};
 
 		// Ratio of y speed to rotation speed, between 0 and 1
@@ -47,15 +47,15 @@ namespace Config {
 		DIOPort ballDetectorID = 0;
 
 		const int minHeight = 0;
-		const int shootingHeight = 150;
-		const int liftingHeight = 500;
-		const int maxHeight = 620;
+		const int shootingHeight = 100000;
+		const int liftingHeight = 120000;
+		const int maxHeight = 175000;
 
 		const int pivotSpeed = 20000;
 		PID pivotHoldPID = {0.003, 0, 0};
 		PID pivotMovePID = {0, 0.001, 0};
 
-		const double firingSpeed = 5000;
+		const double firingSpeed = 6000;
 		PID shootingPID = {0, 0.01, 0};
 	}
 }
