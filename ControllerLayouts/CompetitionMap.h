@@ -33,7 +33,6 @@ ADD_SIMPLE_BUTTON(0, B, LowGoalCommand);
 ADD_BUTTON(0, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
 ADD_BUTTON(0, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
 
-
 /*
  * Backup Controller
  */
@@ -41,9 +40,11 @@ ADD_BUTTON(0, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
 //ADD_SIMPLE_BUTTON(1, All, SelfDestructCommand);
 ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetShooterHeightCommand(Config::Shooter::minHeight));
 ADD_BUTTON(1, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::liftingHeight));
+ADD_BUTTON(1, B, WhenPressed, new SetShooterHeightCommand(Config::Shooter::shootingHeight));
+ADD_BUTTON(1, A, WhenPressed, new SetShooterHeightCommand(Config::Shooter::reverseShootingHeight));
 ADD_SIMPLE_BUTTON(1, X, PickupCommand);
-ADD_SIMPLE_BUTTON(1, A, FireCommand);
-ADD_SIMPLE_BUTTON(1, Start, FireCommand);
-ADD_SIMPLE_BUTTON(1, B, LowGoalCommand);
+ADD_SIMPLE_BUTTON(1, Back, FireCommand);
+ADD_SIMPLE_BUTTON(1, Start, LowGoalCommand);
+ADD_SIMPLE_BUTTON(1, Y, StopPickupCommand);
 ADD_BUTTON(1, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
 ADD_BUTTON(1, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));

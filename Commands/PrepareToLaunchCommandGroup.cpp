@@ -7,7 +7,7 @@
 
 PrepareToLaunchCommandGroup::PrepareToLaunchCommandGroup() : CommandGroup("PrepareToLaunch")
 {
-	AddParallel(new SpinShooterCommand());
+	AddParallel(new SpinShooterCommand(1));
 	//AddSequential(new SetShooterHeightCommand(Config::Shooter::shootingHeight));
 }
 

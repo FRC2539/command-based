@@ -131,7 +131,6 @@ void DriveTrain::move(float x, float y, float rotate)
 		setOutputs(m_maxSpeed / Config::DriveTrain::maxSpeed);
 		return;
 	}
-
 	equalizeMotors();
 	handleStop();
 	setOutputs(m_maxSpeed);

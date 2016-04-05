@@ -5,7 +5,8 @@
 
 LowGoalCommandGroup::LowGoalCommandGroup() : CommandGroup("LowGoal")
 {
-	AddSequential(new PrepareToBowlCommandGroup());
+	AddParallel(new PrepareToBowlCommandGroup());
+	AddSequential(new WaitCommand(1.3));
 	AddSequential(new LaunchBoulderCommand());
 }
 

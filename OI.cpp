@@ -25,6 +25,7 @@
 #include "Commands/PickupCommand.h"
 #include "Commands/ShooterMoveCommand.h"
 #include "Commands/ManualShooterCommand.h"
+#include "Commands/StopPickupCommand.h"
 
 
 OI::OI()

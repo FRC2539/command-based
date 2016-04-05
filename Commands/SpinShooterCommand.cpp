@@ -2,15 +2,16 @@
 
 #include "../Config.h"
 
-SpinShooterCommand::SpinShooterCommand() :
-	DefaultCommand("SpinShooter")
+SpinShooterCommand::SpinShooterCommand(double speed) :
+	DefaultCommand("SpinShooter"),
+	m_speed(speed)
 {
 	Requires(shooter);
 }
 
 void SpinShooterCommand::Initialize()
 {
-	shooter->setShooterSpeed(Config::Shooter::firingSpeed);
+	shooter->setShooterSpeed(m_speed);
 }
 
 bool SpinShooterCommand::IsFinished()

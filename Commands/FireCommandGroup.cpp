@@ -16,7 +16,8 @@ FireCommandGroup::FireCommandGroup() : CommandGroup("Fire")
 	//AddSequential(new MoveToRangeCommand());
 	//AddSequential(new WaitCommand(0.25));
 	//AddSequential(new FaceGoalCommand());
-	AddSequential(new PrepareToLaunchCommandGroup());
+	AddParallel(new PrepareToLaunchCommandGroup());
+	AddSequential(new WaitCommand(1.3));
 	AddSequential(new LaunchBoulderCommand());
 	//AddSequential(new SetShooterHeightCommand(Config::Shooter::minHeight));
 }

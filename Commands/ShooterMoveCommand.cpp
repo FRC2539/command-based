@@ -3,7 +3,7 @@
 #include "../Config.h"
 
 ShooterMoveCommand::ShooterMoveCommand(Shooter::Direction direction)
-	: DefaultCommand("Shooter"), m_direction(direction)
+	: DefaultCommand("Move Shooter"), m_direction(direction)
 {
 	Requires(shooter);
 }

@@ -12,7 +12,7 @@ DriveToDefenseCommand::DriveToDefenseCommand() :
 
 void DriveToDefenseCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(Config::DriveTrain::preciseModeMaxSpeed);
+	drivetrain->setMaxSpeed(Config::DriveTrain::maxSpeed);
 	m_target = drivetrain->getAngle();
 	SensorCommand::Initialize();
 }
@@ -26,7 +26,7 @@ void DriveToDefenseCommand::UsePIDOutput(double output)
 {
 	double y = std::max(1 - std::abs(output), 0.0);
 
-	drivetrain->move(0, y, output);
+	drivetrain->move(0, -y, output);
 }
 
 double DriveToDefenseCommand::ReturnPIDInput() const
