@@ -32,6 +32,7 @@ ADD_SIMPLE_BUTTON(0, A, FireCommand);
 ADD_SIMPLE_BUTTON(0, B, LowGoalCommand);
 ADD_BUTTON(0, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
 ADD_BUTTON(0, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
+ADD_TOGGLE_BUTTON(0, Start, new DriveBaseEncoderOffCommand());
 
 /*
  * Backup Controller

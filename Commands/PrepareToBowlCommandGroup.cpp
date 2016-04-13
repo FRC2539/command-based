@@ -8,5 +8,4 @@
 PrepareToBowlCommandGroup::PrepareToBowlCommandGroup() : CommandGroup("PrepareToBowl")
 {
 	AddParallel(new SpinShooterCommand(.4));
-	//AddSequential(new SetShooterHeightCommand(Config::Shooter::minHeight));
 }

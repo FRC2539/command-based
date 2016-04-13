@@ -8,7 +8,7 @@ CollectBoulderCommand::CollectBoulderCommand() :
 
 void CollectBoulderCommand::Initialize()
 {
-	shooter->setShooterSpeed(-80);
+	shooter->manualShooter(-0.8);
 	shooter->setIndexerSpeed(-0.45);
 }
 

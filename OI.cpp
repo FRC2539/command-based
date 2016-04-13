@@ -26,6 +26,7 @@
 #include "Commands/ShooterMoveCommand.h"
 #include "Commands/ManualShooterCommand.h"
 #include "Commands/StopPickupCommand.h"
+#include "Commands/DriveBaseEncoderOffCommand.h"
 
 
 OI::OI()
