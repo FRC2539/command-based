@@ -9,8 +9,3 @@ void DriveBaseEncoderOffCommand::Initialize()
 {
 	drivetrain->ignoreEncoders();
 }
-
-void DriveBaseEncoderOffCommand::End()
-{
-	drivetrain->useEncoders();
-}

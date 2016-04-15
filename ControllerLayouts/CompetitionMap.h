@@ -15,6 +15,7 @@ ADD_AXIS(0, LeftY, logicalAxes::DriveY);
 ADD_AXIS(0, LeftX, logicalAxes::DriveX);
 ADD_AXIS(0, RightX, logicalAxes::DriveRotate);
 
+
 // Button commands can be added three ways:
 // ADD_SIMPLE_BUTTON(Port #, Button Name, Command Name)
 // ADD_TOGGLE_BUTTON(Port #, Button Name, Command Name)
@@ -30,9 +31,10 @@ ADD_BUTTON(0, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shoot
 ADD_SIMPLE_BUTTON(0, X, PickupCommand);
 ADD_SIMPLE_BUTTON(0, A, FireCommand);
 ADD_SIMPLE_BUTTON(0, B, LowGoalCommand);
+ADD_SIMPLE_BUTTON(0, Y, StopPickupCommand);
 ADD_BUTTON(0, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
 ADD_BUTTON(0, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
-ADD_TOGGLE_BUTTON(0, Start, new DriveBaseEncoderOffCommand());
+ADD_TOGGLE_BUTTON(0, Start, new DriveBaseEncoderOnCommand());
 
 /*
  * Backup Controller

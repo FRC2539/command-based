@@ -91,7 +91,7 @@ void Shooter::setIndexerSpeed(double speed)
 
 void Shooter::setShooterSpeed(double speed)
 {
-	m_shooterWheel.SetControlMode(CANTalon::kPercentVbus);
+	m_shooterWheel.SetControlMode(CANTalon::kSpeed);
 	m_shooterWheel.Set(speed);
 }
 

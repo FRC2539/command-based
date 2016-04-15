@@ -11,7 +11,7 @@ SpinShooterCommand::SpinShooterCommand(double speed) :
 
 void SpinShooterCommand::Initialize()
 {
-	shooter->setShooterSpeed(m_speed);
+	shooter->manualShooter(m_speed);
 }
 
 bool SpinShooterCommand::IsFinished()
