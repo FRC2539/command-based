@@ -3,7 +3,7 @@
 DriveDistanceCommand::DriveDistanceCommand(
 	double distance,
 	DriveTrain::SensorMoveDirection direction
-) : DefaultCommand("DriveDistance"),
+) : DefaultCommand("DriveDistance", 0.1s),
 	m_direction(direction),
 	m_distance(distance)
 {
@@ -17,7 +17,14 @@ void DriveDistanceCommand::Initialize()
 
 bool DriveDistanceCommand::IsFinished()
 {
-	return drivetrain->doneMoving();
+	if( IsTimedOut())
+	{
+		return drivetrain->doneMoving();
+	}
+	else 
+	{
+		return false;
+	}
 }
 
 void DriveDistanceCommand::End()

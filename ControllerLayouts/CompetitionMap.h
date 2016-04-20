@@ -35,6 +35,7 @@ ADD_SIMPLE_BUTTON(0, Y, StopPickupCommand);
 ADD_BUTTON(0, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
 ADD_BUTTON(0, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
 ADD_TOGGLE_BUTTON(0, Start, new DriveBaseEncoderOnCommand());
+ADD_BUTTON(0, LeftJoystick, WhenPressed, new DriveDistanceCommand(15));
 
 /*
  * Backup Controller

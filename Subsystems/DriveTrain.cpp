@@ -1,11 +1,14 @@
 #include "DriveTrain.h"
 
 #include <RobotDrive.h>
+#include <SmartDashboard/SmartDashboard.h>
 
 #include <cmath>
+#include <string>
 
 #include "../Config.h"
 #include "../Commands/DriveCommand.h"
+#include "../Custom/Netconsole.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 {
@@ -132,7 +135,7 @@ void DriveTrain::move(float x, float y, float rotate)
 		return;
 	}
 	equalizeMotors();
-	handleStop();
+	//handleStop();
 	setOutputs(m_maxSpeed);
 }
 
@@ -219,12 +222,15 @@ void DriveTrain::equalizeMotors()
 	{
 		if (motor->GetControlMode() == CANTalon::kFollower)
 		{
+			index++;
 			continue;
 		}
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
+			float sensorValue = std::abs(motor->Get());
+			SmartDashboard::PutNumber(std::string("Motor ") + std::to_string(index), sensorValue);
+			SmartDashboard::PutNumber(std::string("Speed ") + std::to_string(index), m_speeds[index]);
 		if (currentVoltage > maxVoltage)
 		{
-			float sensorValue = std::abs(motor->Get());
 			if (sensorValue < m_maxSpeed)
 			{
 				float disproportion = std::abs(
@@ -350,6 +356,7 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	}
 
 	distance /= Config::DriveTrain::encoderSensitivity;
+	Netconsole::instant("Distance", distance);
 
 	setMode(CANTalon::kPosition);
 
@@ -384,9 +391,11 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	m_motors[RobotDrive::kFrontLeftMotor]->Set(
 		m_motors[RobotDrive::kFrontLeftMotor]->GetPosition() + distance
 	);
+	Netconsole::instant("Left", m_motors[RobotDrive::kFrontLeftMotor]->GetPosition() + distance);
 	m_motors[RobotDrive::kFrontRightMotor]->Set(
 		m_motors[RobotDrive::kFrontRightMotor]->GetPosition() - distance
 	);
+	Netconsole::instant("Right", m_motors[RobotDrive::kFrontRightMotor]->GetPosition() - distance);
 }
 
 bool DriveTrain::doneMoving()
