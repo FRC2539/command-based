@@ -21,7 +21,7 @@ bool DriveDistanceCommand::IsFinished()
 	{
 		return drivetrain->doneMoving();
 	}
-	else 
+	else
 	{
 		return false;
 	}

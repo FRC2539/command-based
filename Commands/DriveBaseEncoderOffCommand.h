@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Types/DefaultCommand.h"
+#include "Types/InstantCommand.h"
 
-class DriveBaseEncoderOffCommand : public DefaultCommand {
+class DriveBaseEncoderOffCommand : public InstantCommand {
 
 public:
 	DriveBaseEncoderOffCommand();

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Types/DefaultCommand.h"
+#include "Types/InstantCommand.h"
 
-class SetDriveTrainMaxSpeedCommand : public DefaultCommand {
+class SetDriveTrainMaxSpeedCommand : public InstantCommand {
 
 public:
 	SetDriveTrainMaxSpeedCommand(double Speed);

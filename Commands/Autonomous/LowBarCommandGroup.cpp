@@ -12,11 +12,11 @@
 
 LowBarCommandGroup::LowBarCommandGroup() : CommandGroup("LowBar")
 {
-	AddSequential(new AssumeStartingConfigCommand());
-	AddSequential(new ShooterMoveCommand(Shooter::DOWN));
-	AddParallel(new DriveBaseEncoderOffCommand());
+//	AddSequential(new AssumeStartingConfigCommand());
+//	AddSequential(new ShooterMoveCommand(Shooter::DOWN));
+//	AddParallel(new DriveBaseEncoderOffCommand());
 	AddParallel(new SetDriveTrainMaxSpeedCommand(150));
 	AddSequential(new CrossDefenseCommand());
-	AddSequential(new DriveDistanceCommand(24));
+//	AddSequential(new DriveDistanceCommand(24));
 }
 

@@ -30,8 +30,9 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	{
 		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 		motor->SetSafetyEnabled(false);
-		motor->SetSensorDirection(true);
 	}
+	m_motors[0]->SetSensorDirection(true);
+	m_motors[2]->SetSensorDirection(true);
 
 #if DRIVE_TYPE == SKID
 	// Only control the front motors and have the back motors follow because
@@ -228,7 +229,6 @@ void DriveTrain::equalizeMotors()
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
 			float sensorValue = std::abs(motor->Get());
 			SmartDashboard::PutNumber(std::string("Motor ") + std::to_string(index), sensorValue);
-			SmartDashboard::PutNumber(std::string("Speed ") + std::to_string(index), m_speeds[index]);
 		if (currentVoltage > maxVoltage)
 		{
 			if (sensorValue < m_maxSpeed)

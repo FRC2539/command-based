@@ -50,6 +50,7 @@ void DriverHUD::prepare()
 		"Reload Shooter Position",
 		new ReloadShooterPositionCommand()
 	);
+	
 	//SmartDashboard::PutData("Shutdown Jetson", new ShutdownJetsonCommand());
 
 	SmartDashboard::PutString("Alert", "");

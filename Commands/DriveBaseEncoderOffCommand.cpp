@@ -1,7 +1,7 @@
 #include "DriveBaseEncoderOffCommand.h"
 
 DriveBaseEncoderOffCommand::DriveBaseEncoderOffCommand()
-	: DefaultCommand("Drive Base Encoder Off")
+	: InstantCommand("Drive Base Encoder Off")
 {
 }
 

@@ -1,7 +1,7 @@
 #include "SetDriveTrainMaxSpeedCommand.h"
 
 SetDriveTrainMaxSpeedCommand::SetDriveTrainMaxSpeedCommand(double Speed):
-	DefaultCommand("SetDriveTrainMaxSpeed"),
+	InstantCommand("SetDriveTrainMaxSpeed"),
 	m_Speed(Speed)
 {
 }
