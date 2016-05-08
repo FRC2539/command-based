@@ -31,7 +31,7 @@ namespace Config {
 
 		const double maxSpeed = 300;
 		const double preciseModeMaxSpeed = 75;
-		PID movingPID = {0, 0.015, 0};
+		PID movingPID = {0, 0.001, 0};
 		PID distancePID = {0.3, .0001, 0};
 
 		// Ratio of y speed to rotation speed, between 0 and 1

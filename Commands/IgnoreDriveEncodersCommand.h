@@ -2,10 +2,10 @@
 
 #include "Types/DefaultCommand.h"
 
-class DriveBaseEncoderOnCommand : public DefaultCommand {
+class IgnoreDriveEncodersCommand : public DefaultCommand {
 
 public:
-	DriveBaseEncoderOnCommand();
+	IgnoreDriveEncodersCommand();
 	void Initialize();
 	void End();
 };

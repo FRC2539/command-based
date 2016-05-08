@@ -31,8 +31,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 		motor->SetSafetyEnabled(false);
 	}
-	m_motors[0]->SetSensorDirection(true);
-	m_motors[2]->SetSensorDirection(true);
+	m_motors[RobotDrive::kFrontLeftMotor]->SetSensorDirection(true);
 
 #if DRIVE_TYPE == SKID
 	// Only control the front motors and have the back motors follow because
@@ -49,6 +48,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	m_motors[RobotDrive::kRearRightMotor]->Set(
 		Config::DriveTrain::frontRightMotorID
 	);
+#else
+	m_motors[RobotDrive::kRearLeftMotor]->SetSensorDirection(true);
 #endif
 
 	m_speeds.resize(m_motors.size());
@@ -135,7 +136,8 @@ void DriveTrain::move(float x, float y, float rotate)
 		setOutputs(m_maxSpeed / Config::DriveTrain::maxSpeed);
 		return;
 	}
-	equalizeMotors();
+
+	//equalizeMotors();
 	//handleStop();
 	setOutputs(m_maxSpeed);
 }
@@ -227,10 +229,9 @@ void DriveTrain::equalizeMotors()
 			continue;
 		}
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
-			float sensorValue = std::abs(motor->Get());
-			SmartDashboard::PutNumber(std::string("Motor ") + std::to_string(index), sensorValue);
 		if (currentVoltage > maxVoltage)
 		{
+			float sensorValue = std::abs(motor->Get());
 			if (sensorValue < m_maxSpeed)
 			{
 				float disproportion = std::abs(

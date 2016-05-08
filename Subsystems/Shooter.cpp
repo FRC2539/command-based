@@ -4,8 +4,12 @@
 
 #include <networktables/NetworkTable.h>
 #include <Preferences.h>
-#include <CameraServer.h>
 #include <vector>
+
+#include <CameraServer.h>
+#include <USBCamera.h>
+#include <nivision.h>
+constexpr char const *USBCamera::kDefaultCameraName;
 
 Shooter::Shooter() : Subsystem("Shooter"),
 	m_ballDetector(Config::Shooter::ballDetectorID),
@@ -13,7 +17,8 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_rightPivotMotor(Config::Shooter::rightPivotMotorID),
 	m_indexWheel(Config::Shooter::indexWheelID),
 	m_shooterWheel(Config::Shooter::shooterWheelID),
-	m_settingsLoaded(false)
+	m_settingsLoaded(false),
+	m_sendFrame(true)
 {
 	m_indexWheel.SetControlMode(CANTalon::kPercentVbus);
 	m_indexWheel.ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
@@ -37,8 +42,10 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_leftPivotMotor.Set(Config::Shooter::rightPivotMotorID);
 	m_leftPivotMotor.SetClosedLoopOutputDirection(true);
 
-	CameraServer* cam = CameraServer::GetInstance();
-	cam->StartAutomaticCapture();
+	dashboard = CameraServer::GetInstance();
+	camera = std::make_shared<USBCamera>(USBCamera::kDefaultCameraName, true);
+	camera->OpenCamera();
+	camera->StartCapture();
 
 	m_targetInfo = NetworkTable::GetTable("cameraTarget");
 
@@ -188,4 +195,23 @@ bool Shooter::atKnownPosition()
 	}
 
 	return m_settingsLoaded;
+}
+
+void Shooter::flipImage()
+{
+	if (m_sendFrame == false)
+	{
+		m_sendFrame = true;
+		return;
+	}
+
+	Image* frame = imaqCreateImage(IMAQ_IMAGE_RGB, 0);
+	camera->GetImage(frame);
+	imaqFlip(frame, frame, IMAQ_HORIZONTAL_AXIS);
+	dashboard->SetImage(frame);
+
+	// We don't need to delete the frame because that is done by SetImage.
+	// Probably.
+
+	m_sendFrame = false;
 }

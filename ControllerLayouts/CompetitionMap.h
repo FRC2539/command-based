@@ -18,24 +18,13 @@ ADD_AXIS(0, RightX, logicalAxes::DriveRotate);
 
 // Button commands can be added three ways:
 // ADD_SIMPLE_BUTTON(Port #, Button Name, Command Name)
-// ADD_TOGGLE_BUTTON(Port #, Button Name, Command Name)
+// ADD_TOGGLE_BUTTON(Port #, Button Name, Command*)
 // ADD_BUTTON(Port #, Button Name, Action, Command*)
 //   Actions: WhenPressed, WhileHeld, WhenReleased, CancelWhenPressed, ToggleWhenPressed
 ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
+ADD_TOGGLE_BUTTON(0, Start, new IgnoreDriveEncodersCommand());
 ADD_BUTTON(0, DPadUp, WhenPressed, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
 ADD_BUTTON(0, DPadDown, CancelWhenPressed, lastCommand);
-
-// Per Albert's request
-ADD_BUTTON(0, LeftTrigger, WhenPressed, new SetShooterHeightCommand(Config::Shooter::minHeight));
-ADD_BUTTON(0, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::liftingHeight));
-ADD_SIMPLE_BUTTON(0, X, PickupCommand);
-ADD_SIMPLE_BUTTON(0, A, FireCommand);
-ADD_SIMPLE_BUTTON(0, B, LowGoalCommand);
-ADD_SIMPLE_BUTTON(0, Y, StopPickupCommand);
-ADD_BUTTON(0, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
-ADD_BUTTON(0, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
-ADD_TOGGLE_BUTTON(0, Start, new DriveBaseEncoderOnCommand());
-ADD_BUTTON(0, LeftJoystick, WhenPressed, new DriveDistanceCommand(15));
 
 /*
  * Backup Controller
