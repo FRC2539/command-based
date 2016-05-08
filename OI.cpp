@@ -27,7 +27,7 @@
 #include "Commands/ManualShooterCommand.h"
 #include "Commands/StopPickupCommand.h"
 #include "Commands/IgnoreDriveEncodersCommand.h"
-
+#include "Commands/GraphEncodersCommand.h"
 
 OI::OI()
 {

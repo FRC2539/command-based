@@ -24,6 +24,7 @@ public:
 	void resetGyro();
 
 	double getAcceleration();
+	std::vector<double> getEncoderSpeeds();
 
 	void useEncoders();
 	void ignoreEncoders();
@@ -35,7 +36,7 @@ public:
 		Defense
 	};
 
-	enum class SensorMoveDirection {
+	enum SensorMoveDirection {
 		DriveX,
 		DriveY,
 		Rotate
@@ -53,11 +54,13 @@ public:
 protected:
 	float m_maxSpeed;
 	bool m_readEncoders;
+	double m_last[3];
 
 	bool m_fieldOrientation;
 	double m_gyroOffset;
 
-	std::vector<std::shared_ptr<CANTalon>> m_motors;
+	std::vector<std::shared_ptr<CANTalon>> m_allMotors;
+	std::vector<std::shared_ptr<CANTalon>> m_activeMotors;
 	
 	DefenseState m_defenseLastState;
 	std::vector<float> m_speeds;
@@ -68,5 +71,5 @@ protected:
 	void handleStop();
 	void setOutputs(float maxValue);
 
-	void setMode(CANTalon::ControlMode mode, bool resetAll=false);
+	void setMode(CANTalon::ControlMode mode);
 };

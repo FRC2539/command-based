@@ -26,6 +26,8 @@ ADD_TOGGLE_BUTTON(0, Start, new IgnoreDriveEncodersCommand());
 ADD_BUTTON(0, DPadUp, WhenPressed, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
 ADD_BUTTON(0, DPadDown, CancelWhenPressed, lastCommand);
 
+ADD_TOGGLE_BUTTON(0, A, new GraphEncodersCommand());
+
 /*
  * Backup Controller
  */

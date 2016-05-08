@@ -16,5 +16,4 @@ void MonitorCommand::Execute()
 		drivetrain->calculateDefenseState();
 		SmartDashboard::PutBoolean("Has Ball?", shooter->hasBall());
 	}
-	shooter->flipImage();
 }

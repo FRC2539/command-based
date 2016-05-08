@@ -5,8 +5,6 @@
 #include <memory>
 
 class NetworkTable;
-class USBCamera;
-class CameraServer;
 
 #include "../Custom/DebuggingSubsystem.h"
 
@@ -22,7 +20,6 @@ public:
 	};
 
 	Target getTarget();
-	void flipImage();
 
 	void setIndexerSpeed(double speed);
 	void setShooterSpeed(double speed);
@@ -59,8 +56,4 @@ protected:
 	Direction m_direction;
 	bool atKnownPosition();
 	bool m_settingsLoaded;
-
-	CameraServer* dashboard;
-	std::shared_ptr<USBCamera> camera;
-	bool m_sendFrame;
 };

@@ -1,61 +1,70 @@
 #include "DriveTrain.h"
 
 #include <RobotDrive.h>
-#include <SmartDashboard/SmartDashboard.h>
 
 #include <cmath>
 #include <string>
 
 #include "../Config.h"
 #include "../Commands/DriveCommand.h"
-#include "../Custom/Netconsole.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 {
-	m_motors.push_back(
+	m_allMotors.push_back(
 		std::make_shared<CANTalon>(Config::DriveTrain::frontLeftMotorID)
 	);
-	m_motors.push_back(
+	m_allMotors.push_back(
 		std::make_shared<CANTalon>(Config::DriveTrain::frontRightMotorID)
 	);
-	m_motors.push_back(
+	m_allMotors.push_back(
 		std::make_shared<CANTalon>(Config::DriveTrain::backLeftMotorID)
 	);
-	m_motors.push_back(
+	m_allMotors.push_back(
 		std::make_shared<CANTalon>(Config::DriveTrain::backRightMotorID)
 	);
 
-	setMode(CANTalon::kSpeed, true);
-	for (auto motor : m_motors)
+	for (auto motor : m_allMotors)
 	{
 		motor->ConfigNeutralMode(CANTalon::kNeutralMode_Coast);
 		motor->SetSafetyEnabled(false);
 	}
-	m_motors[RobotDrive::kFrontLeftMotor]->SetSensorDirection(true);
+
+	m_activeMotors.push_back(m_allMotors[RobotDrive::kFrontLeftMotor]);
+	m_activeMotors.push_back(m_allMotors[RobotDrive::kFrontRightMotor]);
+
+	m_allMotors[RobotDrive::kFrontLeftMotor]->SetSensorDirection(true);
 
 #if DRIVE_TYPE == SKID
 	// Only control the front motors and have the back motors follow because
 	// there is only one encoder per side in an arcade drive setup.
-	m_motors[RobotDrive::kRearLeftMotor]->SetControlMode(
+	m_allMotors[RobotDrive::kRearLeftMotor]->SetControlMode(
 		CANTalon::kFollower
 	);
-	m_motors[RobotDrive::kRearLeftMotor]->Set(
+	m_allMotors[RobotDrive::kRearLeftMotor]->Set(
 		Config::DriveTrain::frontLeftMotorID
 	);
-	m_motors[RobotDrive::kRearRightMotor]->SetControlMode(
+	m_allMotors[RobotDrive::kRearRightMotor]->SetControlMode(
 		CANTalon::kFollower
 	);
-	m_motors[RobotDrive::kRearRightMotor]->Set(
+	m_allMotors[RobotDrive::kRearRightMotor]->Set(
 		Config::DriveTrain::frontRightMotorID
 	);
-#else
-	m_motors[RobotDrive::kRearLeftMotor]->SetSensorDirection(true);
+#elif DRIVE_TYPE == MECANUM
+	m_activeMotors.push_back(m_allMotors[RobotDrive::kRearLeftMotor]);
+	m_activeMotors.push_back(m_allMotors[RobotDrive::kRearRightMotor]);
+
+	m_allMotors[RobotDrive::kRearLeftMotor]->SetSensorDirection(true);
 #endif
 
-	m_speeds.resize(m_motors.size());
-	m_stopped = false;
+	setMode(CANTalon::kSpeed);
 
-	m_maxSpeed = Config::DriveTrain::maxSpeed;
+	m_speeds.resize(m_allMotors.size());
+	m_stopped = false;
+	m_last[SensorMoveDirection::DriveX] = -1;
+	m_last[SensorMoveDirection::DriveY] = -1;
+	m_last[SensorMoveDirection::Rotate] = -1;
+
+	m_maxSpeed = Config::DriveTrain::maxSpeed / Config::DriveTrain::rotationGain;
 	m_readEncoders = true;
 	m_defenseLastState = DefenseState::Floor;
 	
@@ -68,22 +77,22 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	lw->AddActuator(
 		GetName(),
 		"FrontLeftMotor",
-		m_motors[RobotDrive::kFrontLeftMotor]
+		m_allMotors[RobotDrive::kFrontLeftMotor]
 	);
 	lw->AddActuator(
 		GetName(),
 		"FrontRightMotor",
-		m_motors[RobotDrive::kFrontRightMotor]
+		m_allMotors[RobotDrive::kFrontRightMotor]
 	);
 	lw->AddActuator(
 		GetName(),
 		"RearLeftMotor",
-		m_motors[RobotDrive::kRearLeftMotor]
+		m_allMotors[RobotDrive::kRearLeftMotor]
 	);
 	lw->AddActuator(
 		GetName(),
 		"RearRightMotor",
-		m_motors[RobotDrive::kRearRightMotor]
+		m_allMotors[RobotDrive::kRearRightMotor]
 	);
 }
 
@@ -92,6 +101,18 @@ void DriveTrain::move(float x, float y, float rotate)
 #if DRIVE_TYPE == SKID
 	x = 0;
 #endif
+
+	if (x == m_last[SensorMoveDirection::DriveX] &&
+		y == m_last[SensorMoveDirection::DriveY] &&
+		rotate == m_last[SensorMoveDirection::Rotate])
+	{
+		return;
+	}
+
+	m_last[SensorMoveDirection::DriveX] = x;
+	m_last[SensorMoveDirection::DriveY] = y;
+	m_last[SensorMoveDirection::Rotate] = rotate;
+
 	y *= Config::DriveTrain::rotationGain;
 
 #if DRIVE_TYPE == MECANUM
@@ -215,19 +236,14 @@ void DriveTrain::stop()
 
 void DriveTrain::equalizeMotors()
 {
-	float maxVoltage = m_motors[0]->GetBusVoltage() - 0.1;
+	float maxVoltage = m_allMotors[0]->GetBusVoltage() - 0.1;
 	float slowFactor = 1;
 
 	// If one motor is pegged, don't let the others pass it
 	// NOTE: Are there cases where motors could be pegged at different values?
 	unsigned int index = 0;
-	for (auto motor : m_motors)
+	for (auto motor : m_activeMotors)
 	{
-		if (motor->GetControlMode() == CANTalon::kFollower)
-		{
-			index++;
-			continue;
-		}
 		float currentVoltage = std::abs(motor->GetOutputVoltage());
 		if (currentVoltage > maxVoltage)
 		{
@@ -281,12 +297,9 @@ void DriveTrain::handleStop()
 void DriveTrain::setOutputs(float maxValue)
 {
 	unsigned int index = 0;
-	for (auto motor : m_motors)
+	for (auto motor : m_activeMotors)
 	{
-		if (motor->GetControlMode() != CANTalon::kFollower)
-		{
-			motor->Set(m_speeds[index] * maxValue);
-		}
+		motor->Set(m_speeds[index] * maxValue);
 		index++;
 	}
 }
@@ -333,6 +346,17 @@ double DriveTrain::getAcceleration()
 	return m_navX.GetWorldLinearAccelX();
 }
 
+std::vector<double> DriveTrain::getEncoderSpeeds()
+{
+	std::vector<double> speeds;
+	for (auto motor : m_activeMotors)
+	{
+		speeds.push_back(motor->GetEncVel());
+	}
+
+	return speeds;
+}
+
 void DriveTrain::useEncoders()
 {
 	m_readEncoders = true;
@@ -357,7 +381,6 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	}
 
 	distance /= Config::DriveTrain::encoderSensitivity;
-	Netconsole::instant("Distance", distance);
 
 	setMode(CANTalon::kPosition);
 
@@ -365,44 +388,42 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	if (direction == SensorMoveDirection::DriveX)
 	{
 
-		m_motors[RobotDrive::kFrontLeftMotor]->Set(
-			m_motors[RobotDrive::kFrontLeftMotor]->GetPosition() + distance
+		m_activeMotors[RobotDrive::kFrontLeftMotor]->Set(
+			m_activeMotors[RobotDrive::kFrontLeftMotor]->GetPosition() + distance
 		);
-		m_motors[RobotDrive::kFrontRightMotor]->Set(
-			m_motors[RobotDrive::kFrontRightMotor]->GetPosition() + distance
+		m_activeMotors[RobotDrive::kFrontRightMotor]->Set(
+			m_activeMotors[RobotDrive::kFrontRightMotor]->GetPosition() + distance
 		);
-		m_motors[RobotDrive::kRearLeftMotor]->Set(
-			m_motors[RobotDrive::kRearLeftMotor]->GetPosition() - distance
+		m_activeMotors[RobotDrive::kRearLeftMotor]->Set(
+			m_activeMotors[RobotDrive::kRearLeftMotor]->GetPosition() - distance
 		);
-		m_motors[RobotDrive::kRearRightMotor]->Set(
-			m_motors[RobotDrive::kRearRightMotor]->GetPosition() - distance
+		m_activeMotors[RobotDrive::kRearRightMotor]->Set(
+			m_activeMotors[RobotDrive::kRearRightMotor]->GetPosition() - distance
 		);
 
 		return;
 	}
 
-	m_motors[RobotDrive::kRearLeftMotor]->Set(
-		m_motors[RobotDrive::kRearLeftMotor]->GetPosition() + distance
+	m_activeMotors[RobotDrive::kRearLeftMotor]->Set(
+		m_activeMotors[RobotDrive::kRearLeftMotor]->GetPosition() + distance
 	);
-	m_motors[RobotDrive::kRearRightMotor]->Set(
-		m_motors[RobotDrive::kRearRightMotor]->GetPosition() - distance
+	m_activeMotors[RobotDrive::kRearRightMotor]->Set(
+		m_activeMotors[RobotDrive::kRearRightMotor]->GetPosition() - distance
 	);
 #endif
 
-	m_motors[RobotDrive::kFrontLeftMotor]->Set(
-		m_motors[RobotDrive::kFrontLeftMotor]->GetPosition() + distance
+	m_activeMotors[RobotDrive::kFrontLeftMotor]->Set(
+		m_activeMotors[RobotDrive::kFrontLeftMotor]->GetPosition() + distance
 	);
-	Netconsole::instant("Left", m_motors[RobotDrive::kFrontLeftMotor]->GetPosition() + distance);
-	m_motors[RobotDrive::kFrontRightMotor]->Set(
-		m_motors[RobotDrive::kFrontRightMotor]->GetPosition() - distance
+	m_activeMotors[RobotDrive::kFrontRightMotor]->Set(
+		m_activeMotors[RobotDrive::kFrontRightMotor]->GetPosition() - distance
 	);
-	Netconsole::instant("Right", m_motors[RobotDrive::kFrontRightMotor]->GetPosition() - distance);
 }
 
 bool DriveTrain::doneMoving()
 {
 	float maxError = 10;
-	for (auto motor : m_motors)
+	for (auto motor : m_activeMotors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)
 		{
@@ -426,18 +447,13 @@ void DriveTrain::setMaxSpeed(float speed)
 		return;
 	}
 
-	m_maxSpeed = speed;
+	m_maxSpeed = speed / Config::DriveTrain::rotationGain;
 }
 
-void DriveTrain::setMode(CANSpeedController::ControlMode mode, bool resetAll)
+void DriveTrain::setMode(CANSpeedController::ControlMode mode)
 {
-	for (auto &motor : m_motors)
+	for (auto &motor : m_activeMotors)
 	{
-		if ( ! resetAll && motor->GetControlMode() == CANTalon::kFollower)
-		{
-			continue;
-		}
-
 		if (mode == CANTalon::kPosition)
 		{
 			motor->SetPID(Config::DriveTrain::distancePID);
