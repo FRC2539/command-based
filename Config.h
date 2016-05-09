@@ -29,10 +29,10 @@ namespace Config {
 
 		const double encoderSensitivity = 0.02;
 
-		const double maxSpeed = 300;
+		const double maxSpeed = 950;
 		const double preciseModeMaxSpeed = 75;
-		PID movingPID = {0, 0.001, 0};
-		PID distancePID = {0.3, .0001, 0};
+		PID movingPID = {0, 0.002, 0};
+		PID distancePID = {0.3, .001, 0};
 
 		// Ratio of y speed to rotation speed, between 0 and 1
 		const double rotationGain = 0.8;

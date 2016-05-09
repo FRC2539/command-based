@@ -22,11 +22,12 @@ ADD_AXIS(0, RightX, logicalAxes::DriveRotate);
 // ADD_BUTTON(Port #, Button Name, Action, Command*)
 //   Actions: WhenPressed, WhileHeld, WhenReleased, CancelWhenPressed, ToggleWhenPressed
 ADD_SIMPLE_BUTTON(0, Back, ResetCommand);
-ADD_TOGGLE_BUTTON(0, Start, new IgnoreDriveEncodersCommand());
 ADD_BUTTON(0, DPadUp, WhenPressed, new DriveCommand(Config::DriveTrain::preciseModeMaxSpeed));
 ADD_BUTTON(0, DPadDown, CancelWhenPressed, lastCommand);
 
+ADD_TOGGLE_BUTTON(0, Start, new IgnoreDriveEncodersCommand());
 ADD_TOGGLE_BUTTON(0, A, new GraphEncodersCommand());
+
 
 /*
  * Backup Controller

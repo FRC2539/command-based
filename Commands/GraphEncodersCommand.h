@@ -9,9 +9,7 @@ class GraphEncodersCommand : public DefaultCommand {
 
 public:
 	GraphEncodersCommand();
-	void Initialize() override;
 	void Execute() override;
-	void End() override;
 
 protected:
 	std::vector<std::string> m_labels;
