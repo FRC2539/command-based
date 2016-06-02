@@ -7,6 +7,7 @@
 
 #include "../Config.h"
 #include "../Commands/DriveCommand.h"
+#include "../Custom/Netconsole.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 {
@@ -418,11 +419,15 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	m_activeMotors[RobotDrive::kFrontRightMotor]->Set(
 		m_activeMotors[RobotDrive::kFrontRightMotor]->GetPosition() - distance
 	);
+	Netconsole::instant("Distance",distance);
+	Netconsole::instant("Current Location",m_activeMotors[RobotDrive::kFrontRightMotor]->GetPosition());
+
 }
 
 bool DriveTrain::doneMoving()
 {
 	float maxError = 10;
+	static int t = 0;
 	for (auto motor : m_activeMotors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)
@@ -430,8 +435,13 @@ bool DriveTrain::doneMoving()
 			return false;
 		}
 	}
+	Netconsole::print("Value of T", t);
+	t = t+1;
 
-	return true;
+	if (t >= 50){
+		t=0;
+		return true;
+	}
 }
 
 void DriveTrain::InitDefaultCommand()
