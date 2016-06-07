@@ -49,10 +49,11 @@ public:
 		double distance,
 		SensorMoveDirection direction=SensorMoveDirection::DriveY
 	);
-	bool doneMoving();
+	bool atTargetPosition();
 
 protected:
 	float m_maxSpeed;
+	float m_maxPercentVBus;
 	bool m_readEncoders;
 	double m_last[3];
 
@@ -69,7 +70,7 @@ protected:
 
 	void equalizeMotors();
 	void handleStop();
-	void setOutputs(float maxValue);
+	void setOutputs();
 
 	void setMode(CANTalon::ControlMode mode);
 };

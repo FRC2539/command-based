@@ -65,7 +65,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	m_last[SensorMoveDirection::DriveY] = -1;
 	m_last[SensorMoveDirection::Rotate] = -1;
 
-	m_maxSpeed = Config::DriveTrain::maxSpeed / Config::DriveTrain::rotationGain;
+	setMaxSpeed(Config::DriveTrain::maxSpeed);
 	m_readEncoders = true;
 	m_defenseLastState = DefenseState::Floor;
 	
@@ -153,15 +153,7 @@ void DriveTrain::move(float x, float y, float rotate)
 		}
 	}
 
-	if (m_readEncoders == false)
-	{
-		setOutputs(m_maxSpeed / Config::DriveTrain::maxSpeed);
-		return;
-	}
-
-	//equalizeMotors();
-	//handleStop();
-	setOutputs(m_maxSpeed);
+	setOutputs();
 }
 
 DriveTrain::DefenseState DriveTrain::getDefenseState()
@@ -229,79 +221,30 @@ void DriveTrain::stop()
 	if (m_readEncoders)
 	{
 		setMode(CANTalon::kSpeed);
-		m_maxSpeed = Config::DriveTrain::maxSpeed;
+		setMaxSpeed(Config::DriveTrain::maxSpeed);
 	}
 
 	move(0, 0, 0);
 }
 
-void DriveTrain::equalizeMotors()
-{
-	float maxVoltage = m_allMotors[0]->GetBusVoltage() - 0.1;
-	float slowFactor = 1;
-
-	// If one motor is pegged, don't let the others pass it
-	// NOTE: Are there cases where motors could be pegged at different values?
-	unsigned int index = 0;
-	for (auto motor : m_activeMotors)
-	{
-		float currentVoltage = std::abs(motor->GetOutputVoltage());
-		if (currentVoltage > maxVoltage)
-		{
-			float sensorValue = std::abs(motor->Get());
-			if (sensorValue < m_maxSpeed)
-			{
-				float disproportion = std::abs(
-					sensorValue / (m_speeds[index] * m_maxSpeed)
-				);
-				if (disproportion < slowFactor)
-				{
-					slowFactor = disproportion;
-				}
-			}
-		}
-
-		index++;
-	}
-
-	if (slowFactor < 1)
-	{
-		for (auto &speed : m_speeds)
-		{
-			speed *= slowFactor;
-		}
-	}
-}
-
-void DriveTrain::handleStop()
-{
-	bool isStopped = true;
-	for (auto &speed : m_speeds)
-	{
-		if (std::abs(speed) > 0.05)
-		{
-			isStopped = false;
-		}
-	}
-	if (isStopped && ! m_stopped)
-	{
-		m_stopped = true;
-		setMode(CANTalon::kPercentVbus);
-	}
-	else if (! isStopped && m_stopped)
-	{
-		m_stopped = false;
-		setMode(CANTalon::kSpeed);
-	}
-}
-
-void DriveTrain::setOutputs(float maxValue)
+void DriveTrain::setOutputs()
 {
 	unsigned int index = 0;
-	for (auto motor : m_activeMotors)
+	if (m_readEncoders == true)
 	{
-		motor->Set(m_speeds[index] * maxValue);
-		index++;
+		for (auto motor : m_activeMotors)
+		{
+			motor->Set(m_speeds[index] * m_maxSpeed);
+			index++;
+		}
+	}
+	else
+	{
+		for (auto motor : m_activeMotors)
+		{
+			motor->Set(m_speeds[index] * m_maxPercentVBus);
+			index++;
+		}
 	}
 }
 
@@ -419,15 +362,11 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	m_activeMotors[RobotDrive::kFrontRightMotor]->Set(
 		m_activeMotors[RobotDrive::kFrontRightMotor]->GetPosition() - distance
 	);
-	Netconsole::instant("Distance",distance);
-	Netconsole::instant("Current Location",m_activeMotors[RobotDrive::kFrontRightMotor]->GetPosition());
-
 }
 
-bool DriveTrain::doneMoving()
+bool DriveTrain::atTargetPosition()
 {
 	float maxError = 10;
-	static int t = 0;
 	for (auto motor : m_activeMotors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)
@@ -435,13 +374,8 @@ bool DriveTrain::doneMoving()
 			return false;
 		}
 	}
-	Netconsole::print("Value of T", t);
-	t = t+1;
 
-	if (t >= 50){
-		t=0;
-		return true;
-	}
+	return true;
 }
 
 void DriveTrain::InitDefaultCommand()
@@ -458,6 +392,7 @@ void DriveTrain::setMaxSpeed(float speed)
 	}
 
 	m_maxSpeed = speed / Config::DriveTrain::rotationGain;
+	m_maxPercentVBus = m_maxSpeed / Config::DriveTrain::maxSpeed;
 }
 
 void DriveTrain::setMode(CANSpeedController::ControlMode mode)
