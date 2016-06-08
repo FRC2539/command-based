@@ -366,7 +366,7 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 
 bool DriveTrain::atTargetPosition()
 {
-	float maxError = 10;
+	float maxError = 200;
 	for (auto motor : m_activeMotors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)

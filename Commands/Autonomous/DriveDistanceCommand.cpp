@@ -13,18 +13,22 @@ DriveDistanceCommand::DriveDistanceCommand(
 void DriveDistanceCommand::Initialize()
 {
 	drivetrain->moveDistance(m_distance, m_direction);
+	m_atTargetCount = 0;
 }
 
 bool DriveDistanceCommand::IsFinished()
 {
-	if( IsTimedOut())
+	if (IsTimedOut())
 	{
-		return drivetrain->doneMoving();
+		if (drivetrain->atTargetPosition())
+		{
+
+			m_atTargetCount++;
+			return m_atTargetCount > 5;
+		}
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }
 
 void DriveDistanceCommand::End()

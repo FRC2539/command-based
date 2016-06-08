@@ -16,7 +16,7 @@ public:
 
 protected:
 	double m_distance;
-	unsigned int atTargetCount;
+	unsigned int m_atTargetCount;
 	DriveTrain::SensorMoveDirection m_direction;
 
 };
