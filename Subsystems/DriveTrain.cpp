@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <string>
+#include <algorithm>
 
 #include "../Config.h"
 #include "../Commands/DriveCommand.h"
@@ -232,6 +233,18 @@ void DriveTrain::setOutputs()
 	unsigned int index = 0;
 	if (m_readEncoders == true)
 	{
+		bool isStopped = std::all_of(
+			m_speeds.begin(),
+			m_speeds.end(),
+			[](float speed) { return std::abs(speed) < 0.1; }
+		);
+		if (isStopped)
+		{
+			for (auto motor : m_activeMotors)
+			{
+				motor->ClearIaccum();
+			}
+		}
 		for (auto motor : m_activeMotors)
 		{
 			motor->Set(m_speeds[index] * m_maxSpeed);

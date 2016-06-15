@@ -26,6 +26,8 @@ bool DriveDistanceCommand::IsFinished()
 			m_atTargetCount++;
 			return m_atTargetCount > 5;
 		}
+
+		m_atTargetCount = 0;
 	}
 
 	return false;
