@@ -314,6 +314,16 @@ std::vector<double> DriveTrain::getEncoderSpeeds()
 	return speeds;
 }
 
+std::vector<double> DriveTrain::getEncoderPositions()
+{
+	std::vector<double> positions;
+	for (auto motor : m_activeMotors)
+	{
+		positions.push_back(motor->GetPosition());
+	}
+
+	return positions;
+}
 void DriveTrain::useEncoders()
 {
 	m_readEncoders = true;
@@ -377,9 +387,8 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	);
 }
 
-bool DriveTrain::atTargetPosition()
+bool DriveTrain::atTargetPosition(float maxError)
 {
-	float maxError = 200;
 	for (auto motor : m_activeMotors)
 	{
 		if (std::abs(motor->GetClosedLoopError()) > maxError)

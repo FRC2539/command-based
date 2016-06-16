@@ -15,7 +15,9 @@ LowBarCommandGroup::LowBarCommandGroup() : CommandGroup("LowBar")
 //	AddSequential(new ShooterMoveCommand(Shooter::DOWN));
 	AddParallel(new GraphEncodersCommand);
 	AddSequential(new PrintCommand("Begin\n"));
-	AddSequential(new DriveDistanceCommand(24));
+	AddSequential(new DriveDistanceCommand(12, 200));
+	AddSequential(new PrintCommand("Middle\n"));
+	AddSequential(new DriveDistanceCommand(3));
 	AddSequential(new PrintCommand("End\n"));
 	AddSequential(new SetShooterHeightCommand(1000));
 	AddSequential(new SetShooterHeightCommand(0));

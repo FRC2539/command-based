@@ -25,6 +25,8 @@ public:
 
 	double getAcceleration();
 	std::vector<double> getEncoderSpeeds();
+	std::vector<double> getEncoderPositions();
+
 
 	void useEncoders();
 	void ignoreEncoders();
@@ -49,7 +51,7 @@ public:
 		double distance,
 		SensorMoveDirection direction=SensorMoveDirection::DriveY
 	);
-	bool atTargetPosition();
+	bool atTargetPosition(float maxError);
 
 protected:
 	float m_maxSpeed;
