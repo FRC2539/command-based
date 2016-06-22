@@ -27,7 +27,6 @@ public:
 	std::vector<double> getEncoderSpeeds();
 	std::vector<double> getEncoderPositions();
 
-
 	void useEncoders();
 	void ignoreEncoders();
 	 
@@ -51,7 +50,8 @@ public:
 		double distance,
 		SensorMoveDirection direction=SensorMoveDirection::DriveY
 	);
-	bool atTargetPosition(float maxError);
+	void setEncoderTargetPositions(std::vector<float> positions);
+	bool atTargetPosition();
 
 protected:
 	float m_maxSpeed;
@@ -70,8 +70,6 @@ protected:
 	bool m_stopped;
 	AHRS m_navX;
 
-	void equalizeMotors();
-	void handleStop();
 	void setOutputs();
 
 	void setMode(CANTalon::ControlMode mode);

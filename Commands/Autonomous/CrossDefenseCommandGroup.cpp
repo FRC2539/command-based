@@ -2,11 +2,11 @@
 
 #include "AssumeStartingConfigCommand.h"
 #include "../CrossDefenseCommand.h"
-#include "DriveDistanceCommand.h"
+#include "DriveDistanceCommandGroup.h"
 
 CrossDefenseCommandGroup::CrossDefenseCommandGroup() : CommandGroup("CrossDefense")
 {
 	AddSequential(new AssumeStartingConfigCommand());
 	AddSequential(new CrossDefenseCommand());
-	AddSequential(new DriveDistanceCommand(24));
+	AddSequential(new DriveDistanceCommandGroup(24));
 }

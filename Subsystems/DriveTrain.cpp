@@ -387,11 +387,24 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	);
 }
 
-bool DriveTrain::atTargetPosition(float maxError)
+void DriveTrain::setEncoderTargetPositions(std::vector<float> positions)
+{
+	setMode(CANTalon::kPosition);
+
+	unsigned int index = 0;
+	for (float position : positions)
+	{
+		m_activeMotors[index]->Set(position);
+
+		index++;
+	}
+}
+
+bool DriveTrain::atTargetPosition()
 {
 	for (auto motor : m_activeMotors)
 	{
-		if (std::abs(motor->GetClosedLoopError()) > maxError)
+		if (std::abs(motor->GetClosedLoopError()) > 10)
 		{
 			return false;
 		}

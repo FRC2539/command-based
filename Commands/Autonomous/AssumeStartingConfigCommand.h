@@ -5,7 +5,7 @@
 class AssumeStartingConfigCommand : public InstantCommand {
 
 public:
-	AssumeStartingConfigCommand(bool forward=false);
+	explicit AssumeStartingConfigCommand(bool forward=false);
 	void Initialize() override;
 
 protected:
