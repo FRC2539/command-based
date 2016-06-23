@@ -27,12 +27,13 @@ namespace Config {
 		CanID backLeftMotorID = 2;
 		CanID backRightMotorID = 4;
 
-		const double encoderSensitivity = .015;
+		const double encoderSensitivity = .0157;
+		const double encoderTicksPerDegre = 16.6725;
 
 		const double maxSpeed = 950;
 		const double preciseModeMaxSpeed = 75;
-		PID movingPID = {0, 0.002, 0};
-		PID distancePID = {0.4, .0005, 0};
+		PID movingPID = {0, 0.006, 0};
+		PID distancePID = {0.6, .0015, 0};
 
 		// Ratio of y speed to rotation speed, between 0 and 1
 		const double rotationGain = 0.8;

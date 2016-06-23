@@ -8,7 +8,7 @@ ApproachPositionCommand::ApproachPositionCommand(float distance) :
 {
 	Requires(drivetrain);
 
-	m_speed = 400;
+	m_speed = 200;
 	if (distance < 0)
 	{
 		m_speed *= -1;
@@ -22,7 +22,8 @@ void ApproachPositionCommand::Initialize()
 		m_parent = (DriveDistanceCommandGroup*)GetGroup();
 	}
 
-	drivetrain->move(0, m_speed, 0);
+	drivetrain->setMaxSpeed(m_speed);
+	drivetrain->move(0, 1, 0);
 }
 
 bool ApproachPositionCommand::IsFinished()

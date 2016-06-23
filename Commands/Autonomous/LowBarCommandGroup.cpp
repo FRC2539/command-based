@@ -15,8 +15,7 @@ LowBarCommandGroup::LowBarCommandGroup() : CommandGroup("LowBar")
 //	AddSequential(new CrossDefenseCommand());
 
 	AddParallel(new GraphEncodersCommand);
-	AddSequential(new PrintCommand("Begin\n"));
-	AddSequential(new DriveDistanceCommandGroup(24));
-	AddSequential(new PrintCommand("End\n"));
+	AddSequential(new DriveDistanceCommandGroup(60));
+	AddSequential(new PrintCommand("Fin\n"));
 }
 

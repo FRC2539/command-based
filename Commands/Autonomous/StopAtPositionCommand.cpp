@@ -14,7 +14,7 @@ void StopAtPositionCommand::Initialize()
 		m_parent = (DriveDistanceCommandGroup*)GetGroup();
 	}
 
-	drivetrain->setEncoderTargets(m_parent->finalPositions);
+	drivetrain->setEncoderTargetPositions(m_parent->finalPositions);
 }
 
 bool StopAtPositionCommand::IsFinished()

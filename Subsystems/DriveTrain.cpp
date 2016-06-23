@@ -404,7 +404,7 @@ bool DriveTrain::atTargetPosition()
 {
 	for (auto motor : m_activeMotors)
 	{
-		if (std::abs(motor->GetClosedLoopError()) > 10)
+		if (std::abs(motor->GetClosedLoopError()) > 20)
 		{
 			return false;
 		}

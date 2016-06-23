@@ -10,7 +10,7 @@ CalculatePositionsCommand::CalculatePositionsCommand(float distance)
 {
 	Requires(drivetrain);
 
-	float error = 150;
+	float error = 200;
 	if (m_distance < 0)
 	{
 		error *= -1;
@@ -25,7 +25,7 @@ void CalculatePositionsCommand::Initialize()
 		m_parent = (DriveDistanceCommandGroup*)GetGroup();
 	}
 
-	/*int sign = 1;
+	int sign = 1;
 	m_parent->handoffPositions.clear();
 	m_parent->finalPositions.clear();
 	std::vector<double> currentPositions = drivetrain->getEncoderPositions();
@@ -35,5 +35,5 @@ void CalculatePositionsCommand::Initialize()
 		m_parent->finalPositions.push_back(position + m_distance * sign);
 
 		sign = sign * -1;
-	}*/
+	}
 }
