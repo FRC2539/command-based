@@ -8,10 +8,10 @@ ApproachPositionCommand::ApproachPositionCommand(float distance) :
 {
 	Requires(drivetrain);
 
-	m_speed = 200;
+	m_direction = 1;
 	if (distance < 0)
 	{
-		m_speed *= -1;
+		m_direction = -1;
 	}
 }
 
@@ -22,14 +22,14 @@ void ApproachPositionCommand::Initialize()
 		m_parent = (DriveDistanceCommandGroup*)GetGroup();
 	}
 
-	drivetrain->setMaxSpeed(m_speed);
-	drivetrain->move(0, 1, 0);
+	drivetrain->setMaxSpeed(200);
+	drivetrain->move(0, m_direction, 0);
 }
 
 bool ApproachPositionCommand::IsFinished()
 {
 	std::vector<double> currentPositions = drivetrain->getEncoderPositions();
-	if (m_speed < 0)
+	if (m_direction < 0)
 	{
 		if (currentPositions[0] < m_parent->handoffPositions[0])
 		{

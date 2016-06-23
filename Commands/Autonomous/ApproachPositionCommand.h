@@ -15,5 +15,5 @@ public:
 
 protected:
 	DriveDistanceCommandGroup* m_parent;
-	int m_speed;
+	int m_direction;
 };
