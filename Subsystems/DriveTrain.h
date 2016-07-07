@@ -67,7 +67,7 @@ protected:
 	
 	DefenseState m_defenseLastState;
 	std::vector<float> m_speeds;
-	bool m_stopped;
+	bool m_wasStopped;
 	AHRS m_navX;
 
 	void setOutputs();

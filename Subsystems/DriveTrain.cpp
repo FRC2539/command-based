@@ -61,18 +61,19 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain"), m_navX(SPI::Port::kMXP)
 	setMode(CANTalon::kSpeed);
 
 	m_speeds.resize(m_allMotors.size());
-	m_stopped = false;
 	m_last[SensorMoveDirection::DriveX] = -1;
 	m_last[SensorMoveDirection::DriveY] = -1;
 	m_last[SensorMoveDirection::Rotate] = -1;
 
 	setMaxSpeed(Config::DriveTrain::maxSpeed);
 	m_readEncoders = true;
+	m_wasStopped = true;
 	m_defenseLastState = DefenseState::Floor;
 	
 	m_fieldOrientation = false;
 	resetGyro();
 	m_gyroOffset = 0;
+
 
 	DEBUG_SENSOR(m_navX);
 	LiveWindow* lw = LiveWindow::GetInstance();
@@ -240,9 +241,19 @@ void DriveTrain::setOutputs()
 		);
 		if (isStopped)
 		{
+			m_wasStopped = true;
 			for (auto motor : m_activeMotors)
 			{
 				motor->ClearIaccum();
+				motor->SetIzone(1000);
+			}
+		}
+		else if (m_wasStopped)
+		{
+			m_wasStopped = false;
+			for (auto motor : m_activeMotors)
+			{
+				motor->SetIzone(0);
 			}
 		}
 		for (auto motor : m_activeMotors)
