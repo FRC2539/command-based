@@ -32,13 +32,14 @@ Shooter::Shooter() : Subsystem("Shooter"),
 	m_rightPivotMotor.SetPID(Config::Shooter::pivotHoldPID);
 	m_rightPivotMotor.ConfigMaxOutputVoltage(4);
 	m_rightPivotMotor.SetInverted(true);
+        m_rightPivotMotor.SetFeedbackDevice(CANTalon::CtreMagEncoder_Absolute);
 
 	m_leftPivotMotor.SetControlMode(CANTalon::kFollower);
 	m_leftPivotMotor.Set(Config::Shooter::rightPivotMotorID);
 	m_leftPivotMotor.SetClosedLoopOutputDirection(true);
 
-	CameraServer* cam = CameraServer::GetInstance();
-	cam->StartAutomaticCapture();
+	//CameraServer* cam = CameraServer::GetInstance();
+	//cam->StartAutomaticCapture();
 
 	m_targetInfo = NetworkTable::GetTable("cameraTarget");
 
@@ -123,7 +124,7 @@ bool Shooter::readyToFire()
 
 int Shooter::getHeight()
 {
-	return m_rightPivotMotor.GetPosition();
+	return m_rightPivotMotor.GetPulseWidthPosition();
 }
 
 bool Shooter::atTopLimit()
@@ -138,8 +139,6 @@ bool Shooter::atBottomLimit()
 
 void Shooter::setEncoderPosition(int position)
 {
-	m_rightPivotMotor.SetPosition(position);
-
 	Preferences* preferences = Preferences::GetInstance();
 	preferences->PutInt("shooterPosition", position);
 
@@ -156,8 +155,19 @@ void Shooter::storeEncoderPosition()
 
 bool Shooter::hasBall()
 {
-	return m_ballDetector.Get();
+	if ( ! m_hasBall)
+	{
+		m_hasBall = m_ballDetector.Get();
+	}
+	
+	return m_hasBall;
 }
+
+void Shooter::ballReleased()
+{
+	m_hasBall = false;
+}
+
 
 Shooter::Target Shooter::getTarget()
 {

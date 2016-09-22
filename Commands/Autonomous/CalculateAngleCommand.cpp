@@ -1,4 +1,5 @@
 #include "CalculateAngleCommand.h"
+#include "../../Custom/Netconsole.h"
 
 #include "TurnAngleCommandGroup.h"
 #include "../../Config.h"
@@ -10,7 +11,7 @@ CalculateAngleCommand::CalculateAngleCommand(float angle)
 {
 	Requires(drivetrain);
 
-	float error = 100;
+	float error = 150;
 	if (m_distance < 0)
 	{
 		error *= -1;
@@ -31,6 +32,9 @@ void CalculateAngleCommand::Initialize()
 	for (float position : currentPositions)
 	{
 		m_parent->handoffPositions.push_back(position + m_handoffDistance);
+		Netconsole::instant("handoffDistance", position + m_handoffDistance);
 		m_parent->finalPositions.push_back(position + m_distance);
+		Netconsole::instant("distance", position + m_distance);
+		Netconsole::instant("position", position);
 	}
 }

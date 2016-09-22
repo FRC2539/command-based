@@ -9,11 +9,11 @@ FireCommand::FireCommand() : ConditionalCommand("Fire")
 
 bool FireCommand::shouldRun()
 {
-	/*if (shooter->hasBall() == false)
+	if (shooter->hasBall() == false)
 	{
 		return false;
 	}
-	*/
+
 	return true;
 	auto target = shooter->getTarget();
 	return target.found;

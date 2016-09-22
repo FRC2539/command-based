@@ -28,7 +28,7 @@ namespace Config {
 		CanID backRightMotorID = 4;
 
 		const double encoderSensitivity = .0157;
-		const double encoderTicksPerDegree = 15.5;
+		const double encoderTicksPerDegree = 17.2;
 
 		const double maxSpeed = 950;
 		const double preciseModeMaxSpeed = 75;
@@ -47,11 +47,11 @@ namespace Config {
 
 		DIOPort ballDetectorID = 0;
 
-		const int minHeight = 0;
-		const int shootingHeight = 66000;
-		const int reverseShootingHeight = 128000;
-		const int liftingHeight = 120000;
-		const int maxHeight = 175000;
+		const int minHeight = -1500;
+		const int shootingHeight = 505;
+		const int reverseShootingHeight = 2000;
+		const int liftingHeight = 2489;
+		const int maxHeight = 2750;
 
 		const int pivotSpeed = 20000;
 		PID pivotHoldPID = {0.003, 0, 0};

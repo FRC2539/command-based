@@ -225,6 +225,8 @@ void DriveTrain::stop()
 		setMode(CANTalon::kSpeed);
 		setMaxSpeed(Config::DriveTrain::maxSpeed);
 	}
+	Netconsole::instant("positionLeft", getEncoderPositions()[0]);
+	Netconsole::instant("positionRight", getEncoderPositions()[1]);
 
 	move(0, 0, 0);
 }
