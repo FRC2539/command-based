@@ -124,7 +124,7 @@ bool Shooter::readyToFire()
 
 int Shooter::getHeight()
 {
-	return m_rightPivotMotor.GetPulseWidthPosition();
+	return m_rightPivotMotor.GetPosition();
 }
 
 bool Shooter::atTopLimit()
@@ -155,17 +155,7 @@ void Shooter::storeEncoderPosition()
 
 bool Shooter::hasBall()
 {
-	if ( ! m_hasBall)
-	{
-		m_hasBall = m_ballDetector.Get();
-	}
-	
-	return m_hasBall;
-}
-
-void Shooter::ballReleased()
-{
-	m_hasBall = false;
+	return m_ballDetector.Get();
 }
 
 
@@ -198,4 +188,9 @@ bool Shooter::atKnownPosition()
 	}
 
 	return m_settingsLoaded;
+}
+
+void Shooter::resetEncoderPosition()
+{
+	m_rightPivotMotor.SetPosition(0);
 }

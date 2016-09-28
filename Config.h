@@ -47,13 +47,13 @@ namespace Config {
 
 		DIOPort ballDetectorID = 0;
 
-		const int minHeight = -1500;
+		const int minHeight = -1000;
 		const int shootingHeight = 505;
-		const int reverseShootingHeight = 2000;
-		const int liftingHeight = 2489;
-		const int maxHeight = 2750;
+		const int reverseShootingHeight = 499;
+		const int liftingHeight = 500;
+		const int maxHeight = 3500;
 
-		const int pivotSpeed = 20000;
+		const int pivotSpeed = 100;
 		PID pivotHoldPID = {0.003, 0, 0};
 		PID pivotMovePID = {0, 0.001, 0};
 

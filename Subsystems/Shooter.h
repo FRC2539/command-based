@@ -34,6 +34,8 @@ public:
 	void storeEncoderPosition();
 	bool atTopLimit();
 	bool atBottomLimit();
+	
+	void resetEncoderPosition();
 
 	enum Direction {
 		UP,
@@ -42,7 +44,6 @@ public:
 
 	void holdAt(int position);
 	void move(Direction direction);
-	void ballReleased();
 
 protected:
 	DigitalInput m_ballDetector;
@@ -57,6 +58,4 @@ protected:
 	Direction m_direction;
 	bool atKnownPosition();
 	bool m_settingsLoaded;
-	
-	bool m_hasBall;
 };
