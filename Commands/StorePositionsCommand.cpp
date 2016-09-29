@@ -8,5 +8,4 @@ StorePositionsCommand::StorePositionsCommand()
 
 void StorePositionsCommand::Initialize()
 {
-	shooter->storeEncoderPosition();
 }

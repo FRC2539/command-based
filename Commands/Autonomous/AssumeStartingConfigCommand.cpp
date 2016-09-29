@@ -20,9 +20,4 @@ void AssumeStartingConfigCommand::Initialize()
 	{
 		drivetrain->setGyroAngle(180);
 	}
-
-	if (shooter->atTopLimit())
-	{
-		shooter->setEncoderPosition(Config::Shooter::maxHeight);
-	}
 }

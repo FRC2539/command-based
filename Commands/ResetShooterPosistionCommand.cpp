@@ -7,7 +7,7 @@ ResetShooterPosistionCommand::ResetShooterPosistionCommand() : InstantCommand("R
 
 void ResetShooterPosistionCommand::Initialize()
 {
-	shooter->resetEncoderPosition();
+	shooter->zeroPivotEncoder();
 }
 
 

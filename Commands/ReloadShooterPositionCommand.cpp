@@ -12,13 +12,4 @@ ReloadShooterPositionCommand::ReloadShooterPositionCommand()
 
 void ReloadShooterPositionCommand::Initialize()
 {
-	Preferences* preferences = Preferences::GetInstance();
-	if (preferences->ContainsKey("shooterPosition"))
-	{
-		shooter->setEncoderPosition(preferences->GetInt("shooterPosition"));
-	}
-	else
-	{
-		DriverHUD::sendMessage("No Preference named \"shooterPosition\"");
-	}
 }

@@ -13,38 +13,36 @@ void SetShooterHeightCommand::Initialize()
 {
 	if (shooter->getHeight() > m_height)
 	{
-		m_direction = Shooter::DOWN;
+		m_speed = -Config::Shooter::pivotSpeed;
 	}
 	else
 	{
-		m_direction = Shooter::UP;
+		m_speed = Config::Shooter::pivotSpeed;
 	}
-	shooter->move(m_direction);
+	shooter->pivot(m_speed);
 }
 
 bool SetShooterHeightCommand::IsFinished()
 {
-	if (m_direction == Shooter::UP && shooter->atTopLimit())
+	if (m_speed > 0 && shooter->atTopLimit())
 	{
 		m_height = Config::Shooter::maxHeight;
-		shooter->setEncoderPosition(m_height);
 
 		return true;
 	}
-	if (m_direction == Shooter::DOWN && shooter->atBottomLimit())
+	if (m_speed < 0 && shooter->atBottomLimit())
 	{
 		m_height = Config::Shooter::minHeight;
-		shooter->setEncoderPosition(m_height);
 
 		return true;
 	}
 
-	return std::abs(shooter->getHeight() - m_height) < 1000;
+	return std::abs(shooter->getHeight() - m_height) < 100;
 }
 
 void SetShooterHeightCommand::End()
 {
-	shooter->holdAt(m_height);
-	shooter->storeEncoderPosition();
+	shooter->pivot(0);
+	//shooter->holdAt(m_height);
 }
 
