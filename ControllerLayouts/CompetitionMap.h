@@ -42,6 +42,6 @@ ADD_SIMPLE_BUTTON(1, X, PickupCommand);
 ADD_SIMPLE_BUTTON(1, Back, FireCommand);
 ADD_SIMPLE_BUTTON(1, Start, LowGoalCommand);
 ADD_SIMPLE_BUTTON(1, Y, StopPickupCommand);
-ADD_BUTTON(1, RightTrigger, WhileHeld, new ShooterMoveCommand(Shooter::DOWN));
-ADD_BUTTON(1, RightBumper, WhileHeld, new ShooterMoveCommand(Shooter::UP));
+ADD_BUTTON(1, RightTrigger, WhileHeld, new ShooterMoveCommand(-Config::Shooter::pivotSpeed));
+ADD_BUTTON(1, RightBumper, WhileHeld, new ShooterMoveCommand(Config::Shooter::pivotSpeed));
 ADD_BUTTON(1, DPadUp, WhenPressed, new ResetShooterPosistionCommand());

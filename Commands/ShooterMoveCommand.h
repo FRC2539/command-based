@@ -5,11 +5,11 @@
 class ShooterMoveCommand : public DefaultCommand {
 
 public:
-	ShooterMoveCommand(Shooter::Direction direction);
+	ShooterMoveCommand(int speed);
 	void Initialize();
 	bool IsFinished();
 	void End();
 
 protected:
-	Shooter::Direction m_direction;
+	int m_speed;
 };

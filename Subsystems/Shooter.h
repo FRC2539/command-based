@@ -27,23 +27,16 @@ public:
 	void stopShooter();
 	bool readyToFire();
 	bool hasBall();
-	void manualPivot(double power);
 
 	int getHeight();
-	void setEncoderPosition(int position=0);
-	void storeEncoderPosition();
 	bool atTopLimit();
 	bool atBottomLimit();
 	
-	void resetEncoderPosition();
-
-	enum Direction {
-		UP,
-		DOWN
-	};
+	void zeroPivotEncoder();
 
 	void holdAt(int position);
-	void move(Direction direction);
+	void pivot(int speed);
+	void manualPivot(double power);
 
 protected:
 	DigitalInput m_ballDetector;
@@ -54,8 +47,4 @@ protected:
 	CANTalon m_shooterWheel;
 
 	std::shared_ptr<NetworkTable> m_targetInfo;
-
-	Direction m_direction;
-	bool atKnownPosition();
-	bool m_settingsLoaded;
 };
