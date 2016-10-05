@@ -9,5 +9,6 @@ PickupCommand::PickupCommand() : ConditionalCommand("Pickup")
 
 bool PickupCommand::shouldRun()
 {
-	return !shooter->hasBall();
+	//return !shooter->hasBall();
+	return true;
 }

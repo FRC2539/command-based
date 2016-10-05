@@ -78,6 +78,14 @@ void Shooter::stopShooter()
 	manualShooter(0);
 }
 
+bool Shooter::doneShooting()
+{
+	return m_doneShooting;
+}
+void Shooter::setDoneShooting(bool done)
+{
+	m_doneShooting = done;
+}
 void Shooter::manualPivot(double power)
 {
 	m_rightPivotMotor.SetControlMode(CANTalon::kPercentVbus);

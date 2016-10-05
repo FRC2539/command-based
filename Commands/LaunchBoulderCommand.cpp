@@ -15,6 +15,7 @@ void LaunchBoulderCommand::End()
 {
 	shooter->setIndexerSpeed(0);
 	shooter->stopShooter();
+	shooter->setDoneShooting(true);
 }
 
 

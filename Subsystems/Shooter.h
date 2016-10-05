@@ -25,6 +25,8 @@ public:
 	void setShooterSpeed(double speed);
 	void manualShooter(double power);
 	void stopShooter();
+	bool doneShooting();
+	void setDoneShooting(bool done);
 	bool readyToFire();
 	bool hasBall();
 
@@ -40,6 +42,7 @@ public:
 
 protected:
 	DigitalInput m_ballDetector;
+	bool m_doneShooting;
 
 	CANTalon m_leftPivotMotor;
 	CANTalon m_rightPivotMotor;

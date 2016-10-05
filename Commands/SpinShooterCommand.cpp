@@ -16,5 +16,5 @@ void SpinShooterCommand::Initialize()
 
 bool SpinShooterCommand::IsFinished()
 {
-    return shooter->readyToFire();
+    return shooter->doneShooting();
 }

@@ -1,5 +1,5 @@
 #include "LowGoalCommandGroup.h"
-
+#include <Commands/WaitCommand.h>
 #include "PrepareToBowlCommandGroup.h"
 #include "LaunchBoulderCommand.h"
 
