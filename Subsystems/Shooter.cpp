@@ -107,7 +107,7 @@ bool Shooter::readyToFire()
 	return std::abs(m_shooterWheel.GetClosedLoopError()) < 100;
 }
 
-int Shooter::getHeight()
+double Shooter::getHeight()
 {
 	return m_rightPivotMotor.GetPosition();
 }

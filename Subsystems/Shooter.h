@@ -30,7 +30,7 @@ public:
 	bool readyToFire();
 	bool hasBall();
 
-	int getHeight();
+	double getHeight();
 	bool atTopLimit();
 	bool atBottomLimit();
 	

@@ -7,6 +7,6 @@ public:
 	// distance should be in inches
 	explicit DriveDistanceCommandGroup(float distance);
 
-	std::vector<float> handoffPositions;
-	std::vector<float> finalPositions;
+	std::vector<double> handoffPositions;
+	std::vector<double> finalPositions;
 };

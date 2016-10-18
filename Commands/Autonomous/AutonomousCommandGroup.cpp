@@ -10,8 +10,4 @@
 AutonomousCommandGroup::AutonomousCommandGroup() : CommandGroup("Autonomous")
 {
 	AddSequential(new AssumeStartingConfigCommand());
-	AddParallel(new GraphEncodersCommand());
-	AddSequential(new ManualDriveCommand(10s));
-	AddSequential(new WaitCommand(3));
-	AddSequential(new CancelCommand(this));
 }

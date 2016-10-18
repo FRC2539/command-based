@@ -12,7 +12,7 @@ DriveToDefenseCommand::DriveToDefenseCommand() :
 
 void DriveToDefenseCommand::Initialize()
 {
-	drivetrain->setMaxSpeed(Config::DriveTrain::maxSpeed);
+	drivetrain->setMaxSpeed(375);
 	m_target = drivetrain->getAngle();
 	SensorCommand::Initialize();
 }

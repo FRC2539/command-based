@@ -400,12 +400,12 @@ void DriveTrain::moveDistance(double distance, SensorMoveDirection direction)
 	);
 }
 
-void DriveTrain::setEncoderTargetPositions(std::vector<float> positions)
+void DriveTrain::setEncoderTargetPositions(std::vector<double> positions)
 {
 	setMode(CANTalon::kPosition);
 
 	unsigned int index = 0;
-	for (float position : positions)
+	for (double position : positions)
 	{
 		m_activeMotors[index]->Set(position);
 

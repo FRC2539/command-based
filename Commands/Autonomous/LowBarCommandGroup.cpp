@@ -10,12 +10,12 @@
 
 LowBarCommandGroup::LowBarCommandGroup() : CommandGroup("LowBar")
 {
-//	AddSequential(new AssumeStartingConfigCommand());
-//	AddSequential(new ShooterMoveCommand(Shooter::DOWN));
-//	AddSequential(new CrossDefenseCommand());
+	AddSequential(new AssumeStartingConfigCommand());
+	AddSequential(new ShooterMoveCommand(-100));
+	AddSequential(new CrossDefenseCommand());
 
-	AddParallel(new GraphEncodersCommand);
-	AddSequential(new TurnAngleCommandGroup(360));
-	AddSequential(new PrintCommand("Fin\n"));
+//	AddParallel(new GraphEncodersCommand);
+//	AddSequential(new TurnAngleCommandGroup(360));
+//	AddSequential(new PrintCommand("Fin\n"));
 }
 

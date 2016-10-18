@@ -29,7 +29,7 @@ void CalculatePositionsCommand::Initialize()
 	m_parent->handoffPositions.clear();
 	m_parent->finalPositions.clear();
 	std::vector<double> currentPositions = drivetrain->getEncoderPositions();
-	for (float position : currentPositions)
+	for (double position : currentPositions)
 	{
 		m_parent->handoffPositions.push_back(position + m_handoffDistance * sign);
 		m_parent->finalPositions.push_back(position + m_distance * sign);

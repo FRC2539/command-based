@@ -50,7 +50,7 @@ public:
 		double distance,
 		SensorMoveDirection direction=SensorMoveDirection::DriveY
 	);
-	void setEncoderTargetPositions(std::vector<float> positions);
+	void setEncoderTargetPositions(std::vector<double> positions);
 	bool atTargetPosition();
 
 protected:

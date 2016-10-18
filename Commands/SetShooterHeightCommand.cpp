@@ -1,8 +1,9 @@
 #include "SetShooterHeightCommand.h"
+#include "../Custom/Netconsole.h"
 
 #include "../Config.h"
 
-SetShooterHeightCommand::SetShooterHeightCommand(int height) :
+SetShooterHeightCommand::SetShooterHeightCommand(double height):
 	DefaultCommand("SetShooterHeight"),
 	m_height(height)
 {
@@ -11,6 +12,7 @@ SetShooterHeightCommand::SetShooterHeightCommand(int height) :
 
 void SetShooterHeightCommand::Initialize()
 {
+	Netconsole::instant("iHeight: ", shooter->getHeight());
 	if (shooter->getHeight() > m_height)
 	{
 		m_speed = -Config::Shooter::pivotSpeed;
@@ -36,12 +38,14 @@ bool SetShooterHeightCommand::IsFinished()
 
 		return true;
 	}
-
-	return std::abs(shooter->getHeight() - m_height) < 100;
+	shooter->pivot(m_speed);
+	Netconsole::instant("difference: ", std::abs(shooter->getHeight() - m_height));
+	return std::abs(shooter->getHeight() - m_height) < .05;
 }
 
 void SetShooterHeightCommand::End()
 {
+	Netconsole::instant("fHeight: ", shooter->getHeight());
 	shooter->pivot(0);
 	//shooter->holdAt(m_height);
 }
