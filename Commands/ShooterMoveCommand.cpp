@@ -8,7 +8,14 @@ ShooterMoveCommand::ShooterMoveCommand(int speed)
 
 void ShooterMoveCommand::Initialize()
 {
-	shooter->pivot(m_speed);
+	if (m_speed != 0)
+	{
+		shooter->pivot(m_speed);
+	}
+	else
+	{
+		shooter->holdAt(shooter->getHeight());
+	}
 }
 
 bool ShooterMoveCommand::IsFinished()

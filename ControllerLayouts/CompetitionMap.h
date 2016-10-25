@@ -37,7 +37,7 @@ ADD_TOGGLE_BUTTON(0, A, new GraphEncodersCommand());
 ADD_BUTTON(1, LeftTrigger, WhenPressed, new SetShooterHeightCommand(Config::Shooter::minHeight));
 ADD_BUTTON(1, LeftBumper, WhenPressed, new SetShooterHeightCommand(Config::Shooter::liftingHeight));
 ADD_BUTTON(1, B, WhenPressed, new SetShooterHeightCommand(Config::Shooter::shootingHeight));
-ADD_BUTTON(1, A, WhenPressed, new SetShooterHeightCommand(Config::Shooter::reverseShootingHeight));
+ADD_BUTTON(1, A, WhenPressed, new SetShooterHeightCommand(Config::Shooter::maxHeight));
 ADD_SIMPLE_BUTTON(1, X, PickupCommand);
 ADD_SIMPLE_BUTTON(1, Back, FireCommand);
 ADD_SIMPLE_BUTTON(1, Start, LowGoalCommand);

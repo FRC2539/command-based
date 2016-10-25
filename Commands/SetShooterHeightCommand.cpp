@@ -40,7 +40,7 @@ bool SetShooterHeightCommand::IsFinished()
 	}
 	shooter->pivot(m_speed);
 	Netconsole::instant("difference: ", std::abs(shooter->getHeight() - m_height));
-	return std::abs(shooter->getHeight() - m_height) < .05;
+	return std::abs(shooter->getHeight() - m_height) < .1;
 }
 
 void SetShooterHeightCommand::End()

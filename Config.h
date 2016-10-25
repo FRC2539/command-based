@@ -30,13 +30,13 @@ namespace Config {
 		const double encoderSensitivity = .0157;
 		const double encoderTicksPerDegree = 17.2;
 
-		const double maxSpeed = 950;
-		const double preciseModeMaxSpeed = 75;
+		const double maxSpeed = 625;
+		const double preciseModeMaxSpeed = 200;
 		PID movingPID = {0, 0.002, 0};
 		PID distancePID = {0.6, .0015, 0};
 
 		// Ratio of y speed to rotation speed, between 0 and 1
-		const double rotationGain = 0.8;
+		const double rotationGain = 0.45;
 	}
 
 	namespace Shooter {
@@ -47,15 +47,15 @@ namespace Config {
 
 		DIOPort ballDetectorID = 0;
 
-		const double minHeight = .7;
-		const double shootingHeight = 1.3;
+		const double minHeight = .1;
+		const double shootingHeight = .9;
 		const double reverseShootingHeight = 1.3;
-		const double liftingHeight = 1.5;
-		const double maxHeight = 1.6;
+		const double liftingHeight = 2;
+		const double maxHeight = 	10;
 
 		const int pivotSpeed = 10000;
-		PID pivotHoldPID = {0.003, 0, 0};
-		PID pivotMovePID = {0, 0.001, 0};
+		PID pivotHoldPID = {0.005, 0, 0};
+		PID pivotMovePID = {0, 0.005, 0};
 
 		const double firingSpeed = 5000;
 		PID shootingPID = {0, 0.01, 0};

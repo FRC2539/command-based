@@ -18,7 +18,7 @@ void DriveCommand::Execute()
 	drivetrain->move(
 		oi->getAxisValue(logicalAxes::DriveX),
 		oi->getAxisValue(logicalAxes::DriveY),
-		oi->getAxisValue(logicalAxes::DriveRotate)
+		oi->getAxisValue(logicalAxes::DriveRotate) / 2
 	);
 }
 

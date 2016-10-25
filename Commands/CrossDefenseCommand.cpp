@@ -27,7 +27,7 @@ bool CrossDefenseCommand::IsFinished()
 		{
 			counter++;
 		}
-		return counter >= 10;
+		return counter >= 20;
 	}
 	else if (drivetrain->getDefenseState() == DriveTrain::DefenseState::Defense)
 	{
